@@ -182,72 +182,30 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                    <label>CPU</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="CPU" aria-label="CPU" />
-                                </div>
-                                <div className="form-group">
-                                    <label>RAM</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="RAM" aria-label="RAM" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Storage</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Storage" aria-label="Storage" />
-                                </div>
-                                <div className="form-group">
-                                    <label>GPU</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="GPU" aria-label="GPU" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Monitor</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Monitor" aria-label="Monitor" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Keyboard</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Keyboard" aria-label="Keyboard" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Audio</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Audio" aria-label="Audio" />
-                                </div>
-                                <div className="form-group">
-                                    <label>LAN</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="LAN" aria-label="LAN" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Wireless</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Wireless" aria-label="Wireless" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Webcam</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Webcam" aria-label="Webcam" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Communication</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Communication" aria-label="Communication" />
-                                </div>
-                                <div className="form-group">
-                                    <label>System</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="System" aria-label="System" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Battery</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Battery" aria-label="Battery" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Weight</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Weight" aria-label="Weight" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Color</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Color" aria-label="Color" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Security</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Security" aria-label="Security" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Size</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Size" aria-label="Size" />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
+                                    </div>
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,6 @@ import ChartsOrders from 'components/Charts/Charts-orders'
 import ChartsProducts from 'components/Charts/Charts-products'
 import Website from 'components/Website/Website'
 import Login from 'components/Login'
-import Register from 'components/Register'
 import InformationSlideBanner from 'components/Banner-Ads/Banner-Slide/Information-Banner'
 import UpdateInformationLaptop from 'components/Products/Laptop/Update-Information-Product'
 import CreateInformationLaptop from 'components/Products/Laptop/Create-New-Product'
@@ -233,8 +232,6 @@ function App() {
           </Route>
         })}
         <Route path="/login" element={<><Login /></>}>
-        </Route>
-        <Route path="/register" element={<><Register /></>}>
         </Route>
       </Routes>
     </BrowserRouter>

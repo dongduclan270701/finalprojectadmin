@@ -11,37 +11,17 @@ const Index = () => {
         img: [],
         src: "",
         gift: [""],
-        gift_buy: [],
+        offer_buy: [],
         nameProduct: "",
         realPrice: 0,
         nowPrice: 0,
         description_table: [
-            ["CPU", ""],
-            ["RAM", ""],
-            ["Storage", ''],
-            ["GPU", ""],
-            ["Monitor", ''],
-            ["Keyboard", ""],
-            ["Audio", ""],
-            ["LAN", ""],
-            ["Wireless", ""],
-            ["Webcam", ""],
-            ["Communication", ['']],
-            ["System", ""],
-            ["Battery", ""],
-            ["Weight", ""],
-            ["Color", ""],
-            ["Security", ""],
-            ["Size", ""],
+            ["", ""]
         ],
         description: [
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
             ["", ""]
-        ]
+        ],
+        quantity : 0,
     },)
     const options = [
         {

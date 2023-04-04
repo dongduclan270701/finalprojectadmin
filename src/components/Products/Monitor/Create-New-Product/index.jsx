@@ -170,100 +170,30 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                    <label>Thương hiệu</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Thương hiệu" aria-label="Thương hiệu" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Model</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Model" aria-label="Model" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Kích thước màn hình (inch)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Kích thước màn hình (inch)" aria-label="Kích thước màn hình (inch)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Kích thước (cm)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Kích thước (cm)" aria-label="Kích thước (cm)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Độ phân giải</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Độ phân giải" aria-label="Độ phân giải" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Loại tấm nền</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Loại tấm nền" aria-label="Loại tấm nền" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tỷ lệ màn hình</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tỷ lệ màn hình" aria-label="Tỷ lệ màn hình" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Kích thước điểm ảnh</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Kích thước điểm ảnh" aria-label="Kích thước điểm ảnh" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Độ sáng (Tối thiểu)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Độ sáng (Tối thiểu)" aria-label="Độ sáng (Tối thiểu)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Độ sáng (Điển hình)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Độ sáng (Điển hình)" aria-label="Độ sáng (Điển hình)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Gam màu (Tối thiểu)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Gam màu (Tối thiểu)" aria-label="Gam màu (Tối thiểu)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Gam màu (Điển hình)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Gam màu (Điển hình)" aria-label="Gam màu (Điển hình)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Độ sâu màu (Số màu)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Độ sâu màu (Số màu)" aria-label="Độ sâu màu (Số màu)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tỷ lệ tương phản (Tối thiểu)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tỷ lệ tương phản (Tối thiểu)" aria-label="Tỷ lệ tương phản (Tối thiểu)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tỷ lệ tương phản (Điển hình)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tỷ lệ tương phản (Điển hình)" aria-label="Tỷ lệ tương phản (Điển hình)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tần số quét</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tần số quét" aria-label="Tần số quét" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Thời gian phản hồi</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Thời gian phản hồi" aria-label="Thời gian phản hồi" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Góc xem (CR≥10)</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Góc xem (CR≥10)" aria-label="Góc xem (CR≥10)" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tính năng</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tính năng" aria-label="Tính năng" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Cổng kết nối</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Cổng kết nối" aria-label="Cổng kết nối" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Điện năng tiêu thụ</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Điện năng tiêu thụ" aria-label="Điện năng tiêu thụ" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Đặc điểm cơ học</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Đặc điểm cơ học" aria-label="Đặc điểm cơ học" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Kích thước sản phẩm</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Kích thước sản phẩm" aria-label="Kích thước sản phẩm" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Trọng lượng</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Trọng lượng" aria-label="Trọng lượng" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
+                                    </div>
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                 </div>
                             </div>
                         </div>

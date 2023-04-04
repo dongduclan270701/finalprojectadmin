@@ -175,45 +175,31 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                        <label>Thương hiệu</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Thương hiệu" aria-label="Thương hiệu" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Chất liệu:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chất liệu:" aria-label="Chất liệu:" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
                                     </div>
-                                    <div className="form-group">
-                                        <label>Ngã lưng</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Ngã lưng" aria-label="Ngã lưng" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phần kê tay</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Phần kê tay" aria-label="Phần kê tay" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tựa đầu</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tựa đầu" aria-label="Tựa đầu" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Trục thủy lực</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Trục thủy lực" aria-label="Trục thủy lực" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Chân ghế </label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chân ghế " aria-label="Chân ghế " disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Màu sắc</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Màu sắc" aria-label="Màu sắc" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tải trọng tối đa </label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tải trọng tối đa " aria-label="Tải trọng tối đa " disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Chiều cao tối đa</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chiều cao tối đa" aria-label="Chiều cao tối đa" disabled />
-                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -14,16 +14,16 @@ const Index = () => {
         realPrice: 0,
         nowPrice: 0,
         description_table: [
-            ["Mainboard", "","36 Tháng"],
-            ["CPU", "","36 Tháng"],
-            ["RAM", "","36 Tháng"],
-            ["VGA", '',"36 Tháng"],
-            ["SSD", "","36 Tháng"],
-            ["HDD", '',"36 Tháng"],
-            ["PSU", "","36 Tháng"],
-            ["CASE", "","36 Tháng"],
-            ["TẢN NHIỆT", "","36 Tháng"],
-            ["Quạt tản nhiệt", "","36 Tháng"],
+            ["Mainboard", "", "36 Tháng"],
+            ["CPU", "", "36 Tháng"],
+            ["RAM", "", "36 Tháng"],
+            ["VGA", '', "36 Tháng"],
+            ["SSD", "", "36 Tháng"],
+            ["HDD", '', "36 Tháng"],
+            ["PSU", "", "36 Tháng"],
+            ["CASE", "", "36 Tháng"],
+            ["TẢN NHIỆT", "", "36 Tháng"],
+            ["Quạt tản nhiệt", "", "36 Tháng"],
         ],
         description: [
             ["", ""],
@@ -172,116 +172,35 @@ const Index = () => {
                     </div>
                     <div className="col-md-6 grid-margin">
                         <div className="card">
-                        <div className="card-body">
-                                    <h4 className="card-title">Thông số sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Drivers</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Drivers" aria-label="Drivers" disabled />
+                            <div className="card-body">
+                                <h4 className="card-title">Thông số sản phẩm</h4>
+                                <div className="form-group">
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Màu sắc</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Màu sắc" aria-label="Màu sắc" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
                                     </div>
-                                    <div className="form-group">
-                                        <label>Dải tần số</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Dải tần số" aria-label="Dải tần số" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kết nối</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kết nối" aria-label="Kết nối" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Micro</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Micro" aria-label="Micro" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Dải tần micro</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Dải tần micro" aria-label="Dải tần micro" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Chất liệu đêm tai</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chất liệu đêm tai" aria-label="Chất liệu đêm tai" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Trọng lượng</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Trọng lượng" aria-label="Trọng lượng" disabled />
-                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                 </div>
-                                <div className="card-body">
-                                    <h4 className="card-title">Thông số sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Thương hiệu:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Thương hiệu:" aria-label="Thương hiệu:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Model:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Model:" aria-label="Model:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Màu sắc:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Màu sắc:" aria-label="Màu sắc:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kết nối:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kết nối:" aria-label="Kết nối:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kiểu tai nghe</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kiểu tai nghe" aria-label="Kiểu tai nghe" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kiểu kết nối:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kiểu kết nối:" aria-label="Kiểu kết nối:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Đèn led:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Đèn led:" aria-label="Đèn led:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Chuẩn kết nối:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chuẩn kết nối:" aria-label="Chuẩn kết nối:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Microphone:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Microphone:" aria-label="Microphone:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Dây:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Dây:" aria-label="Dây:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Trở kháng:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Trở kháng:" aria-label="Trở kháng:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tần số :</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tần số :" aria-label="Tần số :" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Khả năng cách âm:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Khả năng cách âm:" aria-label="Khả năng cách âm:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Chất liệu khung:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chất liệu khung:" aria-label="Chất liệu khung:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Chất liệu đệm tai nghe :</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Chất liệu đệm tai nghe :" aria-label="Chất liệu đệm tai nghe :" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phụ kiện đi kèm:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Phụ kiện đi kèm:" aria-label="Phụ kiện đi kèm:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tương thích:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tương thích:" aria-label="Tương thích:" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tính năng:</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tính năng:" aria-label="Tính năng:" disabled />
-                                    </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

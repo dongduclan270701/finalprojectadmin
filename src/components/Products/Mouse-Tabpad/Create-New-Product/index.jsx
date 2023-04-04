@@ -170,77 +170,31 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                        <label>Hãng sản xuất</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Hãng sản xuất" aria-label="Hãng sản xuất" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Model</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Model" aria-label="Model" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
                                     </div>
-                                    <div className="form-group">
-                                        <label>Prog Buttons</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Prog Buttons" aria-label="Prog Buttons" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>DPI</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="DPI" aria-label="DPI" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Sensor</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Sensor" aria-label="Sensor" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Sensor Type</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Sensor Type" aria-label="Sensor Type" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Mouse Backlighting</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mouse Backlighting" aria-label="Mouse Backlighting" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>On Board Memory</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="On Board Memory" aria-label="On Board Memory" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Mouse button Type</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mouse button Type" aria-label="Mouse button Type" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Mouse Button Durability</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mouse Button Durability" aria-label="Mouse Button Durability" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Connectivity</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Connectivity" aria-label="Connectivity" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Grip Type</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Grip Type" aria-label="Grip Type" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Weight</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Weight" aria-label="Weight" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Cable</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Cable" aria-label="Cable" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>CUE Software</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="CUE Software" aria-label="CUE Software" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Game Type</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Game Type" aria-label="Game Type" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Mouse Feet</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mouse Feet" aria-label="Mouse Feet" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Report Rate</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Report Rate" aria-label="Report Rate" disabled />
-                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                </div>
                             </div>
                         </div>
                     </div>

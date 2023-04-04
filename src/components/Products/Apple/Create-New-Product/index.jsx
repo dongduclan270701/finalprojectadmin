@@ -170,77 +170,31 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                        <label>CPU</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="CPU" aria-label="CPU" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>RAM</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="RAM" aria-label="RAM" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
                                     </div>
-                                    <div className="form-group">
-                                        <label>Ổ lưu trữ</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Ổ lưu trữ" aria-label="Ổ lưu trữ" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Card đồ họa</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Card đồ họa" aria-label="Card đồ họa" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Màn hình</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Màn hình" aria-label="Màn hình" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Bàn phím</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Bàn phím" aria-label="Bàn phím" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Audio</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Audio" aria-label="Audio" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Đọc thẻ nhớ</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Đọc thẻ nhớ" aria-label="Đọc thẻ nhớ" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kết nối có dây (LAN)</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kết nối có dây (LAN)" aria-label="Kết nối có dây (LAN)" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kết nối không dây</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kết nối không dây" aria-label="Kết nối không dây" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Webcam</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Webcam" aria-label="Webcam" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Cổng giao tiếp</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Cổng giao tiếp" aria-label="Cổng giao tiếp" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Hệ điều hành</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Hệ điều hành" aria-label="Hệ điều hành" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Pin</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Pin" aria-label="Pin" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Trọng lượng</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Trọng lượng" aria-label="Trọng lượng" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kích thước</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kích thước" aria-label="Kích thước" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Màu sắc</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Màu sắc" aria-label="Màu sắc" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Bảo mật</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Bảo mật" aria-label="Bảo mật" disabled />
-                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                </div>
                             </div>
                         </div>
                     </div>

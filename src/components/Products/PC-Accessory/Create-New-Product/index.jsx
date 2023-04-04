@@ -170,81 +170,31 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                        <label>Nhân đồ họa </label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Nhân đồ họa " aria-label="Nhân đồ họa " disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2'style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Bus tiêu chuẩn</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Bus tiêu chuẩn" aria-label="Bus tiêu chuẩn" disabled />
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
+                                        </div>
+                                        <div className='col-7' style={{ paddingLeft: "0" }}>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
+                                        </div>
+                                        <div className='col-2' style={{ paddingLeft: "0" }}>
+                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                        </div>
+                                        
                                     </div>
-                                    <div className="form-group">
-                                        <label>Xung nhịp</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Xung nhịp" aria-label="Xung nhịp" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Nhân CUDA</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Nhân CUDA" aria-label="Nhân CUDA" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tốc độ bộ nhớ</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tốc độ bộ nhớ" aria-label="Tốc độ bộ nhớ" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>OpenGL</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="OpenGL" aria-label="OpenGL" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Bộ nhớ Video</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Bộ nhớ Video" aria-label="Bộ nhớ Video" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Giao thức bộ nhớ</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Giao thức bộ nhớ" aria-label="Giao thức bộ nhớ" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Độ phân giải</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Độ phân giải" aria-label="Độ phân giải" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Giao thức</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Giao thức" aria-label="Giao thức" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Số lượng màn hình tối đa hỗ trợ</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Số lượng màn hình tối đa hỗ trợ" aria-label="Số lượng màn hình tối đa hỗ trợ" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Hỗ trợ NVlink/ Crossfire </label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Hỗ trợ NVlink/ Crossfire " aria-label="Hỗ trợ NVlink/ Crossfire " disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phụ kiện</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Phụ kiện" aria-label="Phụ kiện" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phần mềm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Phần mềm" aria-label="Phần mềm" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kích thước</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kích thước" aria-label="Kích thước" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>PSU kiến nghị</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="PSU kiến nghị" aria-label="PSU kiến nghị" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Kết nối nguồn</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Kết nối nguồn" aria-label="Kết nối nguồn" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Khe cắm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Khe cắm" aria-label="Khe cắm" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>AURA SYNC</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="AURA SYNC" aria-label="AURA SYNC" disabled />
-                                    </div>
+                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                </div>
                             </div>
                         </div>
                     </div>
