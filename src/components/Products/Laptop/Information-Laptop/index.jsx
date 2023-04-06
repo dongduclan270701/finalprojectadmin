@@ -68,12 +68,7 @@ const Index = () => {
             setOptions(options => [...options, { label: item, value: item }])
         })
     }, []);
-    const handleSelectedOptionsChange = (selectedCategory) => {
-        setInputElement(prevState => ({
-            ...prevState,
-            category: [...selectedCategory]
-        }));
-    }
+    
     return (
         <div className="main-panel">
             <div className="content-wrapper">

@@ -1,29 +1,91 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const Index = () => {
+    const navigate = useNavigate()
     const [optionSelectLaptop, setOptionSelectLaptop] = useState(["ASUS", "ACER", "MSI", "LENOVO", "HP", "DELL", "GIGABYTE", "LG", "HUAWEI"])
     const [product, setProduct] = useState([
         {
-            id: 1,
-            nameProduct: "abc1",
-            category: ["danh muc 1", "danh muc 2", "danh muc 3", "danh muc 4"],
-            quantity: 2,
-            src: "abc1"
-        },
-        {
-            id: 2,
-            nameProduct: "abc2",
-            category: ["danh muc 11", "danh muc 21", "danh muc 31", "danh muc 41"],
-            quantity: 11,
-            src: "abc2"
-        },
-        {
-            id: 3,
-            nameProduct: "abc3",
-            category: ["danh muc 12", "danh muc 22", "danh muc 32", "danh muc 42"],
+            img: [],
+            src: "1",
+            gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+            offer_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+            nameProduct: "1",
+            realPrice: 123,
+            nowPrice: 123123,
+            percent: 23,
+            description_table: [
+                ["CPU", "Itel 13th"],
+                ["RAM", "16GB"],
+                ["Storage", '512GB'],
+            ],
+            description: [
+                ["Đánh giá chi tiết laptop Asus Vivobook 15 X515EA BR2045W", "Asus Vivobook 15 X515EA BR2045W là chiếc laptop giá rẻ phù hợp cho việc học tập và làm việc hằng ngày. Cấu hình ổn định, thiết kế hoàn thiện hứa hẹn sẽ mang đến những trải nghiệm phù hợp với người dùng."]
+            ],
             quantity: 0,
-            src: "abc3"
+            category: [
+                "1",
+                "2",
+                "3"
+            ],
+            sold: 12,
+            view: 42,
+            type:"headphone"
+        },
+        {
+            img: [],
+            src: "1",
+            gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+            offer_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+            nameProduct: "1",
+            realPrice: 123,
+            nowPrice: 123123,
+            percent: 23,
+            description_table: [
+                ["CPU", "Itel 13th"],
+                ["RAM", "16GB"],
+                ["Storage", '512GB'],
+            ],
+            description: [
+                ["Đánh giá chi tiết laptop Asus Vivobook 15 X515EA BR2045W", "Asus Vivobook 15 X515EA BR2045W là chiếc laptop giá rẻ phù hợp cho việc học tập và làm việc hằng ngày. Cấu hình ổn định, thiết kế hoàn thiện hứa hẹn sẽ mang đến những trải nghiệm phù hợp với người dùng."]
+            ],
+            quantity: 5,
+            category: [
+                "1",
+                "2",
+                "3"
+            ],
+            sold: 12,
+            view: 42,
+            type:"speaker"
+        },
+        {
+            img: [],
+            src: "1",
+            gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+            offer_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+            nameProduct: "1",
+            realPrice: 123,
+            nowPrice: 123123,
+            percent: 23,
+            description_table: [
+                ["CPU", "Itel 13th"],
+                ["RAM", "16GB"],
+                ["Storage", '512GB'],
+            ],
+            description: [
+                ["Đánh giá chi tiết laptop Asus Vivobook 15 X515EA BR2045W", "Asus Vivobook 15 X515EA BR2045W là chiếc laptop giá rẻ phù hợp cho việc học tập và làm việc hằng ngày. Cấu hình ổn định, thiết kế hoàn thiện hứa hẹn sẽ mang đến những trải nghiệm phù hợp với người dùng."]
+            ],
+            quantity: 12,
+            category: [
+                "1",
+                "2",
+                "3"
+            ],
+            sold: 12,
+            view: 42,
+            type:"speaker"
         }
     ])
     const [optionSelected, setOptionSelected] = useState("")
@@ -32,6 +94,34 @@ const Index = () => {
             setOptionSelected(e.target.value)
         }
     }
+
+    const handleOpenSelectToggle = () => {
+        Swal.fire({
+            title: 'Bạn muốn tạo mới sản phẩm loại nào?',
+            html:(
+                '<button id="toggleSpeaker" class="btn btn-primary" style="margin-right:10px"> ' +
+                'Loa' +
+                '</button>' +
+                '<button id="toggleHeadPhone" class="btn btn-primary" style="margin-left:10px">' +
+                'Tai Nghe' +
+                '</button>'),
+            showConfirmButton: false,
+            didOpen: () => {
+                const content = Swal.getHtmlContainer()
+                const $ = content.querySelector.bind(content)
+                const toggleSpeaker = $('#toggleSpeaker')
+                toggleSpeaker.addEventListener('click', () => {
+                    navigate("/speaker/create")
+                    Swal.close();
+                })
+                const toggleHeadPhone = $('#toggleHeadPhone')
+                toggleHeadPhone.addEventListener('click', () => {
+                    navigate("/headphone/create")
+                    Swal.close();
+                })
+            },
+        });
+    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -39,24 +129,23 @@ const Index = () => {
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card">
                             <div className="card-body">
-                                <h4 className="card-title">Danh sách sản phẩm Tai Nghe - Loa</h4>
-
-                                <p className="card-description">
+                                <h4 className="card-title">Danh sách sản phẩm Loa - Tai Nghe</h4>
+                                <a onClick={handleOpenSelectToggle} className="card-description" style={{ textDecoration: "none" }}>
                                     <code><i className="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
-                                </p>
+                                </a>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
-                                    <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>
+                                    <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent": "end" }}>
                                         <p className="card-description" style={{ margin: "0" }}>
                                             Tìm kiếm sản phẩm:
                                         </p>
                                     </div>
                                     <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
-                                            <input style={{borderRadius: "15px"}} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
+                                        <input style={{ borderRadius: "15px" }} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
                                     </ul>
                                     <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                         <li className="nav-item nav-search d-lg-block">
                                             <div className="input-group">
-                                                <select style={{borderRadius: "15px"}}  onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                <select style={{ borderRadius: "15px" }} onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                     <option value={null}>Chọn danh mục</option>\
                                                     {optionSelectLaptop.map((item, index) => {
                                                         return <option key={index} value={item}>{item}</option>
@@ -80,7 +169,7 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {product.map((item, index) => {
+                                            {product.map((item, index) => {
                                                 return <tr key={index}>
                                                     <td>{item.id}</td>
                                                     <td>{item.nameProduct}</td>
@@ -93,14 +182,14 @@ const Index = () => {
                                                     <td>
 
                                                         <label className={
-                                                            item.quantity === 0 ? "badge badge-danger" : item.quantity >= 10 ? "badge badge-success" : 0 <item.quantity < 10 ? "badge badge-warning" : null
+                                                            item.quantity === 0 ? "badge badge-danger" : item.quantity >= 10 ? "badge badge-success" : 0 < item.quantity < 10 ? "badge badge-warning" : null
                                                         }>
-                                                            {item.quantity === 0 ? "Hết hàng" : item.quantity >= 10 ? "Còn hàng" : 0 <item.quantity < 10 ? "Sắp hết" : null}
+                                                            {item.quantity === 0 ? "Hết hàng" : item.quantity >= 10 ? "Còn hàng" : 0 < item.quantity < 10 ? "Sắp hết" : null}
                                                         </label>
 
                                                     </td>
                                                     <td>
-                                                        <NavLink to={"/speaker/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
+                                                        <NavLink to={"/" + item.type + "/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
                                                     </td>
                                                 </tr>
                                             })}

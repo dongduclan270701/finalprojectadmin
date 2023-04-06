@@ -1,40 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-import Select from "react-select"
-import makeAnimated from "react-select/animated"
+import Swal from 'sweetalert2'
+import CreateForm from 'components/Products/utils/Create-Form'
 
 const Index = () => {
     const navigate = useNavigate();
     const [inputElement, setInputElement] = useState({
         img: [],
         src: "",
-        gift: ["", ""],
-        gift_buy: [],
+        gift: [""],
+        offer_buy: [""],
         nameProduct: "",
         realPrice: 0,
         nowPrice: 0,
+        percent: 0,
         description_table: [
-            ["Mainboard", "","36 Tháng"],
-            ["CPU", "","36 Tháng"],
-            ["RAM", "","36 Tháng"],
-            ["VGA", '',"36 Tháng"],
-            ["SSD", "","36 Tháng"],
-            ["HDD", '',"36 Tháng"],
-            ["PSU", "","36 Tháng"],
-            ["CASE", "","36 Tháng"],
-            ["TẢN NHIỆT", "","36 Tháng"],
-            ["Quạt tản nhiệt", "","36 Tháng"],
+            ["", ""]
         ],
         description: [
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
             ["", ""]
-        ]
-    },)
-    const options = [
+        ],
+        quantity: 0,
+        category: [],
+        sold: 0,
+        view: 0
+    })
+    const [options, setOptions] = useState([
         {
             label: 'Angular',
             value: 'Angular',
@@ -63,19 +54,21 @@ const Index = () => {
             label: 'Vue.js3',
             value: 'Vue.js3',
         },
-    ]
-    const [selectedImages, setSelectedImages] = useState([])
-    const handleAddGift = () => {
-        setInputElement([...inputElement,])
+    ])
+    useEffect(() => {
+        inputElement.category.map((item) => {
+            setOptions(options => [...options, { label: item, value: item }])
+        })
+    }, []);
+    const hanldGetData = (data) => {
+        setInputElement(data)
     }
-    const getImg = (e) => {
-        const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        setSelectedImages(fileArray)
-        Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
-    }
-    const renderImages = (source) => {
-        return source.map((image, index) => {
-            return <img src={image} key={index} className="img-fluid" alt="" />
+    const handleSubmitUpdated = () => {
+        Swal.fire({
+            title: 'Tạo sản phẩm thành công!',
+            text: 'Bạn đã tạo mới thành công thông tin sản phẩm',
+            icon: 'success',
+            confirmButtonText: 'OK!'
         })
     }
     return (
@@ -88,122 +81,9 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
+                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
                 </div>
-                <div className="row">
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Hình ảnh</h4>
-                                <p className="card-description">
-                                    ID:<code>123123</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <div className="form-group">
-                                        <label>File upload</label>
-                                        <input type="file" name="img[]" className="file-upload-default" />
-                                        <div className="input-group col-xs-12">
-                                            <input onChange={getImg} type="file" className="form-control file-upload-info" placeholder="Upload Image" multiple />
-                                            <span className="input-group-append">
-                                                <button className="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {renderImages(selectedImages)}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Thông tin sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Mã sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tên sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Giá chính</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Giá giảm</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phần trăm giảm giá</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Danh mục</label>
-                                        <Select placeholder="Chọn danh mục" options={options} components={makeAnimated()} isMulti />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Quà tặng</h4>
-                                    <div className="form-group">
-                                        <label>Quà tặng sản phẩm</label>
-                                        {inputElement.gift.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" onChange={(e) => setInputElement((inputElement) => ({ ...inputElement, gift: [e.target.value] }))} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" />
-                                        })}
-                                        <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Ưu đãi</label>
-                                        <input style={{ marginBottom: "15px" }} type="text" className="form-control form-control-sm" placeholder="Ưu đãi" aria-label="Ưu đãi" />
-                                        <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className="col-md-6 grid-margin">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Thông số sản phẩm</h4>
-                                <div className="form-group">
-                                    <div className='row' style={{ margin: "inherit" }}>
-                                        <div className='col-3' style={{ paddingLeft: "0" }}>
-                                            <label>Tên:</label>
-                                        </div>
-                                        <div className='col-7' style={{ padding: "0" }}>
-                                            <label>Nội dung:</label>
-                                        </div>
-                                        <div className='col-2'style={{ paddingRight: "0" }}>
-                                            <label>Xoá</label>
-                                        </div>
-                                    </div>
-                                    <div className='row' style={{ margin: "inherit" }}>
-                                        <div className='col-3' style={{ paddingLeft: "0" }}>
-                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập tên" aria-label="Nhập tên" />
-                                        </div>
-                                        <div className='col-7' style={{ paddingLeft: "0" }}>
-                                            <input type="text" className="form-control form-control-sm" placeholder="Nhập nội dung" aria-label="Nhập nội dung" />
-                                        </div>
-                                        <div className='col-2' style={{ paddingLeft: "0" }}>
-                                            <button type="text" className="btn btn-outline-secondary btn-fw">x</button>
-                                        </div>
-                                        
-                                    </div>
-                                    <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CreateForm inputElement={inputElement} options={options} hanldGetData={hanldGetData}/>
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

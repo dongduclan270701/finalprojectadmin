@@ -50,13 +50,13 @@ import CreateInformationLaptopGaming from 'components/Products/Laptop-Gaming/Cre
 import InformationPCKM from 'components/Products/PC-KM/Information-PCKM'
 import UpdateInformationPCKM from 'components/Products/PC-KM/Update-Information-Product'
 import CreateInformationPCKM from 'components/Products/PC-KM/Create-New-Product'
-import InformationPCGaming from 'components/Products/PC-Gaming/Information-PCKM'
+import InformationPCGaming from 'components/Products/PC-Gaming/Information-PCGaming'
 import UpdateInformationPCGaming from 'components/Products/PC-Gaming/Update-Information-Product'
 import CreateInformationPCGaming from 'components/Products/PC-Gaming/Create-New-Product'
-import InformationPCCreator from 'components/Products/PC-Creator/Information-PCKM'
+import InformationPCCreator from 'components/Products/PC-Creator/Information-PCCreator'
 import UpdateInformationPCCreator from 'components/Products/PC-Creator/Update-Information-Product'
 import CreateInformationPCCreator from 'components/Products/PC-Creator/Create-New-Product'
-import InformationPCCompany from 'components/Products/PC-Company/Information-PCKM'
+import InformationPCCompany from 'components/Products/PC-Company/Information-PCCompany'
 import UpdateInformationPCCompany from 'components/Products/PC-Company/Update-Information-Product'
 import CreateInformationPCCompany from 'components/Products/PC-Company/Create-New-Product'
 import InformationApple from 'components/Products/Apple/Information-Apple'
@@ -68,10 +68,13 @@ import UpdateInformationMonitor from 'components/Products/Monitor/Update-Informa
 import InformationKeyboard from 'components/Products/Keyboard/Information-Keyboard'
 import CreateInformationKeyboard from 'components/Products/Keyboard/Create-New-Product'
 import UpdateInformationKeyboard from 'components/Products/Keyboard/Update-Information-Product'
-import InformationMouseTabpad from 'components/Products/Mouse-Tabpad/Information-Mouse-Tabpad'
-import CreateInformationMouseTabpad from 'components/Products/Mouse-Tabpad/Create-New-Product'
-import UpdateInformationMouseTabpad from 'components/Products/Mouse-Tabpad/Update-Information-Product'
-import InformationPcAccessory from 'components/Products/PC-Accessory/Information-Mouse-Tabpad'
+import InformationMouse from 'components/Products/Mouse-Tabpad/Information-Mouse'
+import CreateInformationMouse from 'components/Products/Mouse-Tabpad/Create-New-Mouse'
+import UpdateInformationMouse from 'components/Products/Mouse-Tabpad/Update-Information-Mouse'
+import InformationTabpad from 'components/Products/Mouse-Tabpad/Information-Tabpad'
+import CreateInformationTabpad from 'components/Products/Mouse-Tabpad/Create-New-Tabpad'
+import UpdateInformationTabpad from 'components/Products/Mouse-Tabpad/Update-Information-Tabpad'
+import InformationPcAccessory from 'components/Products/PC-Accessory/Information-PCAccessory'
 import CreateInformationPcAccessory from 'components/Products/PC-Accessory/Create-New-Product'
 import UpdateInformationPcAccessory from 'components/Products/PC-Accessory/Update-Information-Product'
 import InformationSpeaker from 'components/Products/Speaker/Information-Speaker'
@@ -92,9 +95,9 @@ import UpdateInformationApp from 'components/Products/App-Internet/Update-Inform
 import InformationInternet from 'components/Products/App-Internet/Information-Internet'
 import CreateInformationInternet from 'components/Products/App-Internet/Create-New-Product-Internet'
 import UpdateInformationInternet from 'components/Products/App-Internet/Update-Information-Internet'
-import InformationAccessory from 'components/Products/Accessory/'
-import CreateInformationAccessory from 'components/Products/Accessory/'
-import UpdateInformationAccessory from 'components/Products/Accessory/'
+import InformationAccessory from 'components/Products/Accessory/Information-Accessory'
+import CreateInformationAccessory from 'components/Products/Accessory/Create-New-Product'
+import UpdateInformationAccessory from 'components/Products/Accessory/Update-Information-Product'
 function App() {
   const [page, setPage] = useState([
     { path: "/", location: Dashboard },
@@ -145,9 +148,12 @@ function App() {
     { path: "/keyboard/create", location: CreateInformationKeyboard },
     { path: "/keyboard/update/:id", location: UpdateInformationKeyboard },
     { path: "/mouse-tabpad", location: MouseTabpad },
-    { path: "/mouse-tabpad/:id", location: InformationMouseTabpad },
-    { path: "/mouse-tabpad/create", location: CreateInformationMouseTabpad },
-    { path: "/mouse-tabpad/update/:id", location: UpdateInformationMouseTabpad },
+    { path: "/tabpad/:id", location: InformationTabpad },
+    { path: "/tabpad/create", location: CreateInformationTabpad },
+    { path: "/tabpad/update/:id", location: UpdateInformationTabpad },
+    { path: "/mouse/:id", location: InformationMouse },
+    { path: "/mouse/create", location: CreateInformationMouse },
+    { path: "/mouse/update/:id", location: UpdateInformationMouse },
     { path: "/speaker", location: Speaker },
     { path: "/speaker/:id", location: InformationSpeaker },
     { path: "/speaker/create", location: CreateInformationSpeaker },

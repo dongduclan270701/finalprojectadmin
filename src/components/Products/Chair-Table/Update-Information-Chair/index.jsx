@@ -1,47 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-import Select from "react-select"
-import makeAnimated from "react-select/animated"
+import Swal from 'sweetalert2'
+import UpdateForm from 'components/Products/utils/Update-Form'
 
 const Index = () => {
     const navigate = useNavigate();
     const [inputElement, setInputElement] = useState({
         img: [],
-        src: "",
-        gift: ["", ""],
-        gift_buy: [],
-        nameProduct: "",
-        realPrice: 0,
-        nowPrice: 0,
+        src: "1",
+        gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+        offer_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+        nameProduct: "1",
+        realPrice: 123,
+        nowPrice: 123123,
+        percent: 23,
         description_table: [
-            ["CPU", ""],
-            ["RAM", ""],
-            ["Storage", ''],
-            ["GPU", ""],
-            ["Monitor", ''],
-            ["Keyboard", ""],
-            ["Audio", ""],
-            ["LAN", ""],
-            ["Wireless", ""],
-            ["Webcam", ""],
-            ["Communication", ['']],
-            ["System", ""],
-            ["Battery", ""],
-            ["Weight", ""],
-            ["Color", ""],
-            ["Security", ""],
-            ["Size", ""],
+            ["CPU", "Itel 13th"],
+            ["RAM", "16GB"],
+            ["Storage", '512GB'],
         ],
         description: [
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
             ["", ""]
-        ]
-    },)
-    const options = [
+        ],
+        quantity: 12,
+        category: [
+            "1",
+            "2",
+            "3",
+        ],
+        sold: 12,
+        view: 42
+    })
+    const [options, setOptions] = useState([
         {
             label: 'Angular',
             value: 'Angular',
@@ -70,19 +60,23 @@ const Index = () => {
             label: 'Vue.js3',
             value: 'Vue.js3',
         },
-    ]
-    const [selectedImages, setSelectedImages] = useState([])
-    const handleAddGift = () => {
-        setInputElement([...inputElement,])
+    ])
+    useEffect(() => {
+        inputElement.category.map((item) => {
+            setOptions(options => [...options, { label: item, value: item }])
+        })
+    }, []);
+
+    const hanldGetData = (data) => {
+        setInputElement(data)
     }
-    const getImg = (e) => {
-        const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        setSelectedImages(fileArray)
-        Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
-    }
-    const renderImages = (source) => {
-        return source.map((image, index) => {
-            return <img src={image} key={index} className="img-fluid" alt="" />
+    console.log(inputElement)
+    const handleSubmitUpdated = () => {
+        Swal.fire({
+            title: 'Lưu thành công!',
+            text: 'Bạn đã chỉnh sửa thành công thông tin sản phẩm',
+            icon: 'success',
+            confirmButtonText: 'OK!'
         })
     }
     return (
@@ -91,128 +85,13 @@ const Index = () => {
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
                         <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm Bàn - Ghế</h3>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm Ghế</h3>
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
+                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
                 </div>
-                <div className="row">
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Hình ảnh</h4>
-                                <p className="card-description">
-                                    ID:<code>123123</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <div className="form-group">
-                                        <label>File upload</label>
-                                        <input type="file" name="img[]" className="file-upload-default" />
-                                        <div className="input-group col-xs-12">
-                                            <input onChange={getImg} type="file" className="form-control file-upload-info" placeholder="Upload Image" multiple />
-                                            <span className="input-group-append">
-                                                <button className="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {renderImages(selectedImages)}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Thông tin sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Mã sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Tên sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Giá chính</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Giá giảm</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phần trăm giảm giá</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Danh mục</label>
-                                        <Select placeholder="Chọn danh mục" options={options} components={makeAnimated()} isMulti />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Ưu đãi</label>
-                                        <input style={{ marginBottom: "15px" }} type="text" className="form-control form-control-sm" placeholder="Ưu đãi" aria-label="Ưu đãi" />
-                                        <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className="col-md-6 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Thông số sản phẩm</h4>
-                                <div className="form-group">
-                                    <label>Thương hiệu</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Thương hiệu" aria-label="Thương hiệu" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Chất liệu:</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Chất liệu:" aria-label="Chất liệu:" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Ngã lưng</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Ngã lưng" aria-label="Ngã lưng" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Phần kê tay</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Phần kê tay" aria-label="Phần kê tay" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tựa đầu</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tựa đầu" aria-label="Tựa đầu" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Trục thủy lực</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Trục thủy lực" aria-label="Trục thủy lực" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Chân ghế </label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Chân ghế " aria-label="Chân ghế " disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Màu sắc</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Màu sắc" aria-label="Màu sắc" disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tải trọng tối đa </label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tải trọng tối đa " aria-label="Tải trọng tối đa " disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Chiều cao tối đa</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Chiều cao tối đa" aria-label="Chiều cao tối đa" disabled />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <UpdateForm inputElement={inputElement} options={options} hanldGetData={hanldGetData}/>
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

@@ -41,22 +41,22 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Danh sách sản phẩm Laptop Gaming</h4>
 
-                                <p className="card-description">
+                                <NavLink to={"/laptop-gaming/create"} className="card-description" style={{textDecoration:"none"}}>
                                     <code><i className="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
-                                </p>
+                                </NavLink>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
-                                    <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent": "end" }}>
+                                    <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>
                                         <p className="card-description" style={{ margin: "0" }}>
                                             Tìm kiếm sản phẩm:
                                         </p>
                                     </div>
                                     <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
-                                        <input style={{ borderRadius: "15px" }} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
+                                            <input style={{borderRadius: "15px"}} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
                                     </ul>
                                     <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                         <li className="nav-item nav-search d-lg-block">
                                             <div className="input-group">
-                                                <select style={{ borderRadius: "15px" }} onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                <select style={{borderRadius: "15px"}}  onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                     <option value={null}>Chọn danh mục</option>\
                                                     {optionSelectLaptop.map((item, index) => {
                                                         return <option key={index} value={item}>{item}</option>
@@ -65,6 +65,7 @@ const Index = () => {
                                             </div>
                                         </li>
                                     </ul>
+
                                 </div>
                                 <div className="table-responsive">
                                     <table className="table table-hover">
@@ -79,7 +80,7 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {product.map((item, index) => {
+                                        {product.map((item, index) => {
                                                 return <tr key={index}>
                                                     <td>{item.id}</td>
                                                     <td>{item.nameProduct}</td>

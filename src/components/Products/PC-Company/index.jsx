@@ -41,9 +41,9 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Danh sách sản phẩm PC Doanh Nghiệp</h4>
 
-                                <p className="card-description">
+                                <NavLink to={"/pc-company/create"} className="card-description" style={{textDecoration:"none"}}>
                                     <code><i className="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
-                                </p>
+                                </NavLink>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
                                     <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>
                                         <p className="card-description" style={{ margin: "0" }}>
