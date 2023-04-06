@@ -19,7 +19,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Basic Table</h4>
                                 <p className="card-description">
-                                    Add class <code>.table</code>
+                                    Add className <code>.table</code>
                                 </p>
                                 <div className="table-responsive">
                                     <table className="table">
@@ -73,7 +73,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Hoverable Table</h4>
                                 <p className="card-description">
-                                    Add class <code>.table-hover</code>
+                                    Add className <code>.table-hover</code>
                                 </p>
                                 <div className="table-responsive">
                                     <table className="table table-hover">
@@ -127,7 +127,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Striped Table</h4>
                                 <p className="card-description">
-                                    Add class <code>.table-striped</code>
+                                    Add className <code>.table-striped</code>
                                 </p>
                                 <div className="table-responsive">
                                     <table className="table table-striped">
@@ -295,7 +295,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Bordered table</h4>
                                 <p className="card-description">
-                                    Add class <code>.table-bordered</code>
+                                    Add className <code>.table-bordered</code>
                                 </p>
                                 <div className="table-responsive pt-3">
                                     <table className="table table-bordered">
@@ -463,7 +463,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Inverse table</h4>
                                 <p className="card-description">
-                                    Add class <code>.table-dark</code>
+                                    Add className <code>.table-dark</code>
                                 </p>
                                 <div className="table-responsive pt-3">
                                     <table className="table table-dark">
@@ -593,7 +593,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Table with contextual classes</h4>
                                 <p className="card-description">
-                                    Add class <code>.table-{'{'}color{'}'}</code>
+                                    Add className <code>.table-{'{'}color{'}'}</code>
                                 </p>
                                 <div className="table-responsive pt-3">
                                     <table className="table table-bordered">

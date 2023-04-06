@@ -144,7 +144,7 @@ const Index = (props) => {
                         </li>
                         <li className="nav-item" onClick={() => setActive(2)}>
                             <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={products} aria-controls="products-elements">
-                                <i class="mdi mdi-laptop menu-icon"/>
+                                <i className="mdi mdi-laptop menu-icon"/>
                                 <span className="menu-title">Sản Phẩm</span>
                                 <i className="menu-arrow" />
                             </NavLink>

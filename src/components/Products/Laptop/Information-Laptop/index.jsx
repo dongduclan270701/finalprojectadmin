@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
@@ -9,21 +9,31 @@ const Index = () => {
     const navigate = useNavigate();
     const [inputElement, setInputElement] = useState({
         img: [],
-        src: "",
-        gift: [""],
-        offer_buy: [],
-        nameProduct: "",
-        realPrice: 0,
-        nowPrice: 0,
+        src: "1",
+        gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+        offer_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+        nameProduct: "1",
+        realPrice: 123,
+        nowPrice: 123123,
+        percent: 23,
         description_table: [
-            ["", ""]
+            ["CPU", "Itel 13th"],
+            ["RAM", "16GB"],
+            ["Storage", '512GB'],
         ],
         description: [
-            ["", ""]
+            ["Đánh giá chi tiết laptop Asus Vivobook 15 X515EA BR2045W", "Asus Vivobook 15 X515EA BR2045W là chiếc laptop giá rẻ phù hợp cho việc học tập và làm việc hằng ngày. Cấu hình ổn định, thiết kế hoàn thiện hứa hẹn sẽ mang đến những trải nghiệm phù hợp với người dùng."]
         ],
-        quantity : 0,
+        quantity: 12,
+        category: [
+            "1",
+            "2",
+            "3"
+        ],
+        sold: 12,
+        view: 42
     },)
-    const options = [
+    const [options, setOptions] = useState([
         {
             label: 'Angular',
             value: 'Angular',
@@ -52,22 +62,17 @@ const Index = () => {
             label: 'Vue.js3',
             value: 'Vue.js3',
         },
-    ]
-    const [selectedImages, setSelectedImages] = useState([])
-    const handleAddGift = () => {
-        setInputElement([...inputElement,])
-    }
-    const getImg = (e) => {
-        console.log(e.target.files)
-        const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        console.log(fileArray)
-        setSelectedImages((prevImages) => prevImages.concat(fileArray))
-        Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
-    }
-    const renderImages = (source) => {
-        return source.map((image, index) => {
-            return <img src={image} key={index} className="img-fluid" alt="" />
+    ])
+    useEffect(() => {
+        inputElement.category.map((item) => {
+            setOptions(options => [...options, { label: item, value: item }])
         })
+    }, []);
+    const handleSelectedOptionsChange = (selectedCategory) => {
+        setInputElement(prevState => ({
+            ...prevState,
+            category: [...selectedCategory]
+        }));
     }
     return (
         <div className="main-panel">
@@ -104,132 +109,114 @@ const Index = () => {
                                 <h4 className="card-title">Thông tin sản phẩm</h4>
                                 <div className="form-group">
                                     <label>Mã sản phẩm</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" disabled />
+                                    <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" value={inputElement.src} disabled />
                                 </div>
                                 <div className="form-group">
                                     <label>Tên sản phẩm</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" disabled />
+                                    <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" value={inputElement.nameProduct} disabled />
                                 </div>
                                 <div className="form-group">
                                     <label>Giá chính</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" disabled />
+                                    <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} disabled />
                                 </div>
                                 <div className="form-group">
                                     <label>Giá giảm</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" disabled />
+                                    <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} disabled />
                                 </div>
                                 <div className="form-group">
                                     <label>Phần trăm giảm giá</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" disabled />
+                                    <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} disabled />
+                                </div>
+                                <div className="form-group">
+                                    <label>Số lượng</label>
+                                    <input type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} disabled />
+                                </div>
+                                <div className='row' style={{ paddingTop: "0" }}>
+                                    <div className="col-6 form-group">
+                                        <label>Đã bán</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Đã bán" aria-label="Đã bán" value={inputElement.sold} disabled />
+                                    </div>
+                                    <div className="col-6 form-group">
+                                        <label>Lượt xem</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Lượt xem" aria-label="Lượt xem" value={inputElement.view} disabled />
+                                    </div>
                                 </div>
                                 <div className="form-group">
                                     <label>Danh mục</label>
-                                    <Select options={options} components={makeAnimated()} isMulti placeholder="Chọn danh mục" />
+                                    <Select value={inputElement.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Chọn danh mục" isDisabled={true}/>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div className="col-lg-6 grid-margin stretch-card">
                         <div className="col-md-12" style={{ "padding": 0 }}>
                             <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title">Thông số sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>CPU</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="CPU" aria-label="CPU" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>RAM</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="RAM" aria-label="RAM" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Storage</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Storage" aria-label="Storage" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>GPU</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="GPU" aria-label="GPU" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Monitor</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Monitor" aria-label="Monitor" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Keyboard</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Keyboard" aria-label="Keyboard" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Audio</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Audio" aria-label="Audio" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>LAN</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="LAN" aria-label="LAN" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Wireless</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Wireless" aria-label="Wireless" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Webcam</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Webcam" aria-label="Webcam" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Communication</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Communication" aria-label="Communication" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>System</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="System" aria-label="System" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Battery</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Battery" aria-label="Battery" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Weight</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Weight" aria-label="Weight" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Color</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Color" aria-label="Color" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Security</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Security" aria-label="Security" disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Size</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Size" aria-label="Size" disabled />
-                                    </div>
+                                    {inputElement.description_table.map((item, index) => {
+                                        return <div className="form-group" key={index}>
+                                            <label>{item[0]}</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder={item[0]} aria-label={item[0]} value={item[1]} disabled />
+                                        </div>
+                                    })}
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div className="col-lg-6 grid-margin stretch-card">
                         <div className="col-md-12" style={{ "padding": 0 }}>
+                            <div className="card" style={{ "marginBottom": "25px" }}>
+                                <div className="card-body">
+                                    <h4 className="card-title">Mô tả sản phẩm</h4>
+                                    <div className='row' style={{ margin: "inherit" }}>
+                                        <div className='col-6' style={{ paddingLeft: "0" }}>
+                                            <label>Tiêu đề:</label>
+                                        </div>
+                                        <div className='col-6' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                    </div>
+                                    {inputElement.description.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                <textarea name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
+                                            </div>
+                                            <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                <textarea name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
+                                            </div>
+                                        </div>
+                                    })}
+                                </div>
+                            </div>
                             <div className="card" style={{ "marginBottom": "25px" }}>
                                 <div className="card-body">
                                     <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
                                     <div className="form-group">
                                         <label>Ưu đãi</label>
-                                        <input style={{marginBottom:"15px"}} type="text" className="form-control form-control-sm" placeholder="Ưu đãi" aria-label="Ưu đãi" disabled />
+                                        {inputElement.offer_buy.map((item, index) => {
+                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
+                                        })}
                                     </div>
                                 </div>
                             </div>
-                            <div className="card">
+                            <div className="card" style={{ "marginBottom": "25px" }}>
                                 <div className="card-body">
                                     <h4 className="card-title">Quà tặng</h4>
                                     <div className="form-group">
                                         <label>Quà tặng</label>
                                         {inputElement.gift.map((item, index) => {
-                                            return <input style={{marginBottom:"15px" }} key={index} type="text" onChange={(e) => setInputElement((inputElement) => ({ ...inputElement, gift: [e.target.value] }))} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
+                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
                                         })}
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
             {/* content-wrapper ends */}

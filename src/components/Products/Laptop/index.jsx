@@ -41,9 +41,9 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Danh sách sản phẩm Laptop</h4>
 
-                                <p className="card-description">
-                                    <code><i class="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
-                                </p>
+                                <NavLink to={"/laptop/create"} className="card-description" style={{textDecoration:"none"}}>
+                                    <code><i className="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
+                                </NavLink>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
                                     <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>
                                         <p className="card-description" style={{ margin: "0" }}>
@@ -100,7 +100,7 @@ const Index = () => {
 
                                                     </td>
                                                     <td>
-                                                        <NavLink to={"/laptop-gaming/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
+                                                        <NavLink to={"/laptop/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
                                                     </td>
                                                 </tr>
                                             })}

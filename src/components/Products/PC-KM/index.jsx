@@ -42,7 +42,7 @@ const Index = () => {
                                 <h4 className="card-title">Danh sách sản phẩm PC Khuyến mại</h4>
 
                                 <p className="card-description">
-                                    <code><i class="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
+                                    <code><i className="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
                                 </p>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
                                     <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>

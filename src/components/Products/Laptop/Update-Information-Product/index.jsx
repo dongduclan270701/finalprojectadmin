@@ -1,47 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
+import Swal from 'sweetalert2'
 
 const Index = () => {
     const navigate = useNavigate();
     const [inputElement, setInputElement] = useState({
         img: [],
-        src: "",
-        gift: ["", ""],
-        gift_buy: [],
-        nameProduct: "",
-        realPrice: 0,
-        nowPrice: 0,
+        src: "1",
+        gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+        offer_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
+        nameProduct: "1",
+        realPrice: 123,
+        nowPrice: 123123,
+        percent: 23,
         description_table: [
-            ["CPU", ""],
-            ["RAM", ""],
-            ["Storage", ''],
-            ["GPU", ""],
-            ["Monitor", ''],
-            ["Keyboard", ""],
-            ["Audio", ""],
-            ["LAN", ""],
-            ["Wireless", ""],
-            ["Webcam", ""],
-            ["Communication", ['']],
-            ["System", ""],
-            ["Battery", ""],
-            ["Weight", ""],
-            ["Color", ""],
-            ["Security", ""],
-            ["Size", ""],
+            ["CPU", "Itel 13th"],
+            ["RAM", "16GB"],
+            ["Storage", '512GB'],
         ],
         description: [
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
-            ["", ""],
             ["", ""]
-        ]
-    },)
-    const options = [
+        ],
+        quantity: 12,
+        category: [
+            "1",
+            "2",
+            "3",
+        ],
+        sold: 12,
+        view: 42
+    })
+    const [options, setOptions] = useState([
         {
             label: 'Angular',
             value: 'Angular',
@@ -70,19 +61,113 @@ const Index = () => {
             label: 'Vue.js3',
             value: 'Vue.js3',
         },
-    ]
-    const [selectedImages, setSelectedImages] = useState([])
-    const handleAddGift = () => {
-        setInputElement([...inputElement,])
-    }
+    ])
+    useEffect(() => {
+        inputElement.category.map((item) => {
+            setOptions(options => [...options, { label: item, value: item }])
+        })
+    }, []);
+
     const getImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        setSelectedImages(fileArray)
+        setInputElement(inputElement => ({
+            ...inputElement,
+            img: fileArray
+        }))
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
     const renderImages = (source) => {
         return source.map((image, index) => {
             return <img src={image} key={index} className="img-fluid" alt="" />
+        })
+    }
+
+    const handleChangeInput = (event, indexInput) => {
+        const { name, value } = event.target
+        if (name === "NameDescriptionTable" || name === "ContentDescriptionTable") {
+            setInputElement(inputElement => ({
+                ...inputElement,
+                description_table: inputElement.description_table.map((row, index) => {
+                    if (index === indexInput) {
+                        if (name === "NameDescriptionTable") {
+                            return [value, row[1]]
+                        }
+                        if (name === "ContentDescriptionTable") {
+                            return [row[0], value]
+                        }
+                    }
+                    return row;
+                })
+            }));
+        }
+        else if (name === "NameDescription" || name === "ContentDescription") {
+            setInputElement(inputElement => ({
+                ...inputElement,
+                description: inputElement.description.map((row, index) => {
+                    if (index === indexInput) {
+                        if (name === "NameDescription") {
+                            return [value, row[1]]
+                        }
+                        if (name === "ContentDescription") {
+                            return [row[0], value]
+                        }
+                    }
+                    return row;
+                })
+            }));
+        }
+        else if (indexInput === null) {
+            setInputElement(inputElement => ({
+                ...inputElement,
+                [name]: value
+            }));
+        }
+        else {
+            setInputElement(inputElement => ({
+                ...inputElement,
+                [name]: inputElement[name].map((row, index) => {
+                    if (index === indexInput) {
+                        return value
+                    }
+                    return row;
+                })
+            }));
+        }
+    }
+    const handleAddDescriptionAndDescriptionTable = (name) => {
+        setInputElement(inputElement => ({
+            ...inputElement,
+            [name]: [...inputElement[name], ["", ""]]
+        }));
+    }
+    const handleRemoveDescriptionAndDescriptionTable = (name, removeIndex) => {
+        const updatedDescription = inputElement[name].filter((item, index) => index !== removeIndex);
+        setInputElement({ ...inputElement, [name]: updatedDescription });
+    };
+
+    const handleAdd = (name) => {
+        setInputElement(inputElement => ({
+            ...inputElement,
+            [name]: [...inputElement[name], ""]
+        }));
+    }
+    const handleRemove = (name, removeIndex) => {
+        const updatedGift = inputElement[name].filter((item, index) => index !== removeIndex);
+        setInputElement({ ...inputElement, [name]: updatedGift });
+    };
+
+    const handleSelectedOptionsChange = (selectedCategory) => {
+        setInputElement(prevState => ({
+            ...prevState,
+            category: selectedCategory.map(option => option.value)
+        }));
+    }
+    const handleSubmitUpdated = () => {
+        Swal.fire({
+            title: 'Lưu thành công!',
+            text: 'Bạn đã chỉnh sửa thành công thông tin sản phẩm',
+            icon: 'success',
+            confirmButtonText: 'OK!'
         })
     }
     return (
@@ -95,16 +180,13 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
+                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
                 </div>
                 <div className="row">
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">Hình ảnh</h4>
-                                <p className="card-description">
-                                    ID:<code>123123</code>
-                                </p>
                                 <div className="table-responsive">
                                     <div className="form-group">
                                         <label>File upload</label>
@@ -117,38 +199,52 @@ const Index = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {renderImages(selectedImages)}
+                                {renderImages(inputElement.img)}
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6 grid-margin stretch-card">
+                    <div className="col-lg-6 grid-margin stretch-card">
                         <div className="col-md-12" style={{ "padding": 0 }}>
                             <div className="card" style={{ "marginBottom": "25px" }}>
                                 <div className="card-body">
                                     <h4 className="card-title">Thông tin sản phẩm</h4>
                                     <div className="form-group">
                                         <label>Mã sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" />
+                                        <input onChange={(e) => handleChangeInput(e, null)} name="src" type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" value={inputElement.src} />
                                     </div>
                                     <div className="form-group">
                                         <label>Tên sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" />
+                                        <input onChange={(e) => handleChangeInput(e, null)} name="nameProduct" type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" value={inputElement.nameProduct} />
                                     </div>
                                     <div className="form-group">
                                         <label>Giá chính</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" />
+                                        <input onChange={(e) => handleChangeInput(e, null)} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} />
                                     </div>
                                     <div className="form-group">
                                         <label>Giá giảm</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" />
+                                        <input onChange={(e) => handleChangeInput(e, null)} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} />
                                     </div>
                                     <div className="form-group">
                                         <label>Phần trăm giảm giá</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" />
+                                        <input onChange={(e) => handleChangeInput(e, null)} name="percent" type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Số lượng</label>
+                                        <input onChange={(e) => handleChangeInput(e, null)} name="quantity" type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} />
+                                    </div>
+                                    <div className='row' style={{ paddingTop: "0" }}>
+                                        <div className="col-6 form-group">
+                                            <label>Đã bán</label>
+                                            <input type="number" className="form-control form-control-sm" placeholder="Đã bán" aria-label="Đã bán" value={inputElement.sold} disabled />
+                                        </div>
+                                        <div className="col-6 form-group">
+                                            <label>Lượt xem</label>
+                                            <input type="number" className="form-control form-control-sm" placeholder="Lượt xem" aria-label="Lượt xem" value={inputElement.view} disabled />
+                                        </div>
                                     </div>
                                     <div className="form-group">
                                         <label>Danh mục</label>
-                                        <Select placeholder="Chọn danh mục" options={options} components={makeAnimated()} isMulti />
+                                        <Select onChange={handleSelectedOptionsChange} value={inputElement.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Chọn danh mục" />
                                     </div>
                                 </div>
                             </div>
@@ -156,11 +252,27 @@ const Index = () => {
                                 <div className="card-body">
                                     <h4 className="card-title">Quà tặng</h4>
                                     <div className="form-group">
-                                        <label>Quà tặng sản phẩm</label>
-                                        {inputElement.gift.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" onChange={(e) => setInputElement((inputElement) => ({ ...inputElement, gift: [e.target.value] }))} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" />
-                                        })}
-                                        <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                        <label>Quà tặng</label>
+                                        {inputElement.gift.length > 1 ? inputElement.gift.map((item, index) => {
+                                            return <div key={index} className='row' style={{ margin: "0 auto" }}>
+                                                <div className='col-10' style={{ paddingLeft: "0" }}>
+                                                    <input name="gift" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
+                                                </div>
+                                                <div className='col-2' style={{ paddingLeft: "0" }}>
+                                                    <button onClick={() => handleRemove("gift", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                                </div>
+                                            </div>
+                                        })
+                                            :
+                                            inputElement.gift.map((item, index) => {
+                                                return <div key={index} className='row' style={{ margin: "0 auto" }}>
+                                                    <div className='col-12' style={{ paddingLeft: "0" }}>
+                                                        <input name="gift" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
+                                        <button onClick={() => handleAdd("gift")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                     </div>
                                 </div>
                             </div>
@@ -169,85 +281,134 @@ const Index = () => {
                                     <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
                                     <div className="form-group">
                                         <label>Ưu đãi</label>
-                                        <input style={{ marginBottom: "15px" }} type="text" className="form-control form-control-sm" placeholder="Ưu đãi" aria-label="Ưu đãi" />
-                                        <button type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                        {inputElement.offer_buy.length > 1 ? inputElement.offer_buy.map((item, index) => {
+                                            return <div key={index} className='row' style={{ margin: "0 auto" }}>
+                                                <div className='col-10' style={{ paddingLeft: "0" }}>
+                                                    <input name="offer_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
+                                                </div>
+                                                <div className='col-2' style={{ paddingLeft: "0" }}>
+                                                    <button onClick={() => handleRemove("offer_buy", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                                </div>
+                                            </div>
+                                        })
+                                            :
+                                            inputElement.offer_buy.map((item, index) => {
+                                                return <div key={index} className='row' style={{ margin: "0 auto" }}>
+                                                    <div className='col-12' style={{ paddingLeft: "0" }}>
+                                                        <input name="offer_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
+                                                    </div>
+
+                                                </div>
+                                            })
+                                        }
+                                        <button onClick={() => handleAdd("offer_buy")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div className="col-md-6 grid-margin stretch-card">
+                    <div className="col-md-6 grid-margin">
+                        <div className="card" style={{ marginBottom: "25px" }}>
+                            <div className="card-body">
+                                <h4 className="card-title">Thông số sản phẩm</h4>
+                                <div className="form-group">
+
+                                    {inputElement.description_table.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tên:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2' style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
+                                    </div>
+                                        :
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <label>Tên:</label>
+                                            </div>
+                                            <div className='col-9' style={{ padding: "0" }}>
+                                                <label>Nội dung:</label>
+                                            </div>
+                                        </div>
+                                    }
+                                    {inputElement.description_table.length > 1 ? inputElement.description_table.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <input name='NameDescriptionTable' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
+                                            </div>
+                                            <div className='col-7' style={{ paddingLeft: "0" }}>
+                                                <input name='ContentDescriptionTable' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} />
+                                            </div>
+                                            <div className='col-2' style={{ paddingLeft: "0" }}>
+                                                <button onClick={() => handleRemoveDescriptionAndDescriptionTable("description_table", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                            </div>
+                                        </div>
+                                    }) : inputElement.description_table.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <input name='NameDescriptionTable' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
+                                            </div>
+                                            <div className='col-9' style={{ paddingLeft: "0" }}>
+                                                <input name='ContentDescriptionTable' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} />
+                                            </div>
+                                        </div>
+                                    })}
+                                    <button onClick={() => handleAddDescriptionAndDescriptionTable("description_table")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                </div>
+                            </div>
+                        </div>
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">Thông số sản phẩm</h4>
                                 <div className="form-group">
-                                    <label>CPU</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="CPU" aria-label="CPU" />
-                                </div>
-                                <div className="form-group">
-                                    <label>RAM</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="RAM" aria-label="RAM" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Storage</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Storage" aria-label="Storage" />
-                                </div>
-                                <div className="form-group">
-                                    <label>GPU</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="GPU" aria-label="GPU" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Monitor</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Monitor" aria-label="Monitor" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Keyboard</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Keyboard" aria-label="Keyboard" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Audio</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Audio" aria-label="Audio" />
-                                </div>
-                                <div className="form-group">
-                                    <label>LAN</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="LAN" aria-label="LAN" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Wireless</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Wireless" aria-label="Wireless" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Webcam</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Webcam" aria-label="Webcam" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Communication</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Communication" aria-label="Communication" />
-                                </div>
-                                <div className="form-group">
-                                    <label>System</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="System" aria-label="System" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Battery</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Battery" aria-label="Battery" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Weight</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Weight" aria-label="Weight" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Color</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Color" aria-label="Color" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Security</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Security" aria-label="Security" />
-                                </div>
-                                <div className="form-group">
-                                    <label>Size</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Size" aria-label="Size" />
+
+                                    {inputElement.description.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Tiêu đề:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Nội dung:</label>
+                                        </div>
+                                        <div className='col-2' style={{ paddingRight: "0" }}>
+                                            <label>Xoá</label>
+                                        </div>
+                                    </div>
+                                        :
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                <label>Tiêu đề:</label>
+                                            </div>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Nội dung:</label>
+                                            </div>
+                                        </div>
+                                    }
+                                    {inputElement.description.length > 1 ? inputElement.description.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <textarea name='NameDescription' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
+                                            </div>
+                                            <div className='col-7' style={{ paddingLeft: "0" }}>
+                                                <textarea name='ContentDescription' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} />
+                                            </div>
+                                            <div className='col-2' style={{ paddingLeft: "0" }}>
+                                                <button onClick={() => handleRemoveDescriptionAndDescriptionTable("description", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                            </div>
+                                        </div>
+                                    }) : inputElement.description.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                <textarea name='NameDescription' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
+                                            </div>
+                                            <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                <textarea name='ContentDescription' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} />
+                                            </div>
+                                        </div>
+                                    })}
+                                    <button onClick={() => handleAddDescriptionAndDescriptionTable("description")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                 </div>
                             </div>
                         </div>

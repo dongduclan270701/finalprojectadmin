@@ -76,7 +76,7 @@ const Index = () => {
                                             className="form-control form-control-lg"
                                             id="exampleInputEmail1"
                                             placeholder="Email"
-                                            value={inputLogin.email}
+                                            defaultValue={inputLogin.email}
                                             required
                                             onKeyDown={handleOnKeyDown}
                                         />
@@ -89,7 +89,7 @@ const Index = () => {
                                             className="form-control form-control-lg"
                                             id="exampleInputPassword1"
                                             placeholder="Password"
-                                            value={inputLogin.password}
+                                            defaultValue={inputLogin.password}
                                             required
                                             onKeyDown={handleOnKeyDown}
                                         />

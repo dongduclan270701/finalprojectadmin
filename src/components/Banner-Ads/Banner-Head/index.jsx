@@ -11,7 +11,7 @@ const Index = () => {
                             <div className="card-body">
                                 <h4 className="card-title">Danh sách quảng cáo đầu website</h4>
                                 <p className="card-description">
-                                    <code><i class="mdi mdi-plus-circle-outline" />  Thêm danh sách mới</code>
+                                    <code><i className="mdi mdi-plus-circle-outline" />  Thêm danh sách mới</code>
                                 </p>
                                 <div className="table-responsive">
                                     <table className="table table-hover">
