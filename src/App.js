@@ -11,9 +11,17 @@ import Sidebar from 'components/Sidebar'
 import Header from 'components/Header'
 import Dashboard from "components/Dashboard"
 import BannerAds from 'components/Banner-Ads/Banner-Ads'
+import CreateBannerAds from 'components/Banner-Ads/Banner-Ads/Create-Banner'
+import UpdateBannerAds from 'components/Banner-Ads/Banner-Ads/Update-Information-Banner'
 import BannerSlide from 'components/Banner-Ads/Banner-Slide'
+import CreateBannerSlide from 'components/Banner-Ads/Banner-Slide/Create-Banner'
+import UpdateBannerSlide from 'components/Banner-Ads/Banner-Slide/Update-Information-Banner'
 import BannerContent from 'components/Banner-Ads/Banner-Content'
+import CreateBannerContent from 'components/Banner-Ads/Banner-Content/Create-Banner'
+import UpdateBannerContent from 'components/Banner-Ads/Banner-Content/Update-Information-Banner'
 import BannerHead from 'components/Banner-Ads/Banner-Head'
+import CreateBannerHead from 'components/Banner-Ads/Banner-Head/Create-Banner'
+import UpdateBannerHead from 'components/Banner-Ads/Banner-Head/Update-Information-Banner'
 import Orders from 'components/Orders/Orders'
 import Laptop from 'components/Products/Laptop'
 import LaptopGaming from 'components/Products/Laptop-Gaming'
@@ -40,7 +48,6 @@ import ChartsOrders from 'components/Charts/Charts-orders'
 import ChartsProducts from 'components/Charts/Charts-products'
 import Website from 'components/Website/Website'
 import Login from 'components/Login'
-import InformationSlideBanner from 'components/Banner-Ads/Banner-Slide/Information-Banner'
 import UpdateInformationLaptop from 'components/Products/Laptop/Update-Information-Product'
 import CreateInformationLaptop from 'components/Products/Laptop/Create-New-Product'
 import InformationLaptop from 'components/Products/Laptop/Information-Laptop'
@@ -102,10 +109,17 @@ function App() {
   const [page, setPage] = useState([
     { path: "/", location: Dashboard },
     { path: "/banner-ads", location: BannerAds },
+    { path: "/banner-ads/create", location: CreateBannerAds },
+    { path: "/banner-ads/update/:id", location: UpdateBannerAds },
     { path: "/banner-slide", location: BannerSlide },
-    { path: "/banner-slide/:id", location: InformationSlideBanner },
+    { path: "/banner-slide/create", location: CreateBannerSlide },
+    { path: "/banner-slide/update/:id", location: UpdateBannerSlide },
     { path: "/banner-content", location: BannerContent },
+    { path: "/banner-content/create", location: CreateBannerContent },
+    { path: "/banner-content/update/:id", location: UpdateBannerContent },
     { path: "/banner-head", location: BannerHead },
+    { path: "/banner-head/create", location: CreateBannerHead },
+    { path: "/banner-head/update/:id", location: UpdateBannerHead },
     { path: "/orders", location: Orders },
     { path: "/laptop", location: Laptop },
     { path: "/laptop/:id", location: InformationLaptop },

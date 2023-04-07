@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
-import UpdateForm from 'components/Products/utils/Update-Form'
+import UpdateForm from 'components/Utils/Update-Form'
 
 const Index = () => {
     const navigate = useNavigate();

@@ -1,0 +1,30 @@
+.checkbox-button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    .checkbox-icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #555;
+        border-radius: 4px;
+        margin-right: 8px;
+    }
+    .checkbox-icon::before {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 10px;
+        background-color: #555;
+        border-radius: 2px;
+        transform: translate(4px, 4px);
+        opacity: 0;
+    }
+    .selected .checkbox-icon::before {
+        opacity: 1;
+    }
+}

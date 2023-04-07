@@ -1,7 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import "assets/scss/Banner-Ads/Banner-Slide/Banner-Slide.scss"
+import faceUser from "assets/images/faces/face28.jpg"
 const Index = () => {
+    const [isChecked, setIsChecked] = useState(false);
+    const [optionSelect, setOptionSelect] = useState(["Hoạt động", "Ngưng hoạt động"])
+    const [bannerSlide, setBannerSlide] = useState([
+        {
+            nameBanner: "qưe",
+            src: "qưe",
+            img: faceUser,
+            createAt: "12/4/2022",
+            status: true,
+            view:12
+        }, {
+            nameBanner: "qưe1",
+            src: "qưe1",
+            img: faceUser,
+            createAt: "12/4/2022",
+            status: false,
+            view: 42
+        }, {
+            nameBanner: "qưe2",
+            src: "qưe2",
+            img: faceUser,
+            createAt: "12/4/2022",
+            status: true,
+            view: 123
+        },
+    ])
+
+    const handleToggleCheckbox = (indexInput) => {
+        const updateBanner = bannerSlide.map((item, index) => {
+            if (index === indexInput) {
+                return { ...item, status: !item.status }
+            }
+            return item
+        })
+        setBannerSlide(updateBanner);
+    };
+    const [optionSelected, setOptionSelected] = useState("")
+    const handleOptionSelected = (e) => {
+        if (e.target.value !== null) {
+            setOptionSelected(e.target.value)
+        }
+    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -11,169 +54,90 @@ const Index = () => {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">Danh sách thanh trượt quảng cáo</h4>
-                                <p className="card-description">
+                                <NavLink to={"/banner-slide/create"}  style={{textDecoration:"none"}} className="card-description">
                                     <code><i className="mdi mdi-plus-circle-outline" />  Thêm danh sách mới</code>
-                                </p>
+                                </NavLink>
+                                <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
+                                    <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>
+                                        <p className="card-description" style={{ margin: "0" }}>
+                                            Tìm kiếm sản phẩm:
+                                        </p>
+                                    </div>
+                                    <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                            <input style={{borderRadius: "15px"}} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
+                                    </ul>
+                                    <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                        <li className="nav-item nav-search d-lg-block">
+                                            <div className="input-group">
+                                                <select style={{borderRadius: "15px"}}  onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                    <option value={null}>Chọn trạng thái</option>\
+                                                    {optionSelect.map((item, index) => {
+                                                        return <option key={index} value={item}>{item}</option>
+                                                    })}
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
                                 <div className="table-responsive">
                                     <table className="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Tên danh sách</th>
-                                                <th>Ngày bắt đầu</th>
-                                                <th>Ngày kết thúc</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
+                                                <th>Hình ảnh</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Lượt xem</th>
+                                                <th>Trạng thái</th>
+                                                <th>Hành động</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Photoshop</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    <label className="badge badge-danger">Pending</label>
-                                                </td>
-                                                <td>
-                                                    <NavLink to={"/banner-slide/1"} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Flash</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Premier</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>After effects</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>53275535</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Premier</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>After effects</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>53275535</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>9</td>
-                                                <td>Premier</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>After effects</td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                                <td>
-                                                    <button type="button" className="btn btn-outline-secondary btn-fw">Xem</button>
-                                                </td>
-                                            </tr>
+                                            {bannerSlide.map((item, index) => {
+                                                return <tr key={index}>
+                                                    <td>{item.nameBanner}</td>
+                                                    <td>
+                                                        <img src={item.img} key={index} className="img-fluid" alt="" style={{width:"75px", height:"75px"}} />
+                                                    </td>
+                                                    <td>
+                                                        {item.createAt}
+                                                    </td>
+                                                    <td>{item.view}</td>
+                                                    <td>
+                                                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+
+                                                            {item.status ? (
+                                                                <>
+                                                                    <label className="badge badge-success" style={{ marginRight: "10px" }}>
+                                                                        Hoạt động
+                                                                    </label>
+                                                                    <button onClick={() => handleToggleCheckbox(index)} style={{ background: "none", border: "none", padding: "0", margin: "0" }}>
+                                                                        <i className="mdi mdi-checkbox-marked-circle" style={{ fontSize: 20 }} />
+                                                                    </button>
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <label className="badge badge-danger" style={{ marginRight: "10px" }}>
+                                                                        Ngừng hoạt động
+                                                                    </label>
+                                                                    <button onClick={() => handleToggleCheckbox(index)} style={{ background: "none", border: "none", padding: "0", margin: "0" }}>
+                                                                        <i className="mdi mdi-checkbox-blank-circle-outline" style={{ fontSize: 20 }} />
+                                                                    </button>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <NavLink to={"/banner-slide/update/" +item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Sửa</button></NavLink>
+
+                                                    </td>
+                                                </tr>
+                                            })}
 
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className="btn-group" style={{"display":"flex","justify-content": "center", "width": "fit-content", "margin": "auto"}} role="group" aria-label="Basic example">
+                                <div className="btn-group" style={{ "display": "flex", "justify-content": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
                                     <button type="button" className="btn btn-outline-secondary active">1</button>
                                     <button type="button" className="btn btn-outline-secondary">2</button>
                                     <button type="button" className="btn btn-outline-secondary">...</button>
