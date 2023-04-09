@@ -22,7 +22,7 @@ import UpdateBannerContent from 'components/Banner-Ads/Banner-Content/Update-Inf
 import BannerHead from 'components/Banner-Ads/Banner-Head'
 import CreateBannerHead from 'components/Banner-Ads/Banner-Head/Create-Banner'
 import UpdateBannerHead from 'components/Banner-Ads/Banner-Head/Update-Information-Banner'
-import Orders from 'components/Orders/Orders'
+import Orders from 'components/Orders'
 import Laptop from 'components/Products/Laptop'
 import LaptopGaming from 'components/Products/Laptop-Gaming'
 import PcKm from 'components/Products/PC-KM'
@@ -43,7 +43,10 @@ import Users from 'components/Users/Users'
 import Employers from 'components/Employers/Employers'
 import Recruitment from 'components/Recruitment/Recruitment'
 import RecruitmentApply from 'components/Recruitment/Recruitment-Apply'
-import Discount from 'components/Discount/Discount'
+import Discount from 'components/Discount/'
+import UpdateInformationDiscount from 'components/Discount/Update-Information-Discount'
+import CreateInformationDiscount from 'components/Discount/Create-Discount'
+import InformationDiscount from 'components/Discount/Information-Discount'
 import ChartsOrders from 'components/Charts/Charts-orders'
 import ChartsProducts from 'components/Charts/Charts-products'
 import Website from 'components/Website/Website'
@@ -198,6 +201,9 @@ function App() {
     { path: "/users", location: Users },
     { path: "/employers", location: Employers },
     { path: "/discount", location: Discount },
+    { path: "/discount/:id", location: InformationDiscount },
+    { path: "/discount/update/:id", location: UpdateInformationDiscount },
+    { path: "/discount/create", location: CreateInformationDiscount },
     { path: "/charts-orders", location: ChartsOrders },
     { path: "/charts-products", location: ChartsProducts },
     { path: "/website", location: Website },

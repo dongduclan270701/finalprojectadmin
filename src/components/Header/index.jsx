@@ -10,8 +10,8 @@ const Index = (props) => {
     return (
         <nav className={"navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row " + getChooseSettingThemePages}>
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a className="navbar-brand brand-logo mr-5" href="index.html"><img src={logo} className="mr-2" alt="logo" /></a>
-                    <a className="navbar-brand brand-logo-mini" href="index.html"><img src={logomini} alt="logo" /></a>
+                    <a className="navbar-brand brand-logo mr-5" href="index.html"><img src="https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-02-20200903083638.svg" className="mr-2" alt="logo" /></a>
+                    <a className="navbar-brand brand-logo-mini" href="index.html"><img src="https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-15-20200415164142.png" alt="logo" /></a>
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                     <button  onClick={() => getSettingChooseShowIconOnly(!isChooseShowicons)} className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
