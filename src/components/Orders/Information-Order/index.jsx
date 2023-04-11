@@ -12,7 +12,7 @@ const Index = () => {
     const navigate = useNavigate();
     const [inputElement, setInputElement] = useState({
         id: "123987qưe",
-        status: "Đã giao cho bên vận chuyển",
+        status: "Đã đặt đơn hàng",
         username: "Đồng Đức Lân",
         phoneNumber: "0379382992",
         address: "hoàng mai, hà nội",
@@ -53,7 +53,7 @@ const Index = () => {
         }
     ])
     const [steps, setSteps] = useState([
-        "Đã Đặt đơn hàng",
+        "Đã đặt đơn hàng",
         "Đã xác nhận thông tin thanh toán",
         "Đã giao cho bên vận chuyển",
         "Đang vận chuyển",
@@ -63,12 +63,12 @@ const Index = () => {
     useEffect(() => {
         if (inputElement.status === "Đã huỷ") {
             setSteps([
-                "Đã Đặt đơn hàng",
+                "Đã đặt đơn hàng",
                 "Đã Huỷ"
             ])
             setCurrentStep(1)
         }
-        else if (inputElement.status === 'Đã Đặt đơn hàng') {
+        else if (inputElement.status === 'Đã đặt đơn hàng') {
             setCurrentStep(0)
         }
         else if (inputElement.status === 'Đã xác nhận thông tin thanh toán') {
@@ -110,7 +110,7 @@ const Index = () => {
     }
 
     const handleSelectedOptionsChange = (selectedCategory) => {
-        if (selectedCategory.value === 'Đã Đặt đơn hàng') {
+        if (selectedCategory.value === 'Đã đặt đơn hàng') {
             setCurrentStep(0)
             setInputElement(inputElement => ({
                 ...inputElement,
