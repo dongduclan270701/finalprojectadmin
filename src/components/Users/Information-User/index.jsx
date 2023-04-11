@@ -10,385 +10,182 @@ import Swal from 'sweetalert2'
 
 const Index = () => {
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState({
-        id: "123987qưe",
-        status: "Đã giao cho bên vận chuyển",
-        username: "Đồng Đức Lân",
-        phoneNumber: "0379382992",
-        address: "hoàng mai, hà nội",
-        shipping_process: [
-            { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
-        ],
-        method_payment: "Thanh toán khi nhận hàng",
-        discount: [
-            { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-            { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-        ],
-        cancel_reason: "Không thích",
-        listProduct: [
-            { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-            { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-            { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-        ],
-        ship: 30000,
-    },)
-    const [currentStep, setCurrentStep] = useState(0);
-    const [options, setOptions] = useState([
+    const [inputElement, setInputElement] = useState(
         {
-            label: 'Đã xác nhận thông tin thanh toán',
-            value: 'Đã xác nhận thông tin thanh toán',
-        },
-        {
-            label: 'Đã giao cho bên vận chuyển',
-            value: 'Đã giao cho bên vận chuyển',
-        },
-        {
-            label: 'Đang vận chuyển',
-            value: 'Đang vận chuyển',
-        },
-        {
-            label: 'Giao hàng thành công',
-            value: 'Giao hàng thành công',
-        }
-    ])
-    const [steps, setSteps] = useState([
-        "Đã Đặt đơn hàng",
-        "Đã xác nhận thông tin thanh toán",
-        "Đã giao cho bên vận chuyển",
-        "Đang vận chuyển",
-        "Giao hàng thành công",
-    ]);
+            id: "23",
+            username: "Đồng Đức Lân",
+            phoneNumber: "0379382992",
+            address: "hoàng mai, hà nội",
+            email: "qưe1",
+            image: "12/4/2022",
+            order_buy: [
+                {
+                    id: "123987qưe",
+                    status: "Đã Đặt đơn hàng",
+                    username: "Đồng Đức Lân",
+                    phoneNumber: "0379382992",
+                    address: "hoàng mai, hà nội",
+                    shipping_process: [
+                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                    ],
+                    method_payment: "Thanh toán khi nhận hàng",
+                    discount: [
+                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
+                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
+                    ],
+                    cancel_reason: "Không thích",
+                    listProduct: [
+                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
+                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
+                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
+                    ],
+                    ship: 30000,
+                    sumOrder: 140000
+                },
+                {
+                    id: "123987qưe",
+                    status: "Đã xác nhận thông tin thanh toán",
+                    username: "Đồng Đức Lân",
+                    phoneNumber: "0379382992",
+                    address: "hoàng mai, hà nội",
+                    shipping_process: [
+                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                    ],
+                    method_payment: "Thanh toán khi nhận hàng",
+                    discount: [
+                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
+                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
+                    ],
+                    cancel_reason: "Không thích",
+                    listProduct: [
+                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
+                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
+                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
+                    ],
+                    ship: 30000,
+                    sumOrder: 140000
+                },
+                {
+                    id: "123987qưe",
+                    status: "Đã giao cho bên vận chuyển",
+                    username: "Đồng Đức Lân",
+                    phoneNumber: "0379382992",
+                    address: "hoàng mai, hà nội",
+                    shipping_process: [
+                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                    ],
+                    method_payment: "Thanh toán khi nhận hàng",
+                    discount: [
+                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
+                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
+                    ],
+                    cancel_reason: "Không thích",
+                    listProduct: [
+                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
+                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
+                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
+                    ],
+                    ship: 30000,
+                    sumOrder: 140000
+                },
+                {
+                    id: "123987qưe",
+                    status: "Đang vận chuyển",
+                    username: "Đồng Đức Lân",
+                    phoneNumber: "0379382992",
+                    address: "hoàng mai, hà nội",
+                    shipping_process: [
+                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                    ],
+                    method_payment: "Thanh toán khi nhận hàng",
+                    discount: [
+                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
+                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
+                    ],
+                    cancel_reason: "Không thích",
+                    listProduct: [
+                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
+                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
+                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
+                    ],
+                    ship: 30000,
+                    sumOrder: 140000
+                },
+                {
+                    id: "123987qưe",
+                    status: "Giao hàng thành công",
+                    username: "Đồng Đức Lân",
+                    phoneNumber: "0379382992",
+                    address: "hoàng mai, hà nội",
+                    shipping_process: [
+                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                    ],
+                    method_payment: "Thanh toán khi nhận hàng",
+                    discount: [
+                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
+                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
+                    ],
+                    cancel_reason: "Không thích",
+                    listProduct: [
+                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
+                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
+                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
+                    ],
+                    ship: 30000,
+                    sumOrder: 140000
+                },
+                {
+                    id: "123987qưe",
+                    status: "Đã huỷ",
+                    username: "Đồng Đức Lân",
+                    phoneNumber: "0379382992",
+                    address: "hoàng mai, hà nội",
+                    shipping_process: [
+                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                    ],
+                    method_payment: "Thanh toán khi nhận hàng",
+                    discount: [
+                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
+                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
+                    ],
+                    cancel_reason: "Không thích",
+                    listProduct: [
+                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
+                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
+                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
+                    ],
+                    ship: 30000,
+                    sumOrder: 140000
+                },
+            ],
+            updateAt: "12/4/2022",
+            createAt: "",
+            status: true,
+        })
 
     useEffect(() => {
-        if (inputElement.status === "Đã huỷ") {
-            setSteps([
-                "Đã Đặt đơn hàng",
-                "Đã Huỷ"
-            ])
-            setCurrentStep(1)
-        }
-        else if (inputElement.status === 'Đã Đặt đơn hàng') {
-            setCurrentStep(0)
-        }
-        else if (inputElement.status === 'Đã xác nhận thông tin thanh toán') {
-            setCurrentStep(1)
-            const newOption = options.splice(options.length - 1, 1)
-            setOptions(newOption)
-        }
-        else if (inputElement.status === 'Đã giao cho bên vận chuyển') {
-            setCurrentStep(2)
-            const newOption = options.splice(options.length - 2, 2)
-            setOptions(newOption)
-        }
-        else if (inputElement.status === 'Đang vận chuyển') {
-            setCurrentStep(3)
-            const newOption = options.splice(options.length - 3, 3)
-            setOptions(newOption)
-        }
-        else if (inputElement.status === 'Giao hàng thành công') {
-            setCurrentStep(4)
-            const newOption = options.splice(options.length - 4, 4)
-            setOptions(newOption)
-        }
+
     }, []);
-
-
-    const sumPriceListProduct = () => {
-        let sumPriceListProduct = 0
-        inputElement.listProduct.map((item) => {
-            sumPriceListProduct += item.nowPrice * item.quantity
+    const handleStatusAccountUser = () => {
+        Swal.fire({
+            title: 'Bạn có đồng ý chỉnh sửa tài khoản này hay không?',
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setInputElement(inputElement => ({
+                    ...inputElement,
+                    status: !inputElement.status
+                }))
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Bạn đã chỉnh sửa thành công trạng thái tài khoản này',
+                    icon: 'success',
+                    confirmButtonText: 'OK!'
+                })
+            }
         })
-        return sumPriceListProduct
-    }
-    const sumDiscountListProduct = () => {
-        let sumDiscountListProduct = 0
-        inputElement.discount.map((item) => {
-            sumDiscountListProduct += item.amount
-        })
-        return sumDiscountListProduct
-    }
-
-    const handleSelectedOptionsChange = (selectedCategory) => {
-        if (selectedCategory.value === 'Đã Đặt đơn hàng') {
-            setCurrentStep(0)
-            setInputElement(inputElement => ({
-                ...inputElement,
-                status: selectedCategory.value
-            }));
-        }
-        if (selectedCategory.value === 'Đã xác nhận thông tin thanh toán') {
-            Swal.fire({
-                title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                showCancelButton: true,
-                confirmButtonText: 'Đồng ý',
-                cancelButtonText: 'Không',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    setCurrentStep(1)
-                    setInputElement(inputElement => ({
-                        ...inputElement,
-                        status: selectedCategory.value,
-                        shipping_process: [...inputElement.shipping_process, { time: "8:45", date: "23/23/2033", content: selectedCategory.value }]
-                    }));
-                    options.splice(0, 1)
-                    Swal.fire({
-                        title: 'Lưu thành công!',
-                        text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        icon: 'success',
-                        confirmButtonText: 'OK!'
-                    })
-                }
-            })
-        }
-        if (selectedCategory.value === 'Đã giao cho bên vận chuyển') {
-            if (options.length > 3) {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(2)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                ...inputElement.shipping_process,
-                                { time: "8:45", date: "23/23/2033", content: "Đã xác nhận thông tin thanh toán" },
-                                { time: "8:45", date: "23/23/2033", content: selectedCategory.value }
-                            ]
-                        }));
-                        options.splice(0, 2)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-            else {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(2)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [...inputElement.shipping_process, { time: "8:45", date: "23/23/2033", content: selectedCategory.value }]
-                        }));
-                        options.splice(0, 1)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-        }
-        if (selectedCategory.value === 'Đang vận chuyển') {
-            if (options.length > 3) {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(3)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                ...inputElement.shipping_process,
-                                { time: "8:45", date: "23/23/2033", content: "Đã giao cho bên vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: selectedCategory.value }
-                            ]
-                        }));
-                        options.splice(0, 3)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-            else if (options.length === 3) {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(3)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                ...inputElement.shipping_process,
-                                { time: "8:45", date: "23/23/2033", content: "Đã giao cho bên vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: selectedCategory.value }
-                            ]
-                        }));
-                        options.splice(0, 2)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-            else {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(3)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [...inputElement.shipping_process, { time: "8:45", date: "23/23/2033", content: selectedCategory.value }]
-                        }));
-                        options.splice(0, 1)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-        }
-        if (selectedCategory.value === 'Giao hàng thành công') {
-            if (options.length > 3) {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                ...inputElement.shipping_process,
-                                { time: "8:45", date: "23/23/2033", content: "Đã xác nhận thông tin thanh toán" },
-                                { time: "8:45", date: "23/23/2033", content: "Đã giao cho bên vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: "Đang vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: selectedCategory.value }
-                            ]
-                        }));
-                        options.splice(0, 3)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-            else if (options.length === 3) {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                ...inputElement.shipping_process,
-                                { time: "8:45", date: "23/23/2033", content: "Đã giao cho bên vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: "Đang vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: selectedCategory.value }
-                            ]
-                        }));
-                        options.splice(0, 2)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-            else if (options.length === 2) {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                ...inputElement.shipping_process,
-                                { time: "8:45", date: "23/23/2033", content: "Đang vận chuyển" },
-                                { time: "8:45", date: "23/23/2033", content: selectedCategory.value }
-                            ]
-                        }));
-                        options.splice(0, 2)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-            else {
-                Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        setInputElement(inputElement => ({
-                            ...inputElement,
-                            status: selectedCategory.value,
-                            shipping_process: [...inputElement.shipping_process, { time: "8:45", date: "23/23/2033", content: selectedCategory.value }]
-                        }));
-                        options.splice(0, 1)
-                        Swal.fire({
-                            title: 'Lưu thành công!',
-                            text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                    }
-                })
-            }
-        }
     }
 
     return (
@@ -404,51 +201,59 @@ const Index = () => {
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card" style={{ "marginBottom": "25px" }}>
                             <div className="card-body">
-                                <div className="row progress-bar-process">
-                                    {steps.map((step, index) => (
-                                        <div key={index} className={`col-2 step ${currentStep === index ? "active" : ""}`}>
-                                            <div className="circle">{index + 1}</div>
-                                            <div className="label">{step}</div>
-                                            {index <= steps.length - 1 && <div className="line"></div>}
-                                        </div>
-                                    ))
-                                    }
-                                </div>
-                                <h4 className="card-title">Thông tin đơn hàng: {inputElement.id}</h4>
-
+                                <h4 className="card-title">Thông tin khách hàng: {inputElement.id}</h4>
                                 <div className='row'>
+                                    <div className="col-lg-6 grid-margin form-group" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <div className="form-group">
+                                            <img src={logo} style={{ width: "300px", borderRadius: "50%" }} />
+                                        </div>
+                                    </div>
                                     <div className="col-lg-6 grid-margin form-group">
                                         <h4>Địa chỉ nhận hàng</h4>
-                                        <p>Người mua: {inputElement.username}</p>
-                                        <p>(+84) {inputElement.phoneNumber}</p>
-                                        <p>{inputElement.address}</p>
+                                        <div className="form-group">
+                                            <label>Tên:</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Tên:" aria-label="Tên:" value={inputElement.username} disabled />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Số điện thoại:</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Số điện thoại" aria-label="Số điện thoại" value={inputElement.phoneNumber} disabled />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Địa chỉ nhận hàng</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Địa chỉ nhận hàng" aria-label="Địa chỉ nhận hàng" value={inputElement.address} disabled />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Email" aria-label="Email" value={inputElement.email} disabled />
+                                        </div>
+                                        <div className="form-group">
+                                            {inputElement.status ?
+                                                <div className="row" style={{ margin: "0 auto" }}>
+                                                    <label className="badge badge-success">
+                                                        Đang hoạt động
+                                                    </label>
+                                                    <button name="status" onClick={handleStatusAccountUser} style={{ display: "flex", alignItems: "center", background: "none", border: "none", padding: "0 0 0 15px", margin: "0" }}>
+                                                        <i className="mdi mdi-checkbox-marked-circle" style={{ fontSize: 20 }} />
+                                                    </button>
+                                                </div>
+                                                :
+                                                <div className="row" style={{ margin: "0 auto" }}>
+                                                    <label className="badge badge-danger">
+                                                        Khoá
+                                                    </label>
+                                                    <button name="status" onClick={handleStatusAccountUser} style={{ display: "flex", alignItems: "center", background: "none", border: "none", padding: "0 0 0 15px", margin: "0" }}>
+                                                        <i className="mdi mdi-checkbox-blank-circle-outline" style={{ fontSize: 20 }} />
+                                                    </button>
+                                                </div>
+                                            }
+
+                                        </div>
                                     </div>
-                                    <div className="col-lg-6 grid-margin form-group">
-                                        {inputElement.shipping_process.reverse().map((item, index) => {
-                                            return <div className='row' style={{ margin: "auto" }} key={index}>
-                                                <i className={item.content === "Giao hàng thành công" ? "mdi mdi-check-circle" : "mdi mdi-checkbox-blank-circle"}
-                                                    style={item.content === "Giao hàng thành công" ? { fontSize: "20px" } : { margin: "0px 2px 0px 2px" }}
-                                                />
-                                                <p style={{ paddingLeft: "15px" }}>{item.time} - {item.date} - {item.content}</p>
-                                            </div>
-                                        })}
-                                    </div>
+
                                 </div>
+
                                 <div className="form-group">
-                                    <h4>Cập nhật trạng thái đơn hàng</h4>
-                                    {inputElement.status === "Giao hàng thành công" ?
-                                        <Select onChange={handleSelectedOptionsChange} value={{ label: inputElement.status, value: inputElement.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" isDisabled={true} />
-                                        :
-                                        <Select onChange={handleSelectedOptionsChange} value={{ label: inputElement.status, value: inputElement.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" />}
-                                </div>
-                                {inputElement.status === "Đã huỷ" ?
-                                    <div className="form-group">
-                                        <h4>Lý do huỷ đơn hàng</h4>
-                                        <input className="form-control form-control-sm" value={inputElement.cancel_reason} disabled />
-                                    </div>
-                                    : null}
-                                <div className="form-group">
-                                    <h4>Danh sách sản phẩm</h4>
+                                    <h4>Danh sách đơn hàng</h4>
                                     <div className="table-responsive">
                                         <table className="table table-hover">
                                             <thead>
@@ -468,63 +273,42 @@ const Index = () => {
                                                     <th>
                                                         Tổng
                                                     </th>
+                                                    <th>
+                                                        Trạng thái
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {inputElement.listProduct.map((item, index) => {
+                                                {inputElement.order_buy.map((item, index) => {
                                                     return <tr key={index}>
                                                         <td>
-                                                            {item.nameProduct}
+                                                            {item.listProduct[0].nameProduct}
                                                         </td>
                                                         <td>
-                                                            <img src={item.img} className="img-fluid" alt="" style={{ width: "60px", height: "60px" }} />
+                                                            <img src={item.listProduct[0].img} className="img-fluid" alt="" style={{ width: "60px", height: "60px" }} />
                                                         </td>
                                                         <td>
-                                                            {item.quantity}
+                                                            {item.listProduct[0].quantity}
                                                         </td>
                                                         <td>
-                                                            {item.nowPrice}
+                                                            {item.listProduct[0].nowPrice} VND
                                                         </td>
                                                         <td>
-                                                            {item.nowPrice * item.quantity} VND
+                                                            {item.sumOrder} VND
+                                                        </td>
+                                                        <td>
+                                                            <label
+                                                                className={item.status === "Đã huỷ" ? "badge badge-danger" :
+                                                                    item.status === "Đã xác nhận thông tin thanh toán" ? "badge badge-warning" :
+                                                                        item.status === "Giao hàng thành công" ? "badge badge-success" :
+                                                                            item.status === "Đã Đặt đơn hàng" ? "badge badge-warning" : "badge badge-primary"
+                                                                }
+                                                                style={{ marginRight: "10px" }}>
+                                                                {item.status}
+                                                            </label>
                                                         </td>
                                                     </tr>
                                                 })}
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style={{ borderRight: "1px solid #e1e1e1" }}>Tổng</td>
-                                                    <td>{sumPriceListProduct()} VND</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style={{ borderRight: "1px solid #e1e1e1" }}>Phí vận chuyển</td>
-                                                    <td>{inputElement.ship} VND</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style={{ borderRight: "1px solid #e1e1e1" }}>Giảm giá</td>
-                                                    <td>- {sumDiscountListProduct()} VND</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style={{ borderRight: "1px solid #e1e1e1" }}>Thanh toán</td>
-                                                    <td style={{ fontSize: "20px", color: "red" }}>{sumPriceListProduct() + inputElement.ship - sumDiscountListProduct()} VND</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>Phương thức thanh toán</td>
-                                                    <td>Thanh toán khi nhận hàng</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

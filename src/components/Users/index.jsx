@@ -33,6 +33,7 @@ const Index = () => {
                         { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
                     ],
                     ship: 30000,
+                    sumOrder:140000
                 },
             ],
             updateAt: "12/4/2022",
@@ -65,6 +66,7 @@ const Index = () => {
                         { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
                     ],
                     ship: 30000,
+                    sumOrder:140000
                 },
                 {
                     id: "123987qưe",
@@ -87,6 +89,7 @@ const Index = () => {
                         { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
                     ],
                     ship: 30000,
+                    sumOrder:140000
                 },
                 
             ],
@@ -120,6 +123,7 @@ const Index = () => {
                         { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
                     ],
                     ship: 30000,
+                    sumOrder:140000
                 },
                 {
                     id: "123987qưe",
@@ -142,6 +146,7 @@ const Index = () => {
                         { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
                     ],
                     ship: 30000,
+                    sumOrder:140000
                 },
                 {
                     id: "123987qưe",
@@ -164,6 +169,7 @@ const Index = () => {
                         { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
                     ],
                     ship: 30000,
+                    sumOrder:140000
                 },
             ],
             updateAt: "12/4/2022",

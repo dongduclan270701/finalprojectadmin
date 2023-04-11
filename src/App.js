@@ -40,14 +40,14 @@ import Speaker from 'components/Products/Speaker'
 import AppInternet from 'components/Products/App-Internet'
 import Accessory from 'components/Products/Accessory'
 import ThemeSetting from 'components/Theme-Setting'
-import Users from 'components/Users/Users'
+import Users from 'components/Users'
+import UsersInformation from 'components/Users/Information-User'
 import Employers from 'components/Employers/Employers'
 import Recruitment from 'components/Recruitment/Recruitment'
 import RecruitmentApply from 'components/Recruitment/Recruitment-Apply'
 import Discount from 'components/Discount/'
 import UpdateInformationDiscount from 'components/Discount/Update-Information-Discount'
 import CreateInformationDiscount from 'components/Discount/Create-Discount'
-import InformationDiscount from 'components/Discount/Information-Discount'
 import ChartsOrders from 'components/Charts/Charts-orders'
 import ChartsProducts from 'components/Charts/Charts-products'
 import Website from 'components/Website/Website'
@@ -201,9 +201,9 @@ function App() {
     { path: "/recruitment-apply", location: RecruitmentApply },
     { path: "/recruitment", location: Recruitment },
     { path: "/users", location: Users },
+    { path: "/user/:id", location: UsersInformation },
     { path: "/employers", location: Employers },
     { path: "/discount", location: Discount },
-    { path: "/discount/:id", location: InformationDiscount },
     { path: "/discount/update/:id", location: UpdateInformationDiscount },
     { path: "/discount/create", location: CreateInformationDiscount },
     { path: "/charts-orders", location: ChartsOrders },

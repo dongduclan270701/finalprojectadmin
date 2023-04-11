@@ -31,6 +31,7 @@ const Index = () => {
             { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
         ],
         ship: 30000,
+        sumOrder:140000
     },)
     const [currentStep, setCurrentStep] = useState(0);
     const [options, setOptions] = useState([
@@ -516,7 +517,7 @@ const Index = () => {
                                                     <td></td>
                                                     <td></td>
                                                     <td style={{ borderRight: "1px solid #e1e1e1" }}>Thanh toán</td>
-                                                    <td style={{ fontSize: "20px", color: "red" }}>{sumPriceListProduct() + inputElement.ship - sumDiscountListProduct()} VND</td>
+                                                    <td style={{ fontSize: "20px", color: "red" }}>{inputElement.sumOrder} VND</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>

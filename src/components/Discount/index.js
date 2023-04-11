@@ -136,7 +136,7 @@ const Index = () => {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <NavLink to={"/discount/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
+                                                        <NavLink to={"/discount/update/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Sửa</button></NavLink>
                                                     </td>
                                                 </tr>
                                             })}
