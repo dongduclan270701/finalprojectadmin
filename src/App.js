@@ -23,6 +23,7 @@ import BannerHead from 'components/Banner-Ads/Banner-Head'
 import CreateBannerHead from 'components/Banner-Ads/Banner-Head/Create-Banner'
 import UpdateBannerHead from 'components/Banner-Ads/Banner-Head/Update-Information-Banner'
 import Orders from 'components/Orders'
+import UpdateAndShowOrder from 'components/Orders/Information-Order'
 import Laptop from 'components/Products/Laptop'
 import LaptopGaming from 'components/Products/Laptop-Gaming'
 import PcKm from 'components/Products/PC-KM'
@@ -124,6 +125,7 @@ function App() {
     { path: "/banner-head/create", location: CreateBannerHead },
     { path: "/banner-head/update/:id", location: UpdateBannerHead },
     { path: "/orders", location: Orders },
+    { path: "/orders/:id", location: UpdateAndShowOrder },
     { path: "/laptop", location: Laptop },
     { path: "/laptop/:id", location: InformationLaptop },
     { path: "/laptop/update/:id", location: UpdateInformationLaptop },
