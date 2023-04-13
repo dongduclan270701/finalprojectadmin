@@ -1,714 +1,165 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import Select from "react-select"
+import makeAnimated from "react-select/animated"
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import logo from 'assets/images/faces/face1.jpg'
 const Index = () => {
+    const navigate = useNavigate();
+    const [inputElement, setInputElement] = useState({
+        logo: logo,
+        icon: "",
+        nameCompany: "CÔNG TY TNHH THƯƠNG MẠI GEARVN",
+        email: "CSKH@GEARVN.COM",
+        hotline_call_to_buy: "1800 6975",
+        hotline: "1800 6173",
+        address_hcm: [
+            "78-80-82 Hoàng Hoa Thám, Phường 12, Quận Tân Bình",
+            "905 Kha Vạn Cân, Phường Linh Tây, Thành phố Thủ Đức",
+            "1081 - 1083 Trần Hưng Đạo, Phường 5, Quận 5",
+            "415 An Dương Vương, Phường 10, Quận 6"
+        ],
+        address_hn: [
+            "162 - 164 Thái Hà, Phường Trung Liệt, Quận Đống Đa, Hà Nội",
+            "460 Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội"
+        ],
+        service_center: "436A/71 đường 3/2, Phường 12, Quận 10, Hồ Chí Minh",
+        fanpage:"123123"
+    },)
+    const [options, setOptions] = useState([
+        {
+            label: 'Angular',
+            value: 'Angular',
+        },
+        {
+            label: 'Bootstrap',
+            value: 'Bootstrap',
+        },
+        {
+            label: 'React.js',
+            value: 'React.js',
+        },
+        {
+            label: 'Vue.js',
+            value: 'Vue.js',
+        },
+        {
+            label: 'Vue.js1',
+            value: 'Vue.js1',
+        },
+        {
+            label: 'Vue.js2',
+            value: 'Vue.js2',
+        },
+        {
+            label: 'Vue.js3',
+            value: 'Vue.js3',
+        },
+    ])
+    useEffect(() => {
+    }, []);
+
     return (
         <div className="main-panel">
             <div className="content-wrapper">
+                <div className="col-lg-12 grid-margin">
+                    <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
+                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm Phụ Kiện</h3>
+                    </div>
+                </div>
+                <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
+                    <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/website/update"}>Chỉnh sửa</NavLink>
+                </div>
+
                 <div className="row">
-                    <div className="col-md-12 grid-margin">
-                        <div className="row">
-                            <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                                <h3 className="font-weight-bold">Thong tin Website</h3>
+                    <div className="col-lg-12 grid-margin stretch-card">
+                        <div className="card" style={{ "marginBottom": "25px" }}>
+                            <div className="card-body">
+                                <div className='row'>
+                                    <div className="col-lg-6 grid-margin form-group">
+                                        <h4 className="card-title" style={{ display: "flex", justifyContent: "center" }}>Logo website</h4>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            <img src={inputElement.logo} style={{ width: "300px" }} />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-6 grid-margin form-group">
+                                        <h4 className="card-title" style={{ display: "flex", justifyContent: "center" }}>Icon website</h4>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            <img src={logo} style={{ width: "300px" }} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 grid-margin">
+                        <div className="col-md-12" style={{ "padding": 0 }}>
+                            <div className="card" style={{ "marginBottom": "25px" }}>
+                                <div className="card-body">
+                                    <h4 className="card-title">Thông tin cửa hàng</h4>
+                                    <div className="form-group">
+                                        <label>Tên công ty</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Tên công ty" aria-label="Tên công ty" value={inputElement.nameCompany} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Email công ty</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Email công ty" aria-label="Email công ty" value={inputElement.email} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Gọi mua hàng</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Gọi mua hàng" aria-label="Gọi mua hàng" value={inputElement.hotline_call_to_buy} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Hỗ trợ khách hàng</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Hỗ trợ khách hàng" aria-label="Hỗ trợ khách hàng" value={inputElement.hotline} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Fanpage</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Fanpage" aria-label="Fanpage" value={inputElement.fanpage} disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card" style={{ "marginBottom": "25px" }}>
+                                <div className="card-body">
+                                    <h4 className="card-title">Trung tâm bảo hành</h4>
+                                    <div className="form-group">
+                                        <label>Trung tâm bảo hành</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Trung tâm bảo hành" aria-label="Trung tâm bảo hành" value={inputElement.service_center} disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 grid-margin stretch-card">
+                        <div className="col-md-12" style={{ "padding": 0 }}>
+                            <div className="card" style={{ "marginBottom": "25px" }}>
+                                <div className="card-body">
+                                    <h4 className="card-title">Chi nhánh Hồ Chí Minh</h4>
+                                    {inputElement.address_hcm.map((item, index) => {
+                                        return <div className="form-group" key={index}>
+                                            <label>Địa chỉ {index + 1}:</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Tên công ty" aria-label="Tên công ty" value={item} disabled />
+                                        </div>
+                                    })}
+                                </div>
+                            </div>
+                            <div className="card" style={{ "marginBottom": "25px" }}>
+                                <div className="card-body">
+                                    <h4 className="card-title">Chi nhánh Hà Nội</h4>
+                                    {inputElement.address_hn.map((item, index) => {
+                                        return <div className="form-group" key={index}>
+                                            <label>Địa chỉ {index + 1}:</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Tên công ty" aria-label="Tên công ty" value={item} disabled />
+                                        </div>
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* <div className="row">
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Basic Table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Profile</th>
-                                                <th>VatNo.</th>
-                                                <th>Created</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Jacob</td>
-                                                <td>53275531</td>
-                                                <td>12 May 2017</td>
-                                                <td><label className="badge badge-danger">Pending</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Messsy</td>
-                                                <td>53275532</td>
-                                                <td>15 May 2017</td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>53275533</td>
-                                                <td>14 May 2017</td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Peter</td>
-                                                <td>53275534</td>
-                                                <td>16 May 2017</td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dave</td>
-                                                <td>53275535</td>
-                                                <td>20 May 2017</td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Hoverable Table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-hover</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <table className="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>User</th>
-                                                <th>Product</th>
-                                                <th>Sale</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Jacob</td>
-                                                <td>Photoshop</td>
-                                                <td className="text-danger"> 28.76% <i className="ti-arrow-down" /></td>
-                                                <td><label className="badge badge-danger">Pending</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Messsy</td>
-                                                <td>Flash</td>
-                                                <td className="text-danger"> 21.06% <i className="ti-arrow-down" /></td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>Premier</td>
-                                                <td className="text-danger"> 35.00% <i className="ti-arrow-down" /></td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Peter</td>
-                                                <td>After effects</td>
-                                                <td className="text-success"> 82.00% <i className="ti-arrow-up" /></td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dave</td>
-                                                <td>53275535</td>
-                                                <td className="text-success"> 98.05% <i className="ti-arrow-up" /></td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Striped Table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-striped</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    User
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Progress
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face1.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '25%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face2.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '75%' }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face3.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '90%' }} aria-valuenow={90} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face4.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-primary" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face5.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '35%' }} aria-valuenow={35} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face6.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    John Doe
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-info" role="progressbar" style={{ width: '65%' }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 123.21
-                                                </td>
-                                                <td>
-                                                    April 05, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face7.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Henry Tom
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 150.00
-                                                </td>
-                                                <td>
-                                                    June 16, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Bordered table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-bordered</code>
-                                </p>
-                                <div className="table-responsive pt-3">
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Progress
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '25%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '75%' }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '90%' }} aria-valuenow={90} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-primary" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '35%' }} aria-valuenow={35} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    6
-                                                </td>
-                                                <td>
-                                                    John Doe
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-info" role="progressbar" style={{ width: '65%' }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 123.21
-                                                </td>
-                                                <td>
-                                                    April 05, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    7
-                                                </td>
-                                                <td>
-                                                    Henry Tom
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 150.00
-                                                </td>
-                                                <td>
-                                                    June 16, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Inverse table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-dark</code>
-                                </p>
-                                <div className="table-responsive pt-3">
-                                    <table className="table table-dark">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    6
-                                                </td>
-                                                <td>
-                                                    John Doe
-                                                </td>
-                                                <td>
-                                                    $ 123.21
-                                                </td>
-                                                <td>
-                                                    April 05, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    7
-                                                </td>
-                                                <td>
-                                                    Henry Tom
-                                                </td>
-                                                <td>
-                                                    $ 150.00
-                                                </td>
-                                                <td>
-                                                    June 16, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Table with contextual classes</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-{'{'}color{'}'}</code>
-                                </p>
-                                <div className="table-responsive pt-3">
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Product
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="table-info">
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    Photoshop
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-warning">
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    Flash
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-danger">
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    Premeire
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-success">
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    After effects
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-primary">
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    Illustrator
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

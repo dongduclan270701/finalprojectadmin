@@ -205,7 +205,7 @@ const Index = () => {
                                 <div className='row'>
                                     <div className="col-lg-6 grid-margin form-group" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                         <div className="form-group">
-                                            <img src={logo} style={{ width: "300px", borderRadius: "50%" }} />
+                                            <img src="https://i.postimg.cc/DwP04m9J/face1.jpg" style={{ width: "300px", borderRadius: "50%" }} />
                                         </div>
                                     </div>
                                     <div className="col-lg-6 grid-margin form-group">

@@ -51,6 +51,7 @@ import CreateInformationDiscount from 'components/Discount/Create-Discount'
 import ChartsOrders from 'components/Charts/Charts-orders'
 import ChartsProducts from 'components/Charts/Charts-products'
 import Website from 'components/Website/Website'
+import UpdateWebsite from 'components/Website/Update-Website'
 import Login from 'components/Login'
 import UpdateInformationLaptop from 'components/Products/Laptop/Update-Information-Product'
 import CreateInformationLaptop from 'components/Products/Laptop/Create-New-Product'
@@ -209,6 +210,7 @@ function App() {
     { path: "/charts-orders", location: ChartsOrders },
     { path: "/charts-products", location: ChartsProducts },
     { path: "/website", location: Website },
+    { path: "/website/update", location: UpdateWebsite },
   ])
   const [chooseSettingThemePages, setChooseSettingThemePages] = useState(false)
   const [isChooseShowicons, setIsChooseShowicons] = useState(false)
