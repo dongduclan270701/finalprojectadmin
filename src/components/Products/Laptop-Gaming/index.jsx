@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { fetchCollectingByName } from 'Apis'
 
 const Index = () => {
-    const [optionSelectLaptop, setOptionSelectLaptop] = useState(["ASUS", "ACER", "MSI", "LENOVO", "HP", "DELL", "GIGABYTE", "LG", "HUAWEI"])
+    const [collecting, setCollecting] = useState([])
+    const [optionSelectLaptop, setOptionSelectLaptop] = useState([])
+    const [optionSelectCollectingCPU, setOptionSelectCollectingCPU] = useState([])
+
+    const [optionSelectCollectingRanger, setOptionSelectCollectingRanger] = useState([])
+
+    const [optionSelectCollecting, setOptionSelectCollecting] = useState([])
+
     const [product, setProduct] = useState([
         {
             id: 1,
@@ -26,10 +35,49 @@ const Index = () => {
             src: "abc3"
         }
     ])
-    const [optionSelected, setOptionSelected] = useState("")
+
+    useEffect(() => {
+        fetchCollectingByName("Laptop Gaming")
+            .then(result => {
+                setCollecting(result.category)
+                console.log(result)
+                result.category.map((item, index) => {
+                    if (item.name === "Thương hiệu" || item.name === "Linh kiện & phụ kiện Laptop") {
+                        const category = item.collecting.map((item, index) => {
+                            return item.name
+                        })
+                        setOptionSelectLaptop(optionSelectLaptop => [...optionSelectLaptop, ...category])
+                    }
+                    else if (item.name === "Laptop theo giá bán") {
+                        const category = item.collecting.map((item, index) => {
+                            return item.name
+                        })
+                        setOptionSelectCollectingRanger(optionSelectCollectingRanger => [...optionSelectCollectingRanger, ...category])
+                    } else if (item.name === "Card đồ hoạ") {
+                        const category = item.collecting.map((item, index) => {
+                            return item.name
+                        })
+                        setOptionSelectCollectingCPU(optionSelectCollectingCPU => [...optionSelectCollectingCPU, ...category])
+                    }
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, []);
     const handleOptionSelected = (e) => {
         if (e.target.value !== null) {
-            setOptionSelected(e.target.value)
+            const findIndexOptionSelectCollecting = collecting.findIndex(index => index.name === "Thương hiệu")
+            const findIndexOptionSelectCollectingCategory = collecting[findIndexOptionSelectCollecting].collecting.findIndex(index => index.name === e.target.value)
+            if (findIndexOptionSelectCollectingCategory >= 0) {
+                const findOptionSelectCollectingCategory = collecting[findIndexOptionSelectCollecting].collecting[findIndexOptionSelectCollectingCategory].category.map((item, index) => {
+                    return item
+                })
+                setOptionSelectCollecting(findOptionSelectCollectingCategory)
+            }
+            else {
+                setOptionSelectCollecting([])
+            }
         }
     }
     return (
@@ -44,19 +92,17 @@ const Index = () => {
                                 <NavLink to={"/laptop-gaming/create"} className="card-description" style={{textDecoration:"none"}}>
                                     <code><i className="mdi mdi-plus-circle-outline" />  Thêm sản phẩm mới</code>
                                 </NavLink>
+                                <p className="card-description" style={{ display: "flex", "justifyContent": "flex-end" }}>
+                                    Tìm kiếm sản phẩm
+                                </p>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
-                                    <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent":"end" }}>
-                                        <p className="card-description" style={{ margin: "0" }}>
-                                            Tìm kiếm sản phẩm:
-                                        </p>
-                                    </div>
                                     <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
-                                            <input style={{borderRadius: "15px"}} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
+                                        <input style={{ borderRadius: "15px" }} type="text" className="form-control" placeholder="Tên sản phẩm" aria-label="Giá chính" />
                                     </ul>
                                     <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                         <li className="nav-item nav-search d-lg-block">
                                             <div className="input-group">
-                                                <select style={{borderRadius: "15px"}}  onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                <select style={{ borderRadius: "15px" }} onChange={handleOptionSelected} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                     <option value={null}>Chọn danh mục</option>\
                                                     {optionSelectLaptop.map((item, index) => {
                                                         return <option key={index} value={item}>{item}</option>
@@ -65,6 +111,45 @@ const Index = () => {
                                             </div>
                                         </li>
                                     </ul>
+                                    {optionSelectCollecting.length > 0 && <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                        <li className="nav-item nav-search d-lg-block">
+                                            <div className="input-group">
+                                                <select style={{ borderRadius: "15px" }} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                    <option value={null}>Chọn loại</option>\
+                                                    {optionSelectCollecting.map((item, index) => {
+                                                        return <option key={index} value={item.name}>{item.name}</option>
+                                                    })}
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    }
+                                    {optionSelectCollecting.length > 0 && optionSelectCollectingCPU.length > 0 && <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                        <li className="nav-item nav-search d-lg-block">
+                                            <div className="input-group">
+                                                <select style={{ borderRadius: "15px" }} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                    <option value={null}>Chọn loại CPU</option>\
+                                                    {optionSelectCollectingCPU.map((item, index) => {
+                                                        return <option key={index} value={item}>{item}</option>
+                                                    })}
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    }
+                                    {optionSelectCollecting.length > 0 && optionSelectCollectingRanger.length > 0 && <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                        <li className="nav-item nav-search d-lg-block">
+                                            <div className="input-group">
+                                                <select style={{ borderRadius: "15px" }} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                    <option value={null}>Chọn mức giá</option>\
+                                                    {optionSelectCollectingRanger.map((item, index) => {
+                                                        return <option key={index} value={item}>{item}</option>
+                                                    })}
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    }
 
                                 </div>
                                 <div className="table-responsive">

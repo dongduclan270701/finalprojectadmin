@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useRef, useEffect} from 'react';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 
@@ -17,6 +17,19 @@ const Index = (props) => {
             return <img src={image} key={index} className="img-fluid" alt="" />
         })
     }
+    const cloudinaryRef = useRef()
+    const widgetRef = useRef()
+    useEffect(() => {
+        cloudinaryRef.current = window.cloudinary;
+        console.log(cloudinaryRef)
+        widgetRef.current = cloudinaryRef.current.createUploadWidget({
+            cloudName:"dolydpat4",
+            uploadPreset:"p0kgb66h"
+        }, function(error, result){
+            console.log(result)
+        })
+        
+    }, []);
 
     const handleChangeInput = (event, indexInput) => {
         const { name, value } = event.target
@@ -111,7 +124,7 @@ const Index = (props) => {
                                         <div className="input-group col-xs-12">
                                             <input onChange={getImg} type="file" className="form-control file-upload-info" placeholder="Upload Image" multiple />
                                             <span className="input-group-append">
-                                                <button className="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                                <button onClick={() => widgetRef.current.open()} className="file-upload-browse btn btn-primary" type="button">Upload</button>
                                             </span>
                                         </div>
                                     </div>
@@ -198,27 +211,27 @@ const Index = (props) => {
                                     <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
                                     <div className="form-group">
                                         <label>Ưu đãi</label>
-                                        {inputElement.offer_buy.length > 1 ? inputElement.offer_buy.map((item, index) => {
+                                        {inputElement.gift_buy.length > 1 ? inputElement.gift_buy.map((item, index) => {
                                             return <div key={index} className='row' style={{ margin: "0 auto" }}>
                                                 <div className='col-10' style={{ paddingLeft: "0" }}>
-                                                    <input name="offer_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
+                                                    <input name="gift_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
                                                 </div>
                                                 <div className='col-2' style={{ paddingLeft: "0" }}>
-                                                    <button onClick={() => handleRemove("offer_buy", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                                    <button onClick={() => handleRemove("gift_buy", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
                                                 </div>
                                             </div>
                                         })
                                             :
-                                            inputElement.offer_buy.map((item, index) => {
+                                            inputElement.gift_buy.map((item, index) => {
                                                 return <div key={index} className='row' style={{ margin: "0 auto" }}>
                                                     <div className='col-12' style={{ paddingLeft: "0" }}>
-                                                        <input name="offer_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
+                                                        <input name="gift_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
                                                     </div>
 
                                                 </div>
                                             })
                                         }
-                                        <button onClick={() => handleAdd("offer_buy")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                        <button onClick={() => handleAdd("gift_buy")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
                                     </div>
                                 </div>
                             </div>

@@ -9,7 +9,7 @@ const Index = () => {
         img: [],
         src: "",
         gift: [""],
-        offer_buy: [""],
+        gift_buy: [""],
         nameProduct: "",
         realPrice: 0,
         nowPrice: 0,

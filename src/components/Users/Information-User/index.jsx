@@ -364,7 +364,7 @@ const Index = () => {
                                     <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
                                     <div className="form-group">
                                         <label>Ưu đãi</label>
-                                        {inputElement.offer_buy.map((item, index) => {
+                                        {inputElement.gift_buy.map((item, index) => {
                                             return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
                                         })}
                                     </div>

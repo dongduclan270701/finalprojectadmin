@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import CreateForm from 'components/Utils/Create-Form'
+import axios from 'axios'
+import { uploadUrl, apiKey } from 'Apis/utils'
 
 const Index = () => {
     const navigate = useNavigate();
@@ -9,7 +11,7 @@ const Index = () => {
         img: [],
         src: "",
         gift: [""],
-        offer_buy: [""],
+        gift_buy: [""],
         nameProduct: "",
         realPrice: 0,
         nowPrice: 0,
@@ -25,6 +27,9 @@ const Index = () => {
         sold: 0,
         view: 0
     })
+
+    const [listImage, setListImage] = useState()
+
     const [options, setOptions] = useState([
         {
             label: 'Angular',
@@ -55,22 +60,51 @@ const Index = () => {
             value: 'Vue.js3',
         },
     ])
+
     useEffect(() => {
         inputElement.category.map((item) => {
             setOptions(options => [...options, { label: item, value: item }])
         })
+
     }, []);
     const hanldGetData = (data) => {
         setInputElement(data)
+
+    }
+    const hanldGetImage = (files) => {
+        setListImage(files)
     }
     const handleSubmitUpdated = () => {
-        Swal.fire({
-            title: 'Tạo sản phẩm thành công!',
-            text: 'Bạn đã tạo mới thành công thông tin sản phẩm',
-            icon: 'success',
-            confirmButtonText: 'OK!'
-        })
+        const formData = new FormData();
+        for (let i = 0; i < listImage.length; i++) {
+            formData.append('file', listImage[i]);
+            formData.append('upload_preset', apiKey);
+            axios.post(uploadUrl, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then((response) => {
+                    inputElement.img.push(response.data.secure_url);
+
+                    if (i === listImage.length - 1) {
+                        //Post axios
+
+                        Swal.fire({
+                            title: 'Tạo sản phẩm thành công!',
+                            text: 'Bạn đã tạo mới thành công thông tin sản phẩm',
+                            icon: 'success',
+                            confirmButtonText: 'OK!'
+                        })
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
     }
+
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -83,7 +117,7 @@ const Index = () => {
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
                     <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
                 </div>
-                <CreateForm inputElement={inputElement} options={options} hanldGetData={hanldGetData}/>
+                <CreateForm inputElement={inputElement} options={options} hanldGetImage={hanldGetImage} hanldGetData={hanldGetData} />
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}
