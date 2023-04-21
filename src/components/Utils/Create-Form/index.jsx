@@ -72,6 +72,12 @@ const Index = (props) => {
                 [name]: value
             }));
         }
+        else if (indexInput === "nullNumber") {
+            hanldGetData(inputElement => ({
+                ...inputElement,
+                [name]: parseInt(value)
+            }));
+        }
         else {
             hanldGetData(inputElement => ({
                 ...inputElement,
@@ -150,29 +156,19 @@ const Index = (props) => {
                             </div>
                             <div className="form-group">
                                 <label>Giá chính</label>
-                                <input onChange={(e) => handleChangeInput(e, null)} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} />
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} />
                             </div>
                             <div className="form-group">
                                 <label>Giá giảm</label>
-                                <input onChange={(e) => handleChangeInput(e, null)} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} />
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} />
                             </div>
                             <div className="form-group">
                                 <label>Phần trăm giảm giá</label>
-                                <input onChange={(e) => handleChangeInput(e, null)} name="percent" type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} />
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="percent" type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} />
                             </div>
                             <div className="form-group">
                                 <label>Số lượng</label>
-                                <input onChange={(e) => handleChangeInput(e, null)} name="quantity" type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} />
-                            </div>
-                            <div className='row' style={{ paddingTop: "0" }}>
-                                <div className="col-6 form-group">
-                                    <label>Đã bán</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Đã bán" aria-label="Đã bán" value={inputElement.sold} disabled />
-                                </div>
-                                <div className="col-6 form-group">
-                                    <label>Lượt xem</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Lượt xem" aria-label="Lượt xem" value={inputElement.view} disabled />
-                                </div>
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="quantity" type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} />
                             </div>
                             <div className="form-group">
                                 <label>Danh mục</label>

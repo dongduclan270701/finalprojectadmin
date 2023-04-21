@@ -1,35 +1,30 @@
-import React,{ useRef, useEffect} from 'react';
+import React,{ useState, useRef, useEffect} from 'react';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 
 const Index = (props) => {
-    const {inputElement, options, hanldGetData} = props
+    const {inputElement, options, hanldGetData, hanldGetImage} = props
+    const [listImageChoose, setListImageChoose] = useState([])
     const getImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        hanldGetData(inputElement => ({
-            ...inputElement,
-            img: fileArray
-        }))
+        const file = e.target.files;
+        setListImageChoose([...fileArray])
+        if( file ){
+            hanldGetImage(file)
+        }
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
     const renderImages = (source) => {
         return source.map((image, index) => {
-            return <img src={image} key={index} className="img-fluid" alt="" />
+            return <img src={image} key={index} style={{width:"250px", height:"250px"}} className="img-fluid" alt="" />
         })
     }
-    const cloudinaryRef = useRef()
-    const widgetRef = useRef()
+    // const cloudinaryRef = useRef()
+    // const widgetRef = useRef()
     useEffect(() => {
-        cloudinaryRef.current = window.cloudinary;
-        console.log(cloudinaryRef)
-        widgetRef.current = cloudinaryRef.current.createUploadWidget({
-            cloudName:"dolydpat4",
-            uploadPreset:"p0kgb66h"
-        }, function(error, result){
-            console.log(result)
-        })
+        setListImageChoose(inputElement.img)
         
-    }, []);
+    }, [inputElement]);
 
     const handleChangeInput = (event, indexInput) => {
         const { name, value } = event.target
@@ -69,6 +64,12 @@ const Index = (props) => {
             hanldGetData(inputElement => ({
                 ...inputElement,
                 [name]: value
+            }));
+        }
+        else if (indexInput === "nullNumber") {
+            hanldGetData(inputElement => ({
+                ...inputElement,
+                [name]: parseInt(value)
             }));
         }
         else {
@@ -124,12 +125,12 @@ const Index = (props) => {
                                         <div className="input-group col-xs-12">
                                             <input onChange={getImg} type="file" className="form-control file-upload-info" placeholder="Upload Image" multiple />
                                             <span className="input-group-append">
-                                                <button onClick={() => widgetRef.current.open()} className="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                                <button className="file-upload-browse btn btn-primary" type="button">Upload</button>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                {renderImages(inputElement.img)}
+                                {renderImages(listImageChoose)}
                             </div>
                         </div>
                     </div>
@@ -148,19 +149,19 @@ const Index = (props) => {
                                     </div>
                                     <div className="form-group">
                                         <label>Giá chính</label>
-                                        <input onChange={(e) => handleChangeInput(e, null)} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} />
+                                        <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} />
                                     </div>
                                     <div className="form-group">
                                         <label>Giá giảm</label>
-                                        <input onChange={(e) => handleChangeInput(e, null)} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} />
+                                        <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} />
                                     </div>
                                     <div className="form-group">
                                         <label>Phần trăm giảm giá</label>
-                                        <input onChange={(e) => handleChangeInput(e, null)} name="percent" type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} />
+                                        <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="percent" type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} />
                                     </div>
                                     <div className="form-group">
                                         <label>Số lượng</label>
-                                        <input onChange={(e) => handleChangeInput(e, null)} name="quantity" type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} />
+                                        <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="quantity" type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} />
                                     </div>
                                     <div className='row' style={{ paddingTop: "0" }}>
                                         <div className="col-6 form-group">

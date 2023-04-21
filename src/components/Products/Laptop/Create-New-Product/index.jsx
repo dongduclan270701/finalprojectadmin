@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import CreateForm from 'components/Utils/Create-Form'
 import axios from 'axios'
 import { uploadUrl, apiKey } from 'Apis/utils'
+import { fetchCreateLaptopCollecting, fetchCollectingByName } from 'Apis'
 
 const Index = () => {
     const navigate = useNavigate();
@@ -12,60 +13,70 @@ const Index = () => {
         src: "",
         gift: [""],
         gift_buy: [""],
+        percent: 0,
+        quantity: 0,
         nameProduct: "",
         realPrice: 0,
         nowPrice: 0,
-        percent: 0,
+        sold: 0,
+        view: 0,
         description_table: [
             ["", ""]
         ],
         description: [
             ["", ""]
         ],
-        quantity: 0,
         category: [],
-        sold: 0,
-        view: 0
     })
 
     const [listImage, setListImage] = useState()
 
-    const [options, setOptions] = useState([
-        {
-            label: 'Angular',
-            value: 'Angular',
-        },
-        {
-            label: 'Bootstrap',
-            value: 'Bootstrap',
-        },
-        {
-            label: 'React.js',
-            value: 'React.js',
-        },
-        {
-            label: 'Vue.js',
-            value: 'Vue.js',
-        },
-        {
-            label: 'Vue.js1',
-            value: 'Vue.js1',
-        },
-        {
-            label: 'Vue.js2',
-            value: 'Vue.js2',
-        },
-        {
-            label: 'Vue.js3',
-            value: 'Vue.js3',
-        },
-    ])
-
+    const [options, setOptions] = useState([])
     useEffect(() => {
-        inputElement.category.map((item) => {
-            setOptions(options => [...options, { label: item, value: item }])
-        })
-
+        fetchCollectingByName("Laptop")
+            .then(result => {
+                console.log(result.category)
+                // setCollecting(result.category)
+                result.category.map((item, index) => {
+                    if (item.name === "Thương hiệu" ) {
+                        const category = item.collecting.map((item, index) => {
+                            return { label: item.name, value: item.name }
+                        })
+                        setOptions(options => [...options, ...category])
+                    }
+                    if (item.name === "Thương hiệu" ) {
+                        item.collecting.map((item, index) => {
+                            const categoryInCollecting = item.category.map((i, index) => {
+                                
+                                return { label: i.name, value: i.name }
+                            })
+                            setOptions(options => [...options, ...categoryInCollecting])
+                            return categoryInCollecting
+                        })
+                        
+                    }
+                    if (item.name === "Laptop nhu cầu" || item.name === "Linh kiện & phụ kiện Laptop") {
+                        const category = item.collecting.map((item, index) => {
+                            return { label: item.name, value: item.name }
+                        })
+                        setOptions(options => [...options, ...category])
+                    }
+                    else if (item.name === "Laptop theo giá bán") {
+                        const category = item.collecting.map((item, index) => {
+                            return { label: item.name, value: item.name }
+                        })
+                        setOptions(options => [...options, ...category])
+                    } else if (item.name === "Laptop theo CPU") {
+                        const category = item.collecting.map((item, index) => {
+                            return { label: item.name, value: item.name }
+                        })
+                        setOptions(options => [...options, ...category])
+                    }
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }, []);
     const hanldGetData = (data) => {
         setInputElement(data)
@@ -74,33 +85,75 @@ const Index = () => {
     const hanldGetImage = (files) => {
         setListImage(files)
     }
-    const handleSubmitUpdated = () => {
+    const handleSubmitCreate = () => {
         const formData = new FormData();
-        for (let i = 0; i < listImage.length; i++) {
-            formData.append('file', listImage[i]);
-            formData.append('upload_preset', apiKey);
-            axios.post(uploadUrl, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+        if (!inputElement.img || !inputElement.src || !inputElement.gift || !inputElement.gift_buy || !inputElement.nameProduct || !inputElement.description_table || !inputElement.description || !inputElement.category) {
+
+            Swal.fire({
+                title: 'Cảnh báo!',
+                text: 'Bạn chưa nhập đủ thông tin sản phẩm, vui lòng thử lại!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
             })
-                .then((response) => {
-                    inputElement.img.push(response.data.secure_url);
-
-                    if (i === listImage.length - 1) {
-                        //Post axios
-
-                        Swal.fire({
-                            title: 'Tạo sản phẩm thành công!',
-                            text: 'Bạn đã tạo mới thành công thông tin sản phẩm',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
+        }
+        else {
+            for (let i = 0; i < listImage.length; i++) {
+                formData.append('file', listImage[i]);
+                formData.append('upload_preset', apiKey);
+                axios.post(uploadUrl, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
                     }
                 })
-                .catch((error) => {
-                    console.log(error);
-                });
+                    .then((response) => {
+                        inputElement.img.push(response.data.secure_url);
+                        if (i === listImage.length - 1) {
+                            //Post axios
+                            fetchCreateLaptopCollecting(inputElement)
+                                .then(result => {
+                                    Swal.fire({
+                                        title: 'Tạo sản phẩm thành công!',
+                                        text: 'Bạn đã tạo mới thành công thông tin sản phẩm',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK!'
+                                    })
+                                    setInputElement({
+                                        img: [],
+                                        src: "",
+                                        gift: [""],
+                                        gift_buy: [""],
+                                        percent: 0,
+                                        quantity: 0,
+                                        nameProduct: "",
+                                        realPrice: 0,
+                                        nowPrice: 0,
+                                        sold: 0,
+                                        view: 0,
+                                        description_table: [
+                                            ["", ""]
+                                        ],
+                                        description: [
+                                            ["", ""]
+                                        ],
+                                        category: [],
+                                    })
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                    Swal.fire({
+                                        title: 'Tạo sản phẩm thất bại!',
+                                        text: 'Bạn tạo mới sản phẩm thất bại',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK!'
+                                    })
+                                })
+
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
         }
 
     }
@@ -115,7 +168,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
+                    <button onClick={handleSubmitCreate} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
                 </div>
                 <CreateForm inputElement={inputElement} options={options} hanldGetImage={hanldGetImage} hanldGetData={hanldGetData} />
             </div>
