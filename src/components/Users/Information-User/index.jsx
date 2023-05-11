@@ -26,7 +26,7 @@ const Index = () => {
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -44,12 +44,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Đã xác nhận thông tin thanh toán",
+                    status: "Payment information confirmed",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -67,12 +67,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -90,12 +90,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Đang vận chuyển",
+                    status: "Being transported",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -113,12 +113,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Giao hàng thành công",
+                    status: "Delivery successful",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -141,7 +141,7 @@ const Index = () => {
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -299,8 +299,8 @@ const Index = () => {
                                                         <td>
                                                             <label
                                                                 className={item.status === "Đã huỷ" ? "badge badge-danger" :
-                                                                    item.status === "Đã xác nhận thông tin thanh toán" ? "badge badge-warning" :
-                                                                        item.status === "Giao hàng thành công" ? "badge badge-success" :
+                                                                    item.status === "Payment information confirmed" ? "badge badge-warning" :
+                                                                        item.status === "Delivery successful" ? "badge badge-success" :
                                                                             item.status === "Đã Đặt đơn hàng" ? "badge badge-warning" : "badge badge-primary"
                                                                 }
                                                                 style={{ marginRight: "10px" }}>

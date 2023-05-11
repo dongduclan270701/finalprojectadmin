@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { fetchAdminDetails } from 'Apis'
 const Index = () => {
     const navigate = useNavigate()
     const [inputLogin, setInputLogin] = useState({ email: "", password: "" })
@@ -13,25 +14,54 @@ const Index = () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (re.test(inputLogin.email) === true && inputLogin.password.length >= 8 && /[A-Z]/.test(inputLogin.password)) {
             let countdown = 5;
-            Swal.fire({
-                title: 'Đăng nhập thành công!',
-                html: `Bạn sẽ được chuyển đến trang quản lý trong <span></span> giây`,
-                icon: 'success',
-                confirmButtonText: 'OK!',
-                timer: 5000,
-                didOpen: () => {
-                    const timerId = setInterval(() => {
-                        countdown--;
-                        Swal.getHtmlContainer().querySelector('span')
-                            .textContent = (Swal.getTimerLeft() / 1000)
-                                .toFixed(0)
-                    }, 100);
-                    setTimeout(() => {
-                        clearInterval(timerId);
-                        navigate("/")
-                    }, 5000);
-                }
-            });
+
+            fetchAdminDetails(inputLogin.email, inputLogin.password)
+                .then(result => {
+                    console.log(result)
+                    if (result === 'Email không tồn tại') {
+                        Swal.fire({
+                            title: 'Email không đúng!',
+                            text: 'Email này không đúng yêu cầu thử lại email khác!',
+                            icon: 'error',
+                            confirmButtonText: 'OK!'
+                        })
+                    } else if (result === 'Mật khẩu không chính xác') {
+                        Swal.fire({
+                            title: 'Mật khẩu không đúng!',
+                            text: 'Mật khẩu này chưa đúng vậy lòng thử lại',
+                            icon: 'error',
+                            confirmButtonText: 'OK!'
+                        })
+                    } else {
+                        localStorage.setItem("auth-token-admin", JSON.stringify(result.token));
+                        Swal.fire({
+                            title: 'Đăng nhập thành công!',
+                            html: `Bạn sẽ được chuyển đến trang quản lý trong <span></span> giây`,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            didOpen: () => {
+                                const timerId = setInterval(() => {
+                                    countdown--;
+                                    Swal.getHtmlContainer().querySelector('span')
+                                        .textContent = (Swal.getTimerLeft() / 1000)
+                                            .toFixed(0)
+                                }, 100);
+                                setTimeout(() => {
+                                    clearInterval(timerId);
+                                    if (window.location.pathname !== '/login') {
+                                        window.location.reload();
+                                    } else {
+                                        navigate(-1);
+                                    }
+                                }, 5000);
+                            },
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
         if (re.test(inputLogin.email) === false) {
             Swal.fire({

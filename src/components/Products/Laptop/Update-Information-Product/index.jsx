@@ -31,13 +31,13 @@ const Index = () => {
         fetchCollectingByName("Laptop")
             .then(result => {
                 result.category.map((item, index) => {
-                    if (item.name === "Thương hiệu" ) {
+                    if (item.name === "Brand Name" ) {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
                     }
-                    if (item.name === "Thương hiệu" ) {
+                    if (item.name === "Brand Name" ) {
                         item.collecting.map((item, index) => {
                             const categoryInCollecting = item.category.map((i, index) => {
                                 
@@ -48,18 +48,18 @@ const Index = () => {
                         })
                         
                     }
-                    if (item.name === "Laptop nhu cầu" || item.name === "Linh kiện & phụ kiện Laptop") {
+                    if (item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
                     }
-                    else if (item.name === "Laptop theo giá bán") {
+                    else if (item.name === "Laptop by price") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
-                    } else if (item.name === "Laptop theo CPU") {
+                    } else if (item.name === "Laptop by CPU") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })

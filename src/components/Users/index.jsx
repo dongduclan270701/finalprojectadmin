@@ -14,12 +14,12 @@ const Index = () => {
             order_buy: [
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -47,12 +47,12 @@ const Index = () => {
             order_buy: [
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -70,12 +70,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -104,12 +104,12 @@ const Index = () => {
             order_buy: [
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -127,12 +127,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [
@@ -150,12 +150,12 @@ const Index = () => {
                 },
                 {
                     id: "123987qưe",
-                    status: "Đã giao cho bên vận chuyển",
+                    status: "Delivered to the carrier",
                     username: "Đồng Đức Lân",
                     phoneNumber: "0379382992",
                     address: "hoàng mai, hà nội",
                     shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Đã đặt đơn hàng" }
+                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
                     ],
                     method_payment: "Thanh toán khi nhận hàng",
                     discount: [

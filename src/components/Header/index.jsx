@@ -7,6 +7,12 @@ const Index = (props) => {
     const {getChooseSettingThemePages, isChooseShowicons, getSettingChooseShowIconOnly, isShowSideBarRes, getShowSideBarRes} = props
     const [chooseNotifications, setChooseNotifications] = useState(false)
     const [chooseSettingUser, setChooseSettingUser] = useState(false)
+
+    const handleLogout = () => {
+        localStorage.removeItem("auth-token-admin");
+        window.location.reload();
+    }
+
     return (
         <nav className={"navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row " + getChooseSettingThemePages}>
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -76,7 +82,7 @@ const Index = (props) => {
                                     <i className="ti-settings text-primary" />
                                     Settings
                                 </a>
-                                <a className="dropdown-item">
+                                <a onClick={handleLogout} className="dropdown-item">
                                     <i className="ti-power-off text-primary" />
                                     Logout
                                 </a>

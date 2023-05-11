@@ -18,18 +18,18 @@ const Index = () => {
             .then(result => {
                 setCollecting(result.category)
                 result.category.map((item, index) => {
-                    if (item.name === "Thương hiệu" || item.name === "Laptop nhu cầu" || item.name === "Linh kiện & phụ kiện Laptop") {
+                    if (item.name === "Brand Name" || item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })
                         setOptionSelectLaptop(optionSelectLaptop => [...optionSelectLaptop, ...category])
                     }
-                    else if (item.name === "Laptop theo giá bán") {
+                    else if (item.name === "Laptop by price") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })
                         setOptionSelectCollectingRanger(optionSelectCollectingRanger => [...optionSelectCollectingRanger, ...category])
-                    } else if (item.name === "Laptop theo CPU") {
+                    } else if (item.name === "Laptop by CPU") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })
@@ -94,7 +94,7 @@ const Index = () => {
         const { name, value } = e.target
         setProduct()
         if (value !== null) {
-            const findIndexOptionSelectCollecting = collecting.findIndex(index => index.name === "Thương hiệu")
+            const findIndexOptionSelectCollecting = collecting.findIndex(index => index.name === "Brand Name")
             const findIndexOptionSelectCollectingCategory = collecting[findIndexOptionSelectCollecting].collecting.findIndex(index => index.name === e.target.value)
             if (findIndexOptionSelectCollectingCategory >= 0) {
                 const findOptionSelectCollectingCategory = collecting[findIndexOptionSelectCollecting].collecting[findIndexOptionSelectCollectingCategory].category.map((item, index) => {

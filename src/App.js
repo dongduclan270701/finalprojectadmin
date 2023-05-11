@@ -235,7 +235,7 @@ function App() {
         {page.map((item, index) => {
           const TagName1 = item.location
           return <Route key={index} path={item.path} element={
-            <div className={isChooseShowicons ? 'sidebar-icon-only' : null}>
+            JSON.parse(localStorage.getItem('auth-token-admin')) ? <div className={isChooseShowicons ? 'sidebar-icon-only' : null}>
               <div className="container-scroller" >
                 <Header
                   getChooseSettingThemePages={getChooseSettingThemePages}
@@ -258,6 +258,8 @@ function App() {
                 </div>
               </div>
             </div>
+            :
+            <><Login /></>
           }>
           </Route>
         })}
