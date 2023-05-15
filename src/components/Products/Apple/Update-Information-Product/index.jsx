@@ -67,7 +67,7 @@ const Index = () => {
         })
     }, []);
 
-    const hanldGetData = (data) => {
+    const handleGetData = (data) => {
         setInputElement(data)
     }
     console.log(inputElement)
@@ -91,7 +91,7 @@ const Index = () => {
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
                     <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
                 </div>
-                <UpdateForm inputElement={inputElement} options={options} hanldGetData={hanldGetData}/>
+                <UpdateForm inputElement={inputElement} options={options} handleGetData={handleGetData}/>
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

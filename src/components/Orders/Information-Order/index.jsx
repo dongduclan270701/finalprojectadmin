@@ -104,7 +104,7 @@ const Index = () => {
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const year = date.getFullYear();
-        const today = `${day}/${month}/${year}`;
+        const today = `${year}-${month}-${day}`;
         if (selectedCategory.value === 'Payment information confirmed') {
             Swal.fire({
                 title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',

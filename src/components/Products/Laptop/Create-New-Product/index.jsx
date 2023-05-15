@@ -76,11 +76,11 @@ const Index = () => {
                 console.log(err)
             })
     }, []);
-    const hanldGetData = (data) => {
+    const handleGetData = (data) => {
         setInputElement(data)
 
     }
-    const hanldGetImage = (files) => {
+    const handleGetImage = (files) => {
         setListImage(files)
     }
     const handleSubmitCreate = () => {
@@ -168,7 +168,7 @@ const Index = () => {
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
                     <button onClick={handleSubmitCreate} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
                 </div>
-                <CreateForm inputElement={inputElement} options={options} hanldGetImage={hanldGetImage} hanldGetData={hanldGetData} />
+                <CreateForm inputElement={inputElement} options={options} handleGetImage={handleGetImage} handleGetData={handleGetData} />
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

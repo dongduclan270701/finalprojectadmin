@@ -72,10 +72,10 @@ const Index = () => {
             })
     }, []);
 
-    const hanldGetData = (data) => {
+    const handleGetData = (data) => {
         setInputElement(data)
     }
-    const hanldGetImage = (files) => {
+    const handleGetImage = (files) => {
         setListImage(files)
     }
     // console.log(inputElement)
@@ -166,7 +166,7 @@ const Index = () => {
                     <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
                 </div>
                 {inputElement ?
-                    <UpdateForm inputElement={inputElement} hanldGetImage={hanldGetImage} options={options} hanldGetData={hanldGetData} />
+                    <UpdateForm inputElement={inputElement} handleGetImage={handleGetImage} options={options} handleGetData={handleGetData} />
                     :
                     <>
                         <style dangerouslySetInnerHTML={{

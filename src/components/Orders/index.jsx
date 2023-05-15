@@ -25,7 +25,7 @@ const Index = () => {
                 }
             })
     }, []);
-    const hanldSetPage = (count) => {
+    const handleSetPage = (count) => {
         setOrderList()
     }
     const [searchData, setSearchData] = useState({ orderId: "", status: "", firstDate: "", endDate: today })
@@ -204,11 +204,11 @@ const Index = () => {
                                         </table>
                                     </div>
                                     <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                        {countPage - 1 > 0 ? <button type="button" onClick={() => { hanldSetPage(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
+                                        {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPage(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
                                         <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
-                                        {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { hanldSetPage(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
+                                        {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPage(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
                                         {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
-                                        {countPage === countMaxPage ? null : <button type="button" onClick={() => { hanldSetPage(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                        {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPage(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                     </div>
                                 </>
                                     :

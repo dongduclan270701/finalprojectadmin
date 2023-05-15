@@ -3,14 +3,14 @@ import Select from "react-select"
 import makeAnimated from "react-select/animated"
 
 const Index = (props) => {
-    const {inputElement, options, hanldGetData, hanldGetImage} = props
+    const {inputElement, options, handleGetData, handleGetImage} = props
     const [listImageChoose, setListImageChoose] = useState([])
     const getImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
         const file = e.target.files;
         setListImageChoose([...fileArray])
         if( file ){
-            hanldGetImage(file)
+            handleGetImage(file)
         }
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
@@ -29,7 +29,7 @@ const Index = (props) => {
     const handleChangeInput = (event, indexInput) => {
         const { name, value } = event.target
         if (name === "NameDescriptionTable" || name === "ContentDescriptionTable") {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 description_table: inputElement.description_table.map((row, index) => {
                     if (index === indexInput) {
@@ -45,7 +45,7 @@ const Index = (props) => {
             }));
         }
         else if (name === "NameDescription" || name === "ContentDescription") {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 description: inputElement.description.map((row, index) => {
                     if (index === indexInput) {
@@ -61,19 +61,19 @@ const Index = (props) => {
             }));
         }
         else if (indexInput === null) {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 [name]: value
             }));
         }
         else if (indexInput === "nullNumber") {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 [name]: parseInt(value)
             }));
         }
         else {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 [name]: inputElement[name].map((row, index) => {
                     if (index === indexInput) {
@@ -85,29 +85,29 @@ const Index = (props) => {
         }
     }
     const handleAddDescriptionAndDescriptionTable = (name) => {
-        hanldGetData(inputElement => ({
+        handleGetData(inputElement => ({
             ...inputElement,
             [name]: [...inputElement[name], ["", ""]]
         }));
     }
     const handleRemoveDescriptionAndDescriptionTable = (name, removeIndex) => {
         const updatedDescription = inputElement[name].filter((item, index) => index !== removeIndex);
-        hanldGetData({ ...inputElement, [name]: updatedDescription });
+        handleGetData({ ...inputElement, [name]: updatedDescription });
     };
 
     const handleAdd = (name) => {
-        hanldGetData(inputElement => ({
+        handleGetData(inputElement => ({
             ...inputElement,
             [name]: [...inputElement[name], ""]
         }));
     }
     const handleRemove = (name, removeIndex) => {
         const updatedGift = inputElement[name].filter((item, index) => index !== removeIndex);
-        hanldGetData({ ...inputElement, [name]: updatedGift });
+        handleGetData({ ...inputElement, [name]: updatedGift });
     };
 
     const handleSelectedOptionsChange = (selectedCategory) => {
-        hanldGetData(prevState => ({
+        handleGetData(prevState => ({
             ...prevState,
             category: selectedCategory.map(option => option.value)
         }));

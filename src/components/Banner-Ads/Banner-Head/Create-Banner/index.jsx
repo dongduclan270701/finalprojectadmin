@@ -16,7 +16,7 @@ const Index = () => {
         view: 0
     })
 
-    const hanldGetData = (data) => {
+    const handleGetData = (data) => {
         setInputElement(data)
     }
 
@@ -40,7 +40,7 @@ const Index = () => {
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
                     <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
                 </div>
-                <CreateBanner inputElement={inputElement} hanldGetData={hanldGetData}/>
+                <CreateBanner inputElement={inputElement} handleGetData={handleGetData}/>
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

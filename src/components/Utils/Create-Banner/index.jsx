@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Index = (props) => {
-    const { inputElement , hanldGetData } = props;
+    const { inputElement , handleGetData } = props;
     const getImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        hanldGetData(inputElement => ({
+        handleGetData(inputElement => ({
             ...inputElement,
             img: fileArray
         }))
@@ -17,12 +17,12 @@ const Index = (props) => {
     const handleChangeInput = (event, data) => {
         const { name, value } = event.target
         if (data !== "status") {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 [name]: value
             }));
         } else {
-            hanldGetData(inputElement => ({
+            handleGetData(inputElement => ({
                 ...inputElement,
                 [data]: !inputElement.status
             }));

@@ -10,7 +10,7 @@ const Index = () => {
         setInputLogin({ ...inputLogin, [name]: value });
     };
 
-    const hanldLogin = () => {
+    const handleLogin = () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (re.test(inputLogin.email) === true && inputLogin.password.length >= 8 && /[A-Z]/.test(inputLogin.password)) {
             let countdown = 5;
@@ -83,7 +83,7 @@ const Index = () => {
     const handleOnKeyDown = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            hanldLogin()
+            handleLogin()
         }
     }
     return (
@@ -125,7 +125,7 @@ const Index = () => {
                                         />
                                     </div>
                                     <div className="mt-3">
-                                        <button type='button' onClick={hanldLogin} className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Đăng nhập</button>
+                                        <button type='button' onClick={handleLogin} className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Đăng nhập</button>
                                     </div>
                                 </form>
                             </div>
