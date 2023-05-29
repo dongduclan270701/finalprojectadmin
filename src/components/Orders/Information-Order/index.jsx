@@ -8,6 +8,7 @@ import logo from 'assets/images/faces/face1.jpg'
 import 'assets/scss/Information-Order.css'
 import Swal from 'sweetalert2'
 import { fetchOrderInformation, fetchUpdateOrder } from 'Apis'
+import ShowRating from 'components/Orders/ShowRating'
 
 const Index = () => {
     const params = useParams()
@@ -39,6 +40,8 @@ const Index = () => {
         "Being transported",
         "Delivery successful",
     ]);
+    const [toggleShowRate, setToggleShowRate] = useState(false);
+    const handleToggleShowRate = () => setToggleShowRate(!toggleShowRate);
 
     useEffect(() => {
         fetchOrderInformation(params.id)
@@ -77,7 +80,6 @@ const Index = () => {
             .catch(error => {
                 console.log(error)
             })
-
     }, []);
 
 
@@ -138,7 +140,7 @@ const Index = () => {
                             Swal.fire({
                                 title: 'Lưu thất bại!',
                                 text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                icon: 'success',
+                                icon: 'error',
                                 confirmButtonText: 'OK!'
                             })
                         })
@@ -181,7 +183,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -231,7 +233,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -291,7 +293,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -351,7 +353,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -401,7 +403,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -465,7 +467,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -525,7 +527,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -583,7 +585,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -633,7 +635,7 @@ const Index = () => {
                                 Swal.fire({
                                     title: 'Lưu thất bại!',
                                     text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
-                                    icon: 'success',
+                                    icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
                             })
@@ -694,6 +696,9 @@ const Index = () => {
                                             :
                                             <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" />}
                                     </div>
+                                    {order.statusReview.status === true && <div className="row form-group" style={{margin:"0 auto", display:"flex", alignItems:"center"}}>
+                                        <button onClick={handleToggleShowRate} style={{margin: "0 auto"}} type="button" className="col-lg-2 btn btn-outline-secondary ">Xem đánh giá</button>
+                                    </div>}
                                     {order.status === "Đã huỷ" ?
                                         <div className="form-group">
                                             <h4>Lý do huỷ đơn hàng</h4>
@@ -793,86 +798,15 @@ const Index = () => {
                             }
                         </div>
                     </div>
-
-                    {/* <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title">Thông số sản phẩm</h4>
-                                    {order.description_table.map((item, index) => {
-                                        return <div className="form-group" key={index}>
-                                            <label>{item[0]}</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder={item[0]} aria-label={item[0]} value={item[1]} disabled />
-                                        </div>
-                                    })}
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Mô tả sản phẩm</h4>
-                                    <div className='row' style={{ margin: "inherit" }}>
-                                        <div className='col-6' style={{ paddingLeft: "0" }}>
-                                            <label>Tiêu đề:</label>
-                                        </div>
-                                        <div className='col-6' style={{ padding: "0" }}>
-                                            <label>Nội dung:</label>
-                                        </div>
-                                    </div>
-                                    {order.description.map((item, index) => {
-                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <textarea name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
-                                            </div>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <textarea name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
-                                            </div>
-                                        </div>
-                                    })}
-                                </div>
-                            </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Ưu đãi</label>
-                                        {order.gift_buy.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Quà tặng</h4>
-                                    <div className="form-group">
-                                        <label>Quà tặng</label>
-                                        {order.gift.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> */}
-
                 </div>
             </div>
-            {/* content-wrapper ends */}
-            {/* partial:../../partials/_footer.html */}
             <footer className="footer">
                 <div className="d-sm-flex justify-content-center justify-content-sm-between">
                     <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
                     <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
                 </div>
             </footer>
-            {/* partial */}
+            {order && order.statusReview.status === true &&<ShowRating toggleShowRate={toggleShowRate} onHandleToggleShowRate={handleToggleShowRate} order={order}/>}
         </div>
     );
 }

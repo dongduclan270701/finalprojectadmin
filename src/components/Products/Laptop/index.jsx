@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { fetchCollectingByName, fetchlaptopCollecting, fetchSearchLaptopCollecting } from 'Apis'
+import { fetchCollectingByName, fetchListOfLaptopCollecting, fetchSearchLaptopCollecting } from 'Apis'
 
 const Index = () => {
     const [collecting, setCollecting] = useState([])
@@ -41,7 +41,7 @@ const Index = () => {
                 console.log(err)
             })
 
-        fetchlaptopCollecting(1)
+        fetchListOfLaptopCollecting(1)
             .then(result => {
                 setProduct(result.data)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
@@ -56,7 +56,7 @@ const Index = () => {
         setProduct()
         if (JSON.stringify(searchData) === JSON.stringify({ nameProduct: "", category: [[], [], [], []] })) {
             console.log("ko Có data")
-            fetchlaptopCollecting(count)
+            fetchListOfLaptopCollecting(count)
                 .then(result => {
                     setProduct(result.data)
                     setCountPage(count)

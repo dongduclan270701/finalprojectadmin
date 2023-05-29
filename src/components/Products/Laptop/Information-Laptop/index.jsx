@@ -4,14 +4,14 @@ import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { fetchLaptopCollectingByName } from 'Apis'
+import { fetchListOfLaptopCollectingByName } from 'Apis'
 const Index = () => {
     const params = useParams()
     const navigate = useNavigate();
     const [inputElement, setInputElement] = useState()
     const [options, setOptions] = useState([])
     useEffect(() => {
-        fetchLaptopCollectingByName(params.src)
+        fetchListOfLaptopCollectingByName(params.src)
             .then(result => {
                 setInputElement(result)
                 result.category.map((item) => {

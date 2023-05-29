@@ -3,7 +3,7 @@ import { useNavigate, NavLink, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import UpdateForm from 'components/Utils/Update-Form'
 import { uploadUrl, apiKey } from 'Apis/utils'
-import { fetchUpdateLaptopCollecting, fetchLaptopCollectingByName, fetchCollectingByName } from 'Apis'
+import { fetchUpdateLaptopCollecting, fetchListOfLaptopCollectingByName, fetchCollectingByName } from 'Apis'
 import axios from 'axios'
 
 const Index = () => {
@@ -18,7 +18,7 @@ const Index = () => {
     //     })
     // }, []);
     useEffect(() => {
-        fetchLaptopCollectingByName(params.src)
+        fetchListOfLaptopCollectingByName(params.src)
             .then(result => {
                 setInputElement(result)
                 result.category.map((item) => {

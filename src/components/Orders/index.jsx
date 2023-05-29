@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { fetchOrderList, fetchSearchOrder } from 'Apis'
+import { fetchListOfOrder, fetchSearchOrder } from 'Apis'
+
 const Index = () => {
     const [optionSelect, setOptionSelect] = useState(["Being transported", "Payment information confirmed", "Delivered to the carrier", "Ordered", "Delivery successful", "Đã huỷ"])
     const [orderList, setOrderList] = useState()
@@ -12,10 +13,11 @@ const Index = () => {
     const year = date.getFullYear();
     const today = year + '-' + month + "-" + day;
     const [dateEnd, setDateEnd] = useState(today)
+    const [authentication, setAuthentication] = useState(false)
     useEffect(() => {
-        fetchOrderList(1)
+        fetchListOfOrder(1)
             .then(result => {
-                console.log(result.data)
+                setAuthentication(true)
                 setOrderList(result.data)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
@@ -24,10 +26,17 @@ const Index = () => {
                     setCountMaxPage(Math.floor(result.total / 10))
                 }
             })
+            .catch(error => {
+                if (error.response.data.message === "cccccc") {
+                    setAuthentication(authentication)
+                }
+                console.log(error)
+            })
     }, []);
     const handleSetPage = (count) => {
         setOrderList()
     }
+
     const [searchData, setSearchData] = useState({ orderId: "", status: "", firstDate: "", endDate: today })
     const handleOptionSelected = (e) => {
         setOrderList()
@@ -89,18 +98,18 @@ const Index = () => {
         setOrderList()
         setSearchData({ ...searchData, orderId: e.target.value })
         fetchSearchOrder({ ...searchData, orderId: e.target.value }, countPage)
-                .then(result => {
-                    setOrderList(result.data)
-                    if (0 < result.total % 10 && result.total % 10 < 10) {
-                        setCountMaxPage(Math.floor(result.total / 10) + 1)
-                    }
-                    else {
-                        setCountMaxPage(Math.floor(result.total / 10))
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            .then(result => {
+                setOrderList(result.data)
+                if (0 < result.total % 10 && result.total % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.total / 10) + 1)
+                }
+                else {
+                    setCountMaxPage(Math.floor(result.total / 10))
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     return (
         <div className="main-panel">
@@ -108,8 +117,7 @@ const Index = () => {
 
                 <div className="row">
                     <div className="col-lg-12 stretch-card">
-
-                        <div className="card">
+                        {authentication ? <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">Danh sách Đơn Hàng</h4>
                                 <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
@@ -220,8 +228,10 @@ const Index = () => {
                                     </>
                                 }
                             </div>
-
                         </div>
+                            :
+                            "this page is not for you"}
+
                     </div>
                 </div>
             </div>
@@ -234,6 +244,7 @@ const Index = () => {
                 </div>
             </footer>
             {/* partial */}
+
         </div>
     );
 }

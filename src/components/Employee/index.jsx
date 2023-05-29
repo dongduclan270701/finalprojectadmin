@@ -1,6 +1,7 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import { StateContext } from 'components/Context'
 const Index = () => {
+    const state = useContext(StateContext)
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -13,7 +14,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="row">
+                <div className="row">
                     <div className="col-lg-6 grid-margin stretch-card">
                         <div className="card">
                             <div className="card-body">
@@ -708,7 +709,7 @@ const Index = () => {
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
             {/* content-wrapper ends */}
             {/* partial:../../partials/_footer.html */}

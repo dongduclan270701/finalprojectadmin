@@ -1,183 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import "assets/scss/Banner-Ads/Banner-Slide/Banner-Slide.scss"
 import faceUser from "assets/images/faces/face28.jpg"
+import { fetchListOfUser } from 'Apis'
 const Index = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [optionSelect, setOptionSelect] = useState(["Hoạt động", "Khoá"])
-    const [bannerSlide, setBannerSlide] = useState([
-        {
-            id: "23",
-            nameUser: "qưe",
-            email: "qưe",
-            image: "12/4/2022",
-            order_buy: [
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder:140000
-                },
-            ],
-            updateAt: "12/4/2022",
-            createAt: "",
-            status: true,
-        }, {
-            id: "23",
-            nameUser: "qưe1",
-            email: "qưe1",
-            image: "12/4/2022",
-            order_buy: [
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder:140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder:140000
-                },
-                
-            ],
-            updateAt: "12/4/2022",
-            createAt: "",
-            status: false,
-        }, {
-            id: "23",
-            nameUser: "qưe2",
-            email: "qưe2",
-            image: "12/4/2022",
-            order_buy: [
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder:140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder:140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder:140000
-                },
-            ],
-            updateAt: "12/4/2022",
-            createAt: "",
-            status: true,
-        },
-    ])
+    const [userList, setUserList] = useState()
     const [optionSelected, setOptionSelected] = useState("")
+    const [countPage, setCountPage] = useState(1)
+    const [countMaxPage, setCountMaxPage] = useState(1)
+
+    useEffect(() => {
+        fetchListOfUser(countPage)
+            .then(result => {
+                setUserList(result.data)
+                if (0 < result.total % 10 && result.total % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.total / 10) + 1)
+                }
+                else {
+                    setCountMaxPage(Math.floor(result.total / 10))
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
+
+    const handleSetPage = (count) => {
+        setUserList()
+        setCountPage(count)
+        fetchListOfUser(count)
+            .then(result => {
+                setUserList(result.data)
+                if (0 < result.total % 10 && result.total % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.total / 10) + 1)
+                }
+                else {
+                    setCountMaxPage(Math.floor(result.total / 10))
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     const handleOptionSelected = (e) => {
         if (e.target.value !== null) {
             setOptionSelected(e.target.value)
@@ -219,7 +86,7 @@ const Index = () => {
                                     <table className="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                {/* <th>Id</th> */}
                                                 <th>Tên</th>
                                                 <th>Email</th>
                                                 <th>Hình ảnh</th>
@@ -229,22 +96,21 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {bannerSlide.map((item, index) => {
+                                            {userList ? userList.map((item, index) => {
                                                 return <tr key={index}>
-                                                    <td>{item.id}</td>
-                                                    <td>{item.nameUser}</td>
+                                                    {/* <td>{item.id}</td> */}
+                                                    <td>{item.username}</td>
                                                     <td>
                                                         {item.email}
                                                     </td>
                                                     <td>
-                                                        {item.image}
+                                                        <img src={item.image} className="img-fluid" alt="" style={{ width: "80px", height: "80px", borderRadius: "0%" }} />
                                                     </td>
                                                     <td>
-                                                        {item.order_buy.length}
+                                                        {item.orders.length}
                                                     </td>
                                                     <td>
                                                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-
                                                             {item.status ? (
                                                                 <>
                                                                     <label className="badge badge-success" style={{ marginRight: "10px" }}>
@@ -261,19 +127,26 @@ const Index = () => {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <NavLink to={"/user/" + item.id} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
+                                                        <NavLink to={"/user/" + item.email} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
                                                     </td>
                                                 </tr>
-                                            })}
+                                            }) :
+                                                <>
+                                                    <style dangerouslySetInnerHTML={{
+                                                        __html: "\n.loader {\n  border: 16px solid #f3f3f3;\n  border-radius: 50%;\n  border-top: 16px solid #3498db;\n  margin: 0 auto;\n  width: 120px;\n  height: 120px;\n  -webkit-animation: spin 2s linear infinite; /* Safari */\n  animation: spin 2s linear infinite;\n}\n\n/* Safari */\n@-webkit-keyframes spin {\n  0% { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n"
+                                                    }} />
+                                                    <div className="loader" />
+                                                </>}
 
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className="btn-group" style={{ "display": "flex", "justify-content": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                    <button type="button" className="btn btn-outline-secondary active">1</button>
-                                    <button type="button" className="btn btn-outline-secondary">2</button>
-                                    <button type="button" className="btn btn-outline-secondary">...</button>
-                                    <button type="button" className="btn btn-outline-secondary">5</button>
+                                <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
+                                    {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPage(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
+                                    <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
+                                    {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPage(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
+                                    {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
+                                    {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPage(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                 </div>
                             </div>
                         </div>

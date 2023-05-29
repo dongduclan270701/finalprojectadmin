@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
-import { fetchAdminDetails } from 'Apis'
+import { fetchLoginAdmin } from 'Apis'
 const Index = () => {
     const navigate = useNavigate()
     const [inputLogin, setInputLogin] = useState({ email: "", password: "" })
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setInputLogin({ ...inputLogin, [name]: value });
@@ -14,29 +15,27 @@ const Index = () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (re.test(inputLogin.email) === true && inputLogin.password.length >= 8 && /[A-Z]/.test(inputLogin.password)) {
             let countdown = 5;
-
-            fetchAdminDetails(inputLogin.email, inputLogin.password)
+            fetchLoginAdmin(inputLogin.email, inputLogin.password)
                 .then(result => {
-                    console.log(result)
-                    if (result === 'Email không tồn tại') {
+                    if (result === 'Email does not exist') {
                         Swal.fire({
-                            title: 'Email không đúng!',
-                            text: 'Email này không đúng yêu cầu thử lại email khác!',
+                            title: 'Email is not correct!',
+                            text: 'This email is incorrect, please try another email!',
                             icon: 'error',
                             confirmButtonText: 'OK!'
                         })
-                    } else if (result === 'Mật khẩu không chính xác') {
+                    } else if (result === 'Incorrect password') {
                         Swal.fire({
-                            title: 'Mật khẩu không đúng!',
-                            text: 'Mật khẩu này chưa đúng vậy lòng thử lại',
+                            title: 'Incorrect password!',
+                            text: 'This password is not correct, please try again',
                             icon: 'error',
                             confirmButtonText: 'OK!'
                         })
                     } else {
                         localStorage.setItem("auth-token-admin", JSON.stringify(result.token));
                         Swal.fire({
-                            title: 'Đăng nhập thành công!',
-                            html: `Bạn sẽ được chuyển đến trang quản lý trong <span></span> giây`,
+                            title: 'Logged in successfully!',
+                            html: `You will be redirected to the management page in <span></span> seconds`,
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 5000,
@@ -61,21 +60,27 @@ const Index = () => {
                 })
                 .catch(error => {
                     console.log(error)
+                    Swal.fire({
+                        title: 'Unable to connect to server!',
+                        text: 'There seems to be a problem with the connection to the server, please try again later',
+                        icon: 'error',
+                        confirmButtonText: 'OK!'
+                    })
                 })
         }
         if (re.test(inputLogin.email) === false) {
             Swal.fire({
-                title: 'Không đúng dạng Email!',
-                text: 'Yêu cầu nhập đúng dạng Email',
-                icon: 'error',
+                title: 'Incorrect email format!',
+                text: 'Requires to enter the correct email format',
+                icon: 'warning',
                 confirmButtonText: 'OK!'
             })
         }
         if (inputLogin.password.length < 8 || /[A-Z]/.test(inputLogin.password) === false) {
             Swal.fire({
-                title: 'Mật khẩu chưa đúng dạng!',
-                text: 'Yêu cầu nhập đúng dạng mật khẩu tối thiểu 8 ký tự và có ký tự in hoa',
-                icon: 'error',
+                title: 'Incorrect password format!',
+                text: 'Requires to enter the correct password form at least 8 characters and with uppercase characters',
+                icon: 'warning',
                 confirmButtonText: 'OK!'
             })
         }
@@ -96,7 +101,7 @@ const Index = () => {
                                 <div className="brand-logo" style={{ display: "flex", justifyContent: "center" }}>
                                     <img src="https://theme.hstatic.net/1000026716/1000440777/14/logo.svg?v=35527" alt="logo" />
                                 </div>
-                                <h4>Chào mừng đến website dành cho quản lý của gearvn</h4>
+                                <h4>Welcome to Gearvn's management website</h4>
                                 <form className="pt-3">
                                     <div className="form-group">
                                         <input
@@ -132,9 +137,8 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                {/* content-wrapper ends */}
+
             </div>
-            {/* page-body-wrapper ends */}
         </div>
     );
 }
