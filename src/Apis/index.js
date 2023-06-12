@@ -53,12 +53,32 @@ export const fetchSearchOrder = async (data, countPage) => {
 }
 
 export const fetchLoginAdmin = async (username, password) => {
-    const req = await axios.get(`${API_ROOT}/v1/admin/${username}/${password}`)
+    const req = await axios.get(`${API_ROOT}/v1/admin/login/${username}/${password}`)
     return req.data
 }
 
 export const fetchListOfEmployee = async (countPage) => {
     const req = await axios.get(`${API_ROOT}/v1/admin`, { params: {count:countPage }, headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchSearchListOfEmployee = async (countPage, data) => {
+    const req = await axios.get(`${API_ROOT}/v1/admin`, { params: {count:countPage, search: data }, headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchCreateEmployee = async (data) => {
+    const req = await axios.post(`${API_ROOT}/v1/admin`, data,{ headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchUpdateEmployee = async (id, data) => {
+    const req = await axios.put(`${API_ROOT}/v1/admin/employee/${id}`, data,{ headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchInformationEmployee = async (id, data) => {
+    const req = await axios.get(`${API_ROOT}/v1/admin/employee/${id}`,{ headers: { 'auth-token-admin': token }})
     return req.data
 }
 
@@ -69,5 +89,30 @@ export const fetchListOfUser = async (countPage) => {
 
 export const fetchUpdateRatingOrder = async (id, data) => {
     const req = await axios.put(`${API_ROOT}/v1/orderAdmin/ratingOrder/${id}`, data,{ headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchUpdateStatusEmployee = async (email, data) => {
+    const req = await axios.put(`${API_ROOT}/v1/admin/status/${email}`, data, { headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchSearchEmployee = async (data, countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/admin/search`, { params: {...data, count:countPage }, headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchSearchUser = async (data, countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/managementUser/search`, { params: {...data, count:countPage }, headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchUser = async (id) => {
+    const req = await axios.get(`${API_ROOT}/v1/managementUser/${id}`, { headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchUpdateStatusUser = async (id, data) => {
+    const req = await axios.put(`${API_ROOT}/v1/managementUser/${id}`, data, { headers: { 'auth-token-admin': token }})
     return req.data
 }

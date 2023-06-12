@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { fetchListOfOrder, fetchSearchOrder } from 'Apis'
+import Footer from "components/Footer"
 
 const Index = () => {
     const [optionSelect, setOptionSelect] = useState(["Being transported", "Payment information confirmed", "Delivered to the carrier", "Ordered", "Delivery successful", "Đã huỷ"])
@@ -27,7 +28,7 @@ const Index = () => {
                 }
             })
             .catch(error => {
-                if (error.response.data.message === "cccccc") {
+                if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
                     setAuthentication(authentication)
                 }
                 console.log(error)
@@ -203,7 +204,7 @@ const Index = () => {
                                                             </label>
                                                         </td>
                                                         <td>
-                                                            <NavLink to={"/orders/" + item._id} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
+                                                            <NavLink to={"/orders/" + item.orderId} ><button type="button" className="btn btn-outline-secondary btn-fw">Xem</button></NavLink>
                                                         </td>
                                                     </tr>
                                                 })}
@@ -235,15 +236,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            {/* content-wrapper ends */}
-            {/* partial:../../partials/_footer.html */}
-            <footer className="footer">
-                <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
-                </div>
-            </footer>
-            {/* partial */}
+            <Footer />
 
         </div>
     );

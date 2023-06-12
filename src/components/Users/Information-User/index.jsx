@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import { Carousel } from 'react-responsive-carousel';
@@ -7,301 +7,247 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import logo from 'assets/images/faces/face1.jpg'
 import 'assets/scss/Information-Order.css'
 import Swal from 'sweetalert2'
+import Footer from "components/Footer"
+import { fetchUser, fetchUpdateStatusUser } from 'Apis/index'
 
 const Index = () => {
+    const formatter = new Intl.NumberFormat('en-US')
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState(
-        {
-            id: "23",
-            username: "Đồng Đức Lân",
-            phoneNumber: "0379382992",
-            address: "hoàng mai, hà nội",
-            email: "qưe1",
-            image: "12/4/2022",
-            order_buy: [
-                {
-                    id: "123987qưe",
-                    status: "Đã Đặt đơn hàng",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder: 140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Payment information confirmed",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder: 140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Delivered to the carrier",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder: 140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Being transported",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder: 140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Delivery successful",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder: 140000
-                },
-                {
-                    id: "123987qưe",
-                    status: "Đã huỷ",
-                    username: "Đồng Đức Lân",
-                    phoneNumber: "0379382992",
-                    address: "hoàng mai, hà nội",
-                    shipping_process: [
-                        { time: "8:45", date: "23/23/2033", content: "Ordered" }
-                    ],
-                    method_payment: "Thanh toán khi nhận hàng",
-                    discount: [
-                        { src: "1", nameDiscount: "Mã giảm giá 1", amount: 20000 },
-                        { src: "2", nameDiscount: "Mã giảm giá 2", amount: 10000 }
-                    ],
-                    cancel_reason: "Không thích",
-                    listProduct: [
-                        { src: "2123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "2123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 20000, quantity: 2 },
-                        { src: "1123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "1123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 10000, quantity: 1 },
-                        { src: "3123987qưe123987qưe123987qưe123987qưe", img: logo, nameProduct: "3123987qưe123987qưe123987qưe123987qưe", realPrice: 0, nowPrice: 30000, quantity: 3 },
-                    ],
-                    ship: 30000,
-                    sumOrder: 140000
-                },
-            ],
-            updateAt: "12/4/2022",
-            createAt: "",
-            status: true,
-        })
-
+    const params = useParams();
+    const [user, setUser] = useState()
+    const [countPage, setCountPage] = useState(1)
+    const [countMaxPage, setCountMaxPage] = useState(1)
+    const optionSelect = ["Being transported", "Payment information confirmed", "Delivered to the carrier", "Ordered", "Delivery successful", "Đã huỷ"]
+    const date = new Date();
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const today = year + '-' + month + "-" + day;
+    const [endDate, setEndDate] = useState(today)
+    const [orderList, setOrderList] = useState([])
+    const [orderSearch, setOrderSearch] = useState([])
+    const [searchOrder, setSearchOrder] = useState({ orderId: '', status: '', firstDate: '', endDate: endDate })
     useEffect(() => {
-
+        fetchUser(params.id)
+            .then(result => {
+                setUser(result)
+                setOrderList(result.orders)
+                setOrderSearch(result.orders)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }, []);
-    const handleStatusAccountUser = () => {
-        Swal.fire({
-            title: 'Bạn có đồng ý chỉnh sửa tài khoản này hay không?',
-            showCancelButton: true,
-            confirmButtonText: 'Đồng ý',
-            cancelButtonText: 'Không',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                setInputElement(inputElement => ({
-                    ...inputElement,
-                    status: !inputElement.status
-                }))
+
+    const handleSetPageOrder = (count) => {
+        // setOrderList()
+    }
+
+    const handleDeactivateAccount = () => {
+        fetchUpdateStatusUser(params.id, { status: !user.status })
+            .then(result => {
                 Swal.fire({
-                    title: 'Thành công!',
-                    text: 'Bạn đã chỉnh sửa thành công trạng thái tài khoản này',
+                    title: 'Successfully!',
+                    text: 'You have successfully updated your staff!',
                     icon: 'success',
                     confirmButtonText: 'OK!'
                 })
-            }
-        })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            setUser({ ...user, status: !user.status })
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            })
+            .catch(error => {
+                console.log(error)
+                Swal.fire({
+                    title: 'Unable to connect to server!',
+                    text: 'There seems to be a problem with the connection to the server, please try again later',
+                    icon: 'error',
+                    confirmButtonText: 'OK!'
+                })
+            })
     }
 
+    const handleSearchOrder = (e) => {
+        const { name, value } = e.target
+        setSearchOrder({ ...searchOrder, [name]: value })
+        const arr = { ...searchOrder, [name]: value }
+        const orderSearch2 = orderList.filter((order) => {
+            const { orderId, status, firstDate, endDate } = arr;
+            if (orderId && !order.orderId.includes(orderId)) {
+                return false;
+            }
+            if (status && order.status !== status) {
+                return false;
+            }
+            if (firstDate && endDate) {
+                const orderDate = new Date(order.shipping_process[0].date);
+                const startDate = new Date(firstDate);
+                const endDateObj = new Date(endDate);
+
+                if (orderDate < startDate || orderDate > endDateObj) {
+                    return false;
+                }
+            }
+
+            return true;
+        })
+        setOrderSearch(orderSearch2)
+    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
                         <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết Đơn Hàng</h3>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Customer details</h3>
                     </div>
                 </div>
+                {}
                 <div className="row">
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card" style={{ "marginBottom": "25px" }}>
-                            <div className="card-body">
-                                <h4 className="card-title">Thông tin khách hàng: {inputElement.id}</h4>
+                            {user ? <div className="card-body">
+                                <h4 className="card-title">Customer information: {user.username}</h4>
                                 <div className='row'>
                                     <div className="col-lg-6 grid-margin form-group" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                         <div className="form-group">
-                                            <img src="https://i.postimg.cc/DwP04m9J/face1.jpg" style={{ width: "300px", borderRadius: "50%" }} />
+                                            <img src={user.image} style={{ width: "300px", borderRadius: "50%" }} alt="avatar" />
                                         </div>
                                     </div>
                                     <div className="col-lg-6 grid-margin form-group">
-                                        <h4>Địa chỉ nhận hàng</h4>
+                                        <h4>Delivery information</h4>
                                         <div className="form-group">
-                                            <label>Tên:</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder="Tên:" aria-label="Tên:" value={inputElement.username} disabled />
+                                            <label>Username:</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="username" aria-label="username" value={user.username} disabled />
                                         </div>
                                         <div className="form-group">
-                                            <label>Số điện thoại:</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder="Số điện thoại" aria-label="Số điện thoại" value={inputElement.phoneNumber} disabled />
+                                            <label>Phone number:</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Phone number" aria-label="Phone number" value={user.phoneNumber} disabled />
                                         </div>
                                         <div className="form-group">
-                                            <label>Địa chỉ nhận hàng</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder="Địa chỉ nhận hàng" aria-label="Địa chỉ nhận hàng" value={inputElement.address} disabled />
+                                            <label>Delivery address</label>
+                                            <input type="text" className="form-control form-control-sm" placeholder="Delivery address" aria-label="Delivery address" value={user.address} disabled />
                                         </div>
                                         <div className="form-group">
                                             <label>Email</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder="Email" aria-label="Email" value={inputElement.email} disabled />
+                                            <input type="text" className="form-control form-control-sm" placeholder="Email" aria-label="Email" value={user.email} disabled />
                                         </div>
                                         <div className="form-group">
-                                            {inputElement.status ?
+                                            {user.status ? <>
                                                 <div className="row" style={{ margin: "0 auto" }}>
                                                     <label className="badge badge-success">
-                                                        Đang hoạt động
+                                                        Active
                                                     </label>
-                                                    <button name="status" onClick={handleStatusAccountUser} style={{ display: "flex", alignItems: "center", background: "none", border: "none", padding: "0 0 0 15px", margin: "0" }}>
-                                                        <i className="mdi mdi-checkbox-marked-circle" style={{ fontSize: 20 }} />
-                                                    </button>
                                                 </div>
-                                                :
-                                                <div className="row" style={{ margin: "0 auto" }}>
-                                                    <label className="badge badge-danger">
-                                                        Khoá
-                                                    </label>
-                                                    <button name="status" onClick={handleStatusAccountUser} style={{ display: "flex", alignItems: "center", background: "none", border: "none", padding: "0 0 0 15px", margin: "0" }}>
-                                                        <i className="mdi mdi-checkbox-blank-circle-outline" style={{ fontSize: 20 }} />
-                                                    </button>
+                                                <div className="col-lg-6 form-group" style={{ padding: "10px 0" }}>
+                                                    <button onClick={handleDeactivateAccount} className="btn btn-outline-secondary btn-fw">Deactivate the account</button>
                                                 </div>
+                                            </>
+                                                : <>
+                                                    <div className="row" style={{ margin: "0 auto" }}>
+                                                        <label className="badge badge-danger">
+                                                            Deactivate
+                                                        </label>
+                                                    </div>
+                                                    <div className="col-lg-6 form-group" style={{ padding: "10px 0" }}>
+                                                        <button onClick={handleDeactivateAccount} className="btn btn-outline-secondary btn-fw">Recover account</button>
+                                                    </div>
+                                                </>
                                             }
-
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <div className="form-group">
-                                    <h4>Danh sách đơn hàng</h4>
+                                    <h4>Order List ( {user.orders.length} Orders purchased )</h4>
+                                    <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
+                                        <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent": "end" }}>
+                                            <p className="card-description" style={{ margin: "0" }}>
+                                                Search :
+                                            </p>
+                                        </div>
+                                        <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                            <input name='orderId' onChange={e => handleSearchOrder(e)} style={{ borderRadius: "15px" }} type="text" className="form-control" placeholder="Order ID" aria-label="Order ID" />
+                                        </ul>
+                                        <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                            <li className="nav-item nav-search d-lg-block">
+                                                <div className="input-group">
+                                                    <select name='status' style={{ borderRadius: "15px" }} onChange={e => handleSearchOrder(e)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                        <option value=''>All</option>\
+                                                        {optionSelect.map((item, index) => {
+                                                            return <option key={index} value={item}>{item}</option>
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                            <input type="date" name="firstDate" onChange={e => handleSearchOrder(e)} style={{ borderRadius: "15px" }} className='form-control'
+                                                min="1900-01-01" />
+                                        </ul>
+                                        <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                            <input type="date" value={searchOrder.endDate} name="endDate" onChange={e => handleSearchOrder(e)} style={{ borderRadius: "15px" }} className='form-control'
+                                                min="1900-01-01" />
+                                        </ul>
+                                    </div>
                                     <div className="table-responsive">
                                         <table className="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        Sản phẩm
+                                                        OrderId
                                                     </th>
                                                     <th>
-                                                        Hình ảnh
+                                                        Image
                                                     </th>
                                                     <th>
-                                                        Số lượng
+                                                        Quantity
                                                     </th>
                                                     <th>
-                                                        Giá
+                                                        Price
                                                     </th>
                                                     <th>
-                                                        Tổng
+                                                        Total
                                                     </th>
                                                     <th>
-                                                        Trạng thái
+                                                        Order date
+                                                    </th>
+                                                    <th>
+                                                        Status
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {inputElement.order_buy.map((item, index) => {
+                                                {orderSearch.map((item, index) => {
                                                     return <tr key={index}>
                                                         <td>
-                                                            {item.listProduct[0].nameProduct}
+                                                            <NavLink to={"/orders/" + item.orderId} style={{ color: "#57b657", textDecoration: "none" }}>{item.orderId}</NavLink>
                                                         </td>
                                                         <td>
-                                                            <img src={item.listProduct[0].img} className="img-fluid" alt="" style={{ width: "60px", height: "60px" }} />
+                                                            <img src={item.product[0].img} className="img-fluid" alt="" style={{ width: "60px", height: "60px" }} />
                                                         </td>
                                                         <td>
-                                                            {item.listProduct[0].quantity}
+                                                            {item.product[0].quantity}
                                                         </td>
                                                         <td>
-                                                            {item.listProduct[0].nowPrice} VND
+                                                            {formatter.format(item.product[0].nowPrice)} VND
                                                         </td>
                                                         <td>
-                                                            {item.sumOrder} VND
+                                                            {formatter.format(item.sumOrder + item.ship)} VND
+                                                        </td>
+                                                        <td>
+                                                            {item.shipping_process[0].date}
                                                         </td>
                                                         <td>
                                                             <label
-                                                                className={item.status === "Đã huỷ" ? "badge badge-danger" :
+                                                                className={item.status === "Cancel" ? "badge badge-danger" :
                                                                     item.status === "Payment information confirmed" ? "badge badge-warning" :
                                                                         item.status === "Delivery successful" ? "badge badge-success" :
-                                                                            item.status === "Đã Đặt đơn hàng" ? "badge badge-warning" : "badge badge-primary"
+                                                                            item.status === "Ordered" ? "badge badge-warning" : "badge badge-primary"
                                                                 }
                                                                 style={{ marginRight: "10px" }}>
                                                                 {item.status}
@@ -312,90 +258,21 @@ const Index = () => {
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
+                                        {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPageOrder(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
+                                        <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
+                                        {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPageOrder(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
+                                        {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
+                                        {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPageOrder(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                    </div>
                                 </div>
                             </div>
+                                : null}
                         </div>
                     </div>
-
-                    {/* <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title">Thông số sản phẩm</h4>
-                                    {inputElement.description_table.map((item, index) => {
-                                        return <div className="form-group" key={index}>
-                                            <label>{item[0]}</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder={item[0]} aria-label={item[0]} value={item[1]} disabled />
-                                        </div>
-                                    })}
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Mô tả sản phẩm</h4>
-                                    <div className='row' style={{ margin: "inherit" }}>
-                                        <div className='col-6' style={{ paddingLeft: "0" }}>
-                                            <label>Tiêu đề:</label>
-                                        </div>
-                                        <div className='col-6' style={{ padding: "0" }}>
-                                            <label>Nội dung:</label>
-                                        </div>
-                                    </div>
-                                    {inputElement.description.map((item, index) => {
-                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <textarea name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
-                                            </div>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <textarea name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
-                                            </div>
-                                        </div>
-                                    })}
-                                </div>
-                            </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Ưu đãi</label>
-                                        {inputElement.gift_buy.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Quà tặng</h4>
-                                    <div className="form-group">
-                                        <label>Quà tặng</label>
-                                        {inputElement.gift.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> */}
-
                 </div>
             </div>
-            {/* content-wrapper ends */}
-            {/* partial:../../partials/_footer.html */}
-            <footer className="footer">
-                <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
-                </div>
-            </footer>
-            {/* partial */}
+            <Footer />
         </div>
     );
 }

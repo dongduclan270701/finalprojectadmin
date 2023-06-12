@@ -1,4 +1,7 @@
-export const API_ROOT = 'http://localhost:8017'
-export const cloudName = 'dolydpat4';
-export const apiKey = 'p0kgb66h';
-export const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+export const API_ROOT = 'http://localhost:8018'
+export const cloudNameProduct = 'dolydpat4';
+export const apiKeyProduct = 'p0kgb66h';
+export const uploadUrlProduct = `https://api.cloudinary.com/v1_1/${cloudNameProduct}/image/upload`;
+export const cloudNameUser = 'dolydpat4';
+export const apiKeyUser = 'p0kgb66h';
+export const uploadUrlUser = `https://api.cloudinary.com/v1_1/${cloudNameUser}/image/upload`;

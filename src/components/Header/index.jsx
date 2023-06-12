@@ -4,7 +4,7 @@ import logomini from 'assets/images/logo-mini.svg'
 import faceUser from "assets/images/faces/face28.jpg"
 
 const Index = (props) => {
-    const {getChooseSettingThemePages, isChooseShowicons, getSettingChooseShowIconOnly, isShowSideBarRes, getShowSideBarRes} = props
+    const {getChooseSettingThemePages, isChooseShowIcons, onHandleGetSettingChooseShowIconOnly, isShowSideBarRes, onHandleGetShowSideBarRes} = props
     const [chooseNotifications, setChooseNotifications] = useState(false)
     const [chooseSettingUser, setChooseSettingUser] = useState(false)
 
@@ -20,7 +20,7 @@ const Index = (props) => {
                     <a className="navbar-brand brand-logo-mini" href="index.html"><img src="https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-15-20200415164142.png" alt="logo" /></a>
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                    <button  onClick={() => getSettingChooseShowIconOnly(!isChooseShowicons)} className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <button  onClick={() => onHandleGetSettingChooseShowIconOnly(!isChooseShowIcons)} className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                         <span className="icon-menu" />
                     </button>
                     
@@ -95,7 +95,7 @@ const Index = (props) => {
                         </li>
                     </ul>
                     <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-                        <span className="icon-menu" onClick={() => getShowSideBarRes(!isShowSideBarRes)} />
+                        <span className="icon-menu" onClick={() => onHandleGetShowSideBarRes(!isShowSideBarRes)} />
                     </button>
                 </div>
             </nav>

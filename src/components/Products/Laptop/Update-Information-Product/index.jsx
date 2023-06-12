@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import UpdateForm from 'components/Utils/Update-Form'
-import { uploadUrl, apiKey } from 'Apis/utils'
+import { uploadUrlProduct, apiKeyProduct } from 'Apis/utils'
 import { fetchUpdateLaptopCollecting, fetchListOfLaptopCollectingByName, fetchCollectingByName } from 'Apis'
 import axios from 'axios'
+import Footer from "components/Footer"
 
 const Index = () => {
     const params = useParams()
@@ -107,8 +108,8 @@ const Index = () => {
             inputElement.img.splice(0, inputElement.img.length)
             for (let i = 0; i < listImage.length; i++) {
                 formData.append('file', listImage[i]);
-                formData.append('upload_preset', apiKey);
-                axios.post(uploadUrl, formData, {
+                formData.append('upload_preset', apiKeyProduct);
+                axios.post(uploadUrlProduct, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -176,15 +177,7 @@ const Index = () => {
                     </>}
 
             </div>
-            {/* content-wrapper ends */}
-            {/* partial:../../partials/_footer.html */}
-            <footer className="footer">
-                <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
-                </div>
-            </footer>
-            {/* partial */}
+            <Footer />
         </div>
     );
 }

@@ -27,7 +27,7 @@ const Index = (props) => {
     //     cloudinaryRef.current = window.cloudinary;
     //     // console.log(cloudinaryRef.current)
     //     widgetRef.current = cloudinaryRef.current.createUploadWidget({
-    //         cloudName:"dolydpat4",
+    //         cloudNameProduct:"dolydpat4",
     //         uploadPreset:"p0kgb66h"
     //     })
 

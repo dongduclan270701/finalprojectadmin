@@ -9,8 +9,10 @@ import 'assets/scss/Information-Order.css'
 import Swal from 'sweetalert2'
 import { fetchOrderInformation, fetchUpdateOrder } from 'Apis'
 import ShowRating from 'components/Orders/ShowRating'
+import Footer from "components/Footer"
 
 const Index = () => {
+    const formatter = new Intl.NumberFormat('en-US')
     const params = useParams()
     const navigate = useNavigate();
     const [order, setOrder] = useState()
@@ -800,12 +802,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <footer className="footer">
-                <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
-                </div>
-            </footer>
+            <Footer />
             {order && order.statusReview.status === true &&<ShowRating toggleShowRate={toggleShowRate} onHandleToggleShowRate={handleToggleShowRate} order={order}/>}
         </div>
     );

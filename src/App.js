@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'assets/vendors/feather/feather.css'
 import 'assets/vendors/ti-icons/css/themify-icons.css'
-// import 'assets/vendors/css/vendor.bundle.base.css'
-// import 'assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css'
-// import 'assets/js/select.dataTables.min.css'
 import 'assets/css/vertical-layout-light/style.css'
 import 'assets/vendors/mdi/css/materialdesignicons.min.css'
+import 'App.css'
 import Sidebar from 'components/Sidebar'
 import Header from 'components/Header'
 import Dashboard from "components/Dashboard"
@@ -43,6 +41,9 @@ import ThemeSetting from 'components/Theme-Setting'
 import Users from 'components/Users'
 import UsersInformation from 'components/Users/Information-User'
 import Employee from 'components/Employee'
+import CreateEmployee from 'components/Employee/Create-Employee'
+import UpdateEmployee from 'components/Employee/Update-Employee'
+import InformationEmployee from 'components/Employee/Information-Employee'
 import Recruitment from 'components/Recruitment/Recruitment'
 import RecruitmentApply from 'components/Recruitment/Recruitment-Apply'
 import Discount from 'components/Discount/'
@@ -205,6 +206,9 @@ function App() {
     { path: "/users", location: Users },
     { path: "/user/:id", location: UsersInformation },
     { path: "/employee", location: Employee },
+    { path: "/employee/create", location: CreateEmployee },
+    { path: "/employee/:id", location: InformationEmployee },
+    { path: "/employee/update/:id", location: UpdateEmployee },
     { path: "/discount", location: Discount },
     { path: "/discount/:id", location: InformationDiscount },
     { path: "/discount/update/:id", location: UpdateInformationDiscount },
@@ -215,19 +219,20 @@ function App() {
     { path: "/website/update", location: UpdateWebsite },
   ])
   const [chooseSettingThemePages, setChooseSettingThemePages] = useState(false)
-  const [isChooseShowicons, setIsChooseShowicons] = useState(false)
+  const [isChooseShowIcons, setIsChooseShowIcons] = useState(false)
   const [isShowSideBarRes, setIsShowSideBarRes] = useState(false)
   const [getChooseSettingThemePages, setGetChooseSettingThemePages] = useState("")
-  const getSettingChooseShowIconOnly = (data) => {
-    setIsChooseShowicons(data)
+
+  const handleGetSettingChooseShowIconOnly = (data) => {
+    setIsChooseShowIcons(data)
   }
-  const getShowSideBarRes = (data) => {
+  const handleGetShowSideBarRes = (data) => {
     setIsShowSideBarRes(data)
   }
-  const getDataChooseSettingThemePages = (data) => {
+  const handleGetDataChooseSettingThemePages = (data) => {
     setGetChooseSettingThemePages(data)
   }
-  const getIsChooseSettingThemePages = (data) => {
+  const handleGetIsChooseSettingThemePages = (data) => {
     setChooseSettingThemePages(data)
   }
 
@@ -237,24 +242,24 @@ function App() {
         {page.map((item, index) => {
           const TagName1 = item.location
           return <Route key={index} path={item.path} element={
-            JSON.parse(localStorage.getItem('auth-token-admin')) ? <div className={isChooseShowicons ? 'sidebar-icon-only' : null}>
+            JSON.parse(localStorage.getItem('auth-token-admin')) ? <div className={isChooseShowIcons ? 'sidebar-icon-only' : null}>
               <div className="container-scroller" >
                 <Header
                   getChooseSettingThemePages={getChooseSettingThemePages}
-                  isChooseShowicons={isChooseShowicons}
-                  getSettingChooseShowIconOnly={getSettingChooseShowIconOnly}
+                  isChooseShowIcons={isChooseShowIcons}
+                  onHandleGetSettingChooseShowIconOnly={handleGetSettingChooseShowIconOnly}
                   isShowSideBarRes={isShowSideBarRes}
-                  getShowSideBarRes={getShowSideBarRes}
+                  onHandleGetShowSideBarRes={handleGetShowSideBarRes}
                 />
                 <div className="container-fluid page-body-wrapper">
                   <ThemeSetting
-                    getDataChooseSettingThemePages={getDataChooseSettingThemePages}
+                    onHandleGetDataChooseSettingThemePages={handleGetDataChooseSettingThemePages}
                     chooseSettingThemePages={chooseSettingThemePages}
-                    getIsChooseSettingThemePages={getIsChooseSettingThemePages}
+                    onHandleGetIsChooseSettingThemePages={handleGetIsChooseSettingThemePages}
                   />
                   <Sidebar
-                    isChooseShowicons={isChooseShowicons}
-                    getSettingChooseShowIconOnly={getSettingChooseShowIconOnly}
+                    isChooseShowIcons={isChooseShowIcons}
+                    onHandleGetSettingChooseShowIconOnly={handleGetSettingChooseShowIconOnly}
                     isShowSideBarRes={isShowSideBarRes} />
                   <TagName1 />
                 </div>

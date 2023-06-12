@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Footer from "components/Footer"
 
 const Index = () => {
     const [optionSelectLaptop, setOptionSelectLaptop] = useState(["ASUS", "ACER", "MSI", "LENOVO", "HP", "DELL", "GIGABYTE", "LG", "HUAWEI"])
@@ -118,15 +119,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            {/* content-wrapper ends */}
-            {/* partial:../../partials/_footer.html */}
-            <footer className="footer">
-                <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
-                </div>
-            </footer>
-            {/* partial */}
+            <Footer />
         </div>
     );
 }

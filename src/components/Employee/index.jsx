@@ -1,725 +1,252 @@
-import React, { useContext } from 'react';
-import { StateContext } from 'components/Context'
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { fetchListOfEmployee, fetchSearchEmployee } from 'Apis'
+import NoAuth from 'components/Error/No-Auth'
+import Footer from "components/Footer"
+// import PageChartSalary from 'components/Employee/Page-Chart/Salary'
+import PageChartEmployee from 'components/Employee/Page-Chart/Employees'
 const Index = () => {
-    const state = useContext(StateContext)
+    const [employeeList, setEmployeeList] = useState()
+    const [authentication, setAuthentication] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const role = ['CEO', 'PRODUCT', 'ORDER', 'EMPLOYEE', 'DEVELOPER', 'MANAGEMENT']
+    const [countPage, setCountPage] = useState(1)
+    const [countMaxPage, setCountMaxPage] = useState(1)
+    const [search, setSearch] = useState({ email: "", role: "", status: "" })
+    const [searchTimeout, setSearchTimeout] = useState(null);
+    const [inputFocused, setInputFocused] = useState(false);
+
+    useEffect(() => {
+        fetchListOfEmployee(countPage)
+            .then(result => {
+                setAuthentication(result.role)
+                setLoading(false)
+                setEmployeeList(result.data)
+                if (0 < result.total % 10 && result.total % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.total / 10) + 1)
+                } else if (result.total === 0) {
+                    setCountMaxPage(1)
+                }
+                else {
+                    setCountMaxPage(Math.floor(result.total / 10))
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
+    }, [])
+
+    const handleSetPage = (count) => {
+        setEmployeeList()
+        setCountPage(count)
+        fetchSearchEmployee(search, count)
+            .then(result => {
+                setEmployeeList(result.data)
+                if (0 < result.total % 10 && result.total % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.total / 10) + 1)
+                } else if (result.total === 0) {
+                    setCountMaxPage(1)
+                }
+                else {
+                    setCountMaxPage(Math.floor(result.total / 10))
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const handleSearchEmployee = (e) => {
+        setEmployeeList()
+        const { name, value } = e.target;
+
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+
+        if (inputFocused) {
+            const timeoutId = setTimeout(() => {
+                setSearch({ ...search, [name]: value })
+                fetchSearchEmployee({ ...search, [name]: value }, 1)
+                    .then((result) => {
+                        setEmployeeList(result.data);
+                        if (0 < result.total % 10 && result.total % 10 < 10) {
+                            setCountMaxPage(Math.floor(result.total / 10) + 1);
+                        } else if (result.total === 0) {
+                            setCountMaxPage(1);
+                        } else {
+                            setCountMaxPage(Math.floor(result.total / 10));
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }, 1000);
+
+            setSearchTimeout(timeoutId);
+        }
+    };
+
+
     return (
         <div className="main-panel">
             <div className="content-wrapper">
                 <div className="row">
-                    <div className="col-md-12 grid-margin">
-                        <div className="row">
-                            <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                                <h3 className="font-weight-bold">Danh sách nhân viên</h3>
+                    {loading === false ?
+                        <div className="col-lg-12 stretch-card">
+                            <div className="card">
+                                {authentication === 'MANAGEMENT' || authentication === 'DEVELOPER' &&
+                                    <div className="card-body">
+                                        <h4 className="card-title">List of Employee</h4>
+                                        <NavLink to={"/employee/create"} className="card-description" style={{ textDecoration: "none" }}>
+                                            <code><i className="mdi mdi-plus-circle-outline" />  Add new staff</code>
+                                        </NavLink>
+                                        <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
+                                            <div className='col-lg-2' style={{ display: "flex", "flexDirection": "row", "alignItems": "center", "paddingBottom": "15px", "justifyContent": "end" }}>
+                                                <p className="card-description" style={{ margin: "0" }}>
+                                                    Search :
+                                                </p>
+                                            </div>
+                                            <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                                <input
+                                                    style={{ borderRadius: "15px" }}
+                                                    name="email"
+                                                    onChange={e => handleSearchEmployee(e)}
+                                                    nBlur={() => setInputFocused(false)}
+                                                    onFocus={() => setInputFocused(true)}
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Email"
+                                                    aria-label="Email" />
+                                            </ul>
+                                            <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                                <li className="nav-item nav-search d-lg-block">
+                                                    <div className="input-group">
+                                                        <select style={{ borderRadius: "15px" }} name="role" onChange={e => handleSearchEmployee(e)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                            <option value="">All</option>\
+                                                            {role.map((item, index) => {
+                                                                return <option key={index} value={item}>{item}</option>
+                                                            })}
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
+                                                <li className="nav-item nav-search d-lg-block">
+                                                    <div className="input-group">
+                                                        <select onFocus={() => setInputFocused(true)} style={{ borderRadius: "15px" }} name="status" onChange={e => handleSearchEmployee(e)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                            <option value="">All</option>\
+                                                            <option value={true}>Active</option>
+                                                            <option value={false}>Deactivate</option>
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        {employeeList ? <>
+                                            <div className="table-responsive">
+                                                <table className="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Name
+                                                            </th>
+                                                            <th>
+                                                                Email
+                                                            </th>
+                                                            <th>
+                                                                Role
+                                                            </th>
+                                                            <th>
+                                                                Image
+                                                            </th>
+                                                            <th>
+                                                                Status
+                                                            </th>
+                                                            <th>
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {employeeList && employeeList.map((item, index) => {
+                                                            return <tr className="table" key={index}>
+                                                                <td>{item.username}</td>
+                                                                <td>
+                                                                    {item.email}
+                                                                </td>
+                                                                <td>
+                                                                    {item.role}
+                                                                </td>
+                                                                <td>
+                                                                    <img src={item.image} className="img-fluid" alt="" style={{ borderRadius: "50%" }} />
+                                                                </td>
+                                                                <td>
+                                                                    {item.status ? <label className="badge badge-success" style={{ marginRight: "10px" }}>
+                                                                        Active
+                                                                    </label>
+                                                                        :
+                                                                        <label className="badge badge-danger" style={{ marginRight: "10px" }}>
+                                                                            Deactivate
+                                                                        </label>
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    <NavLink to={"/employee/" + item._id} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
+                                                                </td>
+                                                            </tr>
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
+                                                {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPage(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
+                                                <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
+                                                {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPage(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
+                                                {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
+                                                {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPage(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                            </div>
+                                        </>
+                                            :
+                                            <>
+                                                <style dangerouslySetInnerHTML={{
+                                                    __html: "\n.loader {\n  border: 16px solid #f3f3f3;\n  border-radius: 50%;\n  border-top: 16px solid #3498db;\n  margin: 0 auto;\n  width: 120px;\n  height: 120px;\n  -webkit-animation: spin 2s linear infinite; /* Safari */\n  animation: spin 2s linear infinite;\n}\n\n/* Safari */\n@-webkit-keyframes spin {\n  0% { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n"
+                                                }} />
+                                                <div className="loader" />
+                                            </>
+                                        }
+                                    </div>
+                                }
+
+                                {authentication === 'CEO' &&
+                                    <>
+                                        {/* <div className="card-body">
+                                            <h4 className="card-title">List of Employee</h4>
+                                            <PageChartSalary />
+                                        </div> */}
+                                        <div className="card-body">
+                                            <PageChartEmployee />
+                                        </div>
+                                    </>
+                                }
+                                {authentication === null &&
+                                    <NoAuth />
+                                }
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Basic Table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Profile</th>
-                                                <th>VatNo.</th>
-                                                <th>Created</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Jacob</td>
-                                                <td>53275531</td>
-                                                <td>12 May 2017</td>
-                                                <td><label className="badge badge-danger">Pending</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Messsy</td>
-                                                <td>53275532</td>
-                                                <td>15 May 2017</td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>53275533</td>
-                                                <td>14 May 2017</td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Peter</td>
-                                                <td>53275534</td>
-                                                <td>16 May 2017</td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dave</td>
-                                                <td>53275535</td>
-                                                <td>20 May 2017</td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Hoverable Table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-hover</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <table className="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>User</th>
-                                                <th>Product</th>
-                                                <th>Sale</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Jacob</td>
-                                                <td>Photoshop</td>
-                                                <td className="text-danger"> 28.76% <i className="ti-arrow-down" /></td>
-                                                <td><label className="badge badge-danger">Pending</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Messsy</td>
-                                                <td>Flash</td>
-                                                <td className="text-danger"> 21.06% <i className="ti-arrow-down" /></td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John</td>
-                                                <td>Premier</td>
-                                                <td className="text-danger"> 35.00% <i className="ti-arrow-down" /></td>
-                                                <td><label className="badge badge-info">Fixed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Peter</td>
-                                                <td>After effects</td>
-                                                <td className="text-success"> 82.00% <i className="ti-arrow-up" /></td>
-                                                <td><label className="badge badge-success">Completed</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dave</td>
-                                                <td>53275535</td>
-                                                <td className="text-success"> 98.05% <i className="ti-arrow-up" /></td>
-                                                <td><label className="badge badge-warning">In progress</label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Striped Table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-striped</code>
-                                </p>
-                                <div className="table-responsive">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    User
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Progress
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face1.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '25%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face2.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '75%' }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face3.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '90%' }} aria-valuenow={90} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face4.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-primary" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face5.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '35%' }} aria-valuenow={35} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face6.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    John Doe
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-info" role="progressbar" style={{ width: '65%' }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 123.21
-                                                </td>
-                                                <td>
-                                                    April 05, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="py-1">
-                                                    <img src="../../images/faces/face7.jpg" alt="image" />
-                                                </td>
-                                                <td>
-                                                    Henry Tom
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 150.00
-                                                </td>
-                                                <td>
-                                                    June 16, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Bordered table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-bordered</code>
-                                </p>
-                                <div className="table-responsive pt-3">
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Progress
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '25%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '75%' }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '90%' }} aria-valuenow={90} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-primary" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '35%' }} aria-valuenow={35} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    6
-                                                </td>
-                                                <td>
-                                                    John Doe
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-info" role="progressbar" style={{ width: '65%' }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 123.21
-                                                </td>
-                                                <td>
-                                                    April 05, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    7
-                                                </td>
-                                                <td>
-                                                    Henry Tom
-                                                </td>
-                                                <td>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $ 150.00
-                                                </td>
-                                                <td>
-                                                    June 16, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Inverse table</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-dark</code>
-                                </p>
-                                <div className="table-responsive pt-3">
-                                    <table className="table table-dark">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    6
-                                                </td>
-                                                <td>
-                                                    John Doe
-                                                </td>
-                                                <td>
-                                                    $ 123.21
-                                                </td>
-                                                <td>
-                                                    April 05, 2015
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    7
-                                                </td>
-                                                <td>
-                                                    Henry Tom
-                                                </td>
-                                                <td>
-                                                    $ 150.00
-                                                </td>
-                                                <td>
-                                                    June 16, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-12 stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Table with contextual classes</h4>
-                                <p className="card-description">
-                                    Add class <code>.table-{'{'}color{'}'}</code>
-                                </p>
-                                <div className="table-responsive pt-3">
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    First name
-                                                </th>
-                                                <th>
-                                                    Product
-                                                </th>
-                                                <th>
-                                                    Amount
-                                                </th>
-                                                <th>
-                                                    Deadline
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="table-info">
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Herman Beck
-                                                </td>
-                                                <td>
-                                                    Photoshop
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-warning">
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Messsy Adam
-                                                </td>
-                                                <td>
-                                                    Flash
-                                                </td>
-                                                <td>
-                                                    $245.30
-                                                </td>
-                                                <td>
-                                                    July 1, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-danger">
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    John Richards
-                                                </td>
-                                                <td>
-                                                    Premeire
-                                                </td>
-                                                <td>
-                                                    $138.00
-                                                </td>
-                                                <td>
-                                                    Apr 12, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-success">
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Peter Meggik
-                                                </td>
-                                                <td>
-                                                    After effects
-                                                </td>
-                                                <td>
-                                                    $ 77.99
-                                                </td>
-                                                <td>
-                                                    May 15, 2015
-                                                </td>
-                                            </tr>
-                                            <tr className="table-primary">
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Edward
-                                                </td>
-                                                <td>
-                                                    Illustrator
-                                                </td>
-                                                <td>
-                                                    $ 160.25
-                                                </td>
-                                                <td>
-                                                    May 03, 2015
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        :
+                        <>
+                            <style dangerouslySetInnerHTML={{
+                                __html: "\n.loader {\n  border: 16px solid #f3f3f3;\n  border-radius: 50%;\n  border-top: 16px solid #3498db;\n  margin: 0 auto;\n  width: 120px;\n  height: 120px;\n  -webkit-animation: spin 2s linear infinite; /* Safari */\n  animation: spin 2s linear infinite;\n}\n\n/* Safari */\n@-webkit-keyframes spin {\n  0% { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n"
+                            }} />
+                            <div className="loader" />
+                        </>
+                    }
                 </div>
             </div>
-            {/* content-wrapper ends */}
-            {/* partial:../../partials/_footer.html */}
-            <footer className="footer">
-                <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i className="ti-heart text-danger ml-1" /></span>
-                </div>
-            </footer>
-            {/* partial */}
+
+            <Footer />
         </div>
     );
 }
