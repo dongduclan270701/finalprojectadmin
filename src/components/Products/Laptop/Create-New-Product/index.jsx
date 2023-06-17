@@ -9,7 +9,7 @@ import Footer from "components/Footer"
 
 const Index = () => {
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState({
+    const [product, setProduct] = useState({
         img: [],
         src: "",
         gift: [""],
@@ -28,7 +28,7 @@ const Index = () => {
         category: [],
     })
 
-    const [listImage, setListImage] = useState()
+    const [listImage, setListImage] = useState([])
 
     const [options, setOptions] = useState([])
     useEffect(() => {
@@ -37,22 +37,22 @@ const Index = () => {
                 console.log(result.category)
                 // setCollecting(result.category)
                 result.category.map((item, index) => {
-                    if (item.name === "Brand Name" ) {
+                    if (item.name === "Brand Name") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
                     }
-                    if (item.name === "Brand Name" ) {
+                    if (item.name === "Brand Name") {
                         item.collecting.map((item, index) => {
                             const categoryInCollecting = item.category.map((i, index) => {
-                                
+
                                 return { label: i.name, value: i.name }
                             })
                             setOptions(options => [...options, ...categoryInCollecting])
                             return categoryInCollecting
                         })
-                        
+
                     }
                     if (item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
@@ -78,7 +78,7 @@ const Index = () => {
             })
     }, []);
     const handleGetData = (data) => {
-        setInputElement(data)
+        setProduct(data)
 
     }
     const handleGetImage = (files) => {
@@ -86,15 +86,92 @@ const Index = () => {
     }
     const handleSubmitCreate = () => {
         const formData = new FormData();
-        if (!inputElement.img || !inputElement.src || !inputElement.gift || !inputElement.gift_buy || !inputElement.nameProduct || !inputElement.description_table || !inputElement.description || !inputElement.category) {
-
+        if (listImage.length === 0) {
             Swal.fire({
-                title: 'Cảnh báo!',
-                text: 'Bạn chưa nhập đủ thông tin sản phẩm, vui lòng thử lại!',
+                title: 'Warning!',
+                text: 'You have not entered product image, please try again!',
                 icon: 'warning',
                 confirmButtonText: 'OK!'
-            })
+            });
+        } else if (!product.src) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product product code, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.gift.length === 1 && product.gift[0] === "") {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product gift, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.gift_buy.length === 1 && product.gift_buy[0] === "") {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product offers, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (!product.nameProduct) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product name, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.description_table.length === 1 && (product.description_table[0][0] === "" || product.description_table[0][1] === "")) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product details, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.description.length === 1 && (product.description[0][0] === "" || product.description[0][1] === "")) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product description, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.category.length === 0) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product category, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.realPrice === 0) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product main price, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.nowPrice === 0) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product reduced price, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.percent === 0) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product discount percent, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
+        } else if (product.quantity === 0) {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'You have not entered product quantity, please try again!',
+                icon: 'warning',
+                confirmButtonText: 'OK!'
+            });
         }
+        
         else {
             for (let i = 0; i < listImage.length; i++) {
                 formData.append('file', listImage[i]);
@@ -105,18 +182,18 @@ const Index = () => {
                     }
                 })
                     .then((response) => {
-                        inputElement.img.push(response.data.secure_url);
+                        product.img.push(response.data.secure_url);
                         if (i === listImage.length - 1) {
                             //Post axios
-                            fetchCreateLaptopCollecting(inputElement)
+                            fetchCreateLaptopCollecting(product)
                                 .then(result => {
                                     Swal.fire({
-                                        title: 'Tạo sản phẩm thành công!',
-                                        text: 'Bạn đã tạo mới thành công thông tin sản phẩm',
+                                        title: 'Add new successful product!',
+                                        text: 'You have successfully add new product information',
                                         icon: 'success',
                                         confirmButtonText: 'OK!'
                                     })
-                                    setInputElement({
+                                    setProduct({
                                         img: [],
                                         src: "",
                                         gift: [""],
@@ -140,8 +217,8 @@ const Index = () => {
                                 .catch(error => {
                                     console.log(error)
                                     Swal.fire({
-                                        title: 'Tạo sản phẩm thất bại!',
-                                        text: 'Bạn tạo mới sản phẩm thất bại',
+                                        title: 'Unable to connect to server!',
+                                        text: 'There seems to be a problem with the connection to the server, please try again later',
                                         icon: 'error',
                                         confirmButtonText: 'OK!'
                                     })
@@ -162,14 +239,14 @@ const Index = () => {
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
-                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Tạo mới thông tin chi tiết sản phẩm Laptop</h3>
+                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Back</button>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Add new product details Laptop</h3>
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button onClick={handleSubmitCreate} className="col-lg-2 btn btn-outline-secondary btn-fw">Tạo</button>
+                    <button onClick={handleSubmitCreate} className="col-lg-2 btn btn-outline-secondary btn-fw">Create</button>
                 </div>
-                <CreateForm inputElement={inputElement} options={options} handleGetImage={handleGetImage} handleGetData={handleGetData} />
+                <CreateForm product={product} options={options} handleGetImage={handleGetImage} handleGetData={handleGetData} />
             </div>
             <Footer />
         </div>

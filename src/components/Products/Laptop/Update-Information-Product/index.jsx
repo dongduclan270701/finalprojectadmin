@@ -10,18 +10,14 @@ import Footer from "components/Footer"
 const Index = () => {
     const params = useParams()
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState()
+    const [product, setProduct] = useState()
     const [listImage, setListImage] = useState([])
     const [options, setOptions] = useState([])
-    // useEffect(() => {
-    //     inputElement.category.map((item) => {
-    //         setOptions(options => [...options, { label: item, value: item }])
-    //     })
-    // }, []);
+
     useEffect(() => {
         fetchListOfLaptopCollectingByName(params.src)
             .then(result => {
-                setInputElement(result)
+                setProduct(result)
                 result.category.map((item) => {
                     setOptions(options => [...options, { label: item, value: item }])
                 })
@@ -32,22 +28,18 @@ const Index = () => {
         fetchCollectingByName("Laptop")
             .then(result => {
                 result.category.map((item, index) => {
-                    if (item.name === "Brand Name" ) {
+                    if (item.name === "Brand Name") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
-                    }
-                    if (item.name === "Brand Name" ) {
                         item.collecting.map((item, index) => {
                             const categoryInCollecting = item.category.map((i, index) => {
-                                
+
                                 return { label: i.name, value: i.name }
                             })
                             setOptions(options => [...options, ...categoryInCollecting])
-                            return categoryInCollecting
                         })
-                        
                     }
                     if (item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
@@ -74,21 +66,20 @@ const Index = () => {
     }, []);
 
     const handleGetData = (data) => {
-        setInputElement(data)
+        setProduct(data)
     }
     const handleGetImage = (files) => {
         setListImage(files)
     }
-    // console.log(inputElement)
+    // console.log(product)
     const handleSubmitUpdated = () => {
         if (listImage.length === 0) {
-            const { _id, ...newData } = inputElement;
+            const { _id, ...newData } = product;
             fetchUpdateLaptopCollecting(params.src, newData)
                 .then(result => {
-                    console.log(result)
                     Swal.fire({
-                        title: 'Cập nhật sản phẩm thành công!',
-                        text: 'Bạn đã cập nhật thành công thông tin sản phẩm',
+                        title: 'Product update successful!',
+                        text: 'You have successfully updated product information',
                         icon: 'success',
                         confirmButtonText: 'OK!'
                     })
@@ -96,8 +87,8 @@ const Index = () => {
                 .catch(error => {
                     console.log(error)
                     Swal.fire({
-                        title: 'Tạo sản phẩm thất bại!',
-                        text: 'Bạn tạo mới sản phẩm thất bại',
+                        title: 'Failed!',
+                        text: 'You have failed to update the product',
                         icon: 'error',
                         confirmButtonText: 'OK!'
                     })
@@ -105,7 +96,7 @@ const Index = () => {
         }
         else {
             const formData = new FormData();
-            inputElement.img.splice(0, inputElement.img.length)
+            product.img.splice(0, product.img.length)
             for (let i = 0; i < listImage.length; i++) {
                 formData.append('file', listImage[i]);
                 formData.append('upload_preset', apiKeyProduct);
@@ -115,32 +106,28 @@ const Index = () => {
                     }
                 })
                     .then((response) => {
-                        
-                        inputElement.img.push(response.data.secure_url);
-                        console.log(inputElement.img)
+                        product.img.push(response.data.secure_url);
                         if (i === listImage.length - 1) {
-                            const { _id, ...newData } = inputElement;
+                            const { _id, ...newData } = product;
                             //Post axios
                             fetchUpdateLaptopCollecting(params.src, newData)
                                 .then(result => {
                                     Swal.fire({
-                                        title: 'Cập nhật sản phẩm thành công!',
-                                        text: 'Bạn đã cập nhật thành công thông tin sản phẩm',
+                                        title: 'Product update successful!',
+                                        text: 'You have successfully updated product information',
                                         icon: 'success',
                                         confirmButtonText: 'OK!'
                                     })
-                                    setInputElement(inputElement)
                                 })
                                 .catch(error => {
                                     console.log(error)
                                     Swal.fire({
-                                        title: 'Tạo sản phẩm thất bại!',
-                                        text: 'Bạn tạo mới sản phẩm thất bại',
+                                        title: 'Failed!',
+                                        text: 'You have failed to update the product',
                                         icon: 'error',
                                         confirmButtonText: 'OK!'
                                     })
                                 })
-
                         }
                     })
                     .catch((error) => {
@@ -159,15 +146,15 @@ const Index = () => {
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
-                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm Laptop</h3>
+                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Back</button>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Change laptop product details</h3>
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Lưu</button>
+                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Save</button>
                 </div>
-                {inputElement ?
-                    <UpdateForm inputElement={inputElement} handleGetImage={handleGetImage} options={options} handleGetData={handleGetData} />
+                {product ?
+                    <UpdateForm product={product} handleGetImage={handleGetImage} options={options} handleGetData={handleGetData} />
                     :
                     <>
                         <style dangerouslySetInnerHTML={{

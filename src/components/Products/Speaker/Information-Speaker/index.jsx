@@ -75,7 +75,7 @@ const Index = () => {
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
-                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
+                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Back</button>
                         <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm Loa</h3>
                     </div>
                 </div>

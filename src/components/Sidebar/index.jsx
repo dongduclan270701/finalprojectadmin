@@ -127,7 +127,7 @@ const Index = (props) => {
                                 <span className="menu-title">Dashboard</span>
                             </NavLink>
                         </li>
-                        <li className="nav-item" onClick={() => handleSetActive(1)}>
+                        {/* <li className="nav-item" onClick={() => handleSetActive(1)}>
                             <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={bannerAds} aria-controls="ui-basic">
                                 <i className="mdi mdi-image-area-close menu-icon" />
                                 <span className="menu-title">Banner Ads</span>
@@ -141,7 +141,7 @@ const Index = (props) => {
                                     <li className="nav-item"> <NavLink to="/banner-content" className="nav-link">Content Ads</NavLink></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="nav-item" onClick={() => handleSetActive(2)}>
                             <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={products} aria-controls="products-elements">
                                 <i className="mdi mdi-laptop menu-icon"/>
@@ -156,15 +156,11 @@ const Index = (props) => {
                                     <li className="nav-item"><NavLink to="/pc-gaming" className="nav-link" >PC Gaming</NavLink></li>
                                     <li className="nav-item"><NavLink to="/pc-creator" className="nav-link" >PC Đồ Hoạ</NavLink></li>
                                     <li className="nav-item"><NavLink to="/pc-company" className="nav-link" >PC Doanh Nghiệp</NavLink></li>
-                                    <li className="nav-item"><NavLink to="/pc-accessory" className="nav-link" >Linh Kiện PC</NavLink></li>
                                     <li className="nav-item"><NavLink to="/apple" className="nav-link" >Apple</NavLink></li>
                                     <li className="nav-item"><NavLink to="/monitor" className="nav-link" >Màn Hình</NavLink></li>
                                     <li className="nav-item"><NavLink to="/keyboard" className="nav-link" >Bàn Phím</NavLink></li>
-                                    <li className="nav-item"><NavLink to="/mouse-tabpad" className="nav-link" >Chuột + Lót Chuột</NavLink></li>
+                                    <li className="nav-item"><NavLink to="/mouse-tabpad" className="nav-link" >Chuột</NavLink></li>
                                     <li className="nav-item"><NavLink to="/speaker" className="nav-link" >Tai Nghe - Loa</NavLink></li>
-                                    <li className="nav-item"><NavLink to="/chair-tables" className="nav-link" >Ghế - Bàn</NavLink></li>
-                                    <li className="nav-item"><NavLink to="/app-internet" className="nav-link" >Phần Mềm & Mạng</NavLink></li>
-                                    <li className="nav-item"><NavLink to="/accessory" className="nav-link" >Phụ Kiện</NavLink></li>
                                 </ul>
                             </div>
                         </li>
@@ -204,7 +200,7 @@ const Index = (props) => {
                                 </ul>
                             </div>
                         </li>
-                        <li className="nav-item" onClick={() => handleSetActive(6)}>
+                        {/* <li className="nav-item" onClick={() => handleSetActive(6)}>
                             <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={recruitment} aria-controls="auth">
                                 <i className="mdi mdi-calendar-text menu-icon" />
                                 <span className="menu-title">Recruitment</span>
@@ -216,7 +212,7 @@ const Index = (props) => {
                                     <li className="nav-item"> <NavLink to="/recruitment-apply" className="nav-link">Ứng viên ứng tuyển</NavLink></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="nav-item" onClick={() => handleSetActive(7)}>
                             <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={discount} aria-controls="error">
                                 <i className="mdi mdi-division menu-icon" />
@@ -229,7 +225,7 @@ const Index = (props) => {
                                 </ul>
                             </div>
                         </li>
-                        <li className="nav-item" onClick={() => handleSetActive(8)}>
+                        {/* <li className="nav-item" onClick={() => handleSetActive(8)}>
                             <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={charts} aria-controls="error">
                                 <i className="mdi mdi-timetable menu-icon" />
                                 <span className="menu-title">Statistical tables</span>
@@ -241,7 +237,7 @@ const Index = (props) => {
                                     <li className="nav-item"> <NavLink to="/charts-products" className="nav-link">Products</NavLink></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <NavLink to="/website" className="nav-link">
                                 <i className="mdi mdi-web menu-icon" />

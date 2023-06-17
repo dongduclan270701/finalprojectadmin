@@ -4,8 +4,6 @@ import "assets/scss/Banner-Ads/Banner-Slide/Banner-Slide.scss"
 import { fetchListOfUser, fetchSearchUser } from 'Apis'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
-import upArrow from 'assets/images/up-arrow.png'
-import downArrow from 'assets/images/down-arrow.png'
 const Index = () => {
     const [userList, setUserList] = useState()
     const [countPage, setCountPage] = useState(1)
@@ -17,30 +15,11 @@ const Index = () => {
     const [search, setSearch] = useState({ email: '', status: '', sort: 'asc' })
 
     useEffect(() => {
-        fetchListOfUser(countPage)
+        fetchListOfUser(1)
             .then(result => {
                 setUserList(result.data)
                 setLoading(false)
                 setAuthentication(result.role)
-                if (0 < result.total % 10 && result.total % 10 < 10) {
-                    setCountMaxPage(Math.floor(result.total / 10) + 1)
-                }
-                else {
-                    setCountMaxPage(Math.floor(result.total / 10))
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                setLoading(false)
-            })
-    }, [])
-
-    const handleSetPage = (count) => {
-        setUserList()
-        setCountPage(count)
-        fetchListOfUser(count)
-            .then(result => {
-                setUserList(result.data)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
                 } else if (result.total === 0) {
@@ -49,6 +28,22 @@ const Index = () => {
                 else {
                     setCountMaxPage(Math.floor(result.total / 10))
                 }
+            })
+            .catch(error => {
+                if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
+                    setAuthentication(null)
+                }
+                console.log(error)
+                setLoading(false)
+            })
+    }, [])
+
+    const handleSetPage = (count) => {
+        setUserList()
+        setCountPage(count)
+        fetchSearchUser(search, count)
+            .then(result => {
+                setUserList(result.data)
             })
             .catch(error => {
                 console.log(error)
@@ -61,10 +56,8 @@ const Index = () => {
         if (searchTimeout) {
             clearTimeout(searchTimeout);
         }
-
         if (inputFocused) {
             const timeoutId = setTimeout(() => {
-                console.log({ ...search, [name]: value })
                 setSearch({ ...search, [name]: value })
                 fetchSearchUser({ ...search, [name]: value }, 1)
                     .then((result) => {
@@ -112,7 +105,7 @@ const Index = () => {
                     {loading === false ?
                         <div className="col-lg-12 stretch-card">
                             <div className="card">
-                                {authentication === 'MANAGEMENT' || authentication === 'DEVELOPER' || authentication === 'CEO' &&
+                                {(authentication === 'MANAGEMENT' || authentication === 'DEVELOPER' || authentication === 'CEO') &&
                                     <div className="card-body">
                                         <h4 className="card-title">List of User</h4>
                                         <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
@@ -137,7 +130,7 @@ const Index = () => {
                                             <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                                 <li className="nav-item nav-search d-lg-block">
                                                     <div className="input-group">
-                                                        <select name="status" style={{ borderRadius: "15px" }} onChange={e => handleSearchUser(e)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                        <select name="status" style={{ borderRadius: "15px" }} onChange={e => handleSearchUser(e)} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                             <option value=''>All</option>
                                                             <option value='true'>Active</option>
                                                             <option value='false'>Deactivate</option>
@@ -204,11 +197,13 @@ const Index = () => {
                                                 </table>
                                             </div>
                                             <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                                {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPage(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
-                                                <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
-                                                {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPage(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
-                                                {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
-                                                {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPage(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                            {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
+                                            {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                            {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPage(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
+                                            <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
+                                            {countPage + 1 < countMaxPage && <button type="button" onClick={() => handleSetPage(countPage + 1)} className="btn btn-outline-secondary">{countPage + 1}</button>}
+                                            {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                            {countPage !== countMaxPage && <button type="button" onClick={() => handleSetPage(countMaxPage)} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                             </div>
                                         </> :
                                             <>

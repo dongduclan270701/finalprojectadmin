@@ -9,39 +9,37 @@ import Footer from "components/Footer"
 const Index = () => {
     const params = useParams()
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState()
-    const [options, setOptions] = useState([])
+    const [product, setProduct] = useState()
+
     useEffect(() => {
         fetchListOfLaptopCollectingByName(params.src)
             .then(result => {
-                setInputElement(result)
-                result.category.map((item) => {
-                    setOptions(options => [...options, { label: item, value: item }])
-                })
+                setProduct(result)
+                
             })
-    }, []);
+    }, [params]);
 
     return (
         <div className="main-panel">
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
-                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm Laptop</h3>
+                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Back</button>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Product details Laptop</h3>
                     </div>
-                </div>{inputElement ? <>
+                </div>{product ? <>
                     <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                        <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/laptop/update/" + inputElement.src}>Chỉnh sửa</NavLink>
+                        <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/laptop/update/" + product.src}>Update</NavLink>
                     </div>
 
                     <div className="row">
                         <div className="col-lg-6 grid-margin">
                             <div className="card">
                                 <div className="card-body">
-                                    <h4 className="card-title">Hình ảnh</h4>
+                                    <h4 className="card-title">Image</h4>
                                     <div className="col-sm-12 col-xs-12 ">
                                         <Carousel>
-                                            {inputElement.img.map((item, index) => {
+                                            {product.img.map((item, index) => {
                                                 return <img src={item} key={index} />
                                             })}
                                         </Carousel>
@@ -52,81 +50,78 @@ const Index = () => {
                         <div className="col-lg-6 grid-margin stretch-card">
                             <div className="card" style={{ "marginBottom": "25px" }}>
                                 <div className="card-body">
-                                    <h4 className="card-title">Thông tin sản phẩm</h4>
+                                    <h4 className="card-title">Product Details</h4>
                                     <div className="form-group">
-                                        <label>Mã sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" value={inputElement.src} disabled />
+                                        <label>Product Code</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Product Code" aria-label="Product Code" value={product.src} disabled />
                                     </div>
                                     <div className="form-group">
-                                        <label>Tên sản phẩm</label>
-                                        <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" value={inputElement.nameProduct} disabled />
+                                        <label>Product Name</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Product Name" aria-label="Product Name" value={product.nameProduct} disabled />
                                     </div>
                                     <div className="form-group">
-                                        <label>Giá chính</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} disabled />
+                                        <label>Main Price</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Main Price" aria-label="Main Price" value={product.realPrice} disabled />
                                     </div>
                                     <div className="form-group">
-                                        <label>Giá giảm</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} disabled />
+                                        <label>Reduced Price</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Reduced Price" aria-label="Reduced Price" value={product.nowPrice} disabled />
                                     </div>
                                     <div className="form-group">
-                                        <label>Phần trăm giảm giá</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} disabled />
+                                        <label>Discount Percent</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Discount Percent" aria-label="Discount Percent" value={product.percent} disabled />
                                     </div>
                                     <div className="form-group">
-                                        <label>Số lượng</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} disabled />
+                                        <label>Quantity</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Quantity" aria-label="Quantity" value={product.quantity} disabled />
                                     </div>
                                     <div className='row' style={{ paddingTop: "0" }}>
                                         <div className="col-6 form-group">
-                                            <label>Đã bán</label>
-                                            <input type="number" className="form-control form-control-sm" placeholder="Đã bán" aria-label="Đã bán" value={inputElement.sold} disabled />
+                                            <label>Sold</label>
+                                            <input type="number" className="form-control form-control-sm" placeholder="Sold" aria-label="Sold" value={product.sold} disabled />
                                         </div>
                                         <div className="col-6 form-group">
-                                            <label>Lượt xem</label>
-                                            <input type="number" className="form-control form-control-sm" placeholder="Lượt xem" aria-label="Lượt xem" value={inputElement.view} disabled />
+                                            <label>View</label>
+                                            <input type="number" className="form-control form-control-sm" placeholder="View" aria-label="View" value={product.view} disabled />
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label>Danh mục</label>
-                                        <Select value={inputElement.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Chọn danh mục" isDisabled={true} />
+                                        <label>Category</label>
+                                        <Select value={product.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Chọn danh mục" isDisabled={true} />
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div className="col-lg-6 grid-margin stretch-card">
                             <div className="col-md-12" style={{ "padding": 0 }}>
                                 <div className="card">
                                     <div className="card-body">
-                                        <h4 className="card-title">Thông số sản phẩm</h4>
-                                        {inputElement.description_table.map((item, index) => {
+                                        <h4 className="card-title">Detais</h4>
+                                        {product.description_table.map((item, index) => {
                                             return <div className="form-group" key={index}>
                                                 <label>{item[0]}</label>
                                                 <input type="text" className="form-control form-control-sm" placeholder={item[0]} aria-label={item[0]} value={item[1]} disabled />
                                             </div>
                                         })}
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div className="col-lg-6 grid-margin stretch-card">
                             <div className="col-md-12" style={{ "padding": 0 }}>
                                 <div className="card" style={{ "marginBottom": "25px" }}>
                                     <div className="card-body">
-                                        <h4 className="card-title">Mô tả sản phẩm</h4>
-                                        <div className='row' style={{ margin: "inherit" }}>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <label>Tiêu đề:</label>
+                                        <h4 className="card-title">Description</h4>
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Title:</label>
                                             </div>
                                             <div className='col-6' style={{ padding: "0" }}>
-                                                <label>Nội dung:</label>
+                                                <label>Content:</label>
                                             </div>
                                         </div>
-                                        {inputElement.description.map((item, index) => {
-                                            return <div key={index} className='row' style={{ marginBottom: "25px" }}>
+                                        {product.description.map((item, index) => {
+                                            return <div key={index} className='row' style={{ margin: "0 0 25px 0" }}>
                                                 <div className='col-6' style={{ paddingLeft: "0" }}>
                                                     <textarea name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
                                                 </div>
@@ -139,22 +134,22 @@ const Index = () => {
                                 </div>
                                 <div className="card" style={{ "marginBottom": "25px" }}>
                                     <div className="card-body">
-                                        <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
+                                        <h4 className="card-title">Offers</h4>
                                         <div className="form-group">
-                                            <label>Ưu đãi</label>
-                                            {inputElement.gift_buy.map((item, index) => {
-                                                return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
+                                            <label>Offers</label>
+                                            {product.gift_buy.map((item, index) => {
+                                                return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Offers" aria-label="Offers" disabled />
                                             })}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card" style={{ "marginBottom": "25px" }}>
                                     <div className="card-body">
-                                        <h4 className="card-title">Quà tặng</h4>
+                                        <h4 className="card-title">Gift</h4>
                                         <div className="form-group">
-                                            <label>Quà tặng</label>
-                                            {inputElement.gift.map((item, index) => {
-                                                return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
+                                            <label>Gift</label>
+                                            {product.gift.map((item, index) => {
+                                                return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Gift" aria-label="Gift" disabled />
                                             })}
                                         </div>
                                     </div>

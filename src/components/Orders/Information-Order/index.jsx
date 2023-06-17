@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
-import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import logo from 'assets/images/faces/face1.jpg'
 import 'assets/scss/Information-Order.css'
 import Swal from 'sweetalert2'
 import { fetchOrderInformation, fetchUpdateOrder } from 'Apis'
 import ShowRating from 'components/Orders/ShowRating'
+import ShowReason from 'components/Orders/ModalDeliveryReason'
 import Footer from "components/Footer"
-
+import Process from 'assets/images/box.png'
+import Delivery from 'assets/images/delivery.png'
+import Correct from 'assets/images/correct.png'
+import Cancel from 'assets/images/cancel.png'
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const params = useParams()
@@ -44,17 +46,36 @@ const Index = () => {
     ]);
     const [toggleShowRate, setToggleShowRate] = useState(false);
     const handleToggleShowRate = () => setToggleShowRate(!toggleShowRate);
+    const [toggleReason, setToggleReason] = useState(false);
+    const handleToggleReason = () => setToggleReason(!toggleReason);
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const time = `${hours}:${minutes}`;
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const today = `${year}-${month}-${day}`;
 
     useEffect(() => {
         fetchOrderInformation(params.id)
             .then(result => {
                 setOrder(result)
-                if (result.status === "Đã huỷ") {
+                if (result.status === "Cancel") {
                     setSteps([
                         "Ordered",
-                        "Đã Huỷ"
+                        "Cancel"
                     ])
                     setCurrentStep(1)
+                } else if (result.status === "Delivery failed") {
+                    setSteps([
+                        "Ordered",
+                        "Payment information confirmed",
+                        "Delivered to the carrier",
+                        "Being transported",
+                        "Delivery failed"
+                    ])
+                    setCurrentStep(4)
                 }
                 else if (result.status === 'Ordered') {
                     setCurrentStep(0)
@@ -66,17 +87,17 @@ const Index = () => {
                 else if (result.status === 'Delivered to the carrier') {
                     setCurrentStep(2)
                     options.splice(0, 2)
-                    
+
                 }
                 else if (result.status === 'Being transported') {
                     setCurrentStep(3)
                     options.splice(0, 3)
-                    
+
                 }
                 else if (result.status === 'Delivery successful') {
                     setCurrentStep(4)
                     options.splice(0, 4)
-                    
+
                 }
             })
             .catch(error => {
@@ -101,20 +122,13 @@ const Index = () => {
     }
 
     const handleSelectedOptionsChange = (selectedCategory) => {
-        const date = new Date();
-        const minutes = date.getMinutes();
-        const hours = date.getHours();
-        const time = `${hours}:${minutes}`;
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        const today = `${year}-${month}-${day}`;
+
         if (selectedCategory.value === 'Payment information confirmed') {
             Swal.fire({
-                title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                title: 'Do you agree to make corrections??',
                 showCancelButton: true,
-                confirmButtonText: 'Đồng ý',
-                cancelButtonText: 'Không',
+                confirmButtonText: 'Accept',
+                cancelButtonText: 'Decline',
             }).then((result) => {
                 if (result.isConfirmed) {
                     setCurrentStep(1)
@@ -122,8 +136,8 @@ const Index = () => {
                         ...order,
                         status: selectedCategory.value,
                         shipping_process: [
-                            ...order.shipping_process,
-                            { time: time, date: today, content: selectedCategory.value }
+                            { time: time, date: today, content: selectedCategory.value },
+                            ...order.shipping_process
                         ]
                     }
                     fetchUpdateOrder(params.id, newOrder)
@@ -132,16 +146,16 @@ const Index = () => {
                             setOrder(result);
                             options.splice(0, 1)
                             Swal.fire({
-                                title: 'Lưu thành công!',
-                                text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                title: 'Successfully!',
+                                text: 'You have successfully edited your order status',
                                 icon: 'success',
                                 confirmButtonText: 'OK!'
                             })
                         })
                         .catch(error => {
                             Swal.fire({
-                                title: 'Lưu thất bại!',
-                                text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                title: 'Unable to connect to server!',
+                                text: 'There seems to be a problem with the connection to the server, please try again later',
                                 icon: 'error',
                                 confirmButtonText: 'OK!'
                             })
@@ -153,10 +167,10 @@ const Index = () => {
         if (selectedCategory.value === 'Delivered to the carrier') {
             if (options.length > 3) {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(2)
@@ -164,9 +178,9 @@ const Index = () => {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
-                                ...order.shipping_process,
+                                { time: time, date: today, content: selectedCategory.value },
                                 { time: time, date: today, content: "Payment information confirmed" },
-                                { time: time, date: today, content: selectedCategory.value }
+                                ...order.shipping_process
                             ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
@@ -175,16 +189,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 2)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -194,30 +208,20 @@ const Index = () => {
             }
             else {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(2)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [...order.shipping_process, { time: time, date: today, content: selectedCategory.value }]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 1)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
-                            shipping_process: [...order.shipping_process, { time: time, date: today, content: selectedCategory.value }]
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                ...order.shipping_process
+                            ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
                             .then(result => {
@@ -225,16 +229,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 1)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -246,37 +250,21 @@ const Index = () => {
         if (selectedCategory.value === 'Being transported') {
             if (options.length > 3) {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(3)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [
-                        //         ...order.shipping_process,
-                        //         { time: time, date: today, content: "Delivered to the carrier" },
-                        //         { time: time, date: today, content: selectedCategory.value }
-                        //     ]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 3)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
-                                ...order.shipping_process,
+                                { time: time, date: today, content: selectedCategory.value },
                                 { time: time, date: today, content: "Delivered to the carrier" },
-                                { time: time, date: today, content: selectedCategory.value }
+                                ...order.shipping_process
+
                             ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
@@ -285,16 +273,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 3)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -304,39 +292,22 @@ const Index = () => {
             }
             else if (options.length === 3) {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(3)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [
-                        //         ...order.shipping_process,
-                        //         { time: time, date: today, content: "Payment information confirmed" },
-                        //         { time: time, date: today, content: "Delivered to the carrier" },
-                        //         { time: time, date: today, content: selectedCategory.value }
-                        //     ]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 2)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
-                                ...order.shipping_process,
-                                { time: time, date: today, content: "Payment information confirmed" },
+                                { time: time, date: today, content: selectedCategory.value },
                                 { time: time, date: today, content: "Delivered to the carrier" },
-                                { time: time, date: today, content: selectedCategory.value }
+                                { time: time, date: today, content: "Payment information confirmed" },
+                                ...order.shipping_process
+
                             ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
@@ -345,16 +316,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 2)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -364,30 +335,20 @@ const Index = () => {
             }
             else {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(3)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [...order.shipping_process, { time: time, date: today, content: selectedCategory.value }]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 1)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
-                            shipping_process: [...order.shipping_process, { time: time, date: today, content: selectedCategory.value }]
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                ...order.shipping_process
+                            ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
                             .then(result => {
@@ -395,16 +356,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 1)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -416,41 +377,23 @@ const Index = () => {
         if (selectedCategory.value === 'Delivery successful') {
             if (options.length > 3) {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(4)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [
-                        //         ...order.shipping_process,
-                        //         { time: time, date: today, content: "Payment information confirmed" },
-                        //         { time: time, date: today, content: "Delivered to the carrier" },
-                        //         { time: time, date: today, content: "Being transported" },
-                        //         { time: time, date: today, content: selectedCategory.value }
-                        //     ]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 3)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
-                                ...order.shipping_process,
-                                { time: time, date: today, content: "Payment information confirmed" },
-                                { time: time, date: today, content: "Delivered to the carrier" },
+                                { time: time, date: today, content: selectedCategory.value },
                                 { time: time, date: today, content: "Being transported" },
-                                { time: time, date: today, content: selectedCategory.value }
+                                { time: time, date: today, content: "Delivered to the carrier" },
+                                { time: time, date: today, content: "Payment information confirmed" },
+                                ...order.shipping_process,
+
                             ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
@@ -459,16 +402,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 3)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -478,39 +421,22 @@ const Index = () => {
             }
             else if (options.length === 3) {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(4)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [
-                        //         ...order.shipping_process,
-                        //         { time: time, date: today, content: "Delivered to the carrier" },
-                        //         { time: time, date: today, content: "Being transported" },
-                        //         { time: time, date: today, content: selectedCategory.value }
-                        //     ]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 2)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
-                                ...order.shipping_process,
-                                { time: time, date: today, content: "Delivered to the carrier" },
+                                { time: time, date: today, content: selectedCategory.value },
                                 { time: time, date: today, content: "Being transported" },
-                                { time: time, date: today, content: selectedCategory.value }
+                                { time: time, date: today, content: "Delivered to the carrier" },
+                                ...order.shipping_process,
+
                             ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
@@ -519,16 +445,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 2)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -538,37 +464,20 @@ const Index = () => {
             }
             else if (options.length === 2) {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(4)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [
-                        //         ...order.shipping_process,
-                        //         { time: time, date: today, content: "Being transported" },
-                        //         { time: time, date: today, content: selectedCategory.value }
-                        //     ]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 2)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
-                                ...order.shipping_process,
+                                { time: time, date: today, content: selectedCategory.value },
                                 { time: time, date: today, content: "Being transported" },
-                                { time: time, date: today, content: selectedCategory.value }
+                                ...order.shipping_process,
                             ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
@@ -577,16 +486,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 2)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -596,30 +505,20 @@ const Index = () => {
             }
             else {
                 Swal.fire({
-                    title: 'Bạn có đồng ý thực hiện chỉnh sửa hay không?',
+                    title: 'Do you agree to make corrections??',
                     showCancelButton: true,
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Không',
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         setCurrentStep(4)
-                        // const newOrder = {
-                        //     ...order,
-                        //     status: selectedCategory.value,
-                        //     shipping_process: [...order.shipping_process, { time: time, date: today, content: selectedCategory.value }]
-                        // }
-                        // setOrder(newOrder);
-                        // options.splice(0, 1)
-                        // Swal.fire({
-                        //     title: 'Lưu thành công!',
-                        //     text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
-                        //     icon: 'success',
-                        //     confirmButtonText: 'OK!'
-                        // })
                         const newOrder = {
                             ...order,
                             status: selectedCategory.value,
-                            shipping_process: [...order.shipping_process, { time: time, date: today, content: selectedCategory.value }]
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                ...order.shipping_process
+                            ]
                         }
                         fetchUpdateOrder(params.id, newOrder)
                             .then(result => {
@@ -627,16 +526,16 @@ const Index = () => {
                                 setOrder(result);
                                 options.splice(0, 1)
                                 Swal.fire({
-                                    title: 'Lưu thành công!',
-                                    text: 'Bạn đã chỉnh sửa thành công trạng thái đơn hàng',
+                                    title: 'Successfully!',
+                                    text: 'You have successfully edited your order status',
                                     icon: 'success',
                                     confirmButtonText: 'OK!'
                                 })
                             })
                             .catch(error => {
                                 Swal.fire({
-                                    title: 'Lưu thất bại!',
-                                    text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                                    title: 'Unable to connect to server!',
+                                    text: 'There seems to be a problem with the connection to the server, please try again later',
                                     icon: 'error',
                                     confirmButtonText: 'OK!'
                                 })
@@ -647,13 +546,25 @@ const Index = () => {
         }
     }
 
+    const handleCancelDelivery = (data) => {
+        setOrder(data)
+        setSteps([
+            "Ordered",
+            "Payment information confirmed",
+            "Delivered to the carrier",
+            "Being transported",
+            "Delivery failed"
+        ])
+        setCurrentStep(4)
+    }
+
     return (
         <div className="main-panel">
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
-                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Quay lại</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết Đơn Hàng</h3>
+                        <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Back</button>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Information Order</h3>
                     </div>
                 </div>
                 <div className="row">
@@ -671,62 +582,69 @@ const Index = () => {
                                         ))
                                         }
                                     </div>
-                                    <h4 className="card-title">Thông tin đơn hàng: {order._id}</h4>
+                                    <h4 className="card-title">Order ID: {order.orderId.toUpperCase()}</h4>
                                     <div className='row'>
                                         <div className="col-lg-6 grid-margin form-group">
-                                            <h4>Địa chỉ nhận hàng</h4>
-                                            <p>Người mua: {order.username}</p>
+                                            <h4>Delivery address</h4>
+                                            <p>Purchaser: {order.username}</p>
                                             <p>{order.email}</p>
                                             <p>(+84) {order.phoneNumber}</p>
                                             <p>{order.address}</p>
                                         </div>
                                         <div className="col-lg-6 grid-margin form-group">
-                                            {order.shipping_process.reverse().map((item, index) => {
+                                            {order.shipping_process.map((item, index) => {
                                                 return <div className='row' style={{ margin: "auto" }} key={index}>
-                                                    <i className={item.content === "Delivery successful" ? "mdi mdi-check-circle" : "mdi mdi-checkbox-blank-circle"}
-                                                        style={item.content === "Delivery successful" ? { fontSize: "20px" } : { margin: "0px 2px 0px 2px" }}
-                                                    />
+                                                    <img alt="" src={
+                                                        item.content === "Ordered" ? Process :
+                                                            item.content === "Payment information confirmed" ? Process :
+                                                                item.content === "Being transported" ? Delivery :
+                                                                    item.content === "Delivered to the carrier" ? Delivery : item.content === 'Delivery failed' ? Cancel : Correct} style={{ width: "20px", height: "20px", padding: "0" }} />
                                                     <p style={{ paddingLeft: "15px" }}>{item.time} - {item.date} - {item.content}</p>
                                                 </div>
                                             })}
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <h4>Cập nhật trạng thái đơn hàng</h4>
-                                        {order.status === "Delivery successful" ?
+                                        <h4>Update order status</h4>
+                                        {order.status === "Delivery successful" || order.status === 'Delivery failed' ?
                                             <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" isDisabled={true} />
                                             :
                                             <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" />}
                                     </div>
-                                    {order.statusReview.status === true && <div className="row form-group" style={{margin:"0 auto", display:"flex", alignItems:"center"}}>
-                                        <button onClick={handleToggleShowRate} style={{margin: "0 auto"}} type="button" className="col-lg-2 btn btn-outline-secondary ">Xem đánh giá</button>
+                                    {order.statusReview.status === true && <div className="row form-group" style={{ margin: "0 auto", display: "flex", alignItems: "center" }}>
+                                        <button onClick={handleToggleShowRate} style={{ margin: "0 auto" }} type="button" className="col-lg-2 btn btn-outline-secondary ">Show reviews</button>
                                     </div>}
-                                    {order.status === "Đã huỷ" ?
+                                    {order.status === 'Being transported' && <div className="form-group" style={{ margin: "0 auto", display: "flex", alignItems: "center" }}>
+                                        <button onClick={handleToggleReason} style={{ margin: "0 auto" }} type="button" className="col-lg-2 btn btn-outline-secondary ">Delivery failed</button>
+                                    </div>
+                                    }
+                                    {order.status === "Cancel" || order.status === 'Delivery failed' ?
                                         <div className="form-group">
-                                            <h4>Lý do huỷ đơn hàng</h4>
-                                            <input className="form-control form-control-sm" value={order.cancel_reason} disabled />
+                                            <h4>Reason for order cancellation</h4>
+                                            <input className="form-control form-control-sm" value={order.reasonCancel} disabled />
+
                                         </div>
                                         : null}
                                     <div className="form-group">
-                                        <h4>Danh sách sản phẩm</h4>
+                                        <h4>List of Goods</h4>
                                         <div className="table-responsive">
                                             <table className="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>
-                                                            Sản phẩm
+                                                            Product
                                                         </th>
                                                         <th>
-                                                            Hình ảnh
+                                                            Image
                                                         </th>
                                                         <th>
-                                                            Số lượng
+                                                            Quantity
                                                         </th>
                                                         <th>
-                                                            Giá
+                                                            Price
                                                         </th>
                                                         <th>
-                                                            Tổng
+                                                            Total
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -743,10 +661,10 @@ const Index = () => {
                                                                 {item.quantity}
                                                             </td>
                                                             <td>
-                                                                {item.nowPrice}
+                                                                {formatter.format(item.nowPrice)} VND
                                                             </td>
                                                             <td>
-                                                                {item.nowPrice * item.quantity} VND
+                                                                {formatter.format(item.nowPrice * item.quantity)} VND
                                                             </td>
                                                         </tr>
                                                     })}
@@ -754,36 +672,36 @@ const Index = () => {
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Tổng</td>
-                                                        <td>{sumPriceListProduct()} VND</td>
+                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Total</td>
+                                                        <td>{formatter.format(sumPriceListProduct())} VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Phí vận chuyển</td>
-                                                        <td>{order.ship} VND</td>
+                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Fee</td>
+                                                        <td>{formatter.format(order.ship)} VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Giảm giá</td>
-                                                        <td>- {sumDiscountListProduct()} VND</td>
+                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Discount</td>
+                                                        <td>- {formatter.format(sumDiscountListProduct())} VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Thanh toán</td>
-                                                        <td style={{ fontSize: "20px", color: "red" }}>{order.sumOrder + order.ship - sumDiscountListProduct()} VND</td>
+                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Pay</td>
+                                                        <td style={{ fontSize: "20px", color: "red" }}>{formatter.format(order.sumOrder + order.ship - sumDiscountListProduct())} VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td>Phương thức thanh toán</td>
-                                                        <td>Thanh toán khi nhận hàng</td>
+                                                        <td style={{ borderRight: "1px solid #e1e1e1" }}>Payment methods</td>
+                                                        <td>Payment on delivery</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -803,7 +721,8 @@ const Index = () => {
                 </div>
             </div>
             <Footer />
-            {order && order.statusReview.status === true &&<ShowRating toggleShowRate={toggleShowRate} onHandleToggleShowRate={handleToggleShowRate} order={order}/>}
+            {order && order.statusReview.status === true && <ShowRating toggleShowRate={toggleShowRate} onHandleToggleShowRate={handleToggleShowRate} order={order} />}
+            <ShowReason toggleReason={toggleReason} onHandleToggleReason={handleToggleReason} order={order} onHandleCancelDelivery={handleCancelDelivery} />
         </div>
     );
 }

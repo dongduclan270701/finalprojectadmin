@@ -4,40 +4,32 @@ import makeAnimated from "react-select/animated"
 
 
 const Index = (props) => {
-    const { inputElement, options, handleGetData, handleGetImage } = props
+    const { product, options, handleGetData, handleGetImage } = props
     const [listImageChoose, setListImageChoose] = useState([])
-    
+    const [image, setImage] = useState()
+
     const getImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
         const file = e.target.files;
+        const files = Array.from(e.target.files)
         setListImageChoose([...fileArray])
         handleGetImage(file)
+        setImage(files)
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
 
     const renderImages = (source) => {
         return source.map((image, index) => {
-            return <img src={image} key={index} className="img-fluid" alt="" style={{ padding: "0px 15px 15px 0px" }} />
+            return <img src={image} key={index} className="img-fluid" alt="" style={{ padding: "0px 15px 15px 0px", width:"250px" }} />
         })
     }
 
-    // const cloudinaryRef = useRef()
-    // const widgetRef = useRef()
-    // useEffect(() => {
-    //     cloudinaryRef.current = window.cloudinary;
-    //     // console.log(cloudinaryRef.current)
-    //     widgetRef.current = cloudinaryRef.current.createUploadWidget({
-    //         cloudNameProduct:"dolydpat4",
-    //         uploadPreset:"p0kgb66h"
-    //     })
-
-    // }, []);
     const handleChangeInput = (event, indexInput) => {
         const { name, value } = event.target
         if (name === "NameDescriptionTable" || name === "ContentDescriptionTable") {
-            handleGetData(inputElement => ({
-                ...inputElement,
-                description_table: inputElement.description_table.map((row, index) => {
+            handleGetData(product => ({
+                ...product,
+                description_table: product.description_table.map((row, index) => {
                     if (index === indexInput) {
                         if (name === "NameDescriptionTable") {
                             return [value, row[1]]
@@ -51,9 +43,9 @@ const Index = (props) => {
             }));
         }
         else if (name === "NameDescription" || name === "ContentDescription") {
-            handleGetData(inputElement => ({
-                ...inputElement,
-                description: inputElement.description.map((row, index) => {
+            handleGetData(product => ({
+                ...product,
+                description: product.description.map((row, index) => {
                     if (index === indexInput) {
                         if (name === "NameDescription") {
                             return [value, row[1]]
@@ -67,21 +59,21 @@ const Index = (props) => {
             }));
         }
         else if (indexInput === null) {
-            handleGetData(inputElement => ({
-                ...inputElement,
+            handleGetData(product => ({
+                ...product,
                 [name]: value
             }));
         }
         else if (indexInput === "nullNumber") {
-            handleGetData(inputElement => ({
-                ...inputElement,
+            handleGetData(product => ({
+                ...product,
                 [name]: parseInt(value)
             }));
         }
         else {
-            handleGetData(inputElement => ({
-                ...inputElement,
-                [name]: inputElement[name].map((row, index) => {
+            handleGetData(product => ({
+                ...product,
+                [name]: product[name].map((row, index) => {
                     if (index === indexInput) {
                         return value
                     }
@@ -91,25 +83,25 @@ const Index = (props) => {
         }
     }
     const handleAddDescriptionAndDescriptionTable = (name) => {
-        handleGetData(inputElement => ({
-            ...inputElement,
-            [name]: [...inputElement[name], ["", ""]]
+        handleGetData(product => ({
+            ...product,
+            [name]: [...product[name], ["", ""]]
         }));
     }
     const handleRemoveDescriptionAndDescriptionTable = (name, removeIndex) => {
-        const updatedDescription = inputElement[name].filter((item, index) => index !== removeIndex);
-        handleGetData({ ...inputElement, [name]: updatedDescription });
+        const updatedDescription = product[name].filter((item, index) => index !== removeIndex);
+        handleGetData({ ...product, [name]: updatedDescription });
     };
 
     const handleAdd = (name) => {
-        handleGetData(inputElement => ({
-            ...inputElement,
-            [name]: [...inputElement[name], ""]
+        handleGetData(product => ({
+            ...product,
+            [name]: [...product[name], ""]
         }));
     }
     const handleRemove = (name, removeIndex) => {
-        const updatedGift = inputElement[name].filter((item, index) => index !== removeIndex);
-        handleGetData({ ...inputElement, [name]: updatedGift });
+        const updatedGift = product[name].filter((item, index) => index !== removeIndex);
+        handleGetData({ ...product, [name]: updatedGift });
     };
 
     const handleSelectedOptionsChange = (selectedCategory) => {
@@ -118,22 +110,23 @@ const Index = (props) => {
             category: selectedCategory.map(option => option.value)
         }));
     }
+
     return (
         <div className="row">
             <div className="col-lg-12 grid-margin stretch-card">
                 <div className="card">
                     <div className="card-body">
-                        <h4 className="card-title">Hình ảnh</h4>
-
+                        <h4 className="card-title">Image Product</h4>
                         <div className="table-responsive">
                             <div className="form-group">
                                 <label>File upload</label>
                                 <input name="img[]" className="file-upload-default" />
-                                <div className="input-group col-xs-12">
-                                    <input type="file" onChange={getImg} className="form-control file-upload-info" placeholder="Upload Image" multiple />
-                                    <span className="input-group-append">
-                                        <button className="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
+                                <div className={image ? "file-upload active" : "file-upload"}>
+                                    <div className="file-select">
+                                        <div className="file-select-button" id="fileName">Choose Image Product</div>
+                                        <div className="file-select-name" id="noFile">{image ? image.map((i) => i.name).join(", ") : "No file chosen..."}</div>
+                                        <input type="file" onChange={getImg} name="chooseFile" id="chooseFile" multiple />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -145,43 +138,43 @@ const Index = (props) => {
                 <div className="col-md-12" style={{ "padding": 0 }}>
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
-                            <h4 className="card-title">Thông tin sản phẩm</h4>
+                            <h4 className="card-title">Product Details</h4>
                             <div className="form-group">
-                                <label>Mã sản phẩm</label>
-                                <input onChange={(e) => handleChangeInput(e, null)} name="src" type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" value={inputElement.src} />
+                                <label>Product Code</label>
+                                <input onChange={(e) => handleChangeInput(e, null)} name="src" type="text" className="form-control form-control-sm" placeholder="Product Code" aria-label="Product Code" value={product.src} />
                             </div>
                             <div className="form-group">
-                                <label>Tên sản phẩm</label>
-                                <input onChange={(e) => handleChangeInput(e, null)} name="nameProduct" type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" value={inputElement.nameProduct} />
+                                <label>Product Name</label>
+                                <input onChange={(e) => handleChangeInput(e, null)} name="nameProduct" type="text" className="form-control form-control-sm" placeholder="Product Name" aria-label="Product Name" value={product.nameProduct} />
                             </div>
                             <div className="form-group">
-                                <label>Giá chính</label>
-                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} />
+                                <label>Main Price</label>
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="realPrice" type="number" className="form-control form-control-sm" placeholder="Main Price" aria-label="Main Price" value={product.realPrice} />
                             </div>
                             <div className="form-group">
-                                <label>Giá giảm</label>
-                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} />
+                                <label>Reduces Price</label>
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="nowPrice" type="number" className="form-control form-control-sm" placeholder="Reduces Price" aria-label="Reduces Price" value={product.nowPrice} />
                             </div>
                             <div className="form-group">
-                                <label>Phần trăm giảm giá</label>
-                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="percent" type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} />
+                                <label>Discount Percent</label>
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="percent" type="number" className="form-control form-control-sm" placeholder="Discount Percent" aria-label="Discount Percent" value={product.percent} />
                             </div>
                             <div className="form-group">
-                                <label>Số lượng</label>
-                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="quantity" type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} />
+                                <label>Quantity</label>
+                                <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="quantity" type="number" className="form-control form-control-sm" placeholder="Quantity" aria-label="Quantity" value={product.quantity} />
                             </div>
                             <div className="form-group">
-                                <label>Danh mục</label>
-                                <Select onChange={handleSelectedOptionsChange} value={inputElement.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Chọn danh mục" />
+                                <label>Category</label>
+                                <Select onChange={handleSelectedOptionsChange} value={product.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Chọn danh mục" />
                             </div>
                         </div>
                     </div>
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
-                            <h4 className="card-title">Quà tặng</h4>
+                            <h4 className="card-title">Gift</h4>
                             <div className="form-group">
-                                <label>Quà tặng</label>
-                                {inputElement.gift.length > 1 ? inputElement.gift.map((item, index) => {
+                                <label>Gift</label>
+                                {product.gift.length > 1 ? product.gift.map((item, index) => {
                                     return <div key={index} className='row' style={{ margin: "0 auto" }}>
                                         <div className='col-10' style={{ paddingLeft: "0" }}>
                                             <input name="gift" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
@@ -192,7 +185,7 @@ const Index = (props) => {
                                     </div>
                                 })
                                     :
-                                    inputElement.gift.map((item, index) => {
+                                    product.gift.map((item, index) => {
                                         return <div key={index} className='row' style={{ margin: "0 auto" }}>
                                             <div className='col-12' style={{ paddingLeft: "0" }}>
                                                 <input name="gift" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
@@ -200,16 +193,16 @@ const Index = (props) => {
                                         </div>
                                     })
                                 }
-                                <button onClick={() => handleAdd("gift")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                <button onClick={() => handleAdd("gift")} type="button" className="btn btn-outline-secondary btn-fw">Add</button>
                             </div>
                         </div>
                     </div>
                     <div className="card">
                         <div className="card-body">
-                            <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
+                            <h4 className="card-title">Offers</h4>
                             <div className="form-group">
-                                <label>Ưu đãi</label>
-                                {inputElement.gift_buy.length > 1 ? inputElement.gift_buy.map((item, index) => {
+                                <label>Offers</label>
+                                {product.gift_buy.length > 1 ? product.gift_buy.map((item, index) => {
                                     return <div key={index} className='row' style={{ margin: "0 auto" }}>
                                         <div className='col-10' style={{ paddingLeft: "0" }}>
                                             <input name="gift_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
@@ -220,7 +213,7 @@ const Index = (props) => {
                                     </div>
                                 })
                                     :
-                                    inputElement.gift_buy.map((item, index) => {
+                                    product.gift_buy.map((item, index) => {
                                         return <div key={index} className='row' style={{ margin: "0 auto" }}>
                                             <div className='col-12' style={{ paddingLeft: "0" }}>
                                                 <input name="gift_buy" onChange={(e) => handleChangeInput(e, index)} style={{ marginBottom: "15px" }} value={item} type="text" className="form-control form-control-sm" placeholder={item} aria-label={item} />
@@ -229,7 +222,7 @@ const Index = (props) => {
                                         </div>
                                     })
                                 }
-                                <button onClick={() => handleAdd("gift_buy")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                                <button onClick={() => handleAdd("gift_buy")} type="button" className="btn btn-outline-secondary btn-fw">Add</button>
                             </div>
                         </div>
                     </div>
@@ -238,31 +231,30 @@ const Index = (props) => {
             <div className="col-md-6 grid-margin">
                 <div className="card" style={{ marginBottom: "25px" }}>
                     <div className="card-body">
-                        <h4 className="card-title">Thông số sản phẩm</h4>
+                        <h4 className="card-title">Details</h4>
                         <div className="form-group">
-
-                            {inputElement.description_table.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
+                            {product.description_table.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
                                 <div className='col-3' style={{ paddingLeft: "0" }}>
-                                    <label>Tên:</label>
+                                    <label>Title:</label>
                                 </div>
                                 <div className='col-7' style={{ padding: "0" }}>
-                                    <label>Nội dung:</label>
+                                    <label>Content:</label>
                                 </div>
-                                <div className='col-2' style={{ paddingRight: "0" }}>
-                                    <label>Xoá</label>
+                                <div className='col-2' style={{ padding: "0" }}>
+                                    <label>Remove</label>
                                 </div>
                             </div>
                                 :
                                 <div className='row' style={{ margin: "0 auto" }}>
                                     <div className='col-3' style={{ paddingLeft: "0" }}>
-                                        <label>Tên:</label>
+                                        <label>Title:</label>
                                     </div>
                                     <div className='col-9' style={{ padding: "0" }}>
-                                        <label>Nội dung:</label>
+                                        <label>Content:</label>
                                     </div>
                                 </div>
                             }
-                            {inputElement.description_table.length > 1 ? inputElement.description_table.map((item, index) => {
+                            {product.description_table.length > 1 ? product.description_table.map((item, index) => {
                                 return <div key={index} className='row' style={{ margin: "inherit" }}>
                                     <div className='col-3' style={{ paddingLeft: "0" }}>
                                         <input name='NameDescriptionTable' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
@@ -274,7 +266,7 @@ const Index = (props) => {
                                         <button onClick={() => handleRemoveDescriptionAndDescriptionTable("description_table", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
                                     </div>
                                 </div>
-                            }) : inputElement.description_table.map((item, index) => {
+                            }) : product.description_table.map((item, index) => {
                                 return <div key={index} className='row' style={{ margin: "inherit" }}>
                                     <div className='col-3' style={{ paddingLeft: "0" }}>
                                         <input name='NameDescriptionTable' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
@@ -290,31 +282,30 @@ const Index = (props) => {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        <h4 className="card-title">Thông số sản phẩm</h4>
+                        <h4 className="card-title">Description</h4>
                         <div className="form-group">
-
-                            {inputElement.description.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
+                            {product.description.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
                                 <div className='col-3' style={{ paddingLeft: "0" }}>
-                                    <label>Tiêu đề:</label>
+                                    <label>Title:</label>
                                 </div>
                                 <div className='col-7' style={{ padding: "0" }}>
-                                    <label>Nội dung:</label>
+                                    <label>Content:</label>
                                 </div>
-                                <div className='col-2' style={{ paddingRight: "0" }}>
-                                    <label>Xoá</label>
+                                <div className='col-2' style={{ padding: "0" }}>
+                                    <label>Remove</label>
                                 </div>
                             </div>
                                 :
                                 <div className='row' style={{ margin: "0 auto" }}>
                                     <div className='col-6' style={{ paddingLeft: "0" }}>
-                                        <label>Tiêu đề:</label>
+                                        <label>Title:</label>
                                     </div>
                                     <div className='col-6' style={{ padding: "0" }}>
-                                        <label>Nội dung:</label>
+                                        <label>Content:</label>
                                     </div>
                                 </div>
                             }
-                            {inputElement.description.length > 1 ? inputElement.description.map((item, index) => {
+                            {product.description.length > 1 ? product.description.map((item, index) => {
                                 return <div key={index} className='row' style={{ margin: "inherit" }}>
                                     <div className='col-3' style={{ paddingLeft: "0" }}>
                                         <textarea name='NameDescription' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
@@ -326,7 +317,7 @@ const Index = (props) => {
                                         <button onClick={() => handleRemoveDescriptionAndDescriptionTable("description", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
                                     </div>
                                 </div>
-                            }) : inputElement.description.map((item, index) => {
+                            }) : product.description.map((item, index) => {
                                 return <div key={index} className='row' style={{ margin: "inherit" }}>
                                     <div className='col-6' style={{ paddingLeft: "0" }}>
                                         <textarea name='NameDescription' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
@@ -336,7 +327,7 @@ const Index = (props) => {
                                     </div>
                                 </div>
                             })}
-                            <button onClick={() => handleAddDescriptionAndDescriptionTable("description")} type="button" className="btn btn-outline-secondary btn-fw">Thêm</button>
+                            <button onClick={() => handleAddDescriptionAndDescriptionTable("description")} type="button" className="btn btn-outline-secondary btn-fw">Add</button>
                         </div>
                     </div>
                 </div>

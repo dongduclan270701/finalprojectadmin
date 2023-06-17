@@ -8,7 +8,7 @@ export const fetchCollectingByName = async (name) => {
 }
 
 export const fetchListOfLaptopCollecting = async (countPage) => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting`, { params: {count:countPage }})
+    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting`, { params: {count:countPage }, headers: { 'auth-token-admin': token }})
     return req.data
 }
 
@@ -18,17 +18,17 @@ export const fetchListOfLaptopCollectingByName = async (id) => {
 }
 
 export const fetchCreateLaptopCollecting = async (data) => {
-    const req = await axios.post(`${API_ROOT}/v1/laptopCollecting`, data)
+    const req = await axios.post(`${API_ROOT}/v1/laptopCollecting`, data, { headers: { 'auth-token-admin': token }})
     return req.data
 }
 
 export const fetchSearchLaptopCollecting = async (data, countPage) => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/search`, { params: {...data, count:countPage }})
+    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/search`, { params: {...data, count:countPage }, headers: { 'auth-token-admin': token }})
     return req.data
 }
 
 export const fetchUpdateLaptopCollecting = async (src, data) => {
-    const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data)
+    const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data, { headers: { 'auth-token-admin': token }})
     return req.data
 }
 
@@ -114,5 +114,30 @@ export const fetchUser = async (id) => {
 
 export const fetchUpdateStatusUser = async (id, data) => {
     const req = await axios.put(`${API_ROOT}/v1/managementUser/${id}`, data, { headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchCreateVoucher = async (data) => {
+    const req = await axios.post(`${API_ROOT}/v1/voucherAdmin`, data,{ headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchListOfVoucher = async (countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/voucherAdmin`,{ params: {count:countPage }, headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchVoucher = async (id) => {
+    const req = await axios.get(`${API_ROOT}/v1/voucherAdmin/details/${id}`, { headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchUpdateVoucher = async (id, data) => {
+    const req = await axios.put(`${API_ROOT}/v1/voucherAdmin/details/${id}`, data, { headers: { 'auth-token-admin': token }})
+    return req.data
+}
+
+export const fetchSearchVoucher = async (data, countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/voucherAdmin/search`, { params: {...data, count:countPage }, headers: { 'auth-token-admin': token }})
     return req.data
 }

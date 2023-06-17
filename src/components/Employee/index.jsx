@@ -17,7 +17,7 @@ const Index = () => {
     const [inputFocused, setInputFocused] = useState(false);
 
     useEffect(() => {
-        fetchListOfEmployee(countPage)
+        fetchListOfEmployee(1)
             .then(result => {
                 setAuthentication(result.role)
                 setLoading(false)
@@ -31,8 +31,11 @@ const Index = () => {
                     setCountMaxPage(Math.floor(result.total / 10))
                 }
             })
-            .catch(err => {
-                console.log(err)
+            .catch(error => {
+                console.log(error)
+                if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
+                    setAuthentication(null)
+                }
                 setLoading(false)
             })
     }, [])
@@ -43,14 +46,6 @@ const Index = () => {
         fetchSearchEmployee(search, count)
             .then(result => {
                 setEmployeeList(result.data)
-                if (0 < result.total % 10 && result.total % 10 < 10) {
-                    setCountMaxPage(Math.floor(result.total / 10) + 1)
-                } else if (result.total === 0) {
-                    setCountMaxPage(1)
-                }
-                else {
-                    setCountMaxPage(Math.floor(result.total / 10))
-                }
             })
             .catch(error => {
                 console.log(error)
@@ -96,7 +91,7 @@ const Index = () => {
                     {loading === false ?
                         <div className="col-lg-12 stretch-card">
                             <div className="card">
-                                {authentication === 'MANAGEMENT' || authentication === 'DEVELOPER' &&
+                                {(authentication === 'MANAGEMENT' || authentication === 'DEVELOPER') &&
                                     <div className="card-body">
                                         <h4 className="card-title">List of Employee</h4>
                                         <NavLink to={"/employee/create"} className="card-description" style={{ textDecoration: "none" }}>
@@ -201,11 +196,13 @@ const Index = () => {
                                                 </table>
                                             </div>
                                             <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                                {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPage(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
-                                                <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
-                                                {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPage(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
-                                                {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
-                                                {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPage(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                            {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
+                                            {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                            {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPage(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
+                                            <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
+                                            {countPage + 1 < countMaxPage && <button type="button" onClick={() => handleSetPage(countPage + 1)} className="btn btn-outline-secondary">{countPage + 1}</button>}
+                                            {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                            {countPage !== countMaxPage && <button type="button" onClick={() => handleSetPage(countMaxPage)} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                             </div>
                                         </>
                                             :
