@@ -27,12 +27,25 @@ const Index = () => {
     const [orderList, setOrderList] = useState([])
     const [orderSearch, setOrderSearch] = useState([])
     const [searchOrder, setSearchOrder] = useState({ orderId: '', status: '', firstDate: '', endDate: endDate })
+    const itemsPerPage = 10;
+    const startIndex = (countPage - 1) * itemsPerPage
+    const endIndex = Math.min(startIndex + itemsPerPage, orderSearch.length)
+
     useEffect(() => {
         fetchUser(params.id)
             .then(result => {
                 setUser(result)
                 setOrderList(result.orders)
+                console.log(result.orders)
                 setOrderSearch(result.orders)
+                if (0 < result.orders.length % 10 && result.orders.length % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.orders.length / 10) + 1)
+                } else if (result.orders.length === 0) {
+                    setCountMaxPage(1)
+                }
+                else {
+                    setCountMaxPage(Math.floor(result.orders.length / 10))
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -40,7 +53,7 @@ const Index = () => {
     }, []);
 
     const handleSetPageOrder = (count) => {
-        // setOrderList()
+        setCountPage(count)
     }
 
     const handleDeactivateAccount = () => {
@@ -75,6 +88,7 @@ const Index = () => {
     const handleSearchOrder = (e) => {
         const { name, value } = e.target
         setSearchOrder({ ...searchOrder, [name]: value })
+        setCountPage(1)
         const arr = { ...searchOrder, [name]: value }
         const orderSearch2 = orderList.filter((order) => {
             const { orderId, status, firstDate, endDate } = arr;
@@ -88,15 +102,21 @@ const Index = () => {
                 const orderDate = new Date(order.shipping_process[0].date);
                 const startDate = new Date(firstDate);
                 const endDateObj = new Date(endDate);
-
                 if (orderDate < startDate || orderDate > endDateObj) {
                     return false;
                 }
             }
-
             return true;
         })
         setOrderSearch(orderSearch2)
+        if (0 < orderSearch2.length % 10 && orderSearch2.length % 10 < 10) {
+            setCountMaxPage(Math.floor(orderSearch2.length / 10) + 1)
+        } else if (orderSearch2.length === 0) {
+            setCountMaxPage(1)
+        }
+        else {
+            setCountMaxPage(Math.floor(orderSearch2.length / 10))
+        }
     }
     return (
         <div className="main-panel">
@@ -107,7 +127,7 @@ const Index = () => {
                         <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Customer details</h3>
                     </div>
                 </div>
-                {}
+                { }
                 <div className="row">
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card" style={{ "marginBottom": "25px" }}>
@@ -222,7 +242,7 @@ const Index = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {orderSearch.map((item, index) => {
+                                                {orderSearch.slice(startIndex, endIndex).map((item, index) => {
                                                     return <tr key={index}>
                                                         <td>
                                                             <NavLink to={"/orders/" + item.orderId} style={{ color: "#57b657", textDecoration: "none" }}>{item.orderId}</NavLink>
@@ -259,11 +279,13 @@ const Index = () => {
                                         </table>
                                     </div>
                                     <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                        {countPage - 1 > 0 ? <button type="button" onClick={() => { handleSetPageOrder(countPage - 1) }} className="btn btn-outline-secondary">{countPage - 1}</button> : null}
+                                        {countPage > 1 && <button type="button" onClick={() => handleSetPageOrder(1)} className="btn btn-outline-secondary">1</button>}
+                                        {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                        {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPageOrder(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
                                         <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
-                                        {countPage + 1 < countMaxPage ? <button type="button" onClick={() => { handleSetPageOrder(countPage + 1) }} className="btn btn-outline-secondary">{countPage + 1}</button> : null}
-                                        {countMaxPage > 3 ? <button type="button" className="btn btn-outline-secondary">...</button> : null}
-                                        {countPage === countMaxPage ? null : <button type="button" onClick={() => { handleSetPageOrder(countMaxPage) }} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                        {countPage + 1 < countMaxPage && <button type="button" onClick={() => handleSetPageOrder(countPage + 1)} className="btn btn-outline-secondary">{countPage + 1}</button>}
+                                        {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                        {countPage !== countMaxPage && <button type="button" onClick={() => handleSetPageOrder(countMaxPage)} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                     </div>
                                 </div>
                             </div>
