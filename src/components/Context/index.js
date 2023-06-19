@@ -1,16 +1,11 @@
-import { useState, useEffect, createContext } from 'react'
-import {  } from 'Apis'
+import { useState, createContext } from 'react'
 const StateContext = createContext()
-const TOKEN_SECRET_ADMIN = "Admin_Secret_JWT"
 function StateProvider({ children }) {
-    const [arrayOrder, setArrayOrder] = useState([])
-    useEffect(() => {
-        if(JSON.parse(localStorage.getItem('auth-token-user'))) {
-            // const verified = jwt.verify(JSON.parse(localStorage.getItem('auth-token-user')), TOKEN_SECRET_ADMIN)
-        }
-    }, [])
+    const [authentication, setAuthentication] = useState(null)
+
     const value = {
-        arrayOrder
+        authentication,
+        setAuthentication
     }
     return (
         <StateContext.Provider value={value}>

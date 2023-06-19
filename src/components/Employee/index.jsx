@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { fetchListOfEmployee, fetchSearchEmployee } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
 import Footer from "components/Footer"
 // import PageChartSalary from 'components/Employee/Page-Chart/Salary'
 import PageChartEmployee from 'components/Employee/Page-Chart/Employees'
+import { StateContext } from 'components/Context'
 const Index = () => {
+    const state = useContext(StateContext)
     const [employeeList, setEmployeeList] = useState()
-    const [authentication, setAuthentication] = useState(null)
     const [loading, setLoading] = useState(true)
     const role = ['CEO', 'PRODUCT', 'ORDER', 'EMPLOYEE', 'DEVELOPER', 'MANAGEMENT']
     const [countPage, setCountPage] = useState(1)
@@ -15,11 +16,12 @@ const Index = () => {
     const [search, setSearch] = useState({ email: "", role: "", status: "" })
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [inputFocused, setInputFocused] = useState(false);
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         fetchListOfEmployee(1)
             .then(result => {
-                setAuthentication(result.role)
+                state.setAuthentication(result.role)
                 setLoading(false)
                 setEmployeeList(result.data)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
@@ -34,11 +36,12 @@ const Index = () => {
             .catch(error => {
                 console.log(error)
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    setAuthentication(null)
+                    state.setAuthentication(null)
                 }
+                setError(error.response.status)
                 setLoading(false)
             })
-    }, [])
+    }, [state])
 
     const handleSetPage = (count) => {
         setEmployeeList()
@@ -90,8 +93,8 @@ const Index = () => {
                 <div className="row">
                     {loading === false ?
                         <div className="col-lg-12 stretch-card">
-                            <div className="card">
-                                {(authentication === 'MANAGEMENT' || authentication === 'DEVELOPER') &&
+                            {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'SALES') &&
+                                <div className="card">
                                     <div className="card-body">
                                         <h4 className="card-title">List of Employee</h4>
                                         <NavLink to={"/employee/create"} className="card-description" style={{ textDecoration: "none" }}>
@@ -196,13 +199,13 @@ const Index = () => {
                                                 </table>
                                             </div>
                                             <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                            {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
-                                            {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
-                                            {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPage(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
-                                            <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
-                                            {countPage + 1 < countMaxPage && <button type="button" onClick={() => handleSetPage(countPage + 1)} className="btn btn-outline-secondary">{countPage + 1}</button>}
-                                            {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
-                                            {countPage !== countMaxPage && <button type="button" onClick={() => handleSetPage(countMaxPage)} className="btn btn-outline-secondary">{countMaxPage}</button>}
+                                                {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
+                                                {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                                {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPage(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
+                                                <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
+                                                {countPage + 1 < countMaxPage && <button type="button" onClick={() => handleSetPage(countPage + 1)} className="btn btn-outline-secondary">{countPage + 1}</button>}
+                                                {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
+                                                {countPage !== countMaxPage && <button type="button" onClick={() => handleSetPage(countMaxPage)} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                             </div>
                                         </>
                                             :
@@ -214,23 +217,22 @@ const Index = () => {
                                             </>
                                         }
                                     </div>
-                                }
-
-                                {authentication === 'CEO' &&
-                                    <>
-                                        {/* <div className="card-body">
+                                </div>
+                            }
+                            {state.authentication === 'CEO' &&
+                                <>
+                                    {/* <div className="card-body">
                                             <h4 className="card-title">List of Employee</h4>
                                             <PageChartSalary />
                                         </div> */}
-                                        <div className="card-body">
-                                            <PageChartEmployee />
-                                        </div>
-                                    </>
-                                }
-                                {authentication === null &&
-                                    <NoAuth />
-                                }
-                            </div>
+                                    <div className="card-body">
+                                        <PageChartEmployee />
+                                    </div>
+                                </>
+                            }
+                            {state.authentication === null &&
+                                <NoAuth error={error}/>
+                            }
                         </div>
                         :
                         <>

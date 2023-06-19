@@ -112,7 +112,7 @@ const Index = () => {
                         .catch(error => {
                             console.log(error)
                             Swal.fire({
-                                title: 'Failed!',
+                                title: `Error ${error.response.status}`,
                                 text: 'You have failed to update the product',
                                 icon: 'error',
                                 confirmButtonText: 'OK!'
@@ -156,7 +156,7 @@ const Index = () => {
                                         .catch(error => {
                                             console.log(error)
                                             Swal.fire({
-                                                title: 'Failed!',
+                                                title: `Error ${error.response.status}`,
                                                 text: 'You have failed to update the product',
                                                 icon: 'error',
                                                 confirmButtonText: 'OK!'

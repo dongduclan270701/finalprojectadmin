@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import "assets/scss/Banner-Ads/Banner-Slide/Banner-Slide.scss"
 import Footer from "components/Footer"
 import { fetchListOfVoucher, fetchSearchVoucher } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
+import { StateContext } from 'components/Context'
 const Index = () => {
+    const state = useContext(StateContext)
     const optionSelect = ["Active", "Deactivate"]
     const [voucherList, setVoucherList] = useState()
-    const [authentication, setAuthentication] = useState(null)
     const [loading, setLoading] = useState(true)
     const [countPage, setCountPage] = useState(1)
     const [countMaxPage, setCountMaxPage] = useState(1)
     const [search, setSearch] = useState({ code: "", status: "" })
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [inputFocused, setInputFocused] = useState(false);
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         fetchListOfVoucher(1)
             .then(result => {
                 setVoucherList(result.data)
                 setLoading(false)
-                setAuthentication(result.role)
+                state.setAuthentication(result.role)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
                 } else if (result.total === 0) {
@@ -32,12 +34,12 @@ const Index = () => {
             })
             .catch(error => {
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    setAuthentication(null)
+                    state.setAuthentication(null)
                 }
-                console.log(error)
+                setError(error.response.status)
                 setLoading(false)
             })
-    }, [])
+    }, [state])
 
     const handleSetPage = (count) => {
         setVoucherList()
@@ -88,8 +90,8 @@ const Index = () => {
             <div className="content-wrapper">
                 {loading === false ?
                     <div className="col-lg-12 stretch-card">
-                        <div className="card">
-                            {(authentication === 'MANAGEMENT' || authentication === 'DEVELOPER') &&
+                        {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'SALES') &&
+                            <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title">List of Discount Codes</h4>
                                     <NavLink to={"/discount/create"} style={{ textDecoration: "none" }} className="card-description">
@@ -195,11 +197,11 @@ const Index = () => {
                                             </div>
                                             <div className="btn-group" style={{ display: "flex", justifyContent: "center", width: "fit-content", margin: "auto" }} role="group" aria-label="Basic example">
                                                 {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
-                                                {countPage > 3 &&  <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...'/>}
+                                                {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
                                                 {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPage(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
                                                 <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
                                                 {countPage + 1 < countMaxPage && <button type="button" onClick={() => handleSetPage(countPage + 1)} className="btn btn-outline-secondary">{countPage + 1}</button>}
-                                                {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...'/>}
+                                                {countMaxPage - countPage > 2 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
                                                 {countPage !== countMaxPage && <button type="button" onClick={() => handleSetPage(countMaxPage)} className="btn btn-outline-secondary">{countMaxPage}</button>}
                                             </div>
                                         </>
@@ -211,22 +213,23 @@ const Index = () => {
                                             <div className="loader" />
                                         </>}
                                 </div>
-                            }
-                            {authentication === 'CEO' &&
-                                <>
-                                    {/* <div className="card-body">
+                            </div>
+                        }
+                        {state.authentication === 'CEO' &&
+                            <>
+                                {/* <div className="card-body">
                                             <h4 className="card-title">List of Employee</h4>
                                             <PageChartSalary />
                                         </div> */}
-                                    {/* <div className="card-body">
+                                {/* <div className="card-body">
                                             <PageChartEmployee />
                                         </div> */}
-                                </>
-                            }
-                            {authentication === null &&
-                                <NoAuth />
-                            }
-                        </div>
+                            </>
+                        }
+                        {state.authentication === null &&
+                            <NoAuth error={error}/>
+                        }
+
                     </div>
                     :
                     <>

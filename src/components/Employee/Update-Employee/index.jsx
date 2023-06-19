@@ -33,6 +33,7 @@ const Index = () => {
             .catch(err => {
                 console.log(err)
             })
+
     }, [params])
     const handleGetImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
@@ -158,7 +159,7 @@ const Index = () => {
                                         .catch(error => {
                                             console.log(error)
                                             Swal.fire({
-                                                title: 'Unable to connect to server!',
+                                                title: `Error ${error.response.status}`,
                                                 text: 'There seems to be a problem with the connection to the server, please try again later',
                                                 icon: 'error',
                                                 confirmButtonText: 'OK!'
@@ -168,7 +169,7 @@ const Index = () => {
                                 .catch(error => {
                                     console.log(error)
                                     Swal.fire({
-                                        title: 'Unable to connect to server!',
+                                        title: `Error ${error.response.status}`,
                                         text: 'There seems to be a problem with the connection to the server, please try again later',
                                         icon: 'error',
                                         confirmButtonText: 'OK!'
@@ -205,7 +206,7 @@ const Index = () => {
                                         .catch(error => {
                                             console.log(error)
                                             Swal.fire({
-                                                title: 'Unable to connect to server!',
+                                                title: `Error ${error.response.status}`,
                                                 text: 'There seems to be a problem with the connection to the server, please try again later',
                                                 icon: 'error',
                                                 confirmButtonText: 'OK!'
@@ -215,7 +216,7 @@ const Index = () => {
                                 .catch(error => {
                                     console.log(error)
                                     Swal.fire({
-                                        title: 'Unable to connect to server!',
+                                        title: `Error ${error.response.status}`,
                                         text: 'There seems to be a problem with the connection to the server, please try again later',
                                         icon: 'error',
                                         confirmButtonText: 'OK!'
@@ -243,7 +244,7 @@ const Index = () => {
                                 .catch(error => {
                                     console.log(error)
                                     Swal.fire({
-                                        title: 'Unable to connect to server!',
+                                        title: `Error ${error.response.status}`,
                                         text: 'There seems to be a problem with the connection to the server, please try again later',
                                         icon: 'error',
                                         confirmButtonText: 'OK!'

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { fetchListOfOrder, fetchSearchOrder } from 'Apis'
+import { StateContext } from 'components/Context'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
 
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
+    const state = useContext(StateContext)
     const optionSelect = ["Being transported", "Payment information confirmed", "Delivered to the carrier", "Ordered", "Delivery successful", "Cancel", "Delivery failed"]
     const [orderList, setOrderList] = useState()
     const [countPage, setCountPage] = useState(1)
@@ -15,7 +17,6 @@ const Index = () => {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     const today = year + '-' + month + "-" + day;
-    const [authentication, setAuthentication] = useState(null)
     const [loading, setLoading] = useState(true)
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [inputFocused, setInputFocused] = useState(false);
@@ -24,7 +25,7 @@ const Index = () => {
     useEffect(() => {
         fetchListOfOrder(1)
             .then(result => {
-                setAuthentication(result.role)
+                state.setAuthentication(result.role)
                 setOrderList(result.data)
                 setLoading(false)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
@@ -38,12 +39,12 @@ const Index = () => {
             })
             .catch(error => {
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    setAuthentication(null)
+                    state.setAuthentication(null)
                 }
                 console.log(error)
                 setLoading(false)
             })
-    }, []);
+    }, [state]);
     const handleSetPage = (count) => {
         setOrderList()
         setCountPage(count)
@@ -87,25 +88,6 @@ const Index = () => {
         }
     }
 
-    // const handleSort = () => {
-    //     setOrderList()
-    //     setSearchOrder({ ...searchOrder, sort: searchOrder.sort === 'asc' ? 'desc' : 'asc' })
-    //     fetchSearchOrder({ ...searchOrder, sort: searchOrder.sort === 'asc' ? 'desc' : 'asc' }, 1)
-    //         .then((result) => {
-    //             setOrderList(result.data);
-    //             if (0 < result.total % 10 && result.total % 10 < 10) {
-    //                 setCountMaxPage(Math.floor(result.total / 10) + 1);
-    //             } else if (result.total === 0) {
-    //                 setCountMaxPage(1);
-    //             } else {
-    //                 setCountMaxPage(Math.floor(result.total / 10));
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }
-
     const handleSortDate = () => {
         setOrderList()
         setSearchOrder({ ...searchOrder, sortDate: searchOrder.sortDate === 'asc' ? 'desc' : 'asc' })
@@ -130,7 +112,7 @@ const Index = () => {
                 {loading === false ?
                     <div className="col-lg-12 stretch-card">
                         <div className="card">
-                            {(authentication === 'MANAGEMENT' || authentication === 'DEVELOPER') &&
+                            {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'ORDER') &&
                                 <div className="card-body">
                                     <h4 className="card-title">Order List</h4>
                                     <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
@@ -247,7 +229,7 @@ const Index = () => {
                                     }
                                 </div>
                             }
-                            {authentication === 'CEO' &&
+                            {state.authentication === 'CEO' &&
                                 <>
                                     {/* <div className="card-body">
                                             <h4 className="card-title">List of Employee</h4>
@@ -258,7 +240,7 @@ const Index = () => {
                                         </div> */}
                                 </>
                             }
-                            {authentication === null &&
+                            {state.authentication === null &&
                                 <NoAuth />
                             }
                         </div>

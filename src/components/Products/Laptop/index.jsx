@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { fetchCollectingByName, fetchListOfLaptopCollecting, fetchSearchLaptopCollecting } from 'Apis'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
+import { StateContext } from 'components/Context'
 
 const Index = () => {
+    const state = useContext(StateContext)
     const [collecting, setCollecting] = useState([])
     const [optionSelectLaptop, setOptionSelectLaptop] = useState([])
     const [optionSelectCollectingCPU, setOptionSelectCollectingCPU] = useState([])
     const [optionSelectCollectingRanger, setOptionSelectCollectingRanger] = useState([])
     const [optionSelectCollecting, setOptionSelectCollecting] = useState([])
-    const [searchData, setSearchData] = useState({ nameProduct: "", category: ['', '', '', ''], sort:'asc' })
+    const [searchData, setSearchData] = useState({ nameProduct: "", category: ['', '', '', ''], sort: 'asc' })
     const [countPage, setCountPage] = useState(1)
     const [countMaxPage, setCountMaxPage] = useState(1)
     const [product, setProduct] = useState()
-    const [authentication, setAuthentication] = useState(null)
     const [loading, setLoading] = useState(true)
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [inputFocused, setInputFocused] = useState(false);
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         fetchCollectingByName("Laptop")
@@ -50,7 +52,7 @@ const Index = () => {
             .then(result => {
                 setProduct(result.data)
                 setLoading(false)
-                setAuthentication(result.role)
+                state.setAuthentication(result.role)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
                 } else if (result.total === 0) {
@@ -63,8 +65,9 @@ const Index = () => {
             .catch(error => {
                 setLoading(false)
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    setAuthentication(null)
+                    state.setAuthentication(null)
                 }
+                setError(error.response.status)
                 console.log(error)
             })
     }, []);
@@ -200,8 +203,8 @@ const Index = () => {
                 <div className="row">
                     {loading === false ?
                         <div className="col-lg-12 grid-margin stretch-card">
-                            <div className="card">
-                                {(authentication === 'MANAGEMENT' || authentication === 'DEVELOPER' || authentication === 'CEO') &&
+                            {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
+                                <div className="card">
                                     <div className="card-body">
                                         <h4 className="card-title">List of Laptop products</h4>
                                         <NavLink to={"/laptop/create"} className="card-description" style={{ textDecoration: "none" }}>
@@ -226,7 +229,7 @@ const Index = () => {
                                             <ul className="col-lg-3 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                                 <li className="nav-item nav-search d-lg-block">
                                                     <div className="input-group">
-                                                        <select name="category" style={{ borderRadius: "15px" }} onChange={handleOptionSelected} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)}  type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                        <select name="category" style={{ borderRadius: "15px" }} onChange={handleOptionSelected} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                             <option value=''>Category ( All )</option>
                                                             {optionSelectLaptop.map((item, index) => {
                                                                 return <option key={index} value={item}>{item}</option>
@@ -238,7 +241,7 @@ const Index = () => {
                                             {optionSelectCollecting.length > 0 && <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                                 <li className="nav-item nav-search d-lg-block">
                                                     <div className="input-group">
-                                                        <select name="categoryCollection" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)}  type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                        <select name="categoryCollection" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                             <option value=''>Brand ( All )</option>
                                                             {optionSelectCollecting.map((item, index) => {
                                                                 return <option key={index} value={item.name}>{item.name}</option>
@@ -251,7 +254,7 @@ const Index = () => {
                                             {optionSelectCollecting.length > 0 && optionSelectCollectingCPU.length > 0 && <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                                 <li className="nav-item nav-search d-lg-block">
                                                     <div className="input-group">
-                                                        <select name="categoryCPU" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)}  type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                        <select name="categoryCPU" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                             <option value=''><p>CPU ( All )</p></option>
                                                             {optionSelectCollectingCPU.map((item, index) => {
                                                                 return <option key={index} value={item}>{item}</option>
@@ -264,7 +267,7 @@ const Index = () => {
                                             {optionSelectCollecting.length > 0 && optionSelectCollectingRanger.length > 0 && <ul className="col-lg-2 navbar-nav" style={{ "paddingBottom": "15px", "paddingLeft": "15px" }}>
                                                 <li className="nav-item nav-search d-lg-block">
                                                     <div className="input-group">
-                                                        <select name="categoryRange" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)}  type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
+                                                        <select name="categoryRange" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
                                                             <option value=''>Price ( All )</option>
                                                             {optionSelectCollectingRanger.map((item, index) => {
                                                                 return <option key={index} value={item}>{item}</option>
@@ -285,9 +288,9 @@ const Index = () => {
                                                                 <th>Image</th>
                                                                 <th>Category</th>
                                                                 <th>Quantity{searchData.sort === 'asc' ?
-                                                                <i className="mdi mdi-arrow-down" style={{ cursor: "pointer" }} onClick={handleSort} />
-                                                                :
-                                                                <i className="mdi mdi-arrow-up" style={{ cursor: "pointer" }} onClick={handleSort} />}</th>
+                                                                    <i className="mdi mdi-arrow-down" style={{ cursor: "pointer" }} onClick={handleSort} />
+                                                                    :
+                                                                    <i className="mdi mdi-arrow-up" style={{ cursor: "pointer" }} onClick={handleSort} />}</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
                                                             </tr>
@@ -339,22 +342,22 @@ const Index = () => {
                                             </>
                                         }
                                     </div>
-                                }
-                                {authentication === 'CEO' &&
-                                    <>
-                                        {/* <div className="card-body">
+                                </div>
+                            }
+                            {state.authentication === 'CEO' &&
+                                <>
+                                    {/* <div className="card-body">
                                             <h4 className="card-title">List of Employee</h4>
                                             <PageChartSalary />
                                         </div> */}
-                                        {/* <div className="card-body">
+                                    {/* <div className="card-body">
                                             <PageChartEmployee />
                                         </div> */}
-                                    </>
-                                }
-                                {authentication === null &&
-                                    <NoAuth />
-                                }
-                            </div>
+                                </>
+                            }
+                            {state.authentication === null &&
+                                <NoAuth error={error}/>
+                            }
                         </div>
                         :
                         <>

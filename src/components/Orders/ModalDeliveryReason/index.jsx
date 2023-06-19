@@ -56,7 +56,7 @@ const Index = (props) => {
                 .catch(error => {
                     console.log(error)
                     Swal.fire({
-                        title: 'Unable to connect to server!',
+                        title: `Error ${error.response.status}`,
                         text: 'There seems to be a problem with the connection to the server, please try again later',
                         icon: 'error',
                         confirmButtonText: 'OK!'

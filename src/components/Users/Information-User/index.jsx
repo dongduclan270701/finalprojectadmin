@@ -91,7 +91,7 @@ const Index = () => {
                     .catch(error => {
                         console.log(error)
                         Swal.fire({
-                            title: 'Unable to connect to server!',
+                            title: `Error ${error.response.status}`,
                             text: 'There seems to be a problem with the connection to the server, please try again later',
                             icon: 'error',
                             confirmButtonText: 'OK!'
@@ -143,7 +143,6 @@ const Index = () => {
                         <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Customer details</h3>
                     </div>
                 </div>
-                { }
                 <div className="row">
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card" style={{ "marginBottom": "25px" }}>
