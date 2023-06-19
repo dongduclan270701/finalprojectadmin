@@ -19,32 +19,52 @@ const Index = () => {
     }, [params])
 
     const handleDeactivateAccount = () => {
-        fetchUpdateStatusEmployee(employee._id, {status: !employee.status})
-            .then(result => {
+        Swal.fire({
+            title: 'Do you agree to update your staff??',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Decline',
+        }).then((result) => {
+            if (result.isConfirmed) {
                 Swal.fire({
-                    title: 'Successfully!',
-                    text: 'You have successfully updated your staff!',
-                    icon: 'success',
-                    confirmButtonText: 'OK!'
-                })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            setEmployee({ ...employee, status: !employee.status })
-                        }
+                    title: 'Updating...',
+                    html: 'Please wait...',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
+                fetchUpdateStatusEmployee(employee._id, { status: !employee.status })
+                .then(result => {
+                    Swal.fire({
+                        title: 'Successfully!',
+                        text: 'You have successfully updated your staff!',
+                        icon: 'success',
+                        confirmButtonText: 'OK!'
                     })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            })
-            .catch(error => {
-                console.log(error)
-                Swal.fire({
-                    title: 'Unable to connect to server!',
-                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                    icon: 'error',
-                    confirmButtonText: 'OK!'
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                setEmployee({ ...employee, status: !employee.status })
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
                 })
-            })
+                .catch(error => {
+                    console.log(error)
+                    Swal.fire({
+                        title: 'Unable to connect to server!',
+                        text: 'There seems to be a problem with the connection to the server, please try again later',
+                        icon: 'error',
+                        confirmButtonText: 'OK!'
+                    })
+                })
+            }
+            
+        })
     }
 
     return (

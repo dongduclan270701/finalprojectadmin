@@ -29,6 +29,7 @@ const Index = () => {
     const handleSubmitUpdated = () => {
         Swal.fire({
             title: 'Do you agree to make corrections??',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Accept',
             cancelButtonText: 'Decline',
@@ -42,8 +43,18 @@ const Index = () => {
                         confirmButtonText: 'OK!'
                     })
                 } else {
+                    Swal.fire({
+                        title: 'Updating...',
+                        html: 'Please wait...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
                     fetchUpdateVoucher(params.id, voucher)
                     .then(result => {
+                        setVoucher({...result, reasonUpdate: ''})
                         Swal.fire({
                             title: 'Successfully saved information!',
                             text: 'You have successfully edited the discount code information',

@@ -62,6 +62,22 @@ const Index = (props) => {
                 })
             }));
         }
+        else if (name === "NameSpecifications" || name === "ContentSpecifications") {
+            handleGetData(product => ({
+                ...product,
+                specifications: product.specifications.map((row, index) => {
+                    if (index === indexInput) {
+                        if (name === "NameSpecifications") {
+                            return [value, row[1]]
+                        }
+                        if (name === "ContentSpecifications") {
+                            return [row[0], value]
+                        }
+                    }
+                    return row;
+                })
+            }));
+        }
         else if (indexInput === null) {
             handleGetData(product => ({
                 ...product,
@@ -294,6 +310,58 @@ const Index = (props) => {
                         </div>
                     </div>
                 </div>
+                <div className="card" style={{ marginBottom: "25px" }}>
+                            <div className="card-body">
+                                <h4 className="card-title">Specifications</h4>
+                                <div className="form-group">
+                                    {product.specifications.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>
+                                        <div className='col-3' style={{ paddingLeft: "0" }}>
+                                            <label>Title:</label>
+                                        </div>
+                                        <div className='col-7' style={{ padding: "0" }}>
+                                            <label>Content:</label>
+                                        </div>
+                                        <div className='col-2' style={{ padding: "0" }}>
+                                            <label>Remove</label>
+                                        </div>
+                                    </div>
+                                        :
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <label>Title:</label>
+                                            </div>
+                                            <div className='col-9' style={{ padding: "0" }}>
+                                                <label>Content:</label>
+                                            </div>
+                                        </div>
+                                    }
+                                    {console.log(product)}
+                                    {product.specifications.length > 1 ? product.specifications.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <input name='NameSpecifications' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
+                                            </div>
+                                            <div className='col-7' style={{ paddingLeft: "0" }}>
+                                                <input name='ContentSpecifications' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} />
+                                            </div>
+                                            <div className='col-2' style={{ paddingLeft: "0" }}>
+                                                <button onClick={() => handleRemoveDescriptionAndDescriptionTable("specifications", index)} type="text" className="btn btn-outline-secondary btn-fw">x</button>
+                                            </div>
+                                        </div>
+                                    }) : product.specifications.map((item, index) => {
+                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
+                                            <div className='col-3' style={{ paddingLeft: "0" }}>
+                                                <input name='NameSpecifications' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} />
+                                            </div>
+                                            <div className='col-9' style={{ paddingLeft: "0" }}>
+                                                <input name='ContentSpecifications' onChange={(e) => handleChangeInput(e, index)} type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} />
+                                            </div>
+                                        </div>
+                                    })}
+                                    <button onClick={() => handleAddDescriptionAndDescriptionTable("specifications")} type="button" className="btn btn-outline-secondary btn-fw">Add</button>
+                                </div>
+                            </div>
+                        </div>
                 <div className="card">
                     <div className="card-body">
                         <h4 className="card-title">Description</h4>

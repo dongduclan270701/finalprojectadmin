@@ -94,7 +94,7 @@ const Index = () => {
                         </div>
                         <div className="col-lg-6 grid-margin stretch-card">
                             <div className="col-md-12" style={{ "padding": 0 }}>
-                                <div className="card">
+                                <div className="card" style={{ "marginBottom": "25px" }}>
                                     <div className="card-body">
                                         <h4 className="card-title">Detais</h4>
                                         {product.description_table.map((item, index) => {
@@ -105,8 +105,32 @@ const Index = () => {
                                         })}
                                     </div>
                                 </div>
+                                <div className="card" style={{ "marginBottom": "25px" }}>
+                                    <div className="card-body">
+                                        <h4 className="card-title">Specifications</h4>
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Title:</label>
+                                            </div>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Content:</label>
+                                            </div>
+                                        </div>
+                                        {product.specifications.map((item, index) => {
+                                            return <div key={index} className='row' style={{ margin: "0 0 25px 0" }}>
+                                                <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                    <input name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
+                                                </div>
+                                                <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                    <input name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
+                                                </div>
+                                            </div>
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        
                         <div className="col-lg-6 grid-margin stretch-card">
                             <div className="col-md-12" style={{ "padding": 0 }}>
                                 <div className="card" style={{ "marginBottom": "25px" }}>
@@ -154,10 +178,8 @@ const Index = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </>
                     :

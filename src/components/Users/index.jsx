@@ -165,7 +165,7 @@ const Index = () => {
                                                                     {item.email}
                                                                 </td>
                                                                 <td>
-                                                                    <img src={item.image} className="img-fluid" alt="" style={{ width: "80px", height: "80px", borderRadius: "0%" }} />
+                                                                    <img src={item.image} className="img-fluid" alt="" style={{borderRadius: "0%" }} />
                                                                 </td>
                                                                 <td>
                                                                     {item.orders.length}

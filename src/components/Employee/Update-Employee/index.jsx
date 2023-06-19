@@ -64,7 +64,7 @@ const Index = () => {
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
 
-    const handleSubmitCreate = () => {
+    const handleSubmitUpdate = () => {
         if (changeForm === true) {
             if (!employee.username) {
                 Swal.fire({
@@ -109,19 +109,120 @@ const Index = () => {
                     confirmButtonText: 'OK!'
                 })
             } else {
-
-                if (image && !cv) {
-                    const formDataImage = new FormData();
-                    formDataImage.append('file', image[0]);
-                    formDataImage.append('upload_preset', apiKeyUser);
-                    axios.post(uploadUrlUser, formDataImage, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
-                        .then(resultImage => {
-                            const newData = { ...employee, image: resultImage.data.secure_url }
-                            fetchUpdateEmployee(params.id, newData)
+                Swal.fire({
+                    title: 'Do you agree to update your staff??',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Accept',
+                    cancelButtonText: 'Decline',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Updating...',
+                            html: 'Please wait...',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            }
+                        });
+                        if (image && !cv) {
+                            const formDataImage = new FormData();
+                            formDataImage.append('file', image[0]);
+                            formDataImage.append('upload_preset', apiKeyUser);
+                            axios.post(uploadUrlUser, formDataImage, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            })
+                                .then(resultImage => {
+                                    const newData = { ...employee, image: resultImage.data.secure_url }
+                                    fetchUpdateEmployee(params.id, newData)
+                                        .then(result => {
+                                            console.log(result)
+                                            Swal.fire({
+                                                title: 'Successfully!',
+                                                text: 'You have successfully updated your staff!',
+                                                icon: 'success',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                                .then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        navigate(-1)
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.log(error)
+                                                })
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                            Swal.fire({
+                                                title: 'Unable to connect to server!',
+                                                text: 'There seems to be a problem with the connection to the server, please try again later',
+                                                icon: 'error',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                        })
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                    Swal.fire({
+                                        title: 'Unable to connect to server!',
+                                        text: 'There seems to be a problem with the connection to the server, please try again later',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK!'
+                                    })
+                                })
+                        } else if (cv && !image) {
+                            const formDataCV = new FormData();
+                            formDataCV.append('file', cv[0]);
+                            formDataCV.append('upload_preset', apiKeyUser);
+                            axios.post(uploadUrlUser, formDataCV, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            })
+                                .then(resultCV => {
+                                    const newData = { ...employee, curriculumVitae: resultCV.data.secure_url }
+                                    fetchUpdateEmployee(params.id, newData)
+                                        .then(result => {
+                                            Swal.fire({
+                                                title: 'Successfully!',
+                                                text: 'You have successfully updated your staff!',
+                                                icon: 'success',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                                .then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        navigate(-1)
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.log(error)
+                                                })
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                            Swal.fire({
+                                                title: 'Unable to connect to server!',
+                                                text: 'There seems to be a problem with the connection to the server, please try again later',
+                                                icon: 'error',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                        })
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                    Swal.fire({
+                                        title: 'Unable to connect to server!',
+                                        text: 'There seems to be a problem with the connection to the server, please try again later',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK!'
+                                    })
+                                })
+                        } else {
+                            fetchUpdateEmployee(params.id, employee)
                                 .then(result => {
                                     console.log(result)
                                     Swal.fire({
@@ -148,128 +249,9 @@ const Index = () => {
                                         confirmButtonText: 'OK!'
                                     })
                                 })
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            Swal.fire({
-                                title: 'Unable to connect to server!',
-                                text: 'There seems to be a problem with the connection to the server, please try again later',
-                                icon: 'error',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-                } else if (cv && !image) {
-                    const formDataCV = new FormData();
-                    formDataCV.append('file', cv[0]);
-                    formDataCV.append('upload_preset', apiKeyUser);
-                    axios.post(uploadUrlUser, formDataCV, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
                         }
-                    })
-                        .then(resultCV => {
-                            const newData = { ...employee, curriculumVitae: resultCV.data.secure_url }
-                            fetchUpdateEmployee(params.id, newData)
-                                .then(result => {
-                                    Swal.fire({
-                                        title: 'Successfully!',
-                                        text: 'You have successfully updated your staff!',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK!'
-                                    })
-                                        .then((result) => {
-                                            if (result.isConfirmed) {
-                                                navigate(-1)
-                                            }
-                                        })
-                                        .catch(error => {
-                                            console.log(error)
-                                        })
-                                })
-                                .catch(error => {
-                                    console.log(error)
-                                    Swal.fire({
-                                        title: 'Unable to connect to server!',
-                                        text: 'There seems to be a problem with the connection to the server, please try again later',
-                                        icon: 'error',
-                                        confirmButtonText: 'OK!'
-                                    })
-                                })
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            Swal.fire({
-                                title: 'Unable to connect to server!',
-                                text: 'There seems to be a problem with the connection to the server, please try again later',
-                                icon: 'error',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-                } else if (image && cv) {
-                    console.log("image cv")
-                } else {
-                    fetchUpdateEmployee(params.id, employee)
-                        .then(result => {
-                            console.log(result)
-                            Swal.fire({
-                                title: 'Successfully!',
-                                text: 'You have successfully updated your staff!',
-                                icon: 'success',
-                                confirmButtonText: 'OK!'
-                            })
-                                .then((result) => {
-                                    if (result.isConfirmed) {
-                                        navigate(-1)
-                                    }
-                                })
-                                .catch(error => {
-                                    console.log(error)
-                                })
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            Swal.fire({
-                                title: 'Unable to connect to server!',
-                                text: 'There seems to be a problem with the connection to the server, please try again later',
-                                icon: 'error',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-                }
-                // const formDataImage = new FormData();
-                // formDataImage.append('file', image);
-                // formDataImage.append('upload_preset', apiKeyUser);
-                // const formDataCV = new FormData();
-                // formDataCV.append('file', cv);
-                // formDataCV.append('upload_preset', apiKeyUser);
-                // axios.post(uploadUrlUser, formDataImage, {
-                //     headers: {
-                //         'Content-Type': 'multipart/form-data'
-                //     }
-                // })
-                //     .then(resultImage => {
-                //         axios.post(uploadUrlUser, formDataCV, {
-                //             headers: {
-                //                 'Content-Type': 'multipart/form-data'
-                //             }
-                //         })
-                //             .then(resultCV => {
-                //                 const newData = { ...employee, image: resultImage.data.secure_url, curriculumVitae: resultCV.data.secure_url }
-                //                 fetchUpdateEmployee(newData)
-                //                     .then(result => {
-                //                         console.log(result)
-                //                     })
-                //                     .catch(error => {
-                //                         console.log(error)
-                //                     })
-                //             })
-                //             .catch(err => {
-                //                 console.log(err);
-                //             })
-                //     })
-                //     .catch(err => {
-                //         console.log(err);
-                //     })
+                    }
+                })
             }
         } else {
             Swal.fire({
@@ -296,7 +278,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button className="col-lg-2 btn btn-outline-secondary btn-fw" onClick={handleSubmitCreate}>Save</button>
+                    <button className="col-lg-2 btn btn-outline-secondary btn-fw" onClick={handleSubmitUpdate}>Save</button>
                 </div>
                 {employee ?
                     <div className="row">
@@ -390,9 +372,9 @@ const Index = () => {
                                                 </div>
                                             </div>
                                             <img src={cvChoose} className="img-fluid " alt="" style={{ width: "inherit", margin: "0 auto", padding: "10px" }} />
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>

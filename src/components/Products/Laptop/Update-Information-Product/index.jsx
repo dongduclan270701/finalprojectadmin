@@ -73,74 +73,107 @@ const Index = () => {
     }
     // console.log(product)
     const handleSubmitUpdated = () => {
-        if (listImage.length === 0) {
-            const { _id, ...newData } = product;
-            fetchUpdateLaptopCollecting(params.src, newData)
-                .then(result => {
-                    Swal.fire({
-                        title: 'Product update successful!',
-                        text: 'You have successfully updated product information',
-                        icon: 'success',
-                        confirmButtonText: 'OK!'
-                    })
-                })
-                .catch(error => {
-                    console.log(error)
-                    Swal.fire({
-                        title: 'Failed!',
-                        text: 'You have failed to update the product',
-                        icon: 'error',
-                        confirmButtonText: 'OK!'
-                    })
-                })
-        }
-        else {
-            const formData = new FormData();
-            product.img.splice(0, product.img.length)
-            for (let i = 0; i < listImage.length; i++) {
-                formData.append('file', listImage[i]);
-                formData.append('upload_preset', apiKeyProduct);
-                axios.post(uploadUrlProduct, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
+        Swal.fire({
+            title: 'Do you agree to add new product??',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Decline',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Updating...',
+                    html: 'Please wait...',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
                     }
-                })
-                    .then((response) => {
-                        product.img.push(response.data.secure_url);
-                        if (i === listImage.length - 1) {
-                            const { _id, ...newData } = product;
-                            //Post axios
-                            fetchUpdateLaptopCollecting(params.src, newData)
-                                .then(result => {
-                                    Swal.fire({
-                                        title: 'Product update successful!',
-                                        text: 'You have successfully updated product information',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK!'
-                                    })
-                                })
-                                .catch(error => {
-                                    console.log(error)
-                                    Swal.fire({
-                                        title: 'Failed!',
-                                        text: 'You have failed to update the product',
-                                        icon: 'error',
-                                        confirmButtonText: 'OK!'
-                                    })
-                                })
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                });
+                if (listImage.length === 0) {
+                    const { _id, ...newData } = product;
+                    const updatedProduct = {
+                        ...newData,
+                        specifications: newData.specifications.filter(([key, value]) => key !== "" && value !== ""),
+                        description: newData.description.filter(([key, value]) => key !== "" && value !== ""),
+                        description_table: newData.description_table.filter(([key, value]) => key !== "" && value !== ""),
+                        gift: newData.gift.filter((gift) => gift !== ""),
+                        gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
+                    };
+                    fetchUpdateLaptopCollecting(params.src, updatedProduct)
+                        .then(result => {
+                            Swal.fire({
+                                title: 'Product update successful!',
+                                text: 'You have successfully updated product information',
+                                icon: 'success',
+                                confirmButtonText: 'OK!'
+                            })
+                        })
+                        .catch(error => {
+                            console.log(error)
+                            Swal.fire({
+                                title: 'Failed!',
+                                text: 'You have failed to update the product',
+                                icon: 'error',
+                                confirmButtonText: 'OK!'
+                            })
+                        })
+                }
+                else {
+                    const formData = new FormData();
+                    product.img.splice(0, product.img.length)
+                    for (let i = 0; i < listImage.length; i++) {
+                        formData.append('file', listImage[i]);
+                        formData.append('upload_preset', apiKeyProduct);
+                        axios.post(uploadUrlProduct, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        })
+                            .then((response) => {
+                                product.img.push(response.data.secure_url);
+                                if (i === listImage.length - 1) {
+                                    const { _id, ...newData } = product;
+                                    const updatedProduct = {
+                                        ...newData,
+                                        specifications: newData.specifications.filter(([key, value]) => key !== "" && value !== ""),
+                                        description: newData.description.filter(([key, value]) => key !== "" && value !== ""),
+                                        description_table: newData.description_table.filter(([key, value]) => key !== "" && value !== ""),
+                                        gift: newData.gift.filter((gift) => gift !== ""),
+                                        gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
+                                    };
+                                    //Post axios
+                                    fetchUpdateLaptopCollecting(params.src, updatedProduct)
+                                        .then(result => {
+                                            Swal.close()
+                                            Swal.fire({
+                                                title: 'Product update successful!',
+                                                text: 'You have successfully updated product information',
+                                                icon: 'success',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                            Swal.fire({
+                                                title: 'Failed!',
+                                                text: 'You have failed to update the product',
+                                                icon: 'error',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                        })
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                }
             }
-            Swal.fire({
-                title: 'Lưu thành công!',
-                text: 'Bạn đã chỉnh sửa thành công thông tin sản phẩm',
-                icon: 'success',
-            })
-        }
+        })
     }
+
+        
     return (
         <div className="main-panel">
             <div className="content-wrapper">

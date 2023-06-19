@@ -272,12 +272,12 @@ const Index = () => {
                                                         <tbody>
                                                             {product.map((item, index) => {
                                                                 return <tr key={index}>
-                                                                    <td>{item.nameProduct}</td>
+                                                                    <td style={{ maxWidth: 200, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.nameProduct}</td>
                                                                     <td>
-                                                                        <img src={item.img[0]} className="img-fluid" alt="" style={{ width: "80px", height: "80px", borderRadius: "0%" }} />
+                                                                        <img src={item.img[0]} className="img-fluid" alt="" style={{ borderRadius: "0%" }} />
                                                                     </td>
                                                                     <td style={{ maxWidth: 200, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                                                        {item.category.map((item, index) => { return item + ", " })}
+                                                                        {item.category.map((i) => i).join(", ")}
                                                                     </td>
                                                                     <td>
                                                                         {item.quantity}

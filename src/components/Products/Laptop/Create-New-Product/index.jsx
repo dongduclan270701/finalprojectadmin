@@ -26,6 +26,9 @@ const Index = () => {
             ["", ""]
         ],
         category: [],
+        specifications: [
+            ["", ""]
+        ]
     })
 
     const [listImage, setListImage] = useState([])
@@ -42,17 +45,12 @@ const Index = () => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
-                    }
-                    if (item.name === "Brand Name") {
                         item.collecting.map((item, index) => {
                             const categoryInCollecting = item.category.map((i, index) => {
-
                                 return { label: i.name, value: i.name }
                             })
                             setOptions(options => [...options, ...categoryInCollecting])
-                            return categoryInCollecting
                         })
-
                     }
                     if (item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
@@ -171,67 +169,95 @@ const Index = () => {
                 confirmButtonText: 'OK!'
             });
         }
-        
         else {
-            for (let i = 0; i < listImage.length; i++) {
-                formData.append('file', listImage[i]);
-                formData.append('upload_preset', apiKeyProduct);
-                axios.post(uploadUrlProduct, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                    .then((response) => {
-                        product.img.push(response.data.secure_url);
-                        if (i === listImage.length - 1) {
-                            //Post axios
-                            fetchCreateLaptopCollecting(product)
-                                .then(result => {
-                                    Swal.fire({
-                                        title: 'Add new successful product!',
-                                        text: 'You have successfully add new product information',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK!'
-                                    })
-                                    setProduct({
-                                        img: [],
-                                        src: "",
-                                        gift: [""],
-                                        gift_buy: [""],
-                                        percent: 0,
-                                        quantity: 0,
-                                        nameProduct: "",
-                                        realPrice: 0,
-                                        nowPrice: 0,
-                                        sold: 0,
-                                        view: 0,
-                                        description_table: [
-                                            ["", ""]
-                                        ],
-                                        description: [
-                                            ["", ""]
-                                        ],
-                                        category: [],
-                                    })
-                                })
-                                .catch(error => {
-                                    console.log(error)
-                                    Swal.fire({
-                                        title: 'Unable to connect to server!',
-                                        text: 'There seems to be a problem with the connection to the server, please try again later',
-                                        icon: 'error',
-                                        confirmButtonText: 'OK!'
-                                    })
-                                })
-
+            Swal.fire({
+                title: 'Do you agree to add new product??',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Accept',
+                cancelButtonText: 'Decline',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const updatedProduct = {
+                        ...product,
+                        specifications: product.specifications.filter(([key, value]) => key !== "" && value !== ""),
+                        description: product.description.filter(([key, value]) => key !== "" && value !== ""),
+                        description_table: product.description_table.filter(([key, value]) => key !== "" && value !== ""),
+                        gift: product.gift.filter((gift) => gift !== ""),
+                        gift_buy: product.gift_buy.filter((gift_buy) => gift_buy !== "")
+                    };
+                    Swal.fire({
+                        title: 'Creating...',
+                        html: 'Please wait...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
                         }
-                    })
-                    .catch((error) => {
-                        console.log(error);
                     });
-            }
-        }
+                    for (let i = 0; i < listImage.length; i++) {
+                        formData.append('file', listImage[i]);
+                        formData.append('upload_preset', apiKeyProduct);
+                        axios.post(uploadUrlProduct, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        })
+                            .then((response) => {
+                                product.img.push(response.data.secure_url);
+                                if (i === listImage.length - 1) {
+                                    //Post axios
+                                    fetchCreateLaptopCollecting(updatedProduct)
+                                        .then(result => {
+                                            Swal.close()
+                                            Swal.fire({
+                                                title: 'Add new successful product!',
+                                                text: 'You have successfully add new product information',
+                                                icon: 'success',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                            setProduct({
+                                                img: [],
+                                                src: "",
+                                                gift: [""],
+                                                gift_buy: [""],
+                                                percent: 0,
+                                                quantity: 0,
+                                                nameProduct: "",
+                                                realPrice: 0,
+                                                nowPrice: 0,
+                                                description_table: [
+                                                    ["", ""]
+                                                ],
+                                                description: [
+                                                    ["", ""]
+                                                ],
+                                                category: [],
+                                                specifications: [
+                                                    ["", ""]
+                                                ]
+                                            })
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                            Swal.close()
+                                            Swal.fire({
+                                                title: 'Unable to connect to server!',
+                                                text: 'There seems to be a problem with the connection to the server, please try again later',
+                                                icon: 'error',
+                                                confirmButtonText: 'OK!'
+                                            })
+                                        })
 
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                }
+            })
+        }
     }
 
     return (

@@ -31,22 +31,74 @@ const Index = () => {
         }));
     }
 
-    const handleSubmitUpdated = () => {
+    const handleSubmitCreate = () => {
         Swal.fire({
             title: 'Do you agree to make corrections??',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Accept',
             cancelButtonText: 'Decline',
         }).then((result) => {
             if (result.isConfirmed) {
-                if (!voucher.discountId || !voucher.discountName || !voucher.code || !voucher.description || !voucher.startDate || !voucher.endDate || !voucher.cost) {
+                if (!voucher.discountId) {
                     Swal.fire({
                         title: 'Warning!',
-                        text: 'You have not entered enough discount code information',
+                        text: 'You have not entered discount id information',
+                        icon: 'warning',
+                        confirmButtonText: 'OK!'
+                    })
+                } else if (!voucher.code) {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'You have not entered discount code information',
+                        icon: 'warning',
+                        confirmButtonText: 'OK!'
+                    })
+                } else if (!voucher.discountName) {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'You have not entered discount name information',
+                        icon: 'warning',
+                        confirmButtonText: 'OK!'
+                    })
+                } else if (!voucher.description) {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'You have not entered discount description information',
+                        icon: 'warning',
+                        confirmButtonText: 'OK!'
+                    })
+                } else if (!voucher.startDate) {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'You have not entered discount start date information',
+                        icon: 'warning',
+                        confirmButtonText: 'OK!'
+                    })
+                } else if (!voucher.endDate) {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'You have not entered discount end date information',
+                        icon: 'warning',
+                        confirmButtonText: 'OK!'
+                    })
+                } else if (!voucher.cost) {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'You have not entered discount cost information',
                         icon: 'warning',
                         confirmButtonText: 'OK!'
                     })
                 } else {
+                    Swal.fire({
+                        title: 'Updating...',
+                        html: 'Please wait...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
                     fetchCreateVoucher(voucher)
                         .then(result => {
                             if (result.message === 'Discount code already exists') {
@@ -86,8 +138,6 @@ const Index = () => {
                                 confirmButtonText: 'OK!'
                             })
                         })
-
-
                 }
             }
         })
@@ -102,7 +152,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <button onClick={handleSubmitUpdated} className="col-lg-2 btn btn-outline-secondary btn-fw">Save</button>
+                    <button onClick={handleSubmitCreate} className="col-lg-2 btn btn-outline-secondary btn-fw">Save</button>
                 </div>
                 <div className="row">
                     <div className="col-lg-6 grid-margin stretch-card">

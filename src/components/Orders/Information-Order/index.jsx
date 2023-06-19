@@ -19,31 +19,8 @@ const Index = () => {
     const navigate = useNavigate();
     const [order, setOrder] = useState()
     const [currentStep, setCurrentStep] = useState(0);
-    const [options, setOptions] = useState([
-        {
-            label: 'Payment information confirmed',
-            value: 'Payment information confirmed',
-        },
-        {
-            label: 'Delivered to the carrier',
-            value: 'Delivered to the carrier',
-        },
-        {
-            label: 'Being transported',
-            value: 'Being transported',
-        },
-        {
-            label: 'Delivery successful',
-            value: 'Delivery successful',
-        }
-    ])
-    const [steps, setSteps] = useState([
-        "Ordered",
-        "Payment information confirmed",
-        "Delivered to the carrier",
-        "Being transported",
-        "Delivery successful",
-    ]);
+    const [options, setOptions] = useState([])
+    const [steps, setSteps] = useState([]);
     const [toggleShowRate, setToggleShowRate] = useState(false);
     const handleToggleShowRate = () => setToggleShowRate(!toggleShowRate);
     const [toggleReason, setToggleReason] = useState(false);
@@ -58,6 +35,13 @@ const Index = () => {
     const today = `${year}-${month}-${day}`;
 
     useEffect(() => {
+        setSteps([
+            "Ordered",
+            "Payment information confirmed",
+            "Delivered to the carrier",
+            "Being transported",
+            "Delivery successful",
+        ])
         fetchOrderInformation(params.id)
             .then(result => {
                 setOrder(result)
@@ -79,31 +63,72 @@ const Index = () => {
                 }
                 else if (result.status === 'Ordered') {
                     setCurrentStep(0)
+                    setOptions([
+                        {
+                            label: 'Payment information confirmed',
+                            value: 'Payment information confirmed',
+                        },
+                        {
+                            label: 'Delivered to the carrier',
+                            value: 'Delivered to the carrier',
+                        },
+                        {
+                            label: 'Being transported',
+                            value: 'Being transported',
+                        },
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
                 }
                 else if (result.status === 'Payment information confirmed') {
                     setCurrentStep(1)
-                    options.splice(0, 1)
+                    setOptions([
+                        {
+                            label: 'Delivered to the carrier',
+                            value: 'Delivered to the carrier',
+                        },
+                        {
+                            label: 'Being transported',
+                            value: 'Being transported',
+                        },
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
                 }
                 else if (result.status === 'Delivered to the carrier') {
                     setCurrentStep(2)
-                    options.splice(0, 2)
-
+                    setOptions([
+                        {
+                            label: 'Being transported',
+                            value: 'Being transported',
+                        },
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
                 }
                 else if (result.status === 'Being transported') {
                     setCurrentStep(3)
-                    options.splice(0, 3)
-
+                    setOptions([
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
                 }
                 else if (result.status === 'Delivery successful') {
                     setCurrentStep(4)
-                    options.splice(0, 4)
-
                 }
             })
             .catch(error => {
                 console.log(error)
             })
-    }, []);
+    }, [params]);
 
 
     const sumPriceListProduct = () => {
@@ -121,18 +146,463 @@ const Index = () => {
         return sumDiscountListProduct
     }
 
-    const handleSelectedOptionsChange = (selectedCategory) => {
+    // const handleSelectedOptionsChange = (selectedCategory) => {
 
-        if (selectedCategory.value === 'Payment information confirmed') {
-            Swal.fire({
-                title: 'Do you agree to make corrections??',
-                showCancelButton: true,
-                confirmButtonText: 'Accept',
-                cancelButtonText: 'Decline',
-            }).then((result) => {
-                if (result.isConfirmed) {
+    //     if (selectedCategory.value === 'Payment information confirmed') {
+    //         Swal.fire({
+    //             title: 'Do you agree to make corrections??',
+    //             icon: 'question',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Accept',
+    //             cancelButtonText: 'Decline',
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 setCurrentStep(1)
+    //                 const newOrder = {
+    //                     ...order,
+    //                     status: selectedCategory.value,
+    //                     shipping_process: [
+    //                         { time: time, date: today, content: selectedCategory.value },
+    //                         ...order.shipping_process
+    //                     ]
+    //                 }
+    //                 fetchUpdateOrder(params.id, newOrder)
+    //                     .then(result => {
+    //                         console.log(result)
+    //                         setOrder(result);
+    //                         options.splice(0, 1)
+    //                         Swal.fire({
+    //                             title: 'Successfully!',
+    //                             text: 'You have successfully edited your order status',
+    //                             icon: 'success',
+    //                             confirmButtonText: 'OK!'
+    //                         })
+    //                     })
+    //                     .catch(error => {
+    //                         Swal.fire({
+    //                             title: 'Unable to connect to server!',
+    //                             text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                             icon: 'error',
+    //                             confirmButtonText: 'OK!'
+    //                         })
+    //                     })
+
+    //             }
+    //         })
+    //     }
+    //     if (selectedCategory.value === 'Delivered to the carrier') {
+    //         if (options.length > 3) {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(2)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             { time: time, date: today, content: "Payment information confirmed" },
+    //                             ...order.shipping_process
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 2)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //         else {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(2)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             ...order.shipping_process
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 1)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //     }
+    //     if (selectedCategory.value === 'Being transported') {
+    //         if (options.length > 3) {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(3)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             { time: time, date: today, content: "Delivered to the carrier" },
+    //                             ...order.shipping_process
+
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 3)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //         else if (options.length === 3) {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(3)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             { time: time, date: today, content: "Delivered to the carrier" },
+    //                             { time: time, date: today, content: "Payment information confirmed" },
+    //                             ...order.shipping_process
+
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 2)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //         else {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(3)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             ...order.shipping_process
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 1)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //     }
+    //     if (selectedCategory.value === 'Delivery successful') {
+    //         if (options.length > 3) {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(4)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             { time: time, date: today, content: "Being transported" },
+    //                             { time: time, date: today, content: "Delivered to the carrier" },
+    //                             { time: time, date: today, content: "Payment information confirmed" },
+    //                             ...order.shipping_process,
+
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 3)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //         else if (options.length === 3) {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(4)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             { time: time, date: today, content: "Being transported" },
+    //                             { time: time, date: today, content: "Delivered to the carrier" },
+    //                             ...order.shipping_process,
+
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 2)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //         else if (options.length === 2) {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(4)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             { time: time, date: today, content: "Being transported" },
+    //                             ...order.shipping_process,
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 2)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //         else {
+    //             Swal.fire({
+    //                 title: 'Do you agree to make corrections??',
+    //                 icon: 'question',
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Accept',
+    //                 cancelButtonText: 'Decline',
+    //             }).then((result) => {
+    //                 if (result.isConfirmed) {
+    //                     setCurrentStep(4)
+    //                     const newOrder = {
+    //                         ...order,
+    //                         status: selectedCategory.value,
+    //                         shipping_process: [
+    //                             { time: time, date: today, content: selectedCategory.value },
+    //                             ...order.shipping_process
+    //                         ]
+    //                     }
+    //                     fetchUpdateOrder(params.id, newOrder)
+    //                         .then(result => {
+    //                             console.log(result)
+    //                             setOrder(result);
+    //                             options.splice(0, 1)
+    //                             Swal.fire({
+    //                                 title: 'Successfully!',
+    //                                 text: 'You have successfully edited your order status',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                         .catch(error => {
+    //                             Swal.fire({
+    //                                 title: 'Unable to connect to server!',
+    //                                 text: 'There seems to be a problem with the connection to the server, please try again later',
+    //                                 icon: 'error',
+    //                                 confirmButtonText: 'OK!'
+    //                             })
+    //                         })
+    //                 }
+    //             })
+    //         }
+    //     }
+    // }
+
+    const handleSelectedOptionsChange = (selectedCategory) => {
+        let newOrder
+        Swal.fire({
+            title: 'Do you agree to make corrections??',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Decline',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Updating...',
+                    html: 'Please wait...',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
+                if (selectedCategory.value === 'Payment information confirmed') {
                     setCurrentStep(1)
-                    const newOrder = {
+                    newOrder = {
                         ...order,
                         status: selectedCategory.value,
                         shipping_process: [
@@ -140,209 +610,37 @@ const Index = () => {
                             ...order.shipping_process
                         ]
                     }
-                    fetchUpdateOrder(params.id, newOrder)
-                        .then(result => {
-                            console.log(result)
-                            setOrder(result);
-                            options.splice(0, 1)
-                            Swal.fire({
-                                title: 'Successfully!',
-                                text: 'You have successfully edited your order status',
-                                icon: 'success',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-                        .catch(error => {
-                            Swal.fire({
-                                title: 'Unable to connect to server!',
-                                text: 'There seems to be a problem with the connection to the server, please try again later',
-                                icon: 'error',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-
+                    setOptions([
+                        {
+                            label: 'Delivered to the carrier',
+                            value: 'Delivered to the carrier',
+                        },
+                        {
+                            label: 'Being transported',
+                            value: 'Being transported',
+                        },
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
                 }
-            })
-        }
-        if (selectedCategory.value === 'Delivered to the carrier') {
-            if (options.length > 3) {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(2)
-                        const newOrder = {
-                            ...order,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                { time: time, date: today, content: selectedCategory.value },
-                                { time: time, date: today, content: "Payment information confirmed" },
-                                ...order.shipping_process
-                            ]
-                        }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 2)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                    }
-                })
-            }
-            else {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(2)
-                        const newOrder = {
-                            ...order,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                { time: time, date: today, content: selectedCategory.value },
-                                ...order.shipping_process
-                            ]
-                        }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 1)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                    }
-                })
-            }
-        }
-        if (selectedCategory.value === 'Being transported') {
-            if (options.length > 3) {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(3)
-                        const newOrder = {
-                            ...order,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                { time: time, date: today, content: selectedCategory.value },
-                                { time: time, date: today, content: "Delivered to the carrier" },
-                                ...order.shipping_process
+                else if (selectedCategory.value === 'Delivered to the carrier') {
+                    setCurrentStep(2)
 
-                            ]
-                        }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 3)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                    }
-                })
-            }
-            else if (options.length === 3) {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(3)
-                        const newOrder = {
+                    if (order.shipping_process.length === 1) {
+                        newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
                                 { time: time, date: today, content: selectedCategory.value },
-                                { time: time, date: today, content: "Delivered to the carrier" },
-                                { time: time, date: today, content: "Payment information confirmed" },
+                                { time: time, date: today, content: 'Payment information confirmed' },
                                 ...order.shipping_process
-
                             ]
                         }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 2)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
                     }
-                })
-            }
-            else {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(3)
-                        const newOrder = {
+                    else if (order.shipping_process.length === 2) {
+                        newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
@@ -350,169 +648,45 @@ const Index = () => {
                                 ...order.shipping_process
                             ]
                         }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 1)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
                     }
-                })
-            }
-        }
-        if (selectedCategory.value === 'Delivery successful') {
-            if (options.length > 3) {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        const newOrder = {
+                    setOptions([
+                        {
+                            label: 'Being transported',
+                            value: 'Being transported',
+                        },
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
+                }
+                else if (selectedCategory.value === 'Being transported') {
+                    setCurrentStep(3)
+                    if (order.shipping_process.length === 1) {
+                        newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
                                 { time: time, date: today, content: selectedCategory.value },
-                                { time: time, date: today, content: "Being transported" },
-                                { time: time, date: today, content: "Delivered to the carrier" },
-                                { time: time, date: today, content: "Payment information confirmed" },
-                                ...order.shipping_process,
-
+                                { time: time, date: today, content: 'Delivered to the carrier' },
+                                { time: time, date: today, content: 'Payment information confirmed' },
+                                ...order.shipping_process
                             ]
                         }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 3)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
                     }
-                })
-            }
-            else if (options.length === 3) {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        const newOrder = {
+                    else if (order.shipping_process.length === 2) {
+                        newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
                                 { time: time, date: today, content: selectedCategory.value },
-                                { time: time, date: today, content: "Being transported" },
-                                { time: time, date: today, content: "Delivered to the carrier" },
-                                ...order.shipping_process,
-
+                                { time: time, date: today, content: 'Delivered to the carrier' },
+                                ...order.shipping_process
                             ]
                         }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 2)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
                     }
-                })
-            }
-            else if (options.length === 2) {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        const newOrder = {
-                            ...order,
-                            status: selectedCategory.value,
-                            shipping_process: [
-                                { time: time, date: today, content: selectedCategory.value },
-                                { time: time, date: today, content: "Being transported" },
-                                ...order.shipping_process,
-                            ]
-                        }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 2)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                    }
-                })
-            }
-            else {
-                Swal.fire({
-                    title: 'Do you agree to make corrections??',
-                    showCancelButton: true,
-                    confirmButtonText: 'Accept',
-                    cancelButtonText: 'Decline',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setCurrentStep(4)
-                        const newOrder = {
+                    else if (order.shipping_process.length === 3) {
+                        newOrder = {
                             ...order,
                             status: selectedCategory.value,
                             shipping_process: [
@@ -520,30 +694,83 @@ const Index = () => {
                                 ...order.shipping_process
                             ]
                         }
-                        fetchUpdateOrder(params.id, newOrder)
-                            .then(result => {
-                                console.log(result)
-                                setOrder(result);
-                                options.splice(0, 1)
-                                Swal.fire({
-                                    title: 'Successfully!',
-                                    text: 'You have successfully edited your order status',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
-                            .catch(error => {
-                                Swal.fire({
-                                    title: 'Unable to connect to server!',
-                                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK!'
-                                })
-                            })
                     }
-                })
+                    setOptions([
+                        {
+                            label: 'Delivery successful',
+                            value: 'Delivery successful',
+                        }
+                    ])
+                }
+                else if (selectedCategory.value === 'Delivery successful') {
+                    setCurrentStep(4)
+                    if (order.shipping_process.length === 1) {
+                        newOrder = {
+                            ...order,
+                            status: selectedCategory.value,
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                { time: time, date: today, content: 'Being transported' },
+                                { time: time, date: today, content: 'Delivered to the carrier' },
+                                { time: time, date: today, content: 'Payment information confirmed' },
+                                ...order.shipping_process
+                            ]
+                        }
+                    }
+                    else if (order.shipping_process.length === 2) {
+                        newOrder = {
+                            ...order,
+                            status: selectedCategory.value,
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                { time: time, date: today, content: 'Delivered to the carrier' },
+                                { time: time, date: today, content: 'Payment information confirmed' },
+                                ...order.shipping_process
+                            ]
+                        }
+                    }
+                    else if (order.shipping_process.length === 3) {
+                        newOrder = {
+                            ...order,
+                            status: selectedCategory.value,
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                { time: time, date: today, content: 'Delivered to the carrier' },
+                                ...order.shipping_process
+                            ]
+                        }
+                    }
+                    else if (order.shipping_process.length === 4) {
+                        newOrder = {
+                            ...order,
+                            status: selectedCategory.value,
+                            shipping_process: [
+                                { time: time, date: today, content: selectedCategory.value },
+                                ...order.shipping_process
+                            ]
+                        }
+                    }
+                }
+                fetchUpdateOrder(params.id, newOrder)
+                    .then(result => {
+                        setOrder(result)
+                        Swal.fire({
+                            title: 'Successfully!',
+                            text: 'You have successfully edited your order status',
+                            icon: 'success',
+                            confirmButtonText: 'OK!'
+                        })
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            title: 'Unable to connect to server!',
+                            text: 'There seems to be a problem with the connection to the server, please try again later',
+                            icon: 'error',
+                            confirmButtonText: 'OK!'
+                        })
+                    })
             }
-        }
+        })
     }
 
     const handleCancelDelivery = (data) => {
@@ -607,7 +834,7 @@ const Index = () => {
                                     <div className="form-group">
                                         <h4>Update order status</h4>
                                         {order.status === "Delivery successful" || order.status === 'Delivery failed' ?
-                                            <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" isDisabled={true} />
+                                            <Select value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" isDisabled={true} />
                                             :
                                             <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" />}
                                     </div>

@@ -21,12 +21,22 @@ const Index = () => {
     const handleDeactivateAccount = () => {
         Swal.fire({
             title: 'Do you agree to make corrections??',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Accept',
             cancelButtonText: 'Decline',
         })
             .then((result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Updating...',
+                        html: 'Please wait...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
                     fetchUpdateVoucher(params.id, { ...voucher, status: !voucher.status, reasonUpdate: 'Update status' })
                         .then(result => {
                             setVoucher(result)

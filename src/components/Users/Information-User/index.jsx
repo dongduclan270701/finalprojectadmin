@@ -57,32 +57,51 @@ const Index = () => {
     }
 
     const handleDeactivateAccount = () => {
-        fetchUpdateStatusUser(params.id, { status: !user.status })
-            .then(result => {
+        Swal.fire({
+            title: 'Do you agree to update status user??',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Decline',
+        }).then((result) => {
+            if (result.isConfirmed) {
                 Swal.fire({
-                    title: 'Successfully!',
-                    text: 'You have successfully updated your staff!',
-                    icon: 'success',
-                    confirmButtonText: 'OK!'
-                })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            setUser({ ...user, status: !user.status })
-                        }
+                    title: 'Updating...',
+                    html: 'Please wait...',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
+                fetchUpdateStatusUser(params.id, { status: !user.status })
+                    .then(result => {
+                        Swal.fire({
+                            title: 'Successfully!',
+                            text: 'You have successfully updated user!',
+                            icon: 'success',
+                            confirmButtonText: 'OK!'
+                        })
+                            .then((result) => {
+                                if (result.isConfirmed) {
+                                    setUser({ ...user, status: !user.status })
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
                     })
                     .catch(error => {
                         console.log(error)
+                        Swal.fire({
+                            title: 'Unable to connect to server!',
+                            text: 'There seems to be a problem with the connection to the server, please try again later',
+                            icon: 'error',
+                            confirmButtonText: 'OK!'
+                        })
                     })
-            })
-            .catch(error => {
-                console.log(error)
-                Swal.fire({
-                    title: 'Unable to connect to server!',
-                    text: 'There seems to be a problem with the connection to the server, please try again later',
-                    icon: 'error',
-                    confirmButtonText: 'OK!'
-                })
-            })
+            }
+        })
     }
 
     const handleSearchOrder = (e) => {
