@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 
@@ -194,7 +194,7 @@ const Index = (props) => {
                             </div>
                             <div className="form-group">
                                 <label>Category</label>
-                                <Select onChange={handleSelectedOptionsChange} value={product.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Chọn danh mục" />
+                                <Select onChange={handleSelectedOptionsChange} value={product.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Select category" />
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@ const Index = (props) => {
             <div className="col-md-6 grid-margin">
                 <div className="card" style={{ marginBottom: "25px" }}>
                     <div className="card-body">
-                        <h4 className="card-title">Detais</h4>
+                        <h4 className="card-title">Details</h4>
                         <div className="form-group">
 
                             {product.description_table.length > 1 ? <div className='row' style={{ margin: "0 auto" }}>

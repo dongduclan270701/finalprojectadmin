@@ -10,7 +10,7 @@ const Index = () => {
     const [optionSelectCollectingCPU, setOptionSelectCollectingCPU] = useState([])
     const [optionSelectCollectingRanger, setOptionSelectCollectingRanger] = useState([])
     const [optionSelectCollecting, setOptionSelectCollecting] = useState([])
-    const [searchData, setSearchData] = useState({ nameProduct: "", category: ['', '', '', ''] })
+    const [searchData, setSearchData] = useState({ nameProduct: "", category: ['', '', '', ''], sort:'asc' })
     const [countPage, setCountPage] = useState(1)
     const [countMaxPage, setCountMaxPage] = useState(1)
     const [product, setProduct] = useState()
@@ -174,6 +174,26 @@ const Index = () => {
             setSearchTimeout(timeoutId);
         }
     }
+
+    const handleSort = () => {
+        setProduct()
+        setCountPage(1)
+        setSearchData({ ...searchData, sort: searchData.sort === 'asc' ? 'desc' : 'asc' })
+        fetchSearchLaptopCollecting({ ...searchData, sort: searchData.sort === 'asc' ? 'desc' : 'asc' }, 1)
+            .then((result) => {
+                setProduct(result.data);
+                if (0 < result.total % 10 && result.total % 10 < 10) {
+                    setCountMaxPage(Math.floor(result.total / 10) + 1);
+                } else if (result.total === 0) {
+                    setCountMaxPage(1);
+                } else {
+                    setCountMaxPage(Math.floor(result.total / 10));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -264,7 +284,10 @@ const Index = () => {
                                                                 <th>Name</th>
                                                                 <th>Image</th>
                                                                 <th>Category</th>
-                                                                <th>Quantity</th>
+                                                                <th>Quantity{searchData.sort === 'asc' ?
+                                                                <i className="mdi mdi-arrow-down" style={{ cursor: "pointer" }} onClick={handleSort} />
+                                                                :
+                                                                <i className="mdi mdi-arrow-up" style={{ cursor: "pointer" }} onClick={handleSort} />}</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
                                                             </tr>

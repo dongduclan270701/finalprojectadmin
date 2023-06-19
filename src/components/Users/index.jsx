@@ -82,6 +82,7 @@ const Index = () => {
 
     const handleSort = () => {
         setUserList()
+        setCountPage(1)
         setSearch({ ...search, sort: search.sort === 'asc' ? 'desc' : 'asc' })
         fetchSearchUser({ ...search, sort: search.sort === 'asc' ? 'desc' : 'asc' }, 1)
             .then((result) => {

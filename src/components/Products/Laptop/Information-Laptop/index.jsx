@@ -40,7 +40,7 @@ const Index = () => {
                                     <div className="col-sm-12 col-xs-12 ">
                                         <Carousel>
                                             {product.img.map((item, index) => {
-                                                return <img src={item} key={index} />
+                                                return <img src={item} key={index} alt=''/>
                                             })}
                                         </Carousel>
                                     </div>
@@ -87,7 +87,7 @@ const Index = () => {
                                     </div>
                                     <div className="form-group">
                                         <label>Category</label>
-                                        <Select value={product.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Chọn danh mục" isDisabled={true} />
+                                        <Select value={product.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Select category" isDisabled={true} />
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ const Index = () => {
                             <div className="col-md-12" style={{ "padding": 0 }}>
                                 <div className="card" style={{ "marginBottom": "25px" }}>
                                     <div className="card-body">
-                                        <h4 className="card-title">Detais</h4>
+                                        <h4 className="card-title">Details</h4>
                                         {product.description_table.map((item, index) => {
                                             return <div className="form-group" key={index}>
                                                 <label>{item[0]}</label>

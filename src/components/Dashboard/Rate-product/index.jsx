@@ -6,15 +6,15 @@ const Index = () => {
                             <div className="col-md-6 grid-margin stretch-card">
                                 <div className="card">
                                     <div className="card-body">
-                                        <p className="card-title mb-0">Sản phẩm bán chạy nhất</p>
+                                        <p className="card-title mb-0">Best - selling product</p>
                                         <div className="table-responsive">
                                             <table className="table table-striped table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th>Tên</th>
-                                                        <th>Giá</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Trạng thái</th>
+                                                        <th>Name</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -69,15 +69,15 @@ const Index = () => {
                             <div className="col-md-6 grid-margin stretch-card">
                                 <div className="card">
                                     <div className="card-body">
-                                        <p className="card-title mb-0">Sản phẩm được xem nhiều nhất</p>
+                                        <p className="card-title mb-0">Most viewed products</p>
                                         <div className="table-responsive">
                                             <table className="table table-striped table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th>Tên</th>
-                                                        <th>Giá</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Trạng thái</th>
+                                                        <th>Name</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

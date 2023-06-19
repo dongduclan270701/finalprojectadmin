@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { fetchLoginAdmin } from 'Apis'
@@ -14,7 +14,7 @@ const Index = () => {
     const handleLogin = () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (re.test(inputLogin.email) === true && inputLogin.password.length >= 8 && /[A-Z]/.test(inputLogin.password)) {
-            let countdown = 5;
+            let countDown = 5;
             fetchLoginAdmin(inputLogin.email, inputLogin.password)
                 .then(result => {
                     if (result === 'Email does not exist') {
@@ -41,7 +41,7 @@ const Index = () => {
                             timer: 5000,
                             didOpen: () => {
                                 const timerId = setInterval(() => {
-                                    countdown--;
+                                    countDown--;
                                     Swal.getHtmlContainer().querySelector('span')
                                         .textContent = (Swal.getTimerLeft() / 1000)
                                             .toFixed(0)
@@ -130,7 +130,7 @@ const Index = () => {
                                         />
                                     </div>
                                     <div className="mt-3">
-                                        <button type='button' onClick={handleLogin} className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Đăng nhập</button>
+                                        <button type='button' onClick={handleLogin} className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
                                     </div>
                                 </form>
                             </div>

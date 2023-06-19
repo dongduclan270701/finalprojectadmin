@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'assets/vendors/feather/feather.css'
 import 'assets/vendors/ti-icons/css/themify-icons.css'
@@ -76,74 +76,7 @@ import InformationHeadPhone from 'components/Products/Speaker/Information-HeadPh
 import CreateInformationHeadPhone from 'components/Products/Speaker/Create-New-Product-HeadPhone'
 import UpdateInformationHeadPhone from 'components/Products/Speaker/Update-Information-HeadPhone'
 function App() {
-  const [page, setPage] = useState([
-    { path: "/", location: Dashboard },
-    { path: "/orders", location: Orders },
-    { path: "/orders/:id", location: UpdateAndShowOrder },
-    { path: "/laptop", location: Laptop },
-    { path: "/laptop/:src", location: InformationLaptop },
-    { path: "/laptop/update/:src", location: UpdateInformationLaptop },
-    { path: "/laptop/create", location: CreateInformationLaptop },
-    { path: "/laptop-gaming", location: LaptopGaming },
-    { path: "/laptop-gaming/:id", location: InformationLaptopGaming },
-    { path: "/laptop-gaming/update/:id", location: UpdateInformationLaptopGaming },
-    { path: "/laptop-gaming/create", location: CreateInformationLaptopGaming },
-    { path: "/pc-km", location: PcKm },
-    { path: "/pc-km/:id", location: InformationPCKM },
-    { path: "/pc-km/update/:id", location: UpdateInformationPCKM },
-    { path: "/pc-km/create", location: CreateInformationPCKM },
-    { path: "/pc-gaming", location: PcGaming },
-    { path: "/pc-gaming/create", location: CreateInformationPCGaming },
-    { path: "/pc-gaming/:id", location: InformationPCGaming },
-    { path: "/pc-gaming/update/:id", location: UpdateInformationPCGaming },
-    { path: "/pc-creator", location: PcCreator },
-    { path: "/pc-creator/create", location: CreateInformationPCCreator },
-    { path: "/pc-creator/:id", location: InformationPCCreator },
-    { path: "/pc-creator/update/:id", location: UpdateInformationPCCreator },
-    { path: "/pc-company", location: PcCompany },
-    { path: "/pc-company/create", location: CreateInformationPCCompany },
-    { path: "/pc-company/:id", location: InformationPCCompany },
-    { path: "/pc-company/update/:id", location: UpdateInformationPCCompany },
-    { path: "/pc-accessory", location: PcAccessory },
-    { path: "/pc-accessory/:id", location: InformationPcAccessory },
-    { path: "/pc-accessory/create", location: CreateInformationPcAccessory },
-    { path: "/pc-accessory/update/:id", location: UpdateInformationPcAccessory },
-    { path: "/apple", location: Apple },
-    { path: "/apple/:id", location: InformationApple },
-    { path: "/apple/create", location: CreateInformationApple },
-    { path: "/apple/update/:id", location: UpdateInformationApple },
-    { path: "/monitor", location: Monitor },
-    { path: "/monitor/:id", location: InformationMonitor },
-    { path: "/monitor/create", location: CreateInformationMonitor },
-    { path: "/monitor/update/:id", location: UpdateInformationMonitor },
-    { path: "/keyboard", location: Keyboard },
-    { path: "/keyboard/:id", location: InformationKeyboard },
-    { path: "/keyboard/create", location: CreateInformationKeyboard },
-    { path: "/keyboard/update/:id", location: UpdateInformationKeyboard },
-    { path: "/mouse-tabpad", location: MouseTabpad },
-    { path: "/mouse/:id", location: InformationMouse },
-    { path: "/mouse/create", location: CreateInformationMouse },
-    { path: "/mouse/update/:id", location: UpdateInformationMouse },
-    { path: "/speaker", location: Speaker },
-    { path: "/speaker/:id", location: InformationSpeaker },
-    { path: "/speaker/create", location: CreateInformationSpeaker },
-    { path: "/speaker/update/:id", location: UpdateInformationSpeaker },
-    { path: "/headphone/:id", location: InformationHeadPhone },
-    { path: "/headphone/create", location: CreateInformationHeadPhone },
-    { path: "/headphone/update/:id", location: UpdateInformationHeadPhone },
-    { path: "/users", location: Users },
-    { path: "/user/:id", location: UsersInformation },
-    { path: "/employee", location: Employee },
-    { path: "/employee/create", location: CreateEmployee },
-    { path: "/employee/:id", location: InformationEmployee },
-    { path: "/employee/update/:id", location: UpdateEmployee },
-    { path: "/discount", location: Discount },
-    { path: "/discount/:id", location: InformationDiscount },
-    { path: "/discount/update/:id", location: UpdateInformationDiscount },
-    { path: "/discount/create", location: CreateInformationDiscount },
-    { path: "/website", location: Website },
-    { path: "/website/update", location: UpdateWebsite },
-  ])
+  const [page, setPage] = useState([])
   const [chooseSettingThemePages, setChooseSettingThemePages] = useState(false)
   const [isChooseShowIcons, setIsChooseShowIcons] = useState(false)
   const [isShowSideBarRes, setIsShowSideBarRes] = useState(false)
@@ -161,6 +94,76 @@ function App() {
   const handleGetIsChooseSettingThemePages = (data) => {
     setChooseSettingThemePages(data)
   }
+  useEffect(() => {
+    setPage([
+      { path: "/", location: Dashboard },
+      { path: "/orders", location: Orders },
+      { path: "/orders/:id", location: UpdateAndShowOrder },
+      { path: "/laptop", location: Laptop },
+      { path: "/laptop/:src", location: InformationLaptop },
+      { path: "/laptop/update/:src", location: UpdateInformationLaptop },
+      { path: "/laptop/create", location: CreateInformationLaptop },
+      { path: "/laptop-gaming", location: LaptopGaming },
+      { path: "/laptop-gaming/:id", location: InformationLaptopGaming },
+      { path: "/laptop-gaming/update/:id", location: UpdateInformationLaptopGaming },
+      { path: "/laptop-gaming/create", location: CreateInformationLaptopGaming },
+      { path: "/pc-km", location: PcKm },
+      { path: "/pc-km/:id", location: InformationPCKM },
+      { path: "/pc-km/update/:id", location: UpdateInformationPCKM },
+      { path: "/pc-km/create", location: CreateInformationPCKM },
+      { path: "/pc-gaming", location: PcGaming },
+      { path: "/pc-gaming/create", location: CreateInformationPCGaming },
+      { path: "/pc-gaming/:id", location: InformationPCGaming },
+      { path: "/pc-gaming/update/:id", location: UpdateInformationPCGaming },
+      { path: "/pc-creator", location: PcCreator },
+      { path: "/pc-creator/create", location: CreateInformationPCCreator },
+      { path: "/pc-creator/:id", location: InformationPCCreator },
+      { path: "/pc-creator/update/:id", location: UpdateInformationPCCreator },
+      { path: "/pc-company", location: PcCompany },
+      { path: "/pc-company/create", location: CreateInformationPCCompany },
+      { path: "/pc-company/:id", location: InformationPCCompany },
+      { path: "/pc-company/update/:id", location: UpdateInformationPCCompany },
+      { path: "/pc-accessory", location: PcAccessory },
+      { path: "/pc-accessory/:id", location: InformationPcAccessory },
+      { path: "/pc-accessory/create", location: CreateInformationPcAccessory },
+      { path: "/pc-accessory/update/:id", location: UpdateInformationPcAccessory },
+      { path: "/apple", location: Apple },
+      { path: "/apple/:id", location: InformationApple },
+      { path: "/apple/create", location: CreateInformationApple },
+      { path: "/apple/update/:id", location: UpdateInformationApple },
+      { path: "/monitor", location: Monitor },
+      { path: "/monitor/:id", location: InformationMonitor },
+      { path: "/monitor/create", location: CreateInformationMonitor },
+      { path: "/monitor/update/:id", location: UpdateInformationMonitor },
+      { path: "/keyboard", location: Keyboard },
+      { path: "/keyboard/:id", location: InformationKeyboard },
+      { path: "/keyboard/create", location: CreateInformationKeyboard },
+      { path: "/keyboard/update/:id", location: UpdateInformationKeyboard },
+      { path: "/mouse-tabpad", location: MouseTabpad },
+      { path: "/mouse/:id", location: InformationMouse },
+      { path: "/mouse/create", location: CreateInformationMouse },
+      { path: "/mouse/update/:id", location: UpdateInformationMouse },
+      { path: "/speaker", location: Speaker },
+      { path: "/speaker/:id", location: InformationSpeaker },
+      { path: "/speaker/create", location: CreateInformationSpeaker },
+      { path: "/speaker/update/:id", location: UpdateInformationSpeaker },
+      { path: "/headphone/:id", location: InformationHeadPhone },
+      { path: "/headphone/create", location: CreateInformationHeadPhone },
+      { path: "/headphone/update/:id", location: UpdateInformationHeadPhone },
+      { path: "/users", location: Users },
+      { path: "/user/:id", location: UsersInformation },
+      { path: "/employee", location: Employee },
+      { path: "/employee/create", location: CreateEmployee },
+      { path: "/employee/:id", location: InformationEmployee },
+      { path: "/employee/update/:id", location: UpdateEmployee },
+      { path: "/discount", location: Discount },
+      { path: "/discount/:id", location: InformationDiscount },
+      { path: "/discount/update/:id", location: UpdateInformationDiscount },
+      { path: "/discount/create", location: CreateInformationDiscount },
+      { path: "/website", location: Website },
+      { path: "/website/update", location: UpdateWebsite },
+    ])
+  }, [])
 
   return (
     <BrowserRouter>
@@ -191,8 +194,8 @@ function App() {
                 </div>
               </div>
             </div>
-            :
-            <><Login /></>
+              :
+              <><Login /></>
           }>
           </Route>
         })}

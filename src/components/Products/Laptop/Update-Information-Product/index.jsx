@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, NavLink, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import UpdateForm from 'components/Utils/Update-Form'
 import { uploadUrlProduct, apiKeyProduct } from 'Apis/utils'
@@ -63,7 +63,7 @@ const Index = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, []);
+    }, [params]);
 
     const handleGetData = (data) => {
         setProduct(data)

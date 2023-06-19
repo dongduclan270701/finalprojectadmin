@@ -215,7 +215,7 @@ const Index = (props) => {
                                     </div>
                                     <div className="form-group">
                                         <label>Category</label>
-                                        <Select onChange={handleSelectedOptionsChange} value={newProduct.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Chọn danh mục" />
+                                        <Select onChange={handleSelectedOptionsChange} value={newProduct.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Select category" />
                                     </div>
                                 </div>
                             </div>

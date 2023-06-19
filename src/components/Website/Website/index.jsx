@@ -1,64 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import Select from "react-select"
-import makeAnimated from "react-select/animated"
-import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import logo from 'assets/images/faces/face1.jpg'
 import Footer from "components/Footer"
 const Index = () => {
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState({
-        logo: logo,
-        icon: "",
-        nameCompany: "CÔNG TY TNHH THƯƠNG MẠI GEARVN",
-        email: "CSKH@GEARVN.COM",
-        hotline_call_to_buy: "1800 6975",
-        hotline: "1800 6173",
-        address_hcm: [
-            "78-80-82 Hoàng Hoa Thám, Phường 12, Quận Tân Bình",
-            "905 Kha Vạn Cân, Phường Linh Tây, Thành phố Thủ Đức",
-            "1081 - 1083 Trần Hưng Đạo, Phường 5, Quận 5",
-            "415 An Dương Vương, Phường 10, Quận 6"
-        ],
-        address_hn: [
-            "162 - 164 Thái Hà, Phường Trung Liệt, Quận Đống Đa, Hà Nội",
-            "460 Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội"
-        ],
-        service_center: "436A/71 đường 3/2, Phường 12, Quận 10, Hồ Chí Minh",
-        fanpage:"123123"
-    },)
-    const [options, setOptions] = useState([
-        {
-            label: 'Angular',
-            value: 'Angular',
-        },
-        {
-            label: 'Bootstrap',
-            value: 'Bootstrap',
-        },
-        {
-            label: 'React.js',
-            value: 'React.js',
-        },
-        {
-            label: 'Vue.js',
-            value: 'Vue.js',
-        },
-        {
-            label: 'Vue.js1',
-            value: 'Vue.js1',
-        },
-        {
-            label: 'Vue.js2',
-            value: 'Vue.js2',
-        },
-        {
-            label: 'Vue.js3',
-            value: 'Vue.js3',
-        },
-    ])
+    const [inputElement, setInputElement] = useState()
+    // const [options, setOptions] = useState([
+    //     {
+    //         label: 'Angular',
+    //         value: 'Angular',
+    //     },
+    //     {
+    //         label: 'Bootstrap',
+    //         value: 'Bootstrap',
+    //     },
+    //     {
+    //         label: 'React.js',
+    //         value: 'React.js',
+    //     },
+    //     {
+    //         label: 'Vue.js',
+    //         value: 'Vue.js',
+    //     },
+    //     {
+    //         label: 'Vue.js1',
+    //         value: 'Vue.js1',
+    //     },
+    //     {
+    //         label: 'Vue.js2',
+    //         value: 'Vue.js2',
+    //     },
+    //     {
+    //         label: 'Vue.js3',
+    //         value: 'Vue.js3',
+    //     },
+    // ])
     useEffect(() => {
+        setInputElement({
+            logo: "https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-02-20200903083638.svg",
+            icon: "https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-15-20200415164142.png",
+            nameCompany: "GEARVN TRADE CO., LTD",
+            email: "CSKH@GEARVN.COM",
+            hotline_call_to_buy: "1800 6975",
+            hotline: "1800 6173",
+            address_hcm: [
+                "78-80-82 Hoang Hoa Tham, Ward 12, Tan Binh District",
+                "905 Kha Van Can, Linh Tay Ward, Thu Duc City",
+                "1081 - 1083 Tran Hung Dao, Ward 5, District 5",
+                "415 An Duong Vuong, Ward 10, District 6"
+            ],
+            address_hn: [
+                "162 - 164 Thai Ha, Trung Liet Ward, Dong Da District, Hanoi",
+                "460 Minh Khai, Vinh Tuy Ward, Hai Ba Trung District, Hanoi"
+            ],
+            service_center: ["436A/71 3/2 Street, Ward 12, District 10, Ho Chi Minh"],
+            fanPage: "123123"
+        })
     }, []);
 
     return (
@@ -82,13 +80,13 @@ const Index = () => {
                                     <div className="col-lg-6 grid-margin form-group">
                                         <h4 className="card-title" style={{ display: "flex", justifyContent: "center" }}>Logo website</h4>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
-                                            <img src={inputElement.logo} style={{ width: "300px" }} />
+                                            <img src={inputElement.logo} style={{ width: "300px" }} alt=''/>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 grid-margin form-group">
                                         <h4 className="card-title" style={{ display: "flex", justifyContent: "center" }}>Icon website</h4>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
-                                            <img src={logo} style={{ width: "300px" }} />
+                                            <img src={logo} style={{ width: "300px" }} alt=''/>
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { fetchCreateEmployee } from 'Apis'
 import Swal from 'sweetalert2'
 import Footer from "components/Footer"
@@ -15,17 +15,29 @@ const Index = () => {
     })
     const [checkedPassword, setCheckedPassword] = useState(null)
     const [rePassword, setRePassword] = useState("")
-    
+
     const handleSubmitCreate = () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!employee.username || !employee.email || !employee.phoneNumber || !employee.role || !employee.password || !employee.dateOfBirth) {
+        if (!employee.username) {
             Swal.fire({
-                title: 'Cảnh báo!',
-                text: 'Bạn chưa nhập đủ thông tin sản phẩm, vui lòng thử lại!',
+                title: 'Warning!',
+                text: 'You have not entered enough product information, please try again!',
                 icon: 'warning',
                 confirmButtonText: 'OK!'
             })
-        } else if(re.test(employee.email) === false) {
+        } else if (!employee.email) {
+
+        } else if (!employee.phoneNumber) {
+
+        } else if (!employee.role) {
+
+        } else if (!employee.password) {
+
+        } else if (!employee.dateOfBirth) {
+
+        } else if (!employee.rePassword) {
+
+        } else if (re.test(employee.email) === false) {
             Swal.fire({
                 title: 'Incorrect email format!',
                 text: 'Requires to enter the correct email format',
@@ -49,48 +61,48 @@ const Index = () => {
                 })
             } else {
                 fetchCreateEmployee(employee)
-                .then(result => {
-                    if (result === "Email already exists") {
+                    .then(result => {
+                        if (result === "Email already exists") {
+                            Swal.fire({
+                                title: 'Registration failed!',
+                                text: 'This email already exists, please try again!',
+                                icon: 'error',
+                                confirmButtonText: 'OK!'
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'Registration successfully!',
+                                text: 'You have successfully added a new employee!',
+                                icon: 'success',
+                                confirmButtonText: 'OK!'
+                            })
+                            setEmployee({
+                                username: "",
+                                email: "",
+                                phoneNumber: "",
+                                role: "",
+                                password: "",
+                                dateOfBirth: ""
+                            })
+                            setRePassword("")
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
                         Swal.fire({
-                            title: 'Registration failed!',
-                            text: 'This email already exists, please try again!',
+                            title: 'Unable to connect to server!',
+                            text: 'There seems to be a problem with the connection to the server, please try again later',
                             icon: 'error',
                             confirmButtonText: 'OK!'
                         })
-                    } else {
-                        Swal.fire({
-                            title: 'Registration successfully!',
-                            text: 'You have successfully added a new employee!',
-                            icon: 'success',
-                            confirmButtonText: 'OK!'
-                        })
-                        setEmployee({
-                            username: "",
-                            email: "",
-                            phoneNumber: "",
-                            role: "",
-                            password: "",
-                            dateOfBirth: ""
-                        })
-                        setRePassword("")
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                    Swal.fire({
-                        title: 'Unable to connect to server!',
-                        text: 'There seems to be a problem with the connection to the server, please try again later',
-                        icon: 'error',
-                        confirmButtonText: 'OK!'
                     })
-                })
             }
         }
     }
 
     const handleCheckRePassword = (e) => {
         setRePassword(e.target.value)
-        if (e.target.value === employee.password ) {
+        if (e.target.value === employee.password) {
             setCheckedPassword(true)
         } else {
             setCheckedPassword(false)
@@ -154,7 +166,7 @@ const Index = () => {
                                                     required
                                                 />
                                             </div>
-                                            <div className='form-group' style={{border: checkedPassword === false && "1px solid #ff4747"}}>
+                                            <div className='form-group' style={{ border: checkedPassword === false && "1px solid #ff4747" }}>
                                                 <input
                                                     onChange={e => handleCheckRePassword(e)}
                                                     type="password"
@@ -188,7 +200,7 @@ const Index = () => {
                                                 />
                                             </div>
                                             <div className='form-group'>
-                                                <select value={employee.role} name='role' style={{padding:"0.94rem 1.94rem"}} onChange={e => handleChangeInformation(e)} className="form-control form-control-lg" placeholder="Role" aria-label="Role" required>
+                                                <select value={employee.role} name='role' style={{ padding: "0.94rem 1.94rem" }} onChange={e => handleChangeInformation(e)} className="form-control form-control-lg" placeholder="Role" aria-label="Role" required>
                                                     <option value={null}>Role</option>
                                                     <option value="CEO">CEO</option>
                                                     <option value="DEVELOPER">DEVELOPER</option>

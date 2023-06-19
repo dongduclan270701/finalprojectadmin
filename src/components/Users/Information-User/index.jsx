@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import Select from "react-select"
-import makeAnimated from "react-select/animated"
-import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import logo from 'assets/images/faces/face1.jpg'
 import 'assets/scss/Information-Order.css'
 import Swal from 'sweetalert2'
 import Footer from "components/Footer"
@@ -23,7 +19,7 @@ const Index = () => {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     const today = year + '-' + month + "-" + day;
-    const [endDate, setEndDate] = useState(today)
+    const [endDate, setEndDate] = useState()
     const [orderList, setOrderList] = useState([])
     const [orderSearch, setOrderSearch] = useState([])
     const [searchOrder, setSearchOrder] = useState({ orderId: '', status: '', firstDate: '', endDate: endDate })
@@ -32,6 +28,7 @@ const Index = () => {
     const endIndex = Math.min(startIndex + itemsPerPage, orderSearch.length)
 
     useEffect(() => {
+        setEndDate(today)
         fetchUser(params.id)
             .then(result => {
                 setUser(result)
@@ -50,7 +47,7 @@ const Index = () => {
             .catch(error => {
                 console.log(error)
             })
-    }, []);
+    }, [params, today]);
 
     const handleSetPageOrder = (count) => {
         setCountPage(count)

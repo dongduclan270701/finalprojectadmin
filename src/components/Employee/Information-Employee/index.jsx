@@ -191,7 +191,7 @@ const Index = () => {
                                         {employee.curriculumVitae ?
                                             <img src={employee.curriculumVitae} className="img-fluid " alt="" style={{ width: "inherit", margin: "0 auto", padding: "10px" }} />
                                             :
-                                            "Người dùng chưa tải CV"}
+                                            "User has not updated CV"}
                                     </div>
                                 </div>
                             </div>

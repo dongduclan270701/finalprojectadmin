@@ -54,9 +54,10 @@ const Index = (props) => {
                     })
                 })
                 .catch(error => {
+                    console.log(error)
                     Swal.fire({
-                        title: 'Lưu thất bại!',
-                        text: 'Có vẻ như đã xảy ra vấn đề kết nối với server',
+                        title: 'Unable to connect to server!',
+                        text: 'There seems to be a problem with the connection to the server, please try again later',
                         icon: 'error',
                         confirmButtonText: 'OK!'
                     })

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Footer from "components/Footer"
-import TotalParammeters from 'components/Dashboard/Total-parameters'
+import TotalParameters from 'components/Dashboard/Total-parameters'
 import ChartsDetails from 'components/Dashboard/Charts-detail'
 import RateProduct from 'components/Dashboard/Rate-product'
 import ListOrder from 'components/Dashboard/List-order'
@@ -15,8 +15,8 @@ const Index = () => {
                     <div className="col-md-12 grid-margin">
                         <div className="row">
                             <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                                <h3 className="font-weight-bold">Chào mừng đến với website admin của Gearvn</h3>
-                                <h6 className="font-weight-normal mb-0">Tất cả hệ thống đều chạy rất mượt mà! Bạn có <span className="text-primary">3 thông báo chưa đọc!</span></h6>
+                                <h3 className="font-weight-bold">Welcome to Gearvn's admin website</h3>
+                                <h6 className="font-weight-normal mb-0">All systems run very smoothly! You have<span className="text-primary">3 unread notifications!</span></h6>
                             </div>
                             <div className="col-12 col-xl-4" >
                                 <div className="justify-content-end d-flex">
@@ -25,10 +25,10 @@ const Index = () => {
                                             <i className="mdi mdi-calendar" /> Today (10 Jan 2021)
                                         </button>
                                         <div className={chooseDate ? "dropdown-menu dropdown-menu-right show" : "dropdown-menu dropdown-menu-right"} aria-labelledby="dropdownMenuDate2">
-                                            <a className="dropdown-item" href="#">January - March</a>
-                                            <a className="dropdown-item" href="#">March - June</a>
-                                            <a className="dropdown-item" href="#">June - August</a>
-                                            <a className="dropdown-item" href="#">August - November</a>
+                                            <a className="dropdown-item" href="/">January - March</a>
+                                            <a className="dropdown-item" href="/">March - June</a>
+                                            <a className="dropdown-item" href="/">June - August</a>
+                                            <a className="dropdown-item" href="/">August - November</a>
                                         </div>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <TotalParammeters />
+                <TotalParameters />
                 <ChartsDetails />
                 <RateProduct />
                 {/* <div className="row">
@@ -208,7 +208,7 @@ const Index = () => {
                                                 <div className="d-flex">
                                                     <img src="images/faces/face5.jpg" alt="user" />
                                                     <div>
-                                                        <p className="text-info mb-1">Ryan Cortez</p>
+                                                        <p className="text-info mb-1">Ryan</p>
                                                         <p className="mb-0">Herbs are fun and easy to grow.</p>
                                                         <small>9:00 am</small>
                                                     </div>

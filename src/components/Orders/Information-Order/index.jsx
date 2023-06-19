@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -834,9 +834,9 @@ const Index = () => {
                                     <div className="form-group">
                                         <h4>Update order status</h4>
                                         {order.status === "Delivery successful" || order.status === 'Delivery failed' ?
-                                            <Select value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" isDisabled={true} />
+                                            <Select value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} isDisabled={true} />
                                             :
-                                            <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Chọn trạng thái đơn hàng" />}
+                                            <Select onChange={handleSelectedOptionsChange} value={{ label: order.status, value: order.status }} options={options} isMutil components={makeAnimated()} placeholder="Select order status" />}
                                     </div>
                                     {order.statusReview.status === true && <div className="row form-group" style={{ margin: "0 auto", display: "flex", alignItems: "center" }}>
                                         <button onClick={handleToggleShowRate} style={{ margin: "0 auto" }} type="button" className="col-lg-2 btn btn-outline-secondary ">Show reviews</button>

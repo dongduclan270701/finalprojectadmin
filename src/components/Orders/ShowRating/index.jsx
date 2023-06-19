@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Modal } from 'react-bootstrap'
 import GoodsReview from 'components/Orders/ShowRating/GoodsReview'
 import { fetchUpdateRatingOrder } from 'Apis'

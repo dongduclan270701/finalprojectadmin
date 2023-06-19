@@ -90,10 +90,10 @@ const Index = () => {
                                 <h4 className="card-title">Hình ảnh</h4>
                                 <div className="col-sm-12 col-xs-12 ">
                                     <Carousel>
-                                        <img src={logo} />
-                                        <img src={logo} />
-                                        <img src={logo} />
-                                        <img src={logo} />
+                                        <img src={logo} alt=''/>
+                                        <img src={logo} alt=''/>
+                                        <img src={logo} alt=''/>
+                                        <img src={logo} alt=''/>
                                     </Carousel>
                                 </div>
                             </div>

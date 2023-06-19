@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from "components/Footer"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -8,7 +7,7 @@ const Index = () => {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [
             {
-                label: 'Lượt mua',
+                label: 'Sold',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -34,7 +33,7 @@ const Index = () => {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [
             {
-                label: 'Lượt xem',
+                label: 'View',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import logo from 'assets/images/logo.svg'
-import logomini from 'assets/images/logo-mini.svg'
+// import logo from 'assets/images/logo.svg'
+// import logoMini from 'assets/images/logo-mini.svg'
 import faceUser from "assets/images/faces/face28.jpg"
 
 const Index = (props) => {
@@ -26,13 +26,13 @@ const Index = (props) => {
                     
                     <ul className="navbar-nav navbar-nav-right">
                         <li className={chooseNotifications ? "nav-item dropdown show" : "nav-item dropdown"}>
-                            <a onClick={() => setChooseNotifications(!chooseNotifications)} className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-expanded={chooseNotifications}>
+                            <span onClick={() => setChooseNotifications(!chooseNotifications)} className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-expanded={chooseNotifications}>
                                 <i className="icon-bell mx-0" />
                                 <span className="count" />
-                            </a>
+                            </span>
                             <div className={chooseNotifications ? "dropdown-menu dropdown-menu-right navbar-dropdown preview-list show" : "dropdown-menu dropdown-menu-right navbar-dropdown preview-list"} aria-labelledby="notificationDropdown">
                                 <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <a className="dropdown-item preview-item">
+                                <span className="dropdown-item preview-item">
                                     <div className="preview-thumbnail">
                                         <div className="preview-icon bg-success">
                                             <i className="ti-info-alt mx-0" />
@@ -44,8 +44,8 @@ const Index = (props) => {
                                             Just now
                                         </p>
                                     </div>
-                                </a>
-                                <a className="dropdown-item preview-item">
+                                </span>
+                                <span className="dropdown-item preview-item">
                                     <div className="preview-thumbnail">
                                         <div className="preview-icon bg-warning">
                                             <i className="ti-settings mx-0" />
@@ -57,8 +57,8 @@ const Index = (props) => {
                                             Private message
                                         </p>
                                     </div>
-                                </a>
-                                <a className="dropdown-item preview-item">
+                                </span>
+                                <span className="dropdown-item preview-item">
                                     <div className="preview-thumbnail">
                                         <div className="preview-icon bg-info">
                                             <i className="ti-user mx-0" />
@@ -70,28 +70,28 @@ const Index = (props) => {
                                             2 days ago
                                         </p>
                                     </div>
-                                </a>
+                                </span>
                             </div>
                         </li>
                         <li className={chooseSettingUser ? "nav-item nav-profile dropdown show" : "nav-item nav-profile dropdown" }>
-                            <a onClick={() => setChooseSettingUser(!chooseSettingUser)} className="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
+                            <span onClick={() => setChooseSettingUser(!chooseSettingUser)} className="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
                                 <img src={faceUser} alt="profile" />
-                            </a>
+                            </span>
                             <div className={chooseSettingUser ? "dropdown-menu dropdown-menu-right navbar-dropdown show" : "dropdown-menu dropdown-menu-right navbar-dropdown"} aria-labelledby="profileDropdown">
-                                <a className="dropdown-item">
+                                <span className="dropdown-item">
                                     <i className="ti-settings text-primary" />
                                     Settings
-                                </a>
-                                <a onClick={handleLogout} className="dropdown-item">
+                                </span>
+                                <span onClick={handleLogout} className="dropdown-item">
                                     <i className="ti-power-off text-primary" />
                                     Logout
-                                </a>
+                                </span>
                             </div>
                         </li>
                         <li className="nav-item nav-settings d-none d-lg-flex">
-                            <a className="nav-link" href="#">
+                            <span className="nav-link" href="#">
                                 <i className="icon-ellipsis" />
-                            </a>
+                            </span>
                         </li>
                     </ul>
                     <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
