@@ -137,7 +137,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-lg-6 form-group">
                                                 <label>Last update by</label>
-                                                <input type="text" className="form-control form-control-sm" placeholder="Last update by" aria-label="Last update by" value={employee.updatedBy ? (employee.updatedBy[employee.updatedBy.length - 1].username + " ( " + employee.updatedBy[employee.updatedBy.length - 1].email + " - " + employee.updatedBy[employee.updatedBy.length - 1].role + " )") : "None"} disabled />
+                                                <input type="text" className="form-control form-control-sm" placeholder="Last update by" aria-label="Last update by" value={employee.updatedBy && employee.updatedBy.length > 0 ? (employee.updatedBy[employee.updatedBy.length - 1].username + " ( " + employee.updatedBy[employee.updatedBy.length - 1].email + " - " + employee.updatedBy[employee.updatedBy.length - 1].role + " )") : "None"} disabled />
                                             </div>
                                             <div className="col-lg-6 form-group">
                                                 <label>Created by</label>

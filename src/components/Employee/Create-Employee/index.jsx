@@ -166,7 +166,6 @@ const Index = () => {
                     <div className="col-lg-12 grid-margin stretch-card">
                         <div className="col-md-12" style={{ "padding": 0 }}>
                             <div className="card" style={{ "marginBottom": "25px" }}>
-
                                 <div className="card-body">
                                     <div className='row' style={{ paddingTop: "0" }}>
                                         <div className="col-lg-6 form-group">
@@ -250,8 +249,6 @@ const Index = () => {
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

@@ -4,12 +4,15 @@ import { fetchListOfOrder, fetchSearchOrder } from 'Apis'
 import { StateContext } from 'components/Context'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
+// import Chart from 'components/Orders/Chart'
+import Chart2 from 'components/Orders/Chart/index2'
 
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const state = useContext(StateContext)
     const optionSelect = ["Being transported", "Payment information confirmed", "Delivered to the carrier", "Ordered", "Delivery successful", "Cancel", "Delivery failed"]
     const [orderList, setOrderList] = useState()
+    const [chartData, setChartData] = useState([])
     const [countPage, setCountPage] = useState(1)
     const [countMaxPage, setCountMaxPage] = useState(1)
     const date = new Date();
@@ -28,6 +31,8 @@ const Index = () => {
                 state.setAuthentication(result.role)
                 setOrderList(result.data)
                 setLoading(false)
+                setChartData(result.chartData)
+                console.log(result.data)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
                 } else if (result.total === 0) {
@@ -110,9 +115,9 @@ const Index = () => {
         <div className="main-panel">
             <div className="content-wrapper">
                 {loading === false ?
-                    <div className="col-lg-12 stretch-card">
-                        <div className="card">
-                            {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'ORDER') &&
+                    <div className="col-lg-12" style={{padding: 0}}>
+                        {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'ORDER') &&
+                            <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title">Order List</h4>
                                     <div className='row' style={{ display: "flex", "justifyContent": "flex-end" }}>
@@ -210,7 +215,7 @@ const Index = () => {
                                             </table>
                                         </div>
                                         <div className="btn-group" style={{ "display": "flex", "justifyContent": "center", "width": "fit-content", "margin": "auto" }} role="group" aria-label="Basic example">
-                                        {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
+                                            {countPage > 1 && <button type="button" onClick={() => handleSetPage(1)} className="btn btn-outline-secondary">1</button>}
                                             {countPage > 3 && <input type="text" className="btn btn-outline-secondary input-as-button" placeholder='...' />}
                                             {countPage - 1 > 1 && <button type="button" onClick={() => handleSetPage(countPage - 1)} className="btn btn-outline-secondary">{countPage - 1}</button>}
                                             <button type="button" className="btn btn-outline-secondary active">{countPage}</button>
@@ -228,22 +233,16 @@ const Index = () => {
                                         </>
                                     }
                                 </div>
-                            }
-                            {state.authentication === 'CEO' &&
-                                <>
-                                    {/* <div className="card-body">
-                                            <h4 className="card-title">List of Employee</h4>
-                                            <PageChartSalary />
-                                        </div> */}
-                                    {/* <div className="card-body">
-                                            <PageChartEmployee />
-                                        </div> */}
-                                </>
-                            }
-                            {state.authentication === null &&
-                                <NoAuth />
-                            }
-                        </div>
+                            </div>
+                        }
+                        {state.authentication === 'CEO' &&
+                            <>
+                                <Chart2 chartData={chartData} />
+                            </>
+                        }
+                        {state.authentication === null &&
+                            <NoAuth />
+                        }
                     </div>
                     :
                     <>

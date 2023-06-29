@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { fetchListOfEmployee, fetchSearchEmployee } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
 import Footer from "components/Footer"
-// import PageChartSalary from 'components/Employee/Page-Chart/Salary'
-import PageChartEmployee from 'components/Employee/Page-Chart/Employees'
+import Chart from 'components/Employee/Page-Chart/index2'
+// import PageChartEmployee from 'components/Employee/Page-Chart'
 import { StateContext } from 'components/Context'
 const Index = () => {
     const state = useContext(StateContext)
@@ -90,9 +90,8 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
-                <div className="row">
                     {loading === false ?
-                        <div className="col-lg-12 stretch-card">
+                        <div className="col-lg-12">
                             {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'SALES') &&
                                 <div className="card">
                                     <div className="card-body">
@@ -225,9 +224,8 @@ const Index = () => {
                                             <h4 className="card-title">List of Employee</h4>
                                             <PageChartSalary />
                                         </div> */}
-                                    <div className="card-body">
-                                        <PageChartEmployee />
-                                    </div>
+                                        {/* <PageChartEmployee /> */}
+                                        <Chart/>
                                 </>
                             }
                             {state.authentication === null &&
@@ -242,7 +240,6 @@ const Index = () => {
                             <div className="loader" />
                         </>
                     }
-                </div>
             </div>
 
             <Footer />

@@ -11,19 +11,19 @@ const Index = () => {
                                         <div className="d-flex flex-wrap mb-5">
                                             <div className="mr-5 mt-3">
                                                 <p className="text-muted">Currently accessing</p>
-                                                <h3 className="text-primary fs-30 font-weight-medium">12.3k</h3>
+                                                <h3 className="text-primary fs-25 font-weight-medium">12.3k</h3>
                                             </div>
                                             <div className="mr-5 mt-3">
                                                 <p className="text-muted">All access</p>
-                                                <h3 className="text-primary fs-30 font-weight-medium">14k</h3>
+                                                <h3 className="text-primary fs-25 font-weight-medium">14k</h3>
                                             </div>
                                             <div className="mr-5 mt-3">
                                                 <p className="text-muted">Account User</p>
-                                                <h3 className="text-primary fs-30 font-weight-medium">71.56%</h3>
+                                                <h3 className="text-primary fs-25 font-weight-medium">71.56%</h3>
                                             </div>
                                             <div className="mt-3">
                                                 <p className="text-muted">Downloads app</p>
-                                                <h3 className="text-primary fs-30 font-weight-medium">34040</h3>
+                                                <h3 className="text-primary fs-25 font-weight-medium">34040</h3>
                                             </div>
                                         </div>
                                         <canvas id="order-chart" />

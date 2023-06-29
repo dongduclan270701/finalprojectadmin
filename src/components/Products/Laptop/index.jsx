@@ -200,7 +200,6 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
-                <div className="row">
                     {loading === false ?
                         <div className="col-lg-12 grid-margin stretch-card">
                             {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
@@ -367,7 +366,6 @@ const Index = () => {
                             <div className="loader" />
                         </>
                     }
-                </div>
             </div>
             <Footer />
         </div>
