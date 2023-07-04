@@ -5,6 +5,7 @@ import Footer from "components/Footer"
 import { fetchListOfVoucher, fetchSearchVoucher } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
 import { StateContext } from 'components/Context'
+import PageChartDiscount from 'components/Discount/Page-Chart/index2'
 const Index = () => {
     const state = useContext(StateContext)
     const optionSelect = ["Active", "Deactivate"]
@@ -221,9 +222,9 @@ const Index = () => {
                                             <h4 className="card-title">List of Employee</h4>
                                             <PageChartSalary />
                                         </div> */}
-                                {/* <div className="card-body">
-                                            <PageChartEmployee />
-                                        </div> */}
+                                <div className="card-body">
+                                            <PageChartDiscount />
+                                        </div>
                             </>
                         }
                         {state.authentication === null &&

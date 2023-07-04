@@ -1,40 +1,47 @@
 import React, { useState, useEffect } from 'react'
-import ChartSoldOrdersOfMonth from 'components/Employee/Page-Chart/ChartSoldOrderOfMonth'
-import ChartStaffStatus from 'components/Employee/Page-Chart/ChartStaffStatus'
-import ChartRole from 'components/Employee/Page-Chart/ChartRole'
-import ChartStaffAge from 'components/Employee/Page-Chart/ChartStaffAge'
-import ChartSalaryStaffOfMonth from 'components/Employee/Page-Chart/ChartSalaryStaffOfMonth'
-import ChartSalaryOfRole from 'components/Employee/Page-Chart/ChartSalaryOfRole'
+import ChartDiscountOfMonth from 'components/Discount/Page-Chart/ChartDiscountOfMonth'
+import ChartTypeOfDiscount from 'components/Discount/Page-Chart/ChartTypeOfDiscount'
+import ChartDiscountStatus from 'components/Discount/Page-Chart/ChartDiscountStatus'
+import ChartOutDateDiscountOfMonth from 'components/Discount/Page-Chart/ChartOutDateDiscountOfMonth'
 
 const Index = () => {
 
     return (
         <div>
             <div className="row">
-                <div className="col-md-4 mb-4 stretch-card transparent">
+                <div className="col-md-3 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3">Total staff worked</p>
+                            <p className="mb-3">Total Discount Code</p>
                             <p className="fs-25 mb-2">4,006</p>
                             <p></p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4 mb-4 stretch-card transparent">
-                    <div className="card card-dark-blue">
+                <div className="col-md-3 mb-4 stretch-card transparent">
+                    <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3">Total staff working</p>
+                            <p className="mb-3">Total Discount Code (Active)</p>
                             <p className="fs-25 mb-2">61,344</p>
-                            <p>22.00% / Total staff worked</p>
+                            <p>22.00% / </p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4 mb-4 stretch-card transparent">
+                <div className="col-md-3 mb-4 stretch-card transparent">
+                    <div className="card card-dark-blue">
+                        <div className="card-body">
+                            <p className="mb-3">Total Discount Code (Out Date)</p>
+                            <p className="fs-25 mb-2">47,123</p>
+                            <p>0.22% / </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-4 stretch-card transparent">
                     <div className="card card-light-danger">
                         <div className="card-body">
-                            <p className="mb-3">Total salary staff in the Month</p>
-                            <p className="fs-25 mb-2">47,123,123 VND</p>
-                            <p>0.22% (12 Months in 2023)</p>
+                            <p className="mb-3">Total Discount Code (Waiting Date)</p>
+                            <p className="fs-25 mb-2">47,123</p>
+                            <p>0.22% / </p>
                         </div>
                     </div>
                 </div>
@@ -45,8 +52,8 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Sold - Target Orders</h4>
-                                    <ChartSoldOrdersOfMonth />
+                                    <h4>Chart discount code already used of Month</h4>
+                                    <ChartDiscountOfMonth />
                                 </div>
                             </div>
                         </div>
@@ -57,8 +64,8 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Staff Status </h4>
-                                    <ChartStaffStatus />
+                                    <h4>Chart discount code status </h4>
+                                    <ChartTypeOfDiscount />
                                 </div>
                             </div>
                         </div>
@@ -69,8 +76,8 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Role</h4>
-                                    <ChartRole />
+                                    <h4>Chart type of discount</h4>
+                                    <ChartDiscountStatus />
                                 </div>
                             </div>
                         </div>
@@ -81,32 +88,8 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Staff Age</h4>
-                                    <ChartStaffAge />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-lg-8 stretch-card">
-                    <div className="card" style={{ "marginBottom": "25px" }}>
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Salary Staff of Month</h4>
-                                    <ChartSalaryStaffOfMonth />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-lg-4 stretch-card">
-                    <div className="card" style={{ "marginBottom": "25px" }}>
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart total Salary Staff of Month</h4>
-                                    <ChartSalaryOfRole />
+                                    <h4>Chart out date of Month</h4>
+                                    <ChartOutDateDiscountOfMonth />
                                 </div>
                             </div>
                         </div>
@@ -117,158 +100,161 @@ const Index = () => {
                 <div className="col-md-12 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                            <p className="card-title">Top 10 employees with the highest value this month</p>
+                            <p className="card-title">Top 10 discount code popular this month</p>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="table-responsive">
                                         <table id="example" className="display expandable-table" style={{ width: '100%', textAlign: "center" }}>
                                             <thead>
                                                 <tr role="row">
+                                                    <th className="select-checkbox sorting_disabled" rowspan="1" colspan="1" style={{ "width": "128px" }} aria-label="Quote#">
+                                                        Code</th>
                                                     <th className="sorting_desc" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "146px" }} aria-label="Product: activate to sort column ascending" aria-sort="descending">
-                                                        Username</th>
-                                                        <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
-                                                        Role</th>
+                                                        Category</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
-                                                        Sold Order</th>
+                                                        Start Date</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
-                                                        Amount</th>
+                                                        End Date</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
-                                                        Status</th>
+                                                        Usage</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
+                                                        Percent</th>
                                                     <th className="details-control sorting_disabled" rowspan="1" colspan="1" style={{ "width": "49px" }} aria-label="">
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr className="odd selected">
+                                                    <td className="select-checkbox">
+                                                        Incs234</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                        Freeship</td>
                                                     <td>
-                                                        1</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="even">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                        Discount Order</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="odd">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                        Freeship</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="even">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                    Discount Order</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="odd">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                        Freeship</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="even">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                    Discount Order</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="odd">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                        Freeship</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="even">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                        Freeship</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="odd">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                    Discount Order</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                                 <tr className="even">
+                                                    <td className=" select-checkbox">
+                                                        Incs235</td>
                                                     <td className="sorting_1">
-                                                        Car insurance</td>
-                                                        <td>
-                                                        Order</td>
+                                                    Discount Order</td>
                                                     <td>
-                                                        2</td>
+                                                        2023-07-12</td>
                                                     <td>
-                                                        230,000 VND</td>
+                                                        2023-06-12</td>
+                                                    <td>1</td>
                                                     <td>
-                                                        Active</td>
-
+                                                        20%</td>
                                                 </tr>
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
