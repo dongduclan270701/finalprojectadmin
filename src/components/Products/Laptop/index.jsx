@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { fetchCollectingByName, fetchListOfLaptopCollecting, fetchSearchLaptopCollecting } from 'Apis'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
 import { StateContext } from 'components/Context'
+import Chart from 'components/Products/Page-Chart/index2'
 
 const Index = () => {
     const state = useContext(StateContext)
@@ -20,6 +21,7 @@ const Index = () => {
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [inputFocused, setInputFocused] = useState(false);
     const [error, setError] = useState(null)
+    const [dataChart, setDataChart] = useState()
 
     useEffect(() => {
         fetchCollectingByName("Laptop")
@@ -52,6 +54,7 @@ const Index = () => {
             .then(result => {
                 setProduct(result.data)
                 setLoading(false)
+                setDataChart(result)
                 state.setAuthentication(result.role)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
@@ -345,13 +348,7 @@ const Index = () => {
                             }
                             {state.authentication === 'CEO' &&
                                 <>
-                                    {/* <div className="card-body">
-                                            <h4 className="card-title">List of Employee</h4>
-                                            <PageChartSalary />
-                                        </div> */}
-                                    {/* <div className="card-body">
-                                            <PageChartEmployee />
-                                        </div> */}
+                                    <Chart optionSelectLaptop={optionSelectLaptop} dataChart={dataChart}/>
                                 </>
                             }
                             {state.authentication === null &&
@@ -372,4 +369,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);

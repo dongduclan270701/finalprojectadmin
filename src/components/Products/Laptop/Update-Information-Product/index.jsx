@@ -173,7 +173,7 @@ const Index = () => {
         })
     }
 
-        
+
     return (
         <div className="main-panel">
             <div className="content-wrapper">

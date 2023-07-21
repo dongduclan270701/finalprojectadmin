@@ -107,19 +107,19 @@ const Index = () => {
                                         <table id="example" className="display expandable-table" style={{ width: '100%', textAlign: "center" }}>
                                             <thead>
                                                 <tr role="row">
-                                                    <th className="select-checkbox sorting_disabled" rowspan="1" colspan="1" style={{ "width": "128px" }} aria-label="Quote#">
+                                                    <th className="select-checkbox sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "128px" }} aria-label="Quote#">
                                                         Code</th>
-                                                    <th className="sorting_desc" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "146px" }} aria-label="Product: activate to sort column ascending" aria-sort="descending">
+                                                    <th className="sorting_desc" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "146px" }} aria-label="Product: activate to sort column ascending" aria-sort="descending">
                                                         Category</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
                                                         Start Date</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
                                                         End Date</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
                                                         Usage</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowspan="1" colspan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
                                                         Percent</th>
-                                                    <th className="details-control sorting_disabled" rowspan="1" colspan="1" style={{ "width": "49px" }} aria-label="">
+                                                    <th className="details-control sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "49px" }} aria-label="">
                                                     </th>
                                                 </tr>
                                             </thead>
