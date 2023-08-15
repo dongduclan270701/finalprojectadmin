@@ -91,7 +91,7 @@ const Index = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-4 stretch-card">
+                <div className="col-lg-6 stretch-card">
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
                             <div className='row'>
@@ -103,7 +103,7 @@ const Index = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-8 stretch-card">
+                <div className="col-lg-6 stretch-card">
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
                             <div className='row'>
