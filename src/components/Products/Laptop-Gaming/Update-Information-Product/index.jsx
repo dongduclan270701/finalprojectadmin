@@ -18,7 +18,7 @@ const Index = () => {
         description_table: [
             ["CPU", "Itel 13th"],
             ["RAM", "16GB"],
-            ["Storage", '512GB'],
+            ["Storage", '512GB'], 
         ],
         description: [
             ["", ""]

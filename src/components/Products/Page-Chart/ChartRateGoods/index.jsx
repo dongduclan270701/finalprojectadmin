@@ -5,7 +5,7 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
 const Index = (props) => {
     const { optionSelectLaptop } = props
-    console.log(optionSelectLaptop)
+
     useEffect(() => {
         am5.ready(function () {
             var ChartRole = am5.Root.new("ChartRole");
@@ -33,7 +33,6 @@ const Index = (props) => {
             xRenderer.grid.template.setAll({
                 location: 1
             })
-
             var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartRole, {
                 maxDeviation: 0.3,
                 categoryField: "category",

@@ -23,16 +23,13 @@ const Index = (props) => {
                 centerX: am5.p50,
                 x: am5.p50
             }));
-            var data = dataChart.totalSoldByDay;
-            // for (var i = 1; i <= 30; i++) {
-            //     var totalSold = Math.random() * 100;
-            //     var target = Math.random() * 100;
-            //     data.push({
-            //         day: i + '/7',
-            //         totalSold: Math.round(totalSold),
-            //         target: Math.round(target)
-            //     });
-            // }
+            var setData = dataChart.totalSoldByDay
+            
+            //Order target
+            var setNewData = setData.map(item => ({
+                ...item,
+                target: Math.random() * 100
+            }));
             var xRenderer = am5xy.AxisRendererX.new(ChartSoldOrderOfMonth, {
                 cellStartLocation: 0.1,
                 cellEndLocation: 0.9
@@ -45,7 +42,8 @@ const Index = (props) => {
             xRenderer.grid.template.setAll({
                 location: 1
             })
-            xAxis.data.setAll(data);
+            xAxis.data.setAll(setNewData);
+            console.log(setNewData)
             var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSoldOrderOfMonth, {
                 min: 0,
                 renderer: am5xy.AxisRendererY.new(ChartSoldOrderOfMonth, {
@@ -62,12 +60,12 @@ const Index = (props) => {
                     categoryXField: "day"
                 }));
                 series.columns.template.setAll({
-                    tooltipText: "{name}: {categoryX}/07/2023 : sold {valueY}",
+                    tooltipText: "{name}: {categoryX}/07/2023 - {valueY}",
                     width: am5.percent(90),
                     tooltipY: am5.percent(10),
                     strokeOpacity: 0
                 })
-                series.data.setAll(data);
+                series.data.setAll(setNewData);
                 series.appear();
                 legend.data.push(series);
             }

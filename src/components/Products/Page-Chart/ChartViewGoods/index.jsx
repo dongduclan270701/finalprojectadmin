@@ -6,56 +6,8 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 const Index = (props) => {
     const { dataChart } = props
     useEffect(() => {
-        // var ChartSalaryStaffOfMonth = am5.Root.new("ChartSalaryStaffOfMonth")
-        // ChartSalaryStaffOfMonth.dateFormatter.setAll({
-        //     dateFormat: "dd/MM/yyyy",
-        //     dateFields: ["valueX"]
-        // });
-        // ChartSalaryStaffOfMonth._logo.dispose()
-        // ChartSalaryStaffOfMonth.setThemes([
-        //     am5themes_Animated.new(ChartSalaryStaffOfMonth)
-        // ])
-        // var chart = ChartSalaryStaffOfMonth.container.children.push(am5xy.XYChart.new(ChartSalaryStaffOfMonth, {
-        //     panX: true,
-        //     panY: true,
-        //     wheelX: "panX",
-        //     wheelY: "zoomX",
-        //     pinchZoomX: true
-        // }))
-        // var cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSalaryStaffOfMonth, {
-        //     behavior: "none"
-        // }));
-        // cursor.lineY.set("visible", false)
-        // var mockUpData = dataChart.totalViewByDay.map(item => ({
-        //     value: item.totalView,
-        //     day: (item.day).toString().padStart(2, '0') + "/07/2023"
-        // }))
-        // var xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartSalaryStaffOfMonth, {
-        //     baseInterval: { timeUnit: "day", count: 1 },
-        //     renderer: am5xy.AxisRendererX.new(ChartSalaryStaffOfMonth, {}),
-        //     tooltip: am5.Tooltip.new(ChartSalaryStaffOfMonth, {}),
-        //     dateFormat: "dd/MM/yyyy"
-        // }))
-        // var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSalaryStaffOfMonth, {
-        //     renderer: am5xy.AxisRendererY.new(ChartSalaryStaffOfMonth, {})
-        // }))
-        // var series = chart.series.push(am5xy.LineSeries.new(ChartSalaryStaffOfMonth, {
-        //     xAxis: xAxis,
-        //     yAxis: yAxis,
-        //     valueYField: "value",
-        //     valueXField: "day",
-        //     tooltip: am5.Tooltip.new(ChartSalaryStaffOfMonth, {
-        //         labelText: "{valueX}: {valueY}"
-        //     })
-        // }))
-        // series.strokes.template.setAll({
-        //     strokeWidth: 3
-        // })
-        // series.data.processor = am5.DataProcessor.new(ChartSalaryStaffOfMonth, {
-        //     dateFormat: "dd/MM/yyyy",
-        //     dateFields: ["day"]
-        // })
-        // series.data.setAll(mockUpData)
+        
+        
         am5.ready(function () {
             var ChartSalaryStaffOfMonth = am5.Root.new("ChartSalaryStaffOfMonth")
             ChartSalaryStaffOfMonth.setThemes([
@@ -69,7 +21,7 @@ const Index = (props) => {
 
             var data = dataChart.totalViewByDay.map(item => ({
                 value: item.totalView,
-                day: (item.day).toString().padStart(2, '0') + "/07/2023"
+                day: (item.day).toString().padStart(2, '0') + "/08/2023"
             }))
             var chart = ChartSalaryStaffOfMonth.container.children.push(am5xy.XYChart.new(ChartSalaryStaffOfMonth, {
                 focusable: true,
@@ -79,7 +31,7 @@ const Index = (props) => {
                 wheelY: "zoomX",
                 pinchZoomX: true
             }))
-            var easing = am5.ease.linear
+
             var xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartSalaryStaffOfMonth, {
                 maxDeviation: 0.5,
                 baseInterval: {

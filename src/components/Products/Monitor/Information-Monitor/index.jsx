@@ -20,7 +20,7 @@ const Index = () => {
         description_table: [
             ["CPU", "Itel 13th"],
             ["RAM", "16GB"],
-            ["Storage", '512GB'],
+            ["Storage", '512GB'], 
         ],
         description: [
             ["Đánh giá chi tiết laptop Asus Vivobook 15 X515EA BR2045W", "Asus Vivobook 15 X515EA BR2045W là chiếc laptop giá rẻ phù hợp cho việc học tập và làm việc hằng ngày. Cấu hình ổn định, thiết kế hoàn thiện hứa hẹn sẽ mang đến những trải nghiệm phù hợp với người dùng."]

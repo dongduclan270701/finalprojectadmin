@@ -15,7 +15,7 @@ const Index = () => {
         fetchListOfLaptopCollectingByName(params.src)
             .then(result => {
                 setProduct(result)
-                
+                 
             })
     }, [params]);
 

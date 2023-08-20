@@ -1,10 +1,8 @@
 import React, { useState, useEffect, memo } from 'react'
 import ChartSoldOrdersOfMonth from 'components/Products/Page-Chart/ChartSoldOrderOfMonth'
 import ChartCategory from 'components/Products/Page-Chart/ChartCategory'
-import ChartRole from 'components/Products/Page-Chart/ChartRole'
-import ChartStaffAge from 'components/Products/Page-Chart/ChartStaffAge'
-import ChartSalaryStaffOfMonth from 'components/Products/Page-Chart/ChartSalaryStaffOfMonth'
-import ChartSalaryOfRole from 'components/Products/Page-Chart/ChartSalaryOfRole'
+import ChartRateGoods from 'components/Products/Page-Chart/ChartRateGoods'
+import ChartViewGoods from 'components/Products/Page-Chart/ChartViewGoods'
 
 const Index = (props) => {
     const formatter = new Intl.NumberFormat('en-US')
@@ -96,8 +94,8 @@ const Index = (props) => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Rate Goods on Category</h4>
-                                    <ChartRole optionSelectLaptop={optionSelectLaptop}/>
+                                    <h4>Chart Sold Goods on Category in Month</h4>
+                                    <ChartRateGoods optionSelectLaptop={optionSelectLaptop}/>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +107,7 @@ const Index = (props) => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart View Goods in Month</h4>
-                                    <ChartSalaryStaffOfMonth dataChart={dataChart}/>
+                                    <ChartViewGoods dataChart={dataChart}/>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +119,7 @@ const Index = (props) => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Salary Staff of Month</h4>
-                                    <ChartSalaryStaffOfMonth />
+                                    <ChartViewGoods />
                                 </div>
                             </div>
                         </div>
@@ -144,7 +142,7 @@ const Index = (props) => {
                 <div className="col-md-6 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                            <p className="card-title">Top 10 sản phẩm bán nhiều nhất this month</p>
+                            <p className="card-title">Top 10 Best Selling Products This Month</p>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="table-responsive">
@@ -306,7 +304,7 @@ const Index = (props) => {
                 <div className="col-md-6 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                            <p className="card-title">Top 10 sản phẩm được xem nhiều nhất this month</p>
+                            <p className="card-title">Top 10 Most Viewed Products This Month</p>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="table-responsive">

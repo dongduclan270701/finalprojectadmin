@@ -16,7 +16,7 @@ const Index = () => {
         nowPrice: 0,
         percent: 0,
         description_table: [
-            ["", ""]
+            ["", ""] 
         ],
         description: [
             ["", ""]
