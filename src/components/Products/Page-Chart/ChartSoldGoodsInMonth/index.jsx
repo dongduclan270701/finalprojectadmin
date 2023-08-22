@@ -1,28 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
 const Index = (props) => {
     const { optionSelectLaptop } = props
-
     useEffect(() => {
         am5.ready(function () {
-            var ChartRole = am5.Root.new("ChartRole");
-            ChartRole._logo.dispose()
-            ChartRole.setThemes([
-                am5themes_Animated.new(ChartRole)
+            let ChartSoldOnCategory = am5.Root.new("ChartSoldOnCategory");
+            ChartSoldOnCategory._logo.dispose()
+            ChartSoldOnCategory.setThemes([
+                am5themes_Animated.new(ChartSoldOnCategory)
             ])
-            var chart = ChartRole.container.children.push(am5xy.XYChart.new(ChartRole, {
+            let chart = ChartSoldOnCategory.container.children.push(am5xy.XYChart.new(ChartSoldOnCategory, {
                 panX: true,
                 panY: true,
                 wheelX: "panX",
                 wheelY: "zoomX",
                 pinchZoomX: true
             }))
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(ChartRole, {}));
+            let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSoldOnCategory, {}));
             cursor.lineY.set("visible", false)
-            var xRenderer = am5xy.AxisRendererX.new(ChartRole, { minGridDistance: 30 });
+            let xRenderer = am5xy.AxisRendererX.new(ChartSoldOnCategory, { minGridDistance: 30 });
             xRenderer.labels.template.setAll({
                 rotation: -90,
                 centerY: am5.p50,
@@ -33,7 +32,7 @@ const Index = (props) => {
             xRenderer.grid.template.setAll({
                 location: 1
             })
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartRole, {
+            let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartSoldOnCategory, {
                 maxDeviation: 0.3,
                 categoryField: "category",
                 renderer: xRenderer,
@@ -44,20 +43,20 @@ const Index = (props) => {
                     truncateReplace: "..."
                 }
             }))
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartRole, {
+            let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSoldOnCategory, {
                 maxDeviation: 0.3,
-                renderer: am5xy.AxisRendererY.new(ChartRole, {
+                renderer: am5xy.AxisRendererY.new(ChartSoldOnCategory, {
                     strokeOpacity: 0.1
                 })
             }))
-            var series = chart.series.push(am5xy.ColumnSeries.new(ChartRole, {
+            let series = chart.series.push(am5xy.ColumnSeries.new(ChartSoldOnCategory, {
                 name: "Series 1",
                 xAxis: xAxis,
                 yAxis: yAxis,
                 valueYField: "value",
                 sequencedInterpolation: true,
                 categoryXField: "category",
-                tooltip: am5.Tooltip.new(ChartRole, {
+                tooltip: am5.Tooltip.new(ChartSoldOnCategory, {
                     labelText: "{category}: {valueY}"
                 })
             }))
@@ -68,7 +67,7 @@ const Index = (props) => {
             series.columns.template.adapters.add("stroke", function (stroke, target) {
                 return chart.get("colors").getIndex(series.columns.indexOf(target));
             })
-            var data = optionSelectLaptop.map(item => ({
+            let data = optionSelectLaptop.map(item => ({
                 category: item,
                 value: Math.random() * 100
             }))
@@ -79,8 +78,8 @@ const Index = (props) => {
         })
     }, [])
     return (
-        <div id="ChartRole" style={{ width: '100%', height: '500px' }}></div>
+        <div id="ChartSoldOnCategory" style={{ width: '100%', height: '500px' }}></div>
     );
 }
 
-export default Index;
+export default memo(Index);

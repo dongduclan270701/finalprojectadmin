@@ -6,16 +6,16 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartTypeOfDiscount = am5.Root.new("ChartTypeOfDiscount");
+            let ChartTypeOfDiscount = am5.Root.new("ChartTypeOfDiscount");
             ChartTypeOfDiscount._logo.dispose()
             ChartTypeOfDiscount.setThemes([
                 am5themes_Animated.new(ChartTypeOfDiscount)
             ]);
-            var chart = ChartTypeOfDiscount.container.children.push(am5percent.PieChart.new(ChartTypeOfDiscount, {
+            let chart = ChartTypeOfDiscount.container.children.push(am5percent.PieChart.new(ChartTypeOfDiscount, {
                 layout: ChartTypeOfDiscount.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(ChartTypeOfDiscount, {
+            let series = chart.series.push(am5percent.PieSeries.new(ChartTypeOfDiscount, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -30,7 +30,7 @@ const Index = () => {
                 { value: 10, category: "Out Date" },
                 { value: 9, category: "Waiting" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(ChartTypeOfDiscount, {
+            let legend = chart.children.push(am5.Legend.new(ChartTypeOfDiscount, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,

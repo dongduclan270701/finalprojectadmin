@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
@@ -6,10 +6,9 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 const Index = (props) => {
     const { dataChart } = props
     useEffect(() => {
-        
-        
         am5.ready(function () {
-            var ChartSalaryStaffOfMonth = am5.Root.new("ChartSalaryStaffOfMonth")
+            
+            let ChartSalaryStaffOfMonth = am5.Root.new("ChartSalaryStaffOfMonth")
             ChartSalaryStaffOfMonth.setThemes([
                 am5themes_Animated.new(ChartSalaryStaffOfMonth)
             ])
@@ -18,12 +17,11 @@ const Index = (props) => {
                 dateFormat: "dd/MM/yyyy",
                 dateFields: ["valueX"]
             });
-
-            var data = dataChart.totalViewByDay.map(item => ({
+            let data = dataChart.totalViewByDay.map(item => ({
                 value: item.totalView,
                 day: (item.day).toString().padStart(2, '0') + "/08/2023"
             }))
-            var chart = ChartSalaryStaffOfMonth.container.children.push(am5xy.XYChart.new(ChartSalaryStaffOfMonth, {
+            let chart = ChartSalaryStaffOfMonth.container.children.push(am5xy.XYChart.new(ChartSalaryStaffOfMonth, {
                 focusable: true,
                 panX: true,
                 panY: true,
@@ -32,7 +30,7 @@ const Index = (props) => {
                 pinchZoomX: true
             }))
 
-            var xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartSalaryStaffOfMonth, {
+            let xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartSalaryStaffOfMonth, {
                 maxDeviation: 0.5,
                 baseInterval: {
                     timeUnit: "day",
@@ -44,7 +42,7 @@ const Index = (props) => {
                 tooltip: am5.Tooltip.new(ChartSalaryStaffOfMonth, {})
             }));
 
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSalaryStaffOfMonth, {
+            let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSalaryStaffOfMonth, {
                 maxDeviation: 1,
                 renderer: am5xy.AxisRendererY.new(ChartSalaryStaffOfMonth, { pan: "zoom" })
             }));
@@ -52,7 +50,7 @@ const Index = (props) => {
 
             // Add series
             // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var series = chart.series.push(am5xy.SmoothedXLineSeries.new(ChartSalaryStaffOfMonth, {
+            let series = chart.series.push(am5xy.SmoothedXLineSeries.new(ChartSalaryStaffOfMonth, {
                 minBulletDistance: 10,
                 connect: false,
                 xAxis: xAxis,
@@ -66,12 +64,12 @@ const Index = (props) => {
             }));
 
             series.fills.template.setAll({ fillOpacity: 0.2, visible: true })
-            var rangeDataItem = yAxis.makeDataItem({
+            let rangeDataItem = yAxis.makeDataItem({
                 value: 0,
                 endValue: 1000
             })
-            var color = chart.get("colors").getIndex(3);
-            var range = series.createAxisRange(rangeDataItem);
+            let color = chart.get("colors").getIndex(3);
+            let range = series.createAxisRange(rangeDataItem);
             range.strokes.template.setAll({
                 stroke: color
             })
@@ -86,14 +84,14 @@ const Index = (props) => {
             });
             series.data.setAll(data);
             series.bullets.push(function () {
-                var circle = am5.Circle.new(ChartSalaryStaffOfMonth, {
+                let circle = am5.Circle.new(ChartSalaryStaffOfMonth, {
                     radius: 4,
                     fill: series.get("fill"),
                     stroke: ChartSalaryStaffOfMonth.interfaceColors.get("background"),
                     strokeWidth: 2
                 })
                 circle.adapters.add("fill", function (fill, target) {
-                    var dataItem = circle.dataItem;
+                    let dataItem = circle.dataItem;
                     if (dataItem.get("valueY") >= 0) {
                         return color;
                     }
@@ -103,7 +101,7 @@ const Index = (props) => {
                     sprite: circle
                 })
             })
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSalaryStaffOfMonth, {
+            let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSalaryStaffOfMonth, {
                 xAxis: xAxis
             }));
             cursor.lineY.set("visible", false)
@@ -114,4 +112,4 @@ const Index = (props) => {
         );
     }
 
-export default Index;
+export default memo(Index);

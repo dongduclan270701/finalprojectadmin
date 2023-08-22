@@ -6,16 +6,16 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartDiscountStatus = am5.Root.new("ChartDiscountStatus");
+            let ChartDiscountStatus = am5.Root.new("ChartDiscountStatus");
             ChartDiscountStatus._logo.dispose()
             ChartDiscountStatus.setThemes([
                 am5themes_Animated.new(ChartDiscountStatus)
             ]);
-            var chart = ChartDiscountStatus.container.children.push(am5percent.PieChart.new(ChartDiscountStatus, {
+            let chart = ChartDiscountStatus.container.children.push(am5percent.PieChart.new(ChartDiscountStatus, {
                 layout: ChartDiscountStatus.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(ChartDiscountStatus, {
+            let series = chart.series.push(am5percent.PieSeries.new(ChartDiscountStatus, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -29,7 +29,7 @@ const Index = () => {
                 { value: 10, category: "Freeship" },
                 { value: 9, category: "Discount Order" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(ChartDiscountStatus, {
+            let legend = chart.children.push(am5.Legend.new(ChartDiscountStatus, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,

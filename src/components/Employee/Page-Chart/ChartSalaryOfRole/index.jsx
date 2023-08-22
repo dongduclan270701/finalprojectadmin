@@ -6,16 +6,16 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartSalaryOfRole = am5.Root.new("ChartSalaryOfRole");
+            let ChartSalaryOfRole = am5.Root.new("ChartSalaryOfRole");
             ChartSalaryOfRole._logo.dispose()
             ChartSalaryOfRole.setThemes([
                 am5themes_Animated.new(ChartSalaryOfRole)
             ]);
-            var chart = ChartSalaryOfRole.container.children.push(am5percent.PieChart.new(ChartSalaryOfRole, {
+            let chart = ChartSalaryOfRole.container.children.push(am5percent.PieChart.new(ChartSalaryOfRole, {
                 layout: ChartSalaryOfRole.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(ChartSalaryOfRole, {
+            let series = chart.series.push(am5percent.PieSeries.new(ChartSalaryOfRole, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -32,7 +32,7 @@ const Index = () => {
                 { value: 10, category: "ORDER" },
                 { value: 9, category: "MANAGEMENT" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(ChartSalaryOfRole, {
+            let legend = chart.children.push(am5.Legend.new(ChartSalaryOfRole, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,

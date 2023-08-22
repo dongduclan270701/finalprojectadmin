@@ -6,16 +6,16 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartStaffStatus = am5.Root.new("ChartStaffStatus");
+            let ChartStaffStatus = am5.Root.new("ChartStaffStatus");
             ChartStaffStatus._logo.dispose()
             ChartStaffStatus.setThemes([
                 am5themes_Animated.new(ChartStaffStatus)
             ]);
-            var chart = ChartStaffStatus.container.children.push(am5percent.PieChart.new(ChartStaffStatus, {
+            let chart = ChartStaffStatus.container.children.push(am5percent.PieChart.new(ChartStaffStatus, {
                 layout: ChartStaffStatus.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(ChartStaffStatus, {
+            let series = chart.series.push(am5percent.PieSeries.new(ChartStaffStatus, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -29,7 +29,7 @@ const Index = () => {
                 { value: 10, category: "Working" },
                 { value: 9, category: "Has retired" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(ChartStaffStatus, {
+            let legend = chart.children.push(am5.Legend.new(ChartStaffStatus, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,

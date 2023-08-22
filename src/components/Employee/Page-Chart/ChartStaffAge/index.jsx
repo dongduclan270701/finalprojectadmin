@@ -6,26 +6,26 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartStaffAge = am5.Root.new("ChartStaffAge")
+            let ChartStaffAge = am5.Root.new("ChartStaffAge")
             ChartStaffAge.setThemes([
                 am5themes_Animated.new(ChartStaffAge)
             ])
             ChartStaffAge._logo.dispose()
-            var chart = ChartStaffAge.container.children.push(am5xy.XYChart.new(ChartStaffAge, {
+            let chart = ChartStaffAge.container.children.push(am5xy.XYChart.new(ChartStaffAge, {
                 panX: false,
                 panY: false,
                 wheelX: "panX",
                 wheelY: "zoomX",
                 layout: ChartStaffAge.verticalLayout
             }))
-            var legend = chart.children.push(
+            let legend = chart.children.push(
                 am5.Legend.new(ChartStaffAge, {
                     centerX: am5.p50,
                     x: am5.p50
                 })
             )
 
-            var data = [{
+            let data = [{
                 "age": "Under 20",
                 "working": 2.5,
                 "hasRetired": 2.5,
@@ -52,12 +52,12 @@ const Index = () => {
                 "total": 2.4
             }]
 
-            var xRenderer = am5xy.AxisRendererX.new(ChartStaffAge, {
+            let xRenderer = am5xy.AxisRendererX.new(ChartStaffAge, {
                 cellStartLocation: 0.1,
                 cellEndLocation: 0.9
             })
 
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartStaffAge, {
+            let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartStaffAge, {
                 categoryField: "age",
                 renderer: xRenderer,
                 tooltip: am5.Tooltip.new(ChartStaffAge, {})
@@ -69,13 +69,13 @@ const Index = () => {
 
             xAxis.data.setAll(data)
 
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartStaffAge, {
+            let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartStaffAge, {
                 renderer: am5xy.AxisRendererY.new(ChartStaffAge, {
                     strokeOpacity: 0.1
                 })
             }))
             function makeSeries(name, fieldName) {
-                var series = chart.series.push(am5xy.ColumnSeries.new(ChartStaffAge, {
+                let series = chart.series.push(am5xy.ColumnSeries.new(ChartStaffAge, {
                     name: name,
                     xAxis: xAxis,
                     yAxis: yAxis,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5percent from '@amcharts/amcharts5/percent';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
@@ -7,16 +7,16 @@ const Index = (props) => {
     
     useEffect(() => {
         am5.ready(function () {
-            var ChartCategory = am5.Root.new("ChartCategory");
+            let ChartCategory = am5.Root.new("ChartCategory");
             ChartCategory._logo.dispose()
             ChartCategory.setThemes([
                 am5themes_Animated.new(ChartCategory)
             ]);
-            var chart = ChartCategory.container.children.push(am5percent.PieChart.new(ChartCategory, {
+            let chart = ChartCategory.container.children.push(am5percent.PieChart.new(ChartCategory, {
                 layout: ChartCategory.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(ChartCategory, {
+            let series = chart.series.push(am5percent.PieSeries.new(ChartCategory, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -30,7 +30,7 @@ const Index = (props) => {
                 { value: 10, category: "Working" },
                 { value: 9, category: "Has retired" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(ChartCategory, {
+            let legend = chart.children.push(am5.Legend.new(ChartCategory, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,
@@ -45,4 +45,4 @@ const Index = (props) => {
     );
 }
 
-export default Index;
+export default memo(Index);

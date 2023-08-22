@@ -6,16 +6,16 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var chartDivTotalShippingStatus = am5.Root.new("chartDivTotalShippingStatus");
+            let chartDivTotalShippingStatus = am5.Root.new("chartDivTotalShippingStatus");
             chartDivTotalShippingStatus._logo.dispose()
             chartDivTotalShippingStatus.setThemes([
                 am5themes_Animated.new(chartDivTotalShippingStatus)
             ]);
-            var chart = chartDivTotalShippingStatus.container.children.push(am5percent.PieChart.new(chartDivTotalShippingStatus, {
+            let chart = chartDivTotalShippingStatus.container.children.push(am5percent.PieChart.new(chartDivTotalShippingStatus, {
                 layout: chartDivTotalShippingStatus.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(chartDivTotalShippingStatus, {
+            let series = chart.series.push(am5percent.PieSeries.new(chartDivTotalShippingStatus, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -29,7 +29,7 @@ const Index = () => {
                 { value: 10, category: "Successful" },
                 { value: 9, category: "Failed" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(chartDivTotalShippingStatus, {
+            let legend = chart.children.push(am5.Legend.new(chartDivTotalShippingStatus, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,

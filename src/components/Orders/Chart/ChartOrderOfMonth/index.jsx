@@ -6,27 +6,27 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var chartDivOrderOfMonth = am5.Root.new("chartDivOrderOfMonth");
+            let chartDivOrderOfMonth = am5.Root.new("chartDivOrderOfMonth");
             chartDivOrderOfMonth.setThemes([
                 am5themes_Animated.new(chartDivOrderOfMonth)
             ]);
             chartDivOrderOfMonth._logo.dispose()
-            var chart = chartDivOrderOfMonth.container.children.push(am5xy.XYChart.new(chartDivOrderOfMonth, {
+            let chart = chartDivOrderOfMonth.container.children.push(am5xy.XYChart.new(chartDivOrderOfMonth, {
                 panX: false,
                 panY: false,
                 wheelX: "panX",
                 wheelY: "zoomX",
                 layout: chartDivOrderOfMonth.verticalLayout
             }));
-            var legend = chart.children.push(am5.Legend.new(chartDivOrderOfMonth, {
+            let legend = chart.children.push(am5.Legend.new(chartDivOrderOfMonth, {
                 centerX: am5.p50,
                 x: am5.p50
             }));
-            var data = [];
-            for (var i = 1; i <= 30; i++) {
-                var successful = Math.random() * 100;
-                var processing = Math.random() * 100;
-                var target = Math.random() * 100;
+            let data = [];
+            for (let i = 1; i <= 30; i++) {
+                let successful = Math.random() * 100;
+                let processing = Math.random() * 100;
+                let target = Math.random() * 100;
                 data.push({
                     day: i + '/7',
                     successful: Math.round(successful),
@@ -34,11 +34,11 @@ const Index = () => {
                     target: Math.round(target)
                 });
             }
-            var xRenderer = am5xy.AxisRendererX.new(chartDivOrderOfMonth, {
+            let xRenderer = am5xy.AxisRendererX.new(chartDivOrderOfMonth, {
                 cellStartLocation: 0.1,
                 cellEndLocation: 0.9
             });
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(chartDivOrderOfMonth, {
+            let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(chartDivOrderOfMonth, {
                 categoryField: "day",
                 renderer: xRenderer,
                 tooltip: am5.Tooltip.new(chartDivOrderOfMonth, {})
@@ -47,14 +47,14 @@ const Index = () => {
                 location: 1
             })
             xAxis.data.setAll(data);
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(chartDivOrderOfMonth, {
+            let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(chartDivOrderOfMonth, {
                 min: 0,
                 renderer: am5xy.AxisRendererY.new(chartDivOrderOfMonth, {
                     strokeOpacity: 0.1
                 })
             }));
             function makeSeries(name, fieldName, stacked) {
-                var series = chart.series.push(am5xy.ColumnSeries.new(chartDivOrderOfMonth, {
+                let series = chart.series.push(am5xy.ColumnSeries.new(chartDivOrderOfMonth, {
                     stacked: stacked,
                     name: name,
                     xAxis: xAxis,

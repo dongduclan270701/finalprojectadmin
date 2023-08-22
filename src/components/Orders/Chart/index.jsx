@@ -251,18 +251,18 @@ const Index = (props) => {
             }
         ]
     }
-    var date = []
-    var count = 30;
-    for (var day = 1; day <= count; day++) {
+    let date = []
+    let count = 30;
+    for (let day = 1; day <= count; day++) {
         date.push(day + '/7');
     }
-    var randomNumber = []
-    var randomNumber1 = []
-    var randomNumber2 = []
-    for (var i = 0; i < 30; i++) {
-        var random = Math.floor(Math.random() * 100)
-        var random1 = Math.floor(Math.random() * 100)
-        var random2 = Math.floor(Math.random() * 100)
+    let randomNumber = []
+    let randomNumber1 = []
+    let randomNumber2 = []
+    for (let i = 0; i < 30; i++) {
+        let random = Math.floor(Math.random() * 100)
+        let random1 = Math.floor(Math.random() * 100)
+        let random2 = Math.floor(Math.random() * 100)
         randomNumber.push(random2)
         randomNumber1.push(random1)
         randomNumber2.push(random)

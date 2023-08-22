@@ -6,7 +6,7 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartOutDateDiscountOfMonth = am5.Root.new("ChartOutDateDiscountOfMonth")
+            let ChartOutDateDiscountOfMonth = am5.Root.new("ChartOutDateDiscountOfMonth")
             ChartOutDateDiscountOfMonth.setThemes([
                 am5themes_Animated.new(ChartOutDateDiscountOfMonth)
             ])
@@ -15,16 +15,16 @@ const Index = () => {
                 dateFormat: "yyyy/mm/dd",
                 dateFields: ["valueX"]
             })
-            var data = [];
-            for (var i = 1; i <= 30; i++) {
-                var values = Math.random() * 100
+            let data = [];
+            for (let i = 1; i <= 30; i++) {
+                let values = Math.random() * 100
                 data.push({
                     day: `2023/07/${i}` ,
                     value: Math.round(values)
                 })
             }
 
-            var chart = ChartOutDateDiscountOfMonth.container.children.push(am5xy.XYChart.new(ChartOutDateDiscountOfMonth, {
+            let chart = ChartOutDateDiscountOfMonth.container.children.push(am5xy.XYChart.new(ChartOutDateDiscountOfMonth, {
                 focusable: true,
                 panX: true,
                 panY: true,
@@ -33,8 +33,8 @@ const Index = () => {
                 pinchZoomX: true
             }))
 
-            var easing = am5.ease.linear
-            var xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartOutDateDiscountOfMonth, {
+            let easing = am5.ease.linear
+            let xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartOutDateDiscountOfMonth, {
                 maxDeviation: 0.5,
                 baseInterval: {
                     timeUnit: "day",
@@ -46,12 +46,12 @@ const Index = () => {
                 tooltip: am5.Tooltip.new(ChartOutDateDiscountOfMonth, {})
             }))
 
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartOutDateDiscountOfMonth, {
+            let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartOutDateDiscountOfMonth, {
                 maxDeviation: 1,
                 renderer: am5xy.AxisRendererY.new(ChartOutDateDiscountOfMonth, { pan: "zoom" })
             }))
 
-            var series = chart.series.push(am5xy.SmoothedXLineSeries.new(ChartOutDateDiscountOfMonth, {
+            let series = chart.series.push(am5xy.SmoothedXLineSeries.new(ChartOutDateDiscountOfMonth, {
                 minBulletDistance: 10,
                 connect: false,
                 xAxis: xAxis,
@@ -66,14 +66,14 @@ const Index = () => {
 
             series.fills.template.setAll({ fillOpacity: 0.2, visible: true })
 
-            var rangeDataItem = yAxis.makeDataItem({
+            let rangeDataItem = yAxis.makeDataItem({
                 value: 0,
                 endValue: 1000
             })
 
-            var color = chart.get("colors").getIndex(3);
+            let color = chart.get("colors").getIndex(3);
 
-            var range = series.createAxisRange(rangeDataItem);
+            let range = series.createAxisRange(rangeDataItem);
 
             range.strokes.template.setAll({
                 stroke: color
@@ -92,7 +92,7 @@ const Index = () => {
 
             series.data.setAll(data)
 
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(ChartOutDateDiscountOfMonth, {
+            let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartOutDateDiscountOfMonth, {
                 xAxis: xAxis
             }))
             cursor.lineY.set("visible", false)

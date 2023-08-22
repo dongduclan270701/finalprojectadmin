@@ -7,27 +7,27 @@ const Index = () => {
     useEffect(() => {
         
         am5.ready(function () {
-            var ChartDiscountOfMonth = am5.Root.new("ChartDiscountOfMonth");
+            let ChartDiscountOfMonth = am5.Root.new("ChartDiscountOfMonth");
             ChartDiscountOfMonth.setThemes([
                 am5themes_Animated.new(ChartDiscountOfMonth)
             ]);
             ChartDiscountOfMonth._logo.dispose()
-            var chart = ChartDiscountOfMonth.container.children.push(am5xy.XYChart.new(ChartDiscountOfMonth, {
+            let chart = ChartDiscountOfMonth.container.children.push(am5xy.XYChart.new(ChartDiscountOfMonth, {
                 panX: false,
                 panY: false,
                 wheelX: "panX",
                 wheelY: "zoomX",
                 layout: ChartDiscountOfMonth.verticalLayout
             }));
-            var legend = chart.children.push(am5.Legend.new(ChartDiscountOfMonth, {
+            let legend = chart.children.push(am5.Legend.new(ChartDiscountOfMonth, {
                 centerX: am5.p50,
                 x: am5.p50
             }));
-            var data = [];
-            for (var i = 1; i <= 30; i++) {
-                var freeship = Math.random() * 100;
-                var processing = Math.random() * 100;
-                var discountOrder = Math.random() * 100;
+            let data = [];
+            for (let i = 1; i <= 30; i++) {
+                let freeship = Math.random() * 100;
+                let processing = Math.random() * 100;
+                let discountOrder = Math.random() * 100;
                 data.push({
                     day: i + '/7',
                     freeship: Math.round(freeship),
@@ -35,11 +35,11 @@ const Index = () => {
                     discountOrder: Math.round(discountOrder)
                 });
             }
-            var xRenderer = am5xy.AxisRendererX.new(ChartDiscountOfMonth, {
+            let xRenderer = am5xy.AxisRendererX.new(ChartDiscountOfMonth, {
                 cellStartLocation: 0.1,
                 cellEndLocation: 0.9
             });
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartDiscountOfMonth, {
+            let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(ChartDiscountOfMonth, {
                 categoryField: "day",
                 renderer: xRenderer,
                 tooltip: am5.Tooltip.new(ChartDiscountOfMonth, {})
@@ -48,14 +48,14 @@ const Index = () => {
                 location: 1
             })
             xAxis.data.setAll(data);
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartDiscountOfMonth, {
+            let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartDiscountOfMonth, {
                 min: 0,
                 renderer: am5xy.AxisRendererY.new(ChartDiscountOfMonth, {
                     strokeOpacity: 0.1
                 })
             }));
             function makeSeries(name, fieldName, stacked) {
-                var series = chart.series.push(am5xy.ColumnSeries.new(ChartDiscountOfMonth, {
+                let series = chart.series.push(am5xy.ColumnSeries.new(ChartDiscountOfMonth, {
                     stacked: stacked,
                     name: name,
                     xAxis: xAxis,

@@ -6,16 +6,16 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = () => {
     useEffect(() => {
         am5.ready(function () {
-            var ChartRole = am5.Root.new("ChartRole");
+            let ChartRole = am5.Root.new("ChartRole");
             ChartRole._logo.dispose()
             ChartRole.setThemes([
                 am5themes_Animated.new(ChartRole)
             ]);
-            var chart = ChartRole.container.children.push(am5percent.PieChart.new(ChartRole, {
+            let chart = ChartRole.container.children.push(am5percent.PieChart.new(ChartRole, {
                 layout: ChartRole.verticalLayout,
                 innerRadius: am5.percent(50)
             }));
-            var series = chart.series.push(am5percent.PieSeries.new(ChartRole, {
+            let series = chart.series.push(am5percent.PieSeries.new(ChartRole, {
                 valueField: "value",
                 categoryField: "category",
                 alignLabels: false
@@ -32,7 +32,7 @@ const Index = () => {
                 { value: 10, category: "ORDER" },
                 { value: 9, category: "MANAGEMENT" }
             ]);
-            var legend = chart.children.push(am5.Legend.new(ChartRole, {
+            let legend = chart.children.push(am5.Legend.new(ChartRole, {
                 centerX: am5.percent(50),
                 x: am5.percent(50),
                 marginTop: 15,
