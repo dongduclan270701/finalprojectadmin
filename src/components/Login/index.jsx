@@ -33,6 +33,7 @@ const Index = () => {
                         })
                     } else {
                         localStorage.setItem("auth-token-admin", JSON.stringify(result.token));
+                        localStorage.setItem("role", JSON.stringify(result.role));
                         Swal.fire({
                             title: 'Logged in successfully!',
                             html: `You will be redirected to the management page in <span></span> seconds`,

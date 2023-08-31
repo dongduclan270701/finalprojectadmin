@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react'
 const StateContext = createContext()
 function StateProvider({ children }) {
-    const [authentication, setAuthentication] = useState(null)
+    const [authentication, setAuthentication] = useState(JSON.parse(localStorage.getItem('role')) ? JSON.parse(localStorage.getItem('role')) : null)
 
     const value = {
         authentication,

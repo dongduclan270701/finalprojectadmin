@@ -4,10 +4,8 @@ import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 
 const Index = (props) => {
-    const { dataChart } = props
+    const { totalViewByDay } = props
     useEffect(() => {
-        am5.ready(function () {
-            
             let ChartSalaryStaffOfMonth = am5.Root.new("ChartSalaryStaffOfMonth")
             ChartSalaryStaffOfMonth.setThemes([
                 am5themes_Animated.new(ChartSalaryStaffOfMonth)
@@ -17,7 +15,8 @@ const Index = (props) => {
                 dateFormat: "dd/MM/yyyy",
                 dateFields: ["valueX"]
             });
-            let data = dataChart.totalViewByDay.map(item => ({
+            let setData = totalViewByDay ? totalViewByDay : []
+            let data = setData.map(item => ({
                 value: item.totalView,
                 day: (item.day).toString().padStart(2, '0') + "/08/2023"
             }))
@@ -29,7 +28,6 @@ const Index = (props) => {
                 wheelY: "zoomX",
                 pinchZoomX: true
             }))
-
             let xAxis = chart.xAxes.push(am5xy.DateAxis.new(ChartSalaryStaffOfMonth, {
                 maxDeviation: 0.5,
                 baseInterval: {
@@ -106,7 +104,10 @@ const Index = (props) => {
             }));
             cursor.lineY.set("visible", false)
             chart.appear(1000, 100);
-        })}, [dataChart])
+            return () => {
+                ChartSalaryStaffOfMonth.dispose()
+            };
+    }, [totalViewByDay])
         return (
             <div id="ChartSalaryStaffOfMonth" style={{ width: '100%', height: '500px' }}></div>
         );
