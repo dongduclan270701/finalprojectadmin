@@ -28,67 +28,67 @@ export const fetchSearchLaptopCollecting = async (data, countPage) => {
 }
 
 export const fetchTotalGoodsLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalGoods`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalGoods`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalOutOfStockLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalOutOfStock`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalOutOfStock`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalAInStockLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalAInStock`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalAInStock`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalSoldOfMonthLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalSoldOfMonth`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalSoldOfMonth`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalViewInMonthLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalViewInMonth`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalViewInMonth`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalSoldInYearLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalSoldInYear`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalSoldInYear`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalViewInYearLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalViewInYear`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalViewInYear`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalSoldByDayLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalSoldByDay`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalSoldByDay`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTotalViewByDayLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/totalViewByDay`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/totalViewByDay`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchCountGoodsByCategoryLaptopCollecting = async (category) => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/countGoodsByCategory`, { params: { category: category },headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/countGoodsByCategory`, { params: { category: category },headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchSoldProductsByCategoryLaptopCollecting = async (category) => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/soldProductsByCategory`, { params: { category: category },headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/soldProductsByCategory`, { params: { category: category },headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTopSoldProductsLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/topSoldProducts`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/topSoldProducts`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
 export const fetchTopViewProductsLaptopCollecting = async () => {
-    const req = await axios.get(`${API_ROOT}/v1/laptopCollecting/topViewProducts`, { headers: { 'auth-token-admin': token } })
+    const req = await axios.get(`${API_ROOT}/v1/productChart/topViewProducts`, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 

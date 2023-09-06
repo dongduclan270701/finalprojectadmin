@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { fetchListOfEmployee, fetchSearchEmployee } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
 import Footer from "components/Footer"
-import Chart from 'components/Employee/Page-Chart/index2'
-// import PageChartEmployee from 'components/Employee/Page-Chart'
+import Chart from 'components/Employee/Page-Chart'
 import { StateContext } from 'components/Context'
 const Index = () => {
     const state = useContext(StateContext)
@@ -90,9 +89,10 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
-                    {loading === false ?
-                        <div className="col-lg-12">
-                            {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'SALES') &&
+                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
+                    <>
+                        {loading === false ?
+                            <div className="col-lg-12 grid-margin stretch-card">
                                 <div className="card">
                                     <div className="card-body">
                                         <h4 className="card-title">List of Employee</h4>
@@ -217,31 +217,27 @@ const Index = () => {
                                         }
                                     </div>
                                 </div>
-                            }
-                            {state.authentication === 'CEO' &&
-                                <>
-                                    {/* <div className="card-body">
-                                            <h4 className="card-title">List of Employee</h4>
-                                            <PageChartSalary />
-                                        </div> */}
-                                        {/* <PageChartEmployee /> */}
-                                        <Chart/>
-                                </>
-                            }
-                            {state.authentication === null &&
-                                <NoAuth error={error}/>
-                            }
-                        </div>
-                        :
-                        <>
-                            <style dangerouslySetInnerHTML={{
-                                __html: "\n.loader {\n  border: 16px solid #f3f3f3;\n  border-radius: 50%;\n  border-top: 16px solid #3498db;\n  margin: 0 auto;\n  width: 120px;\n  height: 120px;\n  -webkit-animation: spin 2s linear infinite; /* Safari */\n  animation: spin 2s linear infinite;\n}\n\n/* Safari */\n@-webkit-keyframes spin {\n  0% { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n"
-                            }} />
-                            <div className="loader" />
-                        </>
-                    }
+                            </div>
+                            :
+                            <>
+                                <style dangerouslySetInnerHTML={{
+                                    __html: "\n.loader {\n  border: 16px solid #f3f3f3;\n  border-radius: 50%;\n  border-top: 16px solid #3498db;\n  margin: 0 auto;\n  width: 120px;\n  height: 120px;\n  -webkit-animation: spin 2s linear infinite; /* Safari */\n  animation: spin 2s linear infinite;\n}\n\n/* Safari */\n@-webkit-keyframes spin {\n  0% { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n"
+                                }} />
+                                <div className="loader" />
+                            </>
+                        }
+                    </>
+                }
+                {state.authentication === 'CEO' && <div className="col-lg-12 grid-margin">
+                    <Chart />
+                </div>
+                }
+                {state.authentication === null &&
+                    <div className="col-lg-12 grid-margin stretch-card">
+                        <NoAuth error={error} />
+                    </div>
+                }
             </div>
-
             <Footer />
         </div>
     );

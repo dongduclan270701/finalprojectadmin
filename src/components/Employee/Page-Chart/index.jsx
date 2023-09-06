@@ -1,276 +1,135 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    BarElement,
-    Filler,
-    ArcElement
-} from 'chart.js'
-import { Line, Doughnut, Bar } from 'react-chartjs-2'
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler,
-    ArcElement
-);
+import ChartSoldOrdersOfMonth from 'components/Employee/Page-Chart/ChartSoldOrderOfMonth'
+import ChartStaffStatus from 'components/Employee/Page-Chart/ChartStaffStatus'
+import ChartRole from 'components/Employee/Page-Chart/ChartRole'
+import ChartStaffAge from 'components/Employee/Page-Chart/ChartStaffAge'
+import ChartSalaryStaffOfMonth from 'components/Employee/Page-Chart/ChartSalaryStaffOfMonth'
+import ChartSalaryOfRole from 'components/Employee/Page-Chart/ChartSalaryOfRole'
+
 const Index = () => {
-    const optionsChartOrderTarget = {
-        // responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false
-        },
-        stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Line Chart - Sold - Target Order / Month'
-            }
-        },
-        scales: {
-            y: {
-                type: 'linear',
-                display: true,
-                position: 'left'
-            },
-            y1: {
-                type: 'linear',
-                display: true,
-                position: 'right',
-                grid: {
-                    drawOnChartArea: false
-                }
-            }
+    const formatter = new Intl.NumberFormat('en-US')
+    const [totalStaff, setTotalStaff] = useState(null)
+    const [totalStaffWorking, setTotalStaffWorking] = useState(null)
+    const [totalStaffSalary, setTotalStaffSalary] = useState(null)
+    const [totalKPIRate, setKPIRate] = useState(null)
+    const [totalTotalOrder, setTotalOrder] = useState(null)
+    const [totalTotalSold, setTotalSold] = useState(null)
+    const [totalTotalOrderChart, setTotalOrderChart] = useState(null)
+    const [totalStatusStaff, setTotalStatusStaff] = useState(null)
+    const [totalRole, setTotalRole] = useState(null)
+    const [totalAgeStaff, setTotalAgeStaff] = useState(null)
+    const [topStaff, setTopStaff] = useState(null)
+
+    const fetchTotalStaff = () => {
+        // fetchTotalGoodsLaptopCollecting()
+        //     .then(result => {
+        //         console.log(1)
+        //         setTotalStaff(result.total)
+        //     })
+        //     .catch(error => {
+        //         setTotalStaff(0)
+        //         console.log(error)
+        //     })
+    }
+    const fetchTotalStaffWorking = () => {
+        // fetchTotalGoodsLaptopCollecting()
+        //     .then(result => {
+        //         console.log(1)
+        //         setTotalStaff(result.total)
+        //     })
+        //     .catch(error => {
+        //         setTotalStaff(0)
+        //         console.log(error)
+        //     })
+    }
+    const fetchTotalStaffSalary = () => {
+        // fetchTotalGoodsLaptopCollecting()
+        //     .then(result => {
+        //         console.log(1)
+        //         setTotalStaff(result.total)
+        //     })
+        //     .catch(error => {
+        //         setTotalStaff(0)
+        //         console.log(error)
+        //     })
+    }
+    const fetchTotalKPIRate = () => {
+        // fetchTotalGoodsLaptopCollecting()
+        //     .then(result => {
+        //         console.log(1)
+        //         setTotalStaff(result.total)
+        //     })
+        //     .catch(error => {
+        //         setTotalStaff(0)
+        //         console.log(error)
+        //     })
+    }
+    const fetchTotalOrder = () => {
+        // fetchTotalGoodsLaptopCollecting()
+        //     .then(result => {
+        //         console.log(1)
+        //         setTotalStaff(result.total)
+        //     })
+        //     .catch(error => {
+        //         setTotalStaff(0)
+        //         console.log(error)
+        //     })
+    }
+    const fetchTotalSold = () => {
+        // fetchTotalGoodsLaptopCollecting()
+        //     .then(result => {
+        //         console.log(1)
+        //         setTotalStaff(result.total)
+        //     })
+        //     .catch(error => {
+        //         setTotalStaff(0)
+        //         console.log(error)
+        //     })
+    }
+    const getCurrentMonthName = () => {
+        const currentDate = new Date();
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const currentMonthIndex = currentDate.getMonth();
+        const currentMonthName = monthNames[currentMonthIndex];
+        return currentMonthName;
+    }
+
+    const currentMonthName = getCurrentMonthName();
+    useEffect(() => {
+
+    }, []);
+    const handleResetData = (event, name) => {
+        switch (name) {
+            case "totalStaff":
+                setTotalStaff(null)
+                fetchTotalStaff()
+                break;
+            case "totalStaffWorking":
+                setTotalStaffWorking(null)
+                fetchTotalStaffWorking()
+                break;
+            case "totalStaffSalary":
+                setTotalStaffSalary(null)
+                fetchTotalStaffSalary()
+                break;
+            case "totalKPIRate":
+                setKPIRate(null)
+                fetchTotalKPIRate()
+                break;
+            case "totalTotalOrder":
+                setTotalOrder(null)
+                fetchTotalOrder()
+                break;
+            case "totalTotalSold":
+                setTotalSold(null)
+                fetchTotalSold()
+                break;
+            default:
+                break;
         }
-    }
-    const optionsChartAge = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Line Chart - Age Staff',
-            },
-        },
-    }
-    const optionsChartSalaryStaff = {
-        // responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false
-        },
-        stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Line Chart - Salary Staff / Month'
-            }
-        },
-        scales: {
-            y: {
-                type: 'linear',
-                display: true,
-                position: 'left'
-            },
-            y1: {
-                type: 'linear',
-                display: true,
-                position: 'right',
-                grid: {
-                    drawOnChartArea: false
-                }
-            }
-        }
-    }
-    const optionsChartCountStaff = {
-        // responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        },
-        stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Doughnut Chart - Total Count Role'
-            }
-        }
-    }
-    const optionsChartStatusStaff = {
-        // responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        },
-        stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Doughnut Chart - Status Staff'
-            }
-        }
-    }
-    const optionsChartTotalSalaryForRole = {
-        // responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        },
-        stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Doughnut Chart - Total Salary for Role / Month'
-            }
-        }
-    }
-    let date = []
-    let count = 30;
-    for (let day = 1; day <= count; day++) {
-        date.push(day + '/7');
-    }
-    let randomNumber = []
-    let randomNumber1 = []
-    let randomNumber2 = []
-    for (let i = 0; i < 30; i++) {
-        let random = Math.floor(Math.random() * 100)
-        let random1 = Math.floor(Math.random() * 100)
-        let random2 = Math.floor(Math.random() * 100)
-        randomNumber.push(random2)
-        randomNumber1.push(random1)
-        randomNumber2.push(random)
-    }
-    const dataChartOrderTarget = {
-        labels: date,
-        datasets: [
-            {
-                label: 'Orders',
-                data: randomNumber1,
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                yAxisID: 'y1'
-            },
-            {
-                label: 'Target',
-                data: randomNumber2,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                yAxisID: 'y1'
-            }
-        ]
-    }
-    const dataChartSalaryStaff = {
-        labels: date,
-        datasets: [
-            {
-                fill: true,
-                label: 'VND',
-                data: randomNumber,
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                yAxisID: 'y1'
-            }
-        ]
-    }
-    const dataChartTotalSalaryForRole = {
-        labels: ['CEO', 'SALES', 'PRODUCT', 'ORDER', 'MANAGEMENT'],
-        datasets: [
-            {
-                label: 'VND',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)'
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
-    const dataChartStatusStaff = {
-        labels: ['Has retired', 'Working'],
-        datasets: [
-            {
-                label: 'View',
-                data: [12, 19],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
-    const dataChartCountStaff = {
-        labels: ['CEO', 'SALES', 'PRODUCT', 'ORDER', 'MANAGEMENT'],
-        datasets: [
-            {
-                label: 'Total',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)'
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
-    const dataChartAge = {
-        labels: ['Under 18', '20 - 30', '30-40', '40 - 50', 'Over 50'],
-        datasets: [
-            {
-                label: 'Working',
-                data: [1, 2, 3, 4, 5],
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-                label: 'Has retired',
-                data: [0, 3, 4, 3, 6],
-                backgroundColor: 'rgba(255, 206, 86, 0.5)',
-            },
-            {
-                label: 'Total',
-                data: [1, 5, 7, 7, 11],
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
-        ],
     }
     return (
         <div>
@@ -278,38 +137,104 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3">Total staff worked</p>
-                            <p className="fs-25 mb-2">4,006</p>
-                            <p></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff worked <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaff")} /></p>
+                            {totalStaff === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">{formatter.format(totalStaff)}</p>
+                                    <p></p>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3">Total staff working</p>
-                            <p className="fs-25 mb-2">61,344</p>
-                            <p>22.00% / Total staff worked</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff working <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaffWorking")} /></p>
+                            {totalStaffWorking === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">{formatter.format(totalStaffWorking)}</p>
+                                    <p></p>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-danger">
                         <div className="card-body">
-                            <p className="mb-3">Total salary staff in the Month</p>
-                            <p className="fs-25 mb-2">47,123,123 VND</p>
-                            <p>0.22% (12 Months in 2023)</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff salary in the month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaffSalary")} /></p>
+                            {totalStaffSalary === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">{formatter.format(totalStaffSalary)}</p>
+                                    <p>0.22% (12 Months in 2023)</p>
+                                </>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-4 mb-4 stretch-card transparent">
+                    <div className="card card-light-blue">
+                        <div className="card-body">
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>KPI rate <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalKPIRate")} /></p>
+                            {totalKPIRate === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">{formatter.format(totalKPIRate)}%</p>
+                                    <p></p>
+                                </>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-4 mb-4 stretch-card transparent">
+                    <div className="card card-dark-blue">
+                        <div className="card-body">
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order quantity <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalTotalOrder")} /></p>
+                            {totalTotalOrder === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">{formatter.format(totalTotalOrder)}</p>
+                                    <p>22.00% / Total staff worked</p>
+                                </>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-4 mb-4 stretch-card transparent">
+                    <div className="card card-tale">
+                        <div className="card-body">
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total number of goods sold <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalTotalSold")} /></p>
+                            {totalTotalSold === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">{formatter.format(totalTotalSold)} VND</p>
+                                    <p>0.22% (12 Months in 2023)</p>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
+
             <div className="row">
                 <div className="col-lg-8 stretch-card">
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <Line options={optionsChartOrderTarget} data={dataChartOrderTarget} />
+                                    <h4>Chart Sold - Target Orders ( {currentMonthName} )</h4>
+                                    {/* <ChartSoldOrdersOfMonth /> */}
+                                    {totalTotalOrderChart ? <ChartSoldOrdersOfMonth totalTotalOrderChart={totalTotalOrderChart} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
                                 </div>
                             </div>
                         </div>
@@ -320,7 +245,9 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <Doughnut options={optionsChartStatusStaff} data={dataChartStatusStaff} />
+                                    <h4>Chart Staff Status </h4>
+                                    {/* <ChartStaffStatus /> */}
+                                    {totalStatusStaff ? <ChartStaffStatus totalStatusStaff={totalStatusStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
                                 </div>
                             </div>
                         </div>
@@ -331,7 +258,9 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <Doughnut options={optionsChartCountStaff} data={dataChartCountStaff} />
+                                    <h4>Chart Role</h4>
+                                    {/* <ChartRole /> */}
+                                    {totalRole ? <ChartRole totalRole={totalRole} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
                                 </div>
                             </div>
                         </div>
@@ -342,18 +271,21 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <Bar options={optionsChartAge} data={dataChartAge} />
+                                    <h4>Chart Staff Age</h4>
+                                    {/* <ChartStaffAge /> */}
+                                    {totalAgeStaff ? <ChartStaffAge totalAgeStaff={totalAgeStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-8 stretch-card">
+                {/* <div className="col-lg-8 stretch-card">
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <Line options={optionsChartSalaryStaff} data={dataChartSalaryStaff} />
+                                    <h4>Chart Salary Staff of Month</h4>
+                                    <ChartSalaryStaffOfMonth />
                                 </div>
                             </div>
                         </div>
@@ -364,12 +296,13 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <Doughnut options={optionsChartTotalSalaryForRole} data={dataChartTotalSalaryForRole} />
+                                    <h4>Chart total Salary Staff of Month</h4>
+                                    <ChartSalaryOfRole />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="row">
                 <div className="col-md-12 grid-margin stretch-card">
@@ -382,14 +315,14 @@ const Index = () => {
                                         <table id="example" className="display expandable-table" style={{ width: '100%', textAlign: "center" }}>
                                             <thead>
                                                 <tr role="row">
-                                                    <th className="select-checkbox sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "128px" }} aria-label="Quote#">
-                                                        ID</th>
                                                     <th className="sorting_desc" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "146px" }} aria-label="Product: activate to sort column ascending" aria-sort="descending">
                                                         Username</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
-                                                        Date Order</th>
+                                                        Role</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
+                                                        Sold Order</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
-                                                        Total</th>
+                                                        Amount</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
                                                         Status</th>
                                                     <th className="details-control sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "49px" }} aria-label="">
@@ -397,155 +330,26 @@ const Index = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className="odd selected">
-                                                    <td className="select-checkbox">
-                                                        Incs234</td>
+                                                
+                                                {topStaff ? topStaff.map(item => {
+                                                    return <tr className="odd selected">
                                                     <td className="sorting_1">
                                                         Car insurance</td>
                                                     <td>
-                                                        Business type 1</td>
+                                                        Order</td>
                                                     <td>
-                                                        Jesse Thomas</td>
+                                                        1</td>
                                                     <td>
-                                                        $1200</td>
-                                                    <td className=" details-control">
+                                                        230,000 VND</td>
+                                                    <td>
+                                                        Active</td>
+                                                </tr>
+                                                }) : <tr>
+                                                    <td colSpan="5" style={{ textAlign: 'center' }}>
+                                                        <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>
                                                     </td>
                                                 </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
+                                                }
                                             </tbody>
 
                                         </table>

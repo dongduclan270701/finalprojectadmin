@@ -8,7 +8,7 @@ import {
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
 import { StateContext } from 'components/Context'
-import Chart from 'components/Products/Page-Chart/index2'
+import Chart from 'components/Products/Page-Chart'
 
 const Index = () => {
     const state = useContext(StateContext)
