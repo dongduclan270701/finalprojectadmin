@@ -128,8 +128,8 @@ const Index = () => {
                                                 <input type="number" name='salary' className="form-control form-control-sm" placeholder="Salary" aria-label="Salary" value={employee.salary} disabled />
                                             </div>
                                             <div className="col-lg-6 form-group">
-                                                <label>Date of Birth</label>
-                                                <input type="date" name='dateOfBirth' className="form-control form-control-sm" placeholder="Salary" aria-label="Salary" value={employee.dateOfBirth} disabled />
+                                                <label>Age</label>
+                                                <input type="date" name='age' className="form-control form-control-sm" placeholder="Salary" aria-label="Salary" value={employee.age} disabled />
                                             </div>
                                             <div className="col-lg-6 form-group">
                                                 <label>Role</label>

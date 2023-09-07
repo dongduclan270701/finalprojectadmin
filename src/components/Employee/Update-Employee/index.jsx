@@ -343,8 +343,8 @@ const Index = () => {
                                                 </select>
                                             </div>
                                             <div className="col-lg-6 form-group">
-                                                <label>Date of Birth</label>
-                                                <input type="date" name='dateOfBirth' onChange={e => handleChangeInformation(e)} className="form-control form-control-sm" placeholder="Salary" aria-label="Salary" value={employee.dateOfBirth} />
+                                                <label>Age</label>
+                                                <input type="number" name='age' onChange={e => handleChangeInformation(e)} className="form-control form-control-sm" placeholder="Salary" aria-label="Salary" value={employee.age} />
                                             </div>
                                             <div className="col-lg-6 form-group">
                                                 <label>Reason Update</label>

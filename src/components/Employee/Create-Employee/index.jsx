@@ -14,7 +14,7 @@ const Index = () => {
         phoneNumber: "",
         role: "",
         password: "",
-        dateOfBirth: ""
+        age: ""
     })
     const [checkedPassword, setCheckedPassword] = useState(null)
     const [rePassword, setRePassword] = useState("")
@@ -56,7 +56,7 @@ const Index = () => {
                 icon: 'warning',
                 confirmButtonText: 'OK!'
             })
-        } else if (!employee.dateOfBirth) {
+        } else if (!employee.age) {
             Swal.fire({
                 title: 'Warning!',
                 text: 'You have not entered enough staff date of birth information, please try again!',
@@ -117,7 +117,7 @@ const Index = () => {
                                 phoneNumber: "",
                                 role: "",
                                 password: "",
-                                dateOfBirth: ""
+                                age: ""
                             })
                             setRePassword("")
                         }
@@ -227,11 +227,11 @@ const Index = () => {
                                             <div className='form-group'>
                                                 <input
                                                     onChange={e => handleChangeInformation(e)}
-                                                    type="date"
-                                                    name='dateOfBirth'
+                                                    type="number"
+                                                    name='age'
                                                     className="form-control form-control-lg"
                                                     placeholder="Date of Birth"
-                                                    value={employee.dateOfBirth}
+                                                    value={employee.age}
                                                     required
                                                 />
                                             </div>

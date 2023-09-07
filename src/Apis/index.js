@@ -92,6 +92,21 @@ export const fetchTopViewProductsLaptopCollecting = async () => {
     return req.data
 }
 
+export const fetchTotalEmployee = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalEmployee`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalEmployeeWorking = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalEmployeeWorking`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalAgeEmployee = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalAgeEmployee`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchUpdateLaptopCollecting = async (src, data) => {
     const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
     return req.data

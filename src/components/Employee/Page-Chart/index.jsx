@@ -5,7 +5,11 @@ import ChartRole from 'components/Employee/Page-Chart/ChartRole'
 import ChartStaffAge from 'components/Employee/Page-Chart/ChartStaffAge'
 import ChartSalaryStaffOfMonth from 'components/Employee/Page-Chart/ChartSalaryStaffOfMonth'
 import ChartSalaryOfRole from 'components/Employee/Page-Chart/ChartSalaryOfRole'
-
+import {
+    fetchTotalEmployee,
+    fetchTotalEmployeeWorking,
+    fetchTotalAgeEmployee
+} from 'Apis'
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const [totalStaff, setTotalStaff] = useState(null)
@@ -21,26 +25,23 @@ const Index = () => {
     const [topStaff, setTopStaff] = useState(null)
 
     const fetchTotalStaff = () => {
-        // fetchTotalGoodsLaptopCollecting()
-        //     .then(result => {
-        //         console.log(1)
-        //         setTotalStaff(result.total)
-        //     })
-        //     .catch(error => {
-        //         setTotalStaff(0)
-        //         console.log(error)
-        //     })
+        fetchTotalEmployee()
+            .then(result => {
+                setTotalStaff(result.total)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     const fetchTotalStaffWorking = () => {
-        // fetchTotalGoodsLaptopCollecting()
-        //     .then(result => {
-        //         console.log(1)
-        //         setTotalStaff(result.total)
-        //     })
-        //     .catch(error => {
-        //         setTotalStaff(0)
-        //         console.log(error)
-        //     })
+        fetchTotalEmployeeWorking()
+            .then(result => {
+                setTotalStaffWorking(result.total)
+            })
+            .catch(error => {
+                setTotalStaffWorking(0)
+                console.log(error)
+            })
     }
     const fetchTotalStaffSalary = () => {
         // fetchTotalGoodsLaptopCollecting()
@@ -86,6 +87,16 @@ const Index = () => {
         //         console.log(error)
         //     })
     }
+    const fetchTotalAgeStaff = () => {
+        fetchTotalAgeEmployee()
+            .then(result => {
+                setTotalAgeStaff(result.totalAgeEmployee)
+            })
+            .catch(error => {
+                setTotalAgeStaff(0)
+                console.log(error)
+            })
+    }
     const getCurrentMonthName = () => {
         const currentDate = new Date();
         const monthNames = [
@@ -99,7 +110,9 @@ const Index = () => {
 
     const currentMonthName = getCurrentMonthName();
     useEffect(() => {
-
+        fetchTotalStaff()
+        fetchTotalStaffWorking()
+        fetchTotalAgeStaff()
     }, []);
     const handleResetData = (event, name) => {
         switch (name) {
@@ -158,7 +171,7 @@ const Index = () => {
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalStaffWorking)}</p>
-                                    <p></p>
+                                    <p>{formatter.format(totalStaffWorking/totalStaff * 100)}% / Total Staff</p>
                                 </>
                             }
                         </div>
@@ -234,7 +247,7 @@ const Index = () => {
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Sold - Target Orders ( {currentMonthName} )</h4>
                                     {/* <ChartSoldOrdersOfMonth /> */}
-                                    {totalTotalOrderChart ? <ChartSoldOrdersOfMonth totalTotalOrderChart={totalTotalOrderChart} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
+                                    {totalTotalOrderChart ? <ChartSoldOrdersOfMonth totalTotalOrderChart={totalTotalOrderChart} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -247,7 +260,7 @@ const Index = () => {
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Staff Status </h4>
                                     {/* <ChartStaffStatus /> */}
-                                    {totalStatusStaff ? <ChartStaffStatus totalStatusStaff={totalStatusStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
+                                    {totalStatusStaff ? <ChartStaffStatus totalStatusStaff={totalStatusStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -260,7 +273,7 @@ const Index = () => {
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Role</h4>
                                     {/* <ChartRole /> */}
-                                    {totalRole ? <ChartRole totalRole={totalRole} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
+                                    {totalRole ? <ChartRole totalRole={totalRole} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -273,7 +286,7 @@ const Index = () => {
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Staff Age</h4>
                                     {/* <ChartStaffAge /> */}
-                                    {totalAgeStaff ? <ChartStaffAge totalAgeStaff={totalAgeStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>}
+                                    {totalAgeStaff ? <ChartStaffAge totalAgeStaff={totalAgeStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -330,23 +343,23 @@ const Index = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                
+
                                                 {topStaff ? topStaff.map(item => {
                                                     return <tr className="odd selected">
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Order</td>
-                                                    <td>
-                                                        1</td>
-                                                    <td>
-                                                        230,000 VND</td>
-                                                    <td>
-                                                        Active</td>
-                                                </tr>
+                                                        <td className="sorting_1">
+                                                            Car insurance</td>
+                                                        <td>
+                                                            Order</td>
+                                                        <td>
+                                                            1</td>
+                                                        <td>
+                                                            230,000 VND</td>
+                                                        <td>
+                                                            Active</td>
+                                                    </tr>
                                                 }) : <tr>
                                                     <td colSpan="5" style={{ textAlign: 'center' }}>
-                                                        <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>
+                                                        <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>
                                                     </td>
                                                 </tr>
                                                 }
