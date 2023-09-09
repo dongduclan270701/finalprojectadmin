@@ -1,6 +1,6 @@
-import React, { useEffect, useState, memo } from 'react';
-import * as am5 from '@amcharts/amcharts5';
-import * as am5xy from '@amcharts/amcharts5/xy';
+import React, { useEffect, memo } from 'react'
+import * as am5 from '@amcharts/amcharts5'
+import * as am5xy from '@amcharts/amcharts5/xy'
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 
 const Index = (props) => {
@@ -14,11 +14,8 @@ const Index = (props) => {
         ChartSoldOrderOfMonth.dateFormatter.setAll({
             dateFormat: "dd/MM/yyyy",
             dateFields: ["valueX"]
-        });
+        })
         let setData = totalSoldByDay ? totalSoldByDay : []
-
-        //Order target
-
         let data = setData.map(item => ({
             value: item.totalSold,
             day: (item.day).toString().padStart(2, '0') + "/08/2023"
@@ -41,16 +38,11 @@ const Index = (props) => {
                 minGridDistance: 50, pan: "zoom"
             }),
             tooltip: am5.Tooltip.new(ChartSoldOrderOfMonth, {})
-        }));
-
+        }))
         let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSoldOrderOfMonth, {
             maxDeviation: 1,
             renderer: am5xy.AxisRendererY.new(ChartSoldOrderOfMonth, { pan: "zoom" })
-        }));
-
-
-        // Add series
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+        }))
         let series = chart.series.push(am5xy.SmoothedXLineSeries.new(ChartSoldOrderOfMonth, {
             minBulletDistance: 10,
             connect: false,
@@ -62,8 +54,7 @@ const Index = (props) => {
                 pointerOrientation: "horizontal",
                 labelText: "Sold: {valueY}"
             })
-        }));
-
+        }))
         series.fills.template.setAll({ fillOpacity: 0.2, visible: true })
         let rangeDataItem = yAxis.makeDataItem({
             value: 0,
@@ -82,8 +73,8 @@ const Index = (props) => {
         series.data.processor = am5.DataProcessor.new(ChartSoldOrderOfMonth, {
             dateFormat: "dd/MM/yyyy",
             dateFields: ["day"]
-        });
-        series.data.setAll(data);
+        })
+        series.data.setAll(data)
         series.bullets.push(function () {
             let circle = am5.Circle.new(ChartSoldOrderOfMonth, {
                 radius: 4,
@@ -104,13 +95,13 @@ const Index = (props) => {
         })
         let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSoldOrderOfMonth, {
             xAxis: xAxis
-        }));
+        }))
         cursor.lineY.set("visible", false)
         chart.appear(1000, 100);
         return () => {
             ChartSoldOrderOfMonth.dispose()
-        };
-}, [totalSoldByDay])
+        }
+    }, [totalSoldByDay])
     return (
         <div id="ChartSoldOrderOfMonth" style={{ width: '100%', height: '500px' }}></div>
     );

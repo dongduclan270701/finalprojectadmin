@@ -1,12 +1,12 @@
-import React, { useEffect, memo } from 'react';
-import * as am5 from '@amcharts/amcharts5';
-import * as am5xy from '@amcharts/amcharts5/xy';
-import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
+import React, { useEffect, memo } from 'react'
+import * as am5 from '@amcharts/amcharts5'
+import * as am5xy from '@amcharts/amcharts5/xy'
+import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 
 const Index = (props) => {
     const { soldProductsByCategory } = props
     useEffect(() => {
-        let ChartViewOnCategory = am5.Root.new("ChartViewOnCategory");
+        let ChartViewOnCategory = am5.Root.new("ChartViewOnCategory")
         ChartViewOnCategory._logo.dispose()
         ChartViewOnCategory.setThemes([
             am5themes_Animated.new(ChartViewOnCategory)
@@ -18,9 +18,9 @@ const Index = (props) => {
             wheelY: "zoomX",
             pinchZoomX: true
         }))
-        let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartViewOnCategory, {}));
+        let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartViewOnCategory, {}))
         cursor.lineY.set("visible", false)
-        let xRenderer = am5xy.AxisRendererX.new(ChartViewOnCategory, { minGridDistance: 30 });
+        let xRenderer = am5xy.AxisRendererX.new(ChartViewOnCategory, { minGridDistance: 30 })
         xRenderer.labels.template.setAll({
             rotation: -90,
             centerY: am5.p50,
@@ -64,7 +64,7 @@ const Index = (props) => {
             return chart.get("colors").getIndex(series.columns.indexOf(target))
         })
         series.columns.template.adapters.add("stroke", function (stroke, target) {
-            return chart.get("colors").getIndex(series.columns.indexOf(target));
+            return chart.get("colors").getIndex(series.columns.indexOf(target))
         })
         let setData = soldProductsByCategory ? soldProductsByCategory : []
         let data = setData.map(item => ({
@@ -77,11 +77,11 @@ const Index = (props) => {
         chart.appear(1000, 100)
         return () => {
             ChartViewOnCategory.dispose()
-        };
+        }
     }, [soldProductsByCategory])
     return (
         <div id="ChartViewOnCategory" style={{ width: '100%', height: '500px' }}></div>
-    );
+    )
 }
 
 export default memo(Index);

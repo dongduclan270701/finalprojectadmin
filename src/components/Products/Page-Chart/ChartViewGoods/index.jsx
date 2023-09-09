@@ -14,7 +14,7 @@ const Index = (props) => {
             ChartSalaryStaffOfMonth.dateFormatter.setAll({
                 dateFormat: "dd/MM/yyyy",
                 dateFields: ["valueX"]
-            });
+            })
             let setData = totalViewByDay ? totalViewByDay : []
             let data = setData.map(item => ({
                 value: item.totalView,
@@ -38,16 +38,11 @@ const Index = (props) => {
                     minGridDistance: 50, pan: "zoom"
                 }),
                 tooltip: am5.Tooltip.new(ChartSalaryStaffOfMonth, {})
-            }));
-
+            }))
             let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(ChartSalaryStaffOfMonth, {
                 maxDeviation: 1,
                 renderer: am5xy.AxisRendererY.new(ChartSalaryStaffOfMonth, { pan: "zoom" })
-            }));
-
-
-            // Add series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+            }))
             let series = chart.series.push(am5xy.SmoothedXLineSeries.new(ChartSalaryStaffOfMonth, {
                 minBulletDistance: 10,
                 connect: false,
@@ -59,8 +54,7 @@ const Index = (props) => {
                     pointerOrientation: "horizontal",
                     labelText: "{valueY} views"
                 })
-            }));
-
+            }))
             series.fills.template.setAll({ fillOpacity: 0.2, visible: true })
             let rangeDataItem = yAxis.makeDataItem({
                 value: 0,
@@ -101,12 +95,12 @@ const Index = (props) => {
             })
             let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSalaryStaffOfMonth, {
                 xAxis: xAxis
-            }));
+            }))
             cursor.lineY.set("visible", false)
             chart.appear(1000, 100);
             return () => {
                 ChartSalaryStaffOfMonth.dispose()
-            };
+            }
     }, [totalViewByDay])
         return (
             <div id="ChartSalaryStaffOfMonth" style={{ width: '100%', height: '500px' }}></div>

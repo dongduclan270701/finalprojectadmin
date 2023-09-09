@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import ChartSoldOrdersOfMonth from 'components/Employee/Page-Chart/ChartSoldOrderOfMonth'
+import React, { useState, useEffect, memo } from 'react'
+import ChartSoldProductOfMonth from 'components/Employee/Page-Chart/ChartSoldProductOfMonth'
 import ChartStaffStatus from 'components/Employee/Page-Chart/ChartStaffStatus'
 import ChartRole from 'components/Employee/Page-Chart/ChartRole'
 import ChartStaffAge from 'components/Employee/Page-Chart/ChartStaffAge'
-import ChartSalaryStaffOfMonth from 'components/Employee/Page-Chart/ChartSalaryStaffOfMonth'
-import ChartSalaryOfRole from 'components/Employee/Page-Chart/ChartSalaryOfRole'
+import _ from 'lodash';
 import {
     fetchTotalEmployee,
     fetchTotalEmployeeWorking,
-    fetchTotalAgeEmployee
+    fetchTotalAgeEmployee,
+    fetchTotalRole,
+    fetchTotalSoldInMonth,
+    fetchTotalChartSoldInMonth,
+    fetchTopEmployeeHighestValue,
+    fetchTotalChartOrderInMonth
 } from 'Apis'
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const [totalStaff, setTotalStaff] = useState(null)
     const [totalStaffWorking, setTotalStaffWorking] = useState(null)
     const [totalStaffSalary, setTotalStaffSalary] = useState(null)
-    const [totalKPIRate, setKPIRate] = useState(null)
-    const [totalTotalOrder, setTotalOrder] = useState(null)
-    const [totalTotalSold, setTotalSold] = useState(null)
-    const [totalTotalOrderChart, setTotalOrderChart] = useState(null)
+    const [totalKPI, setKPI] = useState(null)
+    const [totalOrder, setTotalOrder] = useState(null)
+    const [totalSoldInMonth, setTotalSoldInMonth] = useState(null)
+    const [totalSoldInYear, setTotalSoldInYear] = useState(null)
+    const [totalProductChart, setTotalOrderChart] = useState(null)
     const [totalStatusStaff, setTotalStatusStaff] = useState(null)
     const [totalRole, setTotalRole] = useState(null)
     const [totalAgeStaff, setTotalAgeStaff] = useState(null)
     const [topStaff, setTopStaff] = useState(null)
-
     const fetchTotalStaff = () => {
         fetchTotalEmployee()
             .then(result => {
@@ -43,57 +47,99 @@ const Index = () => {
                 console.log(error)
             })
     }
-    const fetchTotalStaffSalary = () => {
-        // fetchTotalGoodsLaptopCollecting()
-        //     .then(result => {
-        //         console.log(1)
-        //         setTotalStaff(result.total)
-        //     })
-        //     .catch(error => {
-        //         setTotalStaff(0)
-        //         console.log(error)
-        //     })
-    }
-    const fetchTotalKPIRate = () => {
-        // fetchTotalGoodsLaptopCollecting()
-        //     .then(result => {
-        //         console.log(1)
-        //         setTotalStaff(result.total)
-        //     })
-        //     .catch(error => {
-        //         setTotalStaff(0)
-        //         console.log(error)
-        //     })
-    }
     const fetchTotalOrder = () => {
-        // fetchTotalGoodsLaptopCollecting()
-        //     .then(result => {
-        //         console.log(1)
-        //         setTotalStaff(result.total)
-        //     })
-        //     .catch(error => {
-        //         setTotalStaff(0)
-        //         console.log(error)
-        //     })
+        fetchTotalChartOrderInMonth()
+            .then(result => {
+                let total = {
+                    totalOrderInMonth: _.sumBy(result.resultTotal, 'totalOrderInMonth'),
+                    totalOrderInYear: _.sumBy(result.resultTotal, 'totalOrderInYear')
+                };
+                setTotalOrder(total)
+            })
+            .catch(error => {
+                setTotalOrder(0)
+                console.log(error)
+            })
     }
     const fetchTotalSold = () => {
-        // fetchTotalGoodsLaptopCollecting()
-        //     .then(result => {
-        //         console.log(1)
-        //         setTotalStaff(result.total)
-        //     })
-        //     .catch(error => {
-        //         setTotalStaff(0)
-        //         console.log(error)
-        //     })
+        fetchTotalSoldInMonth()
+            .then(result => {
+                let total = {
+                    soldProductMonth: _.sumBy(result.resultTotal, 'totalSoldProductInMonth'),
+                    soldProductYear: _.sumBy(result.resultTotal, 'totalSoldProductInYear')
+                };
+                setTotalSoldInMonth(total.soldProductMonth)
+                setTotalSoldInYear(total.soldProductYear)
+            })
+            .catch(error => {
+                setTotalStaff(0)
+                console.log(error)
+            })
     }
     const fetchTotalAgeStaff = () => {
         fetchTotalAgeEmployee()
             .then(result => {
+                setTotalStatusStaff(result.totalAgeEmployee)
                 setTotalAgeStaff(result.totalAgeEmployee)
             })
             .catch(error => {
                 setTotalAgeStaff(0)
+                console.log(error)
+            })
+    }
+    const fetchAPITotalRole = () => {
+        fetchTotalRole()
+            .then(result => {
+                setTotalRole(result)
+            })
+            .catch(error => {
+                setTotalAgeStaff(0)
+                console.log(error)
+            })
+    }
+    const fetchTotalChartSold = () => {
+        fetchTotalChartSoldInMonth()
+            .then(result => {
+                let total = {
+                    target: _.sumBy(result.resultTotal, 'target'),
+                    salary: _.sumBy(result.resultTotal, 'salary')
+                }
+                const combinedData = result.resultTotal.reduce((accumulator, currentValue) => {
+                    currentValue.soldProductInMonth.forEach(item => {
+                        const { day, month, soldProduct, amount } = item;
+                        const key = `${day}`;
+                        if (!accumulator[key]) {
+                            accumulator[key] = {
+                                day,
+                                month,
+                                totalSoldProduct: 0,
+                                totalAmount: 0
+                            };
+                        }
+                        accumulator[key].totalSoldProduct += soldProduct
+                        accumulator[key].totalAmount += amount
+                    });
+                    return accumulator;
+                }, {});
+                setKPI(total)
+                let totalAmountPercent = {
+                    profit: _.sumBy(Object.values(combinedData), 'totalAmount')
+                }
+                setTotalStaffSalary(totalAmountPercent.profit * 0.02 + total.salary )
+                setTotalOrderChart(Object.values(combinedData))
+            })
+            .catch(error => {
+                setTotalOrderChart([]);
+                console.log(error)
+            })
+    }
+    const fetchTopEmployee = () => {
+        fetchTopEmployeeHighestValue()
+            .then(result => {
+                setTopStaff(result.topEmployeeHighestValue)
+            })
+            .catch(error => {
+                setTopStaff([]);
                 console.log(error)
             })
     }
@@ -107,12 +153,16 @@ const Index = () => {
         const currentMonthName = monthNames[currentMonthIndex];
         return currentMonthName;
     }
-
     const currentMonthName = getCurrentMonthName();
     useEffect(() => {
         fetchTotalStaff()
         fetchTotalStaffWorking()
         fetchTotalAgeStaff()
+        fetchAPITotalRole()
+        fetchTotalSold()
+        fetchTotalChartSold()
+        fetchTopEmployee()
+        fetchTotalOrder()
     }, []);
     const handleResetData = (event, name) => {
         switch (name) {
@@ -124,20 +174,12 @@ const Index = () => {
                 setTotalStaffWorking(null)
                 fetchTotalStaffWorking()
                 break;
-            case "totalStaffSalary":
-                setTotalStaffSalary(null)
-                fetchTotalStaffSalary()
-                break;
-            case "totalKPIRate":
-                setKPIRate(null)
-                fetchTotalKPIRate()
-                break;
-            case "totalTotalOrder":
+            case "totalOrder":
                 setTotalOrder(null)
                 fetchTotalOrder()
                 break;
-            case "totalTotalSold":
-                setTotalSold(null)
+            case "totalSoldInMonth":
+                setTotalSoldInMonth(null)
                 fetchTotalSold()
                 break;
             default:
@@ -171,7 +213,7 @@ const Index = () => {
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalStaffWorking)}</p>
-                                    <p>{formatter.format(totalStaffWorking/totalStaff * 100)}% / Total Staff</p>
+                                    <p>{formatter.format(totalStaffWorking / totalStaff * 100)}% / Total Staff</p>
                                 </>
                             }
                         </div>
@@ -185,7 +227,7 @@ const Index = () => {
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
-                                    <p className="fs-25 mb-2">{formatter.format(totalStaffSalary)}</p>
+                                    <p className="fs-25 mb-2">{formatter.format(totalStaffSalary)} VNĐ</p>
                                     <p>0.22% (12 Months in 2023)</p>
                                 </>
                             }
@@ -196,11 +238,11 @@ const Index = () => {
                     <div className="card card-light-blue">
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>KPI rate <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalKPIRate")} /></p>
-                            {totalKPIRate === null ?
+                            {totalKPI === null ?
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
-                                    <p className="fs-25 mb-2">{formatter.format(totalKPIRate)}%</p>
+                                    <p className="fs-25 mb-2">{formatter.format(totalSoldInMonth / totalKPI.target * 100)}%</p>
                                     <p></p>
                                 </>
                             }
@@ -210,13 +252,13 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order quantity <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalTotalOrder")} /></p>
-                            {totalTotalOrder === null ?
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order quantity <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            {totalOrder === null ?
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
-                                    <p className="fs-25 mb-2">{formatter.format(totalTotalOrder)}</p>
-                                    <p>22.00% / Total staff worked</p>
+                                    <p className="fs-25 mb-2">{formatter.format(totalOrder.totalOrderInMonth)}</p>
+                                    <p>{formatter.format(totalOrder.totalOrderInMonth / totalOrder.totalOrderInYear * 100)}% / Total staff worked</p>
                                 </>
                             }
                         </div>
@@ -225,29 +267,28 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total number of goods sold <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalTotalSold")} /></p>
-                            {totalTotalSold === null ?
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total number of goods sold <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalSoldInMonth")} /></p>
+                            {totalSoldInMonth === null ?
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
-                                    <p className="fs-25 mb-2">{formatter.format(totalTotalSold)} VND</p>
-                                    <p>0.22% (12 Months in 2023)</p>
+                                    <p className="fs-25 mb-2">{formatter.format(totalSoldInMonth)}</p>
+                                    <p>{formatter.format(totalSoldInMonth / totalSoldInYear * 100)}% (12 Months in 2023)</p>
                                 </>
                             }
                         </div>
                     </div>
                 </div>
             </div>
-
             <div className="row">
                 <div className="col-lg-8 stretch-card">
                     <div className="card" style={{ "marginBottom": "25px" }}>
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Sold - Target Orders ( {currentMonthName} )</h4>
-                                    {/* <ChartSoldOrdersOfMonth /> */}
-                                    {totalTotalOrderChart ? <ChartSoldOrdersOfMonth totalTotalOrderChart={totalTotalOrderChart} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
+                                    <h4>Chart Sold - Target Product ( {currentMonthName} )</h4>
+                                    {/* <ChartSoldProductOfMonth /> */}
+                                    {totalProductChart ? <ChartSoldProductOfMonth totalProductChart={totalProductChart} totalKPI={totalKPI} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -292,30 +333,6 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="col-lg-8 stretch-card">
-                    <div className="card" style={{ "marginBottom": "25px" }}>
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Salary Staff of Month</h4>
-                                    <ChartSalaryStaffOfMonth />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-lg-4 stretch-card">
-                    <div className="card" style={{ "marginBottom": "25px" }}>
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart total Salary Staff of Month</h4>
-                                    <ChartSalaryOfRole />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
             </div>
             <div className="row">
                 <div className="col-md-12 grid-margin stretch-card">
@@ -343,19 +360,18 @@ const Index = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 {topStaff ? topStaff.map(item => {
                                                     return <tr className="odd selected">
                                                         <td className="sorting_1">
-                                                            Car insurance</td>
+                                                            {item.username}</td>
                                                         <td>
-                                                            Order</td>
+                                                        {item.role}</td>
                                                         <td>
-                                                            1</td>
+                                                        {item.totalProduct}</td>
                                                         <td>
-                                                            230,000 VND</td>
+                                                        {formatter.format(item.totalAmount)} VND</td>
                                                         <td>
-                                                            Active</td>
+                                                        {item.status === true ? 'Active' : 'Deactivate'}</td>
                                                     </tr>
                                                 }) : <tr>
                                                     <td colSpan="5" style={{ textAlign: 'center' }}>
@@ -364,7 +380,6 @@ const Index = () => {
                                                 </tr>
                                                 }
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
@@ -377,4 +392,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);

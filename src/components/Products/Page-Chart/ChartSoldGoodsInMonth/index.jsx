@@ -6,7 +6,7 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 const Index = (props) => {
     const { soldProductsByCategory } = props
     useEffect(() => {
-        let ChartSoldOnCategory = am5.Root.new("ChartSoldOnCategory");
+        let ChartSoldOnCategory = am5.Root.new("ChartSoldOnCategory")
         ChartSoldOnCategory._logo.dispose()
         ChartSoldOnCategory.setThemes([
             am5themes_Animated.new(ChartSoldOnCategory)
@@ -18,7 +18,7 @@ const Index = (props) => {
             wheelY: "zoomX",
             pinchZoomX: true
         }))
-        let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSoldOnCategory, {}));
+        let cursor = chart.set("cursor", am5xy.XYCursor.new(ChartSoldOnCategory, {}))
         cursor.lineY.set("visible", false)
         let xRenderer = am5xy.AxisRendererX.new(ChartSoldOnCategory, { minGridDistance: 30 });
         xRenderer.labels.template.setAll({
@@ -64,7 +64,7 @@ const Index = (props) => {
             return chart.get("colors").getIndex(series.columns.indexOf(target))
         })
         series.columns.template.adapters.add("stroke", function (stroke, target) {
-            return chart.get("colors").getIndex(series.columns.indexOf(target));
+            return chart.get("colors").getIndex(series.columns.indexOf(target))
         })
         let setData = soldProductsByCategory ? soldProductsByCategory : []
         let data = setData.map(item => ({

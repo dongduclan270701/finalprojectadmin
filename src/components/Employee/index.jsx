@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom';
 import { fetchListOfEmployee, fetchSearchEmployee } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
@@ -13,10 +13,9 @@ const Index = () => {
     const [countPage, setCountPage] = useState(1)
     const [countMaxPage, setCountMaxPage] = useState(1)
     const [search, setSearch] = useState({ email: "", role: "", status: "" })
-    const [searchTimeout, setSearchTimeout] = useState(null);
-    const [inputFocused, setInputFocused] = useState(false);
+    const [searchTimeout, setSearchTimeout] = useState(null)
+    const [inputFocused, setInputFocused] = useState(false)
     const [error, setError] = useState(null)
-
     useEffect(() => {
         fetchListOfEmployee(1)
             .then(result => {
@@ -41,7 +40,6 @@ const Index = () => {
                 setLoading(false)
             })
     }, [state])
-
     const handleSetPage = (count) => {
         setEmployeeList()
         setCountPage(count)
@@ -53,15 +51,12 @@ const Index = () => {
                 console.log(error)
             })
     }
-
     const handleSearchEmployee = (e) => {
         setEmployeeList()
-        const { name, value } = e.target;
-
+        const { name, value } = e.target
         if (searchTimeout) {
-            clearTimeout(searchTimeout);
+            clearTimeout(searchTimeout)
         }
-
         if (inputFocused) {
             const timeoutId = setTimeout(() => {
                 setSearch({ ...search, [name]: value })
@@ -69,23 +64,20 @@ const Index = () => {
                     .then((result) => {
                         setEmployeeList(result.data);
                         if (0 < result.total % 10 && result.total % 10 < 10) {
-                            setCountMaxPage(Math.floor(result.total / 10) + 1);
+                            setCountMaxPage(Math.floor(result.total / 10) + 1)
                         } else if (result.total === 0) {
-                            setCountMaxPage(1);
+                            setCountMaxPage(1)
                         } else {
-                            setCountMaxPage(Math.floor(result.total / 10));
+                            setCountMaxPage(Math.floor(result.total / 10))
                         }
                     })
                     .catch((error) => {
-                        console.log(error);
-                    });
-            }, 1000);
-
-            setSearchTimeout(timeoutId);
+                        console.log(error)
+                    })
+            }, 1000)
+            setSearchTimeout(timeoutId)
         }
-    };
-
-
+    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -240,7 +232,7 @@ const Index = () => {
             </div>
             <Footer />
         </div>
-    );
+    )
 }
 
 export default Index;

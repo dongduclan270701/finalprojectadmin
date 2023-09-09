@@ -33,12 +33,10 @@ const Index = () => {
             .catch(err => {
                 console.log(err)
             })
-
     }, [params])
     const handleGetImg = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
         const file = e.target.files;
-
         if (file.length > 0) {
             setImageChoose(fileArray)
             setImage(file)
@@ -49,11 +47,9 @@ const Index = () => {
         }
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
-
     const handleGetCV = (e) => {
         const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
         const file = e.target.files;
-
         if (file.length > 0) {
             setCvChoose(fileArray)
             setCv(file)
@@ -64,7 +60,6 @@ const Index = () => {
         }
         Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
     }
-
     const handleSubmitUpdate = () => {
         if (changeForm === true) {
             if (!employee.username) {
@@ -262,13 +257,11 @@ const Index = () => {
             })
         }
     }
-
     const handleChangeInformation = (e) => {
         setChangeForm(true)
         const { name, value } = e.target
         setEmployee({ ...employee, [name]: value })
     }
-
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -373,9 +366,7 @@ const Index = () => {
                                                 </div>
                                             </div>
                                             <img src={cvChoose} className="img-fluid " alt="" style={{ width: "inherit", margin: "0 auto", padding: "10px" }} />
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

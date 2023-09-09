@@ -107,6 +107,31 @@ export const fetchTotalAgeEmployee = async () => {
     return req.data
 }
 
+export const fetchTotalRole = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalRole`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalSoldInMonth = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalSoldInMonth`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalChartSoldInMonth = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalChartSoldInMonth`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalChartOrderInMonth = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/totalChartOrderInMonth`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTopEmployeeHighestValue = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/employeeChart/topEmployeeHighestValue`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchUpdateLaptopCollecting = async (src, data) => {
     const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
     return req.data

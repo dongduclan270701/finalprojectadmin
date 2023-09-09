@@ -39,7 +39,6 @@ const Index = (props) => {
     const [soldProductsByCategory, setSoldProductsByCategory] = useState(null)
     const [topSoldProducts, setTopSoldProducts] = useState(null)
     const [topViewProducts, setTopViewProducts] = useState(null)
-
     const fetchTotalGoods = () => {
         fetchTotalGoodsLaptopCollecting()
             .then(result => {
@@ -173,7 +172,6 @@ const Index = (props) => {
                 console.log(error)
             })
     }
-
     useEffect(() => {
         if (optionSelectLaptop.length > 0) {
             fetchTotalGoods()
@@ -191,11 +189,9 @@ const Index = (props) => {
             fetchCountGoodsByCategory(optionSelectLaptop)
         }
     }, [optionSelectLaptop]);
-
     const handleChangeChart = () => {
         setChangeChart(!changeChart)
     }
-
     const getCurrentMonthName = () => {
         const currentDate = new Date();
         const monthNames = [
@@ -206,9 +202,7 @@ const Index = (props) => {
         const currentMonthName = monthNames[currentMonthIndex];
         return currentMonthName;
     }
-
-    const currentMonthName = getCurrentMonthName();
-
+    const currentMonthName = getCurrentMonthName()
     const handleResetData = (event, name) => {
         switch (name) {
             case "totalGoods":
@@ -307,7 +301,6 @@ const Index = (props) => {
                                     <p>{formatter.format((totalSoldOfMonth / totalSoldInYear) * 100)}% / Year</p>
                                 </>
                             }
-
                         </div>
                     </div>
                 </div>
