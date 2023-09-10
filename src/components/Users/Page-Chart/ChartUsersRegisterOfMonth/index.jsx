@@ -5,7 +5,6 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 
 const Index = () => {
     useEffect(() => {
-        am5.ready(function () {
             let ChartUsersRegisterOfMonth = am5.Root.new("ChartUsersRegisterOfMonth")
             ChartUsersRegisterOfMonth.setThemes([
                 am5themes_Animated.new(ChartUsersRegisterOfMonth)
@@ -97,7 +96,9 @@ const Index = () => {
             }))
             cursor.lineY.set("visible", false)
             chart.appear(1000, 100)
-        })
+            return () => {
+                ChartUsersRegisterOfMonth.dispose()
+            };
     }, [])
     return (
         <div id="ChartUsersRegisterOfMonth" style={{ width: '100%', height: '500px' }}></div>

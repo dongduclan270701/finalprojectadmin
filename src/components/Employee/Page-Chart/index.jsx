@@ -1,9 +1,10 @@
 import React, { useState, useEffect, memo } from 'react'
 import ChartSoldProductOfMonth from 'components/Employee/Page-Chart/ChartSoldProductOfMonth'
+import ChartOrderOfMonth from 'components/Employee/Page-Chart/ChartOrderOfMonth'
 import ChartStaffStatus from 'components/Employee/Page-Chart/ChartStaffStatus'
 import ChartRole from 'components/Employee/Page-Chart/ChartRole'
 import ChartStaffAge from 'components/Employee/Page-Chart/ChartStaffAge'
-import _ from 'lodash';
+import _ from 'lodash'
 import {
     fetchTotalEmployee,
     fetchTotalEmployeeWorking,
@@ -12,6 +13,7 @@ import {
     fetchTotalSoldInMonth,
     fetchTotalChartSoldInMonth,
     fetchTopEmployeeHighestValue,
+    fetchTotalOrderInMonth,
     fetchTotalChartOrderInMonth
 } from 'Apis'
 const Index = () => {
@@ -23,11 +25,13 @@ const Index = () => {
     const [totalOrder, setTotalOrder] = useState(null)
     const [totalSoldInMonth, setTotalSoldInMonth] = useState(null)
     const [totalSoldInYear, setTotalSoldInYear] = useState(null)
-    const [totalProductChart, setTotalOrderChart] = useState(null)
+    const [totalProductChart, setTotalProductChart] = useState(null)
+    const [totalOrderChart, setTotalOrderChart] = useState(null)
     const [totalStatusStaff, setTotalStatusStaff] = useState(null)
     const [totalRole, setTotalRole] = useState(null)
     const [totalAgeStaff, setTotalAgeStaff] = useState(null)
     const [topStaff, setTopStaff] = useState(null)
+    const [changeChart, setChangeChart] = useState(false)
     const fetchTotalStaff = () => {
         fetchTotalEmployee()
             .then(result => {
@@ -48,12 +52,12 @@ const Index = () => {
             })
     }
     const fetchTotalOrder = () => {
-        fetchTotalChartOrderInMonth()
+        fetchTotalOrderInMonth()
             .then(result => {
                 let total = {
                     totalOrderInMonth: _.sumBy(result.resultTotal, 'totalOrderInMonth'),
                     totalOrderInYear: _.sumBy(result.resultTotal, 'totalOrderInYear')
-                };
+                }
                 setTotalOrder(total)
             })
             .catch(error => {
@@ -67,7 +71,7 @@ const Index = () => {
                 let total = {
                     soldProductMonth: _.sumBy(result.resultTotal, 'totalSoldProductInMonth'),
                     soldProductYear: _.sumBy(result.resultTotal, 'totalSoldProductInYear')
-                };
+                }
                 setTotalSoldInMonth(total.soldProductMonth)
                 setTotalSoldInYear(total.soldProductYear)
             })
@@ -106,30 +110,57 @@ const Index = () => {
                 }
                 const combinedData = result.resultTotal.reduce((accumulator, currentValue) => {
                     currentValue.soldProductInMonth.forEach(item => {
-                        const { day, month, soldProduct, amount } = item;
-                        const key = `${day}`;
+                        const { day, month, soldProduct, amount } = item
+                        const key = `${day}`
                         if (!accumulator[key]) {
                             accumulator[key] = {
                                 day,
                                 month,
                                 totalSoldProduct: 0,
                                 totalAmount: 0
-                            };
+                            }
                         }
                         accumulator[key].totalSoldProduct += soldProduct
                         accumulator[key].totalAmount += amount
-                    });
-                    return accumulator;
-                }, {});
+                    })
+                    return accumulator
+                }, {})
                 setKPI(total)
                 let totalAmountPercent = {
                     profit: _.sumBy(Object.values(combinedData), 'totalAmount')
                 }
-                setTotalStaffSalary(totalAmountPercent.profit * 0.02 + total.salary )
+                setTotalStaffSalary(totalAmountPercent.profit * 0.02 + total.salary)
+                setTotalProductChart(Object.values(combinedData))
+            })
+            .catch(error => {
+                setTotalProductChart([])
+                console.log(error)
+            })
+    }
+    const fetchTotalOrderSold = () => {
+        fetchTotalChartOrderInMonth()
+            .then(result => {
+                const combinedData = result.resultTotal.reduce((accumulator, currentValue) => {
+                    currentValue.soldOrderInMonth.forEach(item => {
+                        const { day, month, order, amount } = item;
+                        const key = `${day}`
+                        if (!accumulator[key]) {
+                            accumulator[key] = {
+                                day,
+                                month,
+                                totalOrder: 0,
+                                totalAmount: 0
+                            };
+                        }
+                        accumulator[key].totalOrder += order
+                        accumulator[key].totalAmount += amount
+                    })
+                    return accumulator
+                }, {})
                 setTotalOrderChart(Object.values(combinedData))
             })
             .catch(error => {
-                setTotalOrderChart([]);
+                setTotalOrderChart([])
                 console.log(error)
             })
     }
@@ -153,7 +184,7 @@ const Index = () => {
         const currentMonthName = monthNames[currentMonthIndex];
         return currentMonthName;
     }
-    const currentMonthName = getCurrentMonthName();
+    const currentMonthName = getCurrentMonthName()
     useEffect(() => {
         fetchTotalStaff()
         fetchTotalStaffWorking()
@@ -163,6 +194,7 @@ const Index = () => {
         fetchTotalChartSold()
         fetchTopEmployee()
         fetchTotalOrder()
+        fetchTotalOrderSold()
     }, []);
     const handleResetData = (event, name) => {
         switch (name) {
@@ -185,6 +217,9 @@ const Index = () => {
             default:
                 break;
         }
+    }
+    const handleChangeChart = () => {
+        setChangeChart(!changeChart)
     }
     return (
         <div>
@@ -286,9 +321,21 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Sold - Target Product ( {currentMonthName} )</h4>
-                                    {/* <ChartSoldProductOfMonth /> */}
-                                    {totalProductChart ? <ChartSoldProductOfMonth totalProductChart={totalProductChart} totalKPI={totalKPI} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
+                                    {changeChart ?
+                                        <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
+                                            <h4>Chart Order In Month ( {currentMonthName} )
+                                                <p onClick={handleChangeChart} style={{ textAlign: "end", color: "blue", cursor: "pointer" }}>Goods</p>
+                                            </h4>
+                                            {totalOrderChart ? <ChartOrderOfMonth totalOrderChart={totalOrderChart} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
+                                        </div>
+                                        :
+                                        <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
+                                            <h4>Chart Sold - Target Product In Month ( {currentMonthName} )
+                                                <p onClick={handleChangeChart} style={{ textAlign: "end", color: "blue", cursor: "pointer" }}>Order</p>
+                                            </h4>
+                                            {totalProductChart ? <ChartSoldProductOfMonth totalProductChart={totalProductChart} totalKPI={totalKPI} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -300,7 +347,6 @@ const Index = () => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Staff Status </h4>
-                                    {/* <ChartStaffStatus /> */}
                                     {totalStatusStaff ? <ChartStaffStatus totalStatusStaff={totalStatusStaff} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
@@ -365,13 +411,13 @@ const Index = () => {
                                                         <td className="sorting_1">
                                                             {item.username}</td>
                                                         <td>
-                                                        {item.role}</td>
+                                                            {item.role}</td>
                                                         <td>
-                                                        {item.totalProduct}</td>
+                                                            {item.totalProduct}</td>
                                                         <td>
-                                                        {formatter.format(item.totalAmount)} VND</td>
+                                                            {formatter.format(item.totalAmount)} VND</td>
                                                         <td>
-                                                        {item.status === true ? 'Active' : 'Deactivate'}</td>
+                                                            {item.status === true ? 'Active' : 'Deactivate'}</td>
                                                     </tr>
                                                 }) : <tr>
                                                     <td colSpan="5" style={{ textAlign: 'center' }}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import "assets/scss/Banner-Ads/Banner-Slide/Banner-Slide.scss"
 import { fetchListOfUser, fetchSearchUser } from 'Apis'
@@ -6,7 +6,7 @@ import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
 import { StateContext } from 'components/Context'
 // import Chart from 'components/Users/Page-Chart'
-import Chart2 from 'components/Users/Page-Chart/index2'
+import Chart2 from 'components/Users/Page-Chart'
 const Index = () => {
     const state = useContext(StateContext)
     const [userList, setUserList] = useState([])
@@ -241,8 +241,8 @@ const Index = () => {
             </div>
             <Footer />
         </div>
-    );
+    )
 }
 
-export default Index;
+export default memo(Index);
 
