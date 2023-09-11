@@ -56,7 +56,7 @@ const Index = (props) => {
             } else {
                 return {
                     date: date,
-                    countOrder: 0,
+                    countOrdered: 0,
                     countSuccessful: 0,
                     countProcessing: 0,
                     sumOrderOrdered: 0,

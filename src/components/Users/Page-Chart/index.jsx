@@ -21,6 +21,7 @@ const Index = () => {
     const [totalUserAddGoodsToWishlist, setTotalUserAddGoodsToWishlist] = useState(null)
     const [totalUserPurchased, setTotalUserPurchased] = useState(null)
     const [totalUserJoinIn, setTotalUserJoinIn] = useState(null)
+    const [totalChartUserJoinIn, setTotalChartUserJoinIn] = useState(null)
     const [totalAgeUser, setTotalAgeUser] = useState(null)
     const [totalStatusUser, setTotalStatusUser] = useState(null)
     const [totalTopUser, setTotalTopUser] = useState(null)
@@ -77,7 +78,9 @@ const Index = () => {
     const fetchUserJoinInMonth = () => {
         fetchTotalUserJoinInMonth()
             .then(result => {
-                setTotalUserJoinIn(result.resultTotalUser)
+                const totalUserCount = result.resultTotalUser.reduce((total, item) => total + item.countUser, 0);
+                setTotalChartUserJoinIn(result.resultTotalUser)
+                setTotalUserJoinIn(totalUserCount)
             })
             .catch(error => {
                 setTotalUserJoinIn(0)
@@ -107,7 +110,6 @@ const Index = () => {
     const fetchTopHighestValue = () => {
         fetchTopUserHighestValue()
             .then(result => {
-                console.log(result.resultTopUser)
                 setTotalTopUser(result.resultTopUser)
             })
             .catch(error => {
@@ -236,7 +238,8 @@ const Index = () => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Number of Subscribers / Month</h4>
-                                    <ChartUsersRegisterOfMonth />
+                                    {/* <ChartUsersRegisterOfMonth /> */}
+                                    {totalChartUserJoinIn ? <ChartUsersRegisterOfMonth totalChartUserJoinIn={totalChartUserJoinIn} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -290,12 +293,14 @@ const Index = () => {
                                                                                 Username</th>
                                                                             <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
                                                                                 Phone Number</th>
+                                                                            <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
+                                                                                Status User</th>
                                                                             <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
                                                                                 Total Goods</th>
                                                                             <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
                                                                                 Total Amount</th>
-                                                                            <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
-                                                                                Status</th>
+                                                                                <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
+                                                                                Status Order</th>
                                                                             <th className="details-control sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "49px" }} aria-label="">
                                                                             </th>
                                                                         </tr>
@@ -310,11 +315,13 @@ const Index = () => {
                                                                                 <td>
                                                                                     {item.phoneNumber ? item.phoneNumber : ''}</td>
                                                                                 <td>
+                                                                                    {item.status === true ? 'Active' : 'Deactivate'}</td>
+                                                                                <td>
                                                                                     {item.orders.product.length}</td>
                                                                                 <td>
                                                                                     {formatter.format(item.orders.sumOrder)} VND</td>
                                                                                 <td>
-                                                                                    {item.status === true ? 'Active' : 'Deactivate'}</td>
+                                                                                    {item.orders.status}</td>
                                                                             </tr>
                                                                         }) : <tr>
                                                                             <td colSpan="5" style={{ textAlign: 'center' }}>

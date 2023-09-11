@@ -85,6 +85,17 @@ const Index = () => {
                 console.log(error)
             })
     }
+    const getCurrentMonthName = () => {
+        const currentDate = new Date();
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const currentMonthIndex = currentDate.getMonth();
+        const currentMonthName = monthNames[currentMonthIndex];
+        return currentMonthName;
+    }
+    const currentMonthName = getCurrentMonthName()
     useEffect(() => {
         fetchOrder()
         fetchOrderSuccessful()
@@ -208,7 +219,7 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Orders Of Month</h4>
+                                    <h4>Chart Orders Of Month ( {currentMonthName} )</h4>
                                     {/* <ChartOrderOfMonth /> */}
                                     {totalChartOrder ? <ChartOrderOfMonth totalChartOrder={totalChartOrder} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
@@ -221,7 +232,7 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Orders Status</h4>
+                                    <h4>Chart Orders Status In Month ( {currentMonthName} )</h4>
                                     {/* <ChartCountOrderStatus /> */}
                                     {totalOrderByStatus ? <ChartCountOrderStatus totalOrderByStatus={totalOrderByStatus} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
@@ -234,7 +245,7 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Shipping Status</h4>
+                                    <h4>Chart Shipping Status In Month ( {currentMonthName} )</h4>
                                     {/* <ChartTotalShippingStatus /> */}
                                     {totalOrderByStatus ? <ChartTotalShippingStatus totalOrderByStatus={totalOrderByStatus} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
@@ -247,7 +258,7 @@ const Index = () => {
                         <div className="card-body">
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
-                                    <h4>Chart Ships Of Month</h4>
+                                    <h4>Chart Amount Order In Month ( {currentMonthName} )</h4>
                                     {/* <ChartAmountOrderOfMonth /> */}
                                     {totalChartOrder ? <ChartAmountOrderOfMonth totalChartOrder={totalChartOrder} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
