@@ -38,6 +38,7 @@ const Index = () => {
                 setTotalStaff(result.total)
             })
             .catch(error => {
+                setTotalStaff(0)
                 console.log(error)
             })
     }

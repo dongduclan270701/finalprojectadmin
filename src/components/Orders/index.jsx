@@ -4,15 +4,13 @@ import { fetchListOfOrder, fetchSearchOrder } from 'Apis'
 import { StateContext } from 'components/Context'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
-// import Chart from 'components/Orders/Chart'
-import Chart2 from 'components/Orders/Chart/index2'
+import Chart from 'components/Orders/Chart'
 
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const state = useContext(StateContext)
     const optionSelect = ["Being transported", "Payment information confirmed", "Delivered to the carrier", "Ordered", "Delivery successful", "Cancel", "Delivery failed"]
     const [orderList, setOrderList] = useState()
-    const [chartData, setChartData] = useState([])
     const [countPage, setCountPage] = useState(1)
     const [countMaxPage, setCountMaxPage] = useState(1)
     const date = new Date();
@@ -31,8 +29,6 @@ const Index = () => {
                 state.setAuthentication(result.role)
                 setOrderList(result.data)
                 setLoading(false)
-                setChartData(result.chartData)
-                console.log(result.data)
                 if (0 < result.total % 10 && result.total % 10 < 10) {
                     setCountMaxPage(Math.floor(result.total / 10) + 1)
                 } else if (result.total === 0) {
@@ -237,7 +233,7 @@ const Index = () => {
                         }
                         {state.authentication === 'CEO' &&
                             <>
-                                <Chart2 chartData={chartData} />
+                                <Chart />
                             </>
                         }
                         {state.authentication === null &&

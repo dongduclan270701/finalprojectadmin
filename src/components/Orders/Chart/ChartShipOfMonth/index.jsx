@@ -5,7 +5,6 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 
 const Index = () => {
     useEffect(() => {
-        am5.ready(function () {
             let chartDivShipOfMonth = am5.Root.new("chartDivShipOfMonth");
             chartDivShipOfMonth.setThemes([
                 am5themes_Animated.new(chartDivShipOfMonth)
@@ -72,7 +71,9 @@ const Index = () => {
             }
             makeSeries("Successful", "successful", false)
             makeSeries("Failed", "failed", false)
-        })
+            return () => {
+                chartDivShipOfMonth.dispose()
+            };
     }, [])
     return (
         <div id="chartDivShipOfMonth" style={{ width: '100%', height: '500px' }}></div>

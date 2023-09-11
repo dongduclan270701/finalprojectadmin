@@ -182,6 +182,21 @@ export const fetchTopUserHighestValue = async () => {
     return req.data
 }
 
+export const fetchTotalOrder = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalOrder`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalOrderSuccessful = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalOrderSuccessful`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalOrderFailed = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalOrderFailed`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchUpdateLaptopCollecting = async (src, data) => {
     const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
     return req.data

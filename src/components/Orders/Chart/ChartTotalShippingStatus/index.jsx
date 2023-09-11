@@ -5,7 +5,6 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
 const Index = () => {
     useEffect(() => {
-        am5.ready(function () {
             let chartDivTotalShippingStatus = am5.Root.new("chartDivTotalShippingStatus");
             chartDivTotalShippingStatus._logo.dispose()
             chartDivTotalShippingStatus.setThemes([
@@ -37,7 +36,9 @@ const Index = () => {
             }));
             legend.data.setAll(series.dataItems);
             series.appear(1000, 100);
-        })
+            return () => {
+                chartDivTotalShippingStatus.dispose()
+            };
     }, [])
     return (
         <div id="chartDivTotalShippingStatus" style={{ width: '100%', height: '500px' }}></div>
