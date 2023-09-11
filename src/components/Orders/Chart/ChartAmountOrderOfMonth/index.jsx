@@ -6,19 +6,19 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 const Index = (props) => {
     const { totalChartOrder } = props
     useEffect(() => {
-        let chartDivOrderOfMonth = am5.Root.new("chartDivOrderOfMonth")
-        chartDivOrderOfMonth.setThemes([
-            am5themes_Animated.new(chartDivOrderOfMonth)
+        let chartDivAmountOrderOfMonth = am5.Root.new("chartDivAmountOrderOfMonth")
+        chartDivAmountOrderOfMonth.setThemes([
+            am5themes_Animated.new(chartDivAmountOrderOfMonth)
         ])
-        chartDivOrderOfMonth._logo.dispose()
-        let chart = chartDivOrderOfMonth.container.children.push(am5xy.XYChart.new(chartDivOrderOfMonth, {
+        chartDivAmountOrderOfMonth._logo.dispose()
+        let chart = chartDivAmountOrderOfMonth.container.children.push(am5xy.XYChart.new(chartDivAmountOrderOfMonth, {
             panX: false,
             panY: false,
             wheelX: "panX",
             wheelY: "zoomX",
-            layout: chartDivOrderOfMonth.verticalLayout
+            layout: chartDivAmountOrderOfMonth.verticalLayout
         }))
-        let legend = chart.children.push(am5.Legend.new(chartDivOrderOfMonth, {
+        let legend = chart.children.push(am5.Legend.new(chartDivAmountOrderOfMonth, {
             centerX: am5.p50,
             x: am5.p50
         }))
@@ -73,27 +73,27 @@ const Index = (props) => {
                 date: formattedDate
             }
         })
-        let xRenderer = am5xy.AxisRendererX.new(chartDivOrderOfMonth, {
+        let xRenderer = am5xy.AxisRendererX.new(chartDivAmountOrderOfMonth, {
             cellStartLocation: 0.1,
             cellEndLocation: 0.9
         })
-        let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(chartDivOrderOfMonth, {
+        let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(chartDivAmountOrderOfMonth, {
             categoryField: "date",
             renderer: xRenderer,
-            tooltip: am5.Tooltip.new(chartDivOrderOfMonth, {})
+            tooltip: am5.Tooltip.new(chartDivAmountOrderOfMonth, {})
         }))
         xRenderer.grid.template.setAll({
             location: 1
         })
         xAxis.data.setAll(data)
-        let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(chartDivOrderOfMonth, {
+        let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(chartDivAmountOrderOfMonth, {
             min: 0,
-            renderer: am5xy.AxisRendererY.new(chartDivOrderOfMonth, {
+            renderer: am5xy.AxisRendererY.new(chartDivAmountOrderOfMonth, {
                 strokeOpacity: 0.1
             })
         }))
         function makeSeries(name, fieldName, stacked) {
-            let series = chart.series.push(am5xy.ColumnSeries.new(chartDivOrderOfMonth, {
+            let series = chart.series.push(am5xy.ColumnSeries.new(chartDivAmountOrderOfMonth, {
                 stacked: stacked,
                 name: name,
                 xAxis: xAxis,
@@ -102,7 +102,7 @@ const Index = (props) => {
                 categoryXField: "date"
             }))
             series.columns.template.setAll({
-                tooltipText: "{name}: {categoryX}: {valueY} Orders",
+                tooltipText: "{name}: {categoryX}: {valueY} VNĐ",
                 width: am5.percent(90),
                 tooltipY: am5.percent(10),
                 strokeOpacity: 0
@@ -111,16 +111,16 @@ const Index = (props) => {
             series.appear()
             legend.data.push(series)
         }
-        makeSeries("Ordered", "countOrdered", true)
-        makeSeries("Processing", "countProcessing", true)
-        makeSeries("Successful", "countSuccessful", false)
+        makeSeries("Ordered", "sumOrderOrdered", true)
+        makeSeries("Processing", "sumOrderProcessing", true)
+        makeSeries("Successful", "sumOrderSuccessful", false)
 
         return () => {
-            chartDivOrderOfMonth.dispose()
+            chartDivAmountOrderOfMonth.dispose()
         }
     }, [totalChartOrder])
     return (
-        <div id="chartDivOrderOfMonth" style={{ width: '100%', height: '500px' }}></div>
+        <div id="chartDivAmountOrderOfMonth" style={{ width: '100%', height: '500px' }}></div>
     )
 }
 

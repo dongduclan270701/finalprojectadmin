@@ -282,7 +282,7 @@ const Index = (props) => {
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
-                                    <p className="fs-25 mb-2">{formatter.format(totalInStock)} - {formatter.format(totalAvailableInStock)} VND</p>
+                                    <p className="fs-25 mb-2">{formatter.format(totalInStock)} - {formatter.format(totalAvailableInStock * 0.8)} VND</p>
                                     <p>{formatter.format((totalInStock / totalGoods) * 100)}%/ Total Goods</p>
                                 </>
                             }
@@ -297,8 +297,8 @@ const Index = (props) => {
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
-                                    <p className="fs-25 mb-2">{formatter.format(totalSoldOfMonth)} - {formatter.format(totalProfitOfMonth)} VND ( Profit )</p>
-                                    <p>{formatter.format((totalSoldOfMonth / totalSoldInYear) * 100)}% / Year</p>
+                                    <p className="fs-25 mb-2">{formatter.format(totalSoldOfMonth)} - {formatter.format(totalProfitOfMonth * 0.2)} VND ( Profit )</p>
+                                    <p>{formatter.format((totalSoldOfMonth / totalSoldInYear) * 100)}% / Total Goods In Year</p>
                                 </>
                             }
                         </div>
@@ -313,7 +313,7 @@ const Index = (props) => {
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalViewInMonth)}</p>
-                                    <p>{formatter.format((totalViewInMonth / totalViewInYear) * 100)}% / Year</p>
+                                    <p>{formatter.format((totalViewInMonth / totalViewInYear) * 100)}% / Total Goods In Year</p>
                                 </>
                             }
                         </div>

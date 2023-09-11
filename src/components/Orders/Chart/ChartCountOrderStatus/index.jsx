@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5percent from '@amcharts/amcharts5/percent';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
-const Index = () => {
+const Index = (props) => {
+    const {totalOrderByStatus} = props
     useEffect(() => {
         let chartDivCountOrderStatus = am5.Root.new("chartDivCountOrderStatus");
         chartDivCountOrderStatus._logo.dispose()
@@ -19,16 +20,17 @@ const Index = () => {
             categoryField: "category",
             alignLabels: false
         }));
-        series.labels.template.setAll({
-            textType: "circular",
-            centerX: 0,
-            centerY: 0
-        });
-        series.data.setAll([
-            { value: 10, category: "Successful" },
-            { value: 10, category: "Processing" },
-            { value: 9, category: "Failed" }
-        ]);
+        series.labels.template.set("forceHidden", true);
+        let data = totalOrderByStatus ? [
+            { value: totalOrderByStatus.statusCounts["Ordered"], category: "Ordered" },
+            { value: totalOrderByStatus.statusCounts["Payment information confirmed"], category: "Payment information confirmed" },
+            { value: totalOrderByStatus.statusCounts["Being transported"], category: "Being transported" },
+            { value: totalOrderByStatus.statusCounts["Delivered to the carrier"], category: "Delivered to the carrier" },
+            { value: totalOrderByStatus.statusCounts["Delivery successful"], category: "Delivery successful" },
+            { value: totalOrderByStatus.statusCounts["Cancel"], category: "Cancel" },
+            { value: totalOrderByStatus.statusCounts["Delivery failed"], category: "Delivery failed" }
+        ] : []
+        series.data.setAll(data);
         let legend = chart.children.push(am5.Legend.new(chartDivCountOrderStatus, {
             centerX: am5.percent(50),
             x: am5.percent(50),
@@ -40,10 +42,10 @@ const Index = () => {
         return () => {
             chartDivCountOrderStatus.dispose()
         };
-    }, [])
+    }, [totalOrderByStatus])
     return (
         <div id="chartDivCountOrderStatus" style={{ width: '100%', height: '500px' }}></div>
     );
 }
 
-export default Index;
+export default memo(Index);

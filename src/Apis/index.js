@@ -197,6 +197,21 @@ export const fetchTotalOrderFailed = async () => {
     return req.data
 }
 
+export const fetchTotalOrderByStatus = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalOrderByStatus`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalTopOrder = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalTopOrder`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalOrdersByDay = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalOrdersByDay`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchUpdateLaptopCollecting = async (src, data) => {
     const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
     return req.data

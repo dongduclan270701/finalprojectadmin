@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import ChartCountOrderStatus from 'components/Orders/Chart/ChartCountOrderStatus'
 import ChartOrderOfMonth from 'components/Orders/Chart/ChartOrderOfMonth'
-import ChartShipOfMonth from 'components/Orders/Chart/ChartShipOfMonth'
+import ChartAmountOrderOfMonth from 'components/Orders/Chart/ChartAmountOrderOfMonth'
 import ChartTotalShippingStatus from 'components/Orders/Chart/ChartTotalShippingStatus'
 import {
     fetchTotalOrder,
     fetchTotalOrderSuccessful,
-    fetchTotalOrderFailed
+    fetchTotalOrderFailed,
+    fetchTotalOrderByStatus,
+    fetchTotalTopOrder,
+    fetchTotalOrdersByDay
 } from 'Apis'
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const [totalOrder, setTotalOrder] = useState(null)
+    const [totalAmountOrder, setTotalAmountOrder] = useState(null)
     const [totalOrderSuccessful, setTotalOrderSuccessful] = useState(null)
+    const [totalAmountOrderSuccessful, setTotalAmountOrderSuccessful] = useState(null)
     const [totalOrderFailed, setTotalOrderFailed] = useState(null)
+    const [totalOrderByStatus, setTotalOrderByStatus] = useState(null)
+    const [totalChartOrder, setTotalChartOrder] = useState(null)
+    const [totalTopOrder, setTotalTopOrder] = useState(null)
     const fetchOrder = () => {
         fetchTotalOrder()
             .then(result => {
                 setTotalOrder(result.total)
+                setTotalAmountOrder(result.totalAmount)
             })
             .catch(error => {
                 setTotalOrder(0)
+                setTotalAmountOrder(0)
                 console.log(error)
             })
     }
@@ -27,8 +37,11 @@ const Index = () => {
         fetchTotalOrderSuccessful()
             .then(result => {
                 setTotalOrderSuccessful(result.total)
+                setTotalAmountOrderSuccessful(result.totalAmount)
             })
             .catch(error => {
+                setTotalOrderSuccessful(0)
+                setTotalAmountOrderSuccessful(0)
                 console.log(error)
             })
     }
@@ -42,10 +55,43 @@ const Index = () => {
                 console.log(error)
             })
     }
+    const fetchOrderByStatus = () => {
+        fetchTotalOrderByStatus()
+            .then(result => {
+                setTotalOrderByStatus(result)
+            })
+            .catch(error => {
+                setTotalOrderByStatus(0)
+                console.log(error)
+            })
+    }
+    const fetchTopOrder = () => {
+        fetchTotalTopOrder()
+            .then(result => {
+                setTotalTopOrder(result.resultTotalOrder)
+            })
+            .catch(error => {
+                setTotalTopOrder(0)
+                console.log(error)
+            })
+    }
+    const fetchOrdersByDay = () => {
+        fetchTotalOrdersByDay()
+            .then(result => {
+                setTotalChartOrder(result.resultTotalOrder)
+            })
+            .catch(error => {
+                setTotalChartOrder(0)
+                console.log(error)
+            })
+    }
     useEffect(() => {
         fetchOrder()
         fetchOrderSuccessful()
         fetchOrderFailed()
+        fetchOrderByStatus()
+        fetchTopOrder()
+        fetchOrdersByDay()
     }, [])
     const handleResetData = (event, name) => {
         switch (name) {
@@ -53,15 +99,14 @@ const Index = () => {
                 setTotalOrder(null)
                 fetchOrder()
                 break;
-            
             default:
                 break;
         }
     }
     return (
-        <div style={{fontFamily:"inherit"}}>
+        <div style={{ fontFamily: "inherit" }}>
             <div className="row">
-            <div className="col-md-4 mb-4 stretch-card transparent">
+                <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
@@ -79,13 +124,13 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3">Orders successful of this Month</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Orders successful of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
                             {totalOrderSuccessful === null ?
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalOrderSuccessful)}</p>
-                                    <p>{formatter.format(totalOrderFailed/totalOrder *100)} % / Total Order</p>
+                                    <p>{formatter.format(totalOrderSuccessful / totalOrder * 100)} % / Total Order</p>
                                 </>
                             }
                         </div>
@@ -94,45 +139,65 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3">Orders failed of this Month</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Orders failed of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
                             {totalOrderFailed === null ?
                                 <div class="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalOrderFailed)}</p>
-                                    <p>{formatter.format(totalOrderFailed/totalOrder *100)} % / Total Order</p>
+                                    <p>{formatter.format(totalOrderFailed / totalOrder * 100)} % / Total Order</p>
                                 </>
                             }
                         </div>
                     </div>
                 </div>
-                
             </div>
             <div className="row">
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3">Total revenue of all orders of this Month</p>
-                            <p className="fs-25 mb-2">13,432,234,040 VND</p>
-                            <p>2.00% (12 Months in 2023)</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total revenue of all orders of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            {totalAmountOrderSuccessful === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">Practice: {formatter.format(totalAmountOrderSuccessful)} VNĐ</p>
+                                    <p>Estimate: {formatter.format(totalAmountOrder)} VNĐ</p>
+                                    <p>{formatter.format(totalAmountOrderSuccessful / totalAmountOrder * 100)} % / Total Order</p>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3">Total shipping fee profit of all orders this month</p>
-                            <p className="fs-25 mb-2">61,344 VND</p>
-                            <p>22.00% (Total Orders)</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total shipping fee profit of all orders this month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            {totalOrderSuccessful === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">Practice: {formatter.format(totalOrderSuccessful * 30000)} VNĐ</p>
+                                    <p>Estimate: {formatter.format(totalOrder * 30000)} VNĐ</p>
+                                    <p>{formatter.format((totalOrderSuccessful * 30000) / (totalOrder * 30000) * 100)} % / Total Order</p>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3">Total profit of all orders of this Month</p>
-                            <p className="fs-25 mb-2">47,123,123,033 VND</p>
-                            <p>0.22% (12 Months in 2023)</p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total profit of all orders of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            {totalAmountOrderSuccessful === null ?
+                                <div class="lds-dual-ring" ></div>
+                                :
+                                <>
+                                    <p className="fs-25 mb-2">Practice: {formatter.format(totalAmountOrderSuccessful * 0.2)} VNĐ</p>
+                                    <p>Estimate: {formatter.format(totalAmountOrder * 0.2)} VNĐ</p>
+                                    <p>{formatter.format((totalAmountOrderSuccessful * 0.2) / (totalAmountOrder * 0.2) * 100)} % / Total Order</p>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
@@ -144,7 +209,8 @@ const Index = () => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Orders Of Month</h4>
-                                    <ChartOrderOfMonth />
+                                    {/* <ChartOrderOfMonth /> */}
+                                    {totalChartOrder ? <ChartOrderOfMonth totalChartOrder={totalChartOrder} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -156,7 +222,8 @@ const Index = () => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Orders Status</h4>
-                                    <ChartCountOrderStatus />
+                                    {/* <ChartCountOrderStatus /> */}
+                                    {totalOrderByStatus ? <ChartCountOrderStatus totalOrderByStatus={totalOrderByStatus} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -168,7 +235,8 @@ const Index = () => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Shipping Status</h4>
-                                    <ChartTotalShippingStatus />
+                                    {/* <ChartTotalShippingStatus /> */}
+                                    {totalOrderByStatus ? <ChartTotalShippingStatus totalOrderByStatus={totalOrderByStatus} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -180,7 +248,8 @@ const Index = () => {
                             <div className='row'>
                                 <div className="col-lg-12 form-group" style={{ textAlign: "center" }}>
                                     <h4>Chart Ships Of Month</h4>
-                                    <ChartShipOfMonth />
+                                    {/* <ChartAmountOrderOfMonth /> */}
+                                    {totalChartOrder ? <ChartAmountOrderOfMonth totalChartOrder={totalChartOrder} /> : <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>}
                                 </div>
                             </div>
                         </div>
@@ -204,8 +273,10 @@ const Index = () => {
                                                         Username</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
                                                         Date Order</th>
+                                                        <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
+                                                        Total Goods</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
-                                                        Total</th>
+                                                        Total Amount</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
                                                         Status</th>
                                                     <th className="details-control sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "49px" }} aria-label="">
@@ -213,156 +284,28 @@ const Index = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className="odd selected">
-                                                    <td className="select-checkbox">
-                                                        Incs234</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 1</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-                                                    <td className=" details-control">
+                                                {totalTopOrder ? totalTopOrder.map((item,index) => {
+                                                    return <tr className="odd " key={index}>
+                                                        <td className="sorting_1" style={{maxWidth: 120, whiteSpace:"nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
+                                                            {item._id}</td>
+                                                        <td>
+                                                            {item.username + ' - ' + item.email}</td>
+                                                        <td>
+                                                            {item.createDate}</td>
+                                                            <td>
+                                                            {item.product.length}</td>
+                                                        <td>
+                                                            {formatter.format(item.sumOrder)} VND</td>
+                                                        <td>
+                                                            {item.status}
+                                                        </td>
+                                                    </tr>
+                                                }) : <tr>
+                                                    <td colSpan="5" style={{ textAlign: 'center' }}>
+                                                        <div className="lds-dual-ring" style={{ display: 'inline-block'}}></div>
                                                     </td>
                                                 </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="odd">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                                <tr className="even">
-                                                    <td className=" select-checkbox">
-                                                        Incs235</td>
-                                                    <td className="sorting_1">
-                                                        Car insurance</td>
-                                                    <td>
-                                                        Business type 2</td>
-                                                    <td>
-                                                        Jesse Thomas</td>
-                                                    <td>
-                                                        $1200</td>
-
-                                                    <td className=" details-control">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                                }</tbody>
 
                                         </table>
                                     </div>
@@ -376,4 +319,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);
