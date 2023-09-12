@@ -14,7 +14,8 @@ import {
     fetchTotalChartSoldInMonth,
     fetchTopEmployeeHighestValue,
     fetchTotalOrderInMonth,
-    fetchTotalChartOrderInMonth
+    fetchTotalChartOrderInMonth,
+    fetchTopEmployeeHighestOrder
 } from 'Apis'
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
@@ -31,6 +32,7 @@ const Index = () => {
     const [totalRole, setTotalRole] = useState(null)
     const [totalAgeStaff, setTotalAgeStaff] = useState(null)
     const [topStaff, setTopStaff] = useState(null)
+    const [topStaffOrder, setTopStaffOrder] = useState(null)
     const [changeChart, setChangeChart] = useState(false)
     const fetchTotalStaff = () => {
         fetchTotalEmployee()
@@ -175,6 +177,16 @@ const Index = () => {
                 console.log(error)
             })
     }
+    const fetchTopEmployeeOrder = () => {
+        fetchTopEmployeeHighestOrder()
+            .then(result => {
+                setTopStaffOrder(result.topEmployeeHighestOrder)
+            })
+            .catch(error => {
+                setTopStaffOrder([]);
+                console.log(error)
+            })
+    }
     const getCurrentMonthName = () => {
         const currentDate = new Date();
         const monthNames = [
@@ -196,6 +208,7 @@ const Index = () => {
         fetchTopEmployee()
         fetchTotalOrder()
         fetchTotalOrderSold()
+        fetchTopEmployeeOrder()
     }, []);
     const handleResetData = (event, name) => {
         switch (name) {
@@ -230,7 +243,7 @@ const Index = () => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff worked <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaff")} /></p>
                             {totalStaff === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalStaff)}</p>
@@ -245,7 +258,7 @@ const Index = () => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff working <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaffWorking")} /></p>
                             {totalStaffWorking === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalStaffWorking)}</p>
@@ -260,7 +273,7 @@ const Index = () => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff salary in the month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaffSalary")} /></p>
                             {totalStaffSalary === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalStaffSalary)} VNĐ</p>
@@ -275,7 +288,7 @@ const Index = () => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>KPI rate <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalKPIRate")} /></p>
                             {totalKPI === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalSoldInMonth / totalKPI.target * 100)}%</p>
@@ -290,7 +303,7 @@ const Index = () => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order quantity <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
                             {totalOrder === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalOrder.totalOrderInMonth)}</p>
@@ -305,7 +318,7 @@ const Index = () => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total number of goods sold <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalSoldInMonth")} /></p>
                             {totalSoldInMonth === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalSoldInMonth)}</p>
@@ -382,10 +395,10 @@ const Index = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-12 grid-margin stretch-card">
+                <div className="col-md-6 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                            <p className="card-title">Top 10 employees with the highest value this month</p>
+                            <p className="card-title">Top 10 employees with the highest order this month</p>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="table-responsive">
@@ -397,7 +410,63 @@ const Index = () => {
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
                                                         Role</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
-                                                        Sold Order</th>
+                                                        Order</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
+                                                        Amount</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
+                                                        Status</th>
+                                                    <th className="details-control sorting_disabled" rowSpan="1" colSpan="1" style={{ "width": "49px" }} aria-label="">
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {topStaffOrder ? topStaffOrder.map(item => {
+                                                    return <tr className="odd selected">
+                                                        <td className="sorting_1">
+                                                            {item.username}</td>
+                                                        <td>
+                                                            {item.role}</td>
+                                                        <td>
+                                                            {item.totalOrder}</td>
+                                                        <td>
+                                                            {formatter.format(item.totalAmount)} VND</td>
+                                                        <td>
+                                                            <label className={
+                                                                item.status === false ? "badge badge-danger" : "badge badge-success"
+                                                            }>
+                                                                {item.status === false ? "Deactivate" : "Active"}
+                                                            </label></td>
+                                                    </tr>
+                                                }) : <tr>
+                                                    <td colSpan="5" style={{ textAlign: 'center' }}>
+                                                        <div className="lds-dual-ring" style={{ display: 'inline-block' }}></div>
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6 grid-margin stretch-card">
+                    <div className="card">
+                        <div className="card-body">
+                            <p className="card-title">Top 10 employees with the highest product this month</p>
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="table-responsive">
+                                        <table id="example" className="display expandable-table" style={{ width: '100%', textAlign: "center" }}>
+                                            <thead>
+                                                <tr role="row">
+                                                    <th className="sorting_desc" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "146px" }} aria-label="Product: activate to sort column ascending" aria-sort="descending">
+                                                        Username</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
+                                                        Role</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "174px" }} aria-label="Business type: activate to sort column ascending">
+                                                        Product</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "166px" }} aria-label="Policy holder: activate to sort column ascending">
                                                         Amount</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="example" rowSpan="1" colSpan="1" style={{ "width": "122px" }} aria-label="Premium: activate to sort column ascending">
@@ -418,7 +487,11 @@ const Index = () => {
                                                         <td>
                                                             {formatter.format(item.totalAmount)} VND</td>
                                                         <td>
-                                                            {item.status === true ? 'Active' : 'Deactivate'}</td>
+                                                            <label className={
+                                                                item.status === false ? "badge badge-danger" : "badge badge-success"
+                                                            }>
+                                                                {item.status === false ? "Deactivate" : "Active"}
+                                                            </label></td>
                                                     </tr>
                                                 }) : <tr>
                                                     <td colSpan="5" style={{ textAlign: 'center' }}>

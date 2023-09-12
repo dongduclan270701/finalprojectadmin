@@ -68,7 +68,6 @@ const Index = () => {
 
         if (inputFocused) {
             const timeoutId = setTimeout(() => {
-                console.log({ ...searchOrder, [name]: value })
                 setSearchOrder({ ...searchOrder, [name]: value })
                 fetchSearchOrder({ ...searchOrder, [name]: value }, 1)
                     .then((result) => {

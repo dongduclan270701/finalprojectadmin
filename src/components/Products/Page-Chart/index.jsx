@@ -252,7 +252,7 @@ const Index = (props) => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total goods <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalGoods")} /></p>
                             {totalGoods === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <p className="fs-25 mb-2">{formatter.format(totalGoods)}</p>
                             }
@@ -264,7 +264,7 @@ const Index = (props) => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total Out of Stock <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOutOfStock")} /></p>
                             {totalOutOfStock === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalOutOfStock)}</p>
@@ -279,7 +279,7 @@ const Index = (props) => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total available in stock <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalInStock")} /></p>
                             {totalInStock === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalInStock)} - {formatter.format(totalAvailableInStock * 0.8)} VND</p>
@@ -294,7 +294,7 @@ const Index = (props) => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total Sold this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalSoldAndProfitOfMonth")} /></p>
                             {totalSoldOfMonth === null && totalSoldInYear === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalSoldOfMonth)} - {formatter.format(totalProfitOfMonth * 0.2)} VND ( Profit )</p>
@@ -309,7 +309,7 @@ const Index = (props) => {
                         <div className="card-body">
                             <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total View this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalViewInMonth")} /></p>
                             {totalViewInMonth === null || totalViewInYear === null ?
-                                <div class="lds-dual-ring" ></div>
+                                <div className="lds-dual-ring" ></div>
                                 :
                                 <>
                                     <p className="fs-25 mb-2">{formatter.format(totalViewInMonth)}</p>

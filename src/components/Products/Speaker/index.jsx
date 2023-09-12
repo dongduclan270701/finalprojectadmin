@@ -100,10 +100,10 @@ const Index = () => {
         Swal.fire({
             title: 'Bạn muốn tạo mới sản phẩm loại nào?',
             html:(
-                '<button id="toggleSpeaker" class="btn btn-primary" style="margin-right:10px"> ' +
+                '<button id="toggleSpeaker" className="btn btn-primary" style="margin-right:10px"> ' +
                 'Loa' +
                 '</button>' +
-                '<button id="toggleHeadPhone" class="btn btn-primary" style="margin-left:10px">' +
+                '<button id="toggleHeadPhone" className="btn btn-primary" style="margin-left:10px">' +
                 'Tai Nghe' +
                 '</button>'),
             showConfirmButton: false,
