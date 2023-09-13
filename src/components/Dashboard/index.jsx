@@ -7,15 +7,18 @@ import ListOrderTopAmount from 'components/Dashboard/List-orderTopAmount'
 import ListOrderTopProduct from 'components/Dashboard/List-orderTopProduct'
 import {
     fetchTemperature,
-    fetchTotalOrder,
-    fetchTotalOrderSuccessful,
+    fetchTotalOrderDashboard,
+    fetchTotalOrderSuccessfulDashboard,
     fetchTotalChartSoldInMonth,
     fetchTotalTopProductAll,
     fetchTotalTopOrderAll,
     fetchTopEmployeeHighestValueInYear,
     fetchTopEmployeeHighestOrderInYear,
     fetchTopUserHighestValueAll,
-    fetchTopUserHighestOrderAll
+    fetchTopUserHighestOrderAll,
+    fetchTopViewProductDashboard,
+    fetchTopSoldProductDashboard,
+    fetchTopEmployeeHighestValueInYearNotLimit
 } from 'Apis'
 
 const Index = () => {
@@ -29,9 +32,14 @@ const Index = () => {
     const [totalTopOrder, setTotalTopOrder] = useState(null)
     const [totalTopProduct, setTotalTopProduct] = useState(null)
     const [topStaff, setTopStaff] = useState(null)
+    const [topStaffNotLimit, setTopStaffNotLimit] = useState(null)
     const [topStaffOrder, setTopStaffOrder] = useState(null)
     const [totalTopUser, setTotalTopUser] = useState(null)
     const [totalTopOrderUser, setTotalTopOrderUser] = useState(null)
+    const [totalTopSoldProduct, setTotalTopSoldProduct] = useState(null)
+    const [totalTopViewProduct, setTotalTopViewProduct] = useState(null)
+    const [categoryTopSoldProduct, setCategoryTopSoldProduct] = useState('laptop')
+    const [categoryTopViewProduct, setCategoryTopViewProduct] = useState('laptop')
     const fetchHTemperature = () => {
         fetchTemperature()
             .then(result => {
@@ -42,7 +50,7 @@ const Index = () => {
             })
     }
     const fetchOrder = () => {
-        fetchTotalOrder()
+        fetchTotalOrderDashboard()
             .then(result => {
                 setTotalOrder(result.total)
                 setTotalAmountOrder(result.totalAmount)
@@ -54,7 +62,7 @@ const Index = () => {
             })
     }
     const fetchOrderSuccessful = () => {
-        fetchTotalOrderSuccessful()
+        fetchTotalOrderSuccessfulDashboard()
             .then(result => {
                 setTotalOrderSuccessful(result.total)
                 setTotalAmountOrderSuccessful(result.totalAmount)
@@ -106,7 +114,6 @@ const Index = () => {
     const fetchTopProduct = () => {
         fetchTotalTopProductAll()
             .then(result => {
-                console.log(result.resultTopProduct)
                 setTotalTopProduct(result.resultTopProduct)
             })
             .catch(error => {
@@ -121,6 +128,16 @@ const Index = () => {
             })
             .catch(error => {
                 setTopStaff([]);
+                console.log(error)
+            })
+    }
+    const fetchEmployeeHighestValueInYearNotLimit = () => {
+        fetchTopEmployeeHighestValueInYearNotLimit()
+            .then(result => {
+                setTopStaffNotLimit(result.topEmployeeHighestValue)
+            })
+            .catch(error => {
+                setTopStaffNotLimit([]);
                 console.log(error)
             })
     }
@@ -154,6 +171,26 @@ const Index = () => {
                 console.log(error)
             })
     }
+    const fetchTopViewProduct = () => {
+        fetchTopViewProductDashboard(categoryTopViewProduct)
+            .then(result => {
+                setTotalTopViewProduct(result.topViewProducts)
+            })
+            .catch(error => {
+                setTotalTopViewProduct(0)
+                console.log(error)
+            })
+    }
+    const fetchTopSoldProduct = () => {
+        fetchTopSoldProductDashboard(categoryTopSoldProduct)
+            .then(result => {
+                setTotalTopSoldProduct(result.topSoldProducts)
+            })
+            .catch(error => {
+                setTotalTopSoldProduct(0)
+                console.log(error)
+            })
+    }
     useEffect(() => {
         fetchHTemperature()
         fetchOrder()
@@ -165,7 +202,33 @@ const Index = () => {
         fetchTopHighestValueAll()
         fetchTopHighestOrderAll()
         fetchTopProduct()
+        fetchTopViewProduct()
+        fetchTopSoldProduct()
+        fetchEmployeeHighestValueInYearNotLimit()
     }, []);
+
+    const handleChangeCategoryTopSoldProduct = (category) => {
+        setTotalTopSoldProduct(null)
+        fetchTopSoldProductDashboard(category)
+            .then(result => {
+                setTotalTopSoldProduct(result.topSoldProducts)
+            })
+            .catch(error => {
+                setTotalTopSoldProduct(0)
+                console.log(error)
+            })
+    }
+    const handleChangeCategoryTopViewProduct = (category) => {
+        setTotalTopViewProduct(null)
+        fetchTopViewProductDashboard(category)
+            .then(result => {
+                setTotalTopViewProduct(result.topViewProducts)
+            })
+            .catch(error => {
+                setTotalTopViewProduct(0)
+                console.log(error)
+            })
+    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -186,9 +249,15 @@ const Index = () => {
                     totalOrderSuccessful={totalOrderSuccessful}
                     totalAmountOrder={totalAmountOrder}
                     totalProduct={totalProduct}
+                    topStaffNotLimit={topStaffNotLimit}
                 />
                 <ChartsDetails />
-                <RateProduct />
+                <RateProduct 
+                totalTopSoldProduct={totalTopSoldProduct} 
+                totalTopViewProduct={totalTopViewProduct}
+                handleChangeCategoryTopSoldProduct={handleChangeCategoryTopSoldProduct}
+                handleChangeCategoryTopViewProduct={handleChangeCategoryTopViewProduct}
+                />
                 <div className="row">
                     <div className="col-md-4 stretch-card grid-margin">
                         <div className="card">

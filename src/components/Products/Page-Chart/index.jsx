@@ -418,7 +418,11 @@ const Index = (props) => {
                                                         <td>
                                                             {formatter.format(item.nowPrice)} VND</td>
                                                         <td>
-                                                            {item.quantity > 0 ? "Active" : "Deactivate"}
+                                                        <label className={
+                                                                        item.quantity === 0 ? "badge badge-danger" : item.quantity >= 10 ? "badge badge-success" : 0 < item.quantity < 10 ? "badge badge-warning" : null
+                                                                    }>
+                                                                        {item.quantity === 0 ? "Out of stock" : item.quantity >= 10 ? "Stocking" : 0 < item.quantity < 10 ? "Coming to an end" : null}
+                                                                    </label>
                                                         </td>
                                                     </tr>
                                                 }) : <tr>
@@ -471,7 +475,11 @@ const Index = (props) => {
                                                         <td>
                                                             {formatter.format(item.nowPrice)} VND</td>
                                                         <td>
-                                                            {item.quantity > 0 ? "Active" : "Deactivate"}
+                                                        <label className={
+                                                                        item.quantity === 0 ? "badge badge-danger" : item.quantity >= 10 ? "badge badge-success" : 0 < item.quantity < 10 ? "badge badge-warning" : null
+                                                                    }>
+                                                                        {item.quantity === 0 ? "Out of stock" : item.quantity >= 10 ? "Stocking" : 0 < item.quantity < 10 ? "Coming to an end" : null}
+                                                                    </label>
                                                         </td>
                                                     </tr>
                                                 }) : <tr>

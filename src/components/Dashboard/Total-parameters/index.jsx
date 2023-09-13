@@ -8,9 +8,11 @@ const Index = (props) => {
         totalAmountOrder, 
         totalOrderSuccessful, 
         totalAmountOrderSuccessful, 
-        totalProduct 
+        totalProduct,
+        topStaffNotLimit
     } = props
     const formatter = new Intl.NumberFormat('en-US')
+    const totalProductInYear = topStaffNotLimit?topStaffNotLimit.reduce((accumulator, item) => accumulator + item.totalProduct, 0):0
     return (
         <div className="row">
             <div className="col-md-6 grid-margin stretch-card">
@@ -42,7 +44,7 @@ const Index = (props) => {
                                     :
                                     <>
                                         <p className="fs-25 mb-2">{formatter.format(totalOrderSuccessful)}</p>
-                                        <p>{formatter.format(totalOrderSuccessful / totalOrder * 100)}%/ Total Order</p>
+                                        <p>{formatter.format(totalOrderSuccessful / totalOrder * 100)}%/ Total Order In Year</p>
                                     </>
                                 }
                             </div>
@@ -58,7 +60,7 @@ const Index = (props) => {
                                     :
                                     <>
                                         <p className="fs-25 mb-2">{formatter.format(totalProduct)}</p>
-                                        {/* <p>{formatter.format(totalAmountOrderSuccessful / totalAmountOrder * 100)}%/ Total Order</p> */}
+                                        <p>{formatter.format(totalProduct / totalProductInYear * 100)}%/ Total Product Sold In Year</p>
                                     </>
                                 }
                             </div>
@@ -73,7 +75,7 @@ const Index = (props) => {
                                     :
                                     <>
                                         <p className="fs-25 mb-2">{formatter.format(totalAmountOrderSuccessful * 0.2)} VNĐ</p>
-                                        <p>{formatter.format((totalAmountOrderSuccessful * 0.2) / (totalAmountOrder * 0.2) * 100)}%/ Total Order</p>
+                                        <p>{formatter.format((totalAmountOrderSuccessful * 0.2) / (totalAmountOrder * 0.2) * 100)}%/ Total Order In Year</p>
                                     </>
                                 }
                             </div>
@@ -88,7 +90,7 @@ const Index = (props) => {
                                     :
                                     <>
                                         <p className="fs-25 mb-2">{formatter.format(totalAmountOrderSuccessful)} VNĐ</p>
-                                        <p>{formatter.format((totalAmountOrderSuccessful) / (totalAmountOrder) * 100)}%/ Total Order</p>
+                                        <p>{formatter.format((totalAmountOrderSuccessful) / (totalAmountOrder) * 100)}%/ Total Order In Year</p>
                                     </>
                                 }
                             </div>

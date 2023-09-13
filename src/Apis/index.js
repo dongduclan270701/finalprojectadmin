@@ -262,6 +262,31 @@ export const fetchTotalOrdersByDay = async () => {
     return req.data
 }
 
+export const fetchTopViewProductDashboard = async (category) => {
+    const req = await axios.get(`${API_ROOT}/v1/dashboard/topViewProducts`, { params: { category: category },  headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTopSoldProductDashboard = async (category) => {
+    const req = await axios.get(`${API_ROOT}/v1/dashboard/topSoldProducts`, { params: { category: category },  headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalOrderDashboard = async (category) => {
+    const req = await axios.get(`${API_ROOT}/v1/dashboard/totalOrder`, { params: { category: category },  headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalOrderSuccessfulDashboard = async (category) => {
+    const req = await axios.get(`${API_ROOT}/v1/dashboard/totalOrderSuccessful`, { params: { category: category },  headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTopEmployeeHighestValueInYearNotLimit = async (category) => {
+    const req = await axios.get(`${API_ROOT}/v1/dashboard/topEmployeeHighestValueInYearNotLimit`, { params: { category: category },  headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchUpdateLaptopCollecting = async (src, data) => {
     const req = await axios.put(`${API_ROOT}/v1/laptopCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
     return req.data
