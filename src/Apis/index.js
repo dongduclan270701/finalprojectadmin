@@ -247,6 +247,16 @@ export const fetchTotalTopProduct = async () => {
     return req.data
 }
 
+export const fetchTotalTopOrderAll = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalTopOrderAll`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchTotalTopProductAll = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/orderChart/totalTopProductAll`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchTotalOrdersByDay = async () => {
     const req = await axios.get(`${API_ROOT}/v1/orderChart/totalOrdersByDay`, { headers: { 'auth-token-admin': token } })
     return req.data

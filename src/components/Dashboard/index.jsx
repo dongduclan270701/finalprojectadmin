@@ -3,13 +3,15 @@ import Footer from "components/Footer"
 import TotalParameters from 'components/Dashboard/Total-parameters'
 import ChartsDetails from 'components/Dashboard/Charts-detail'
 import RateProduct from 'components/Dashboard/Rate-product'
-import ListOrder from 'components/Dashboard/List-order'
+import ListOrderTopAmount from 'components/Dashboard/List-orderTopAmount'
+import ListOrderTopProduct from 'components/Dashboard/List-orderTopProduct'
 import {
     fetchTemperature,
     fetchTotalOrder,
     fetchTotalOrderSuccessful,
     fetchTotalChartSoldInMonth,
-    fetchTotalTopOrder,
+    fetchTotalTopProductAll,
+    fetchTotalTopOrderAll,
     fetchTopEmployeeHighestValueInYear,
     fetchTopEmployeeHighestOrderInYear,
     fetchTopUserHighestValueAll,
@@ -25,6 +27,7 @@ const Index = () => {
     const [totalAmountOrderSuccessful, setTotalAmountOrderSuccessful] = useState(null)
     const [totalProduct, setTotalProduct] = useState(null)
     const [totalTopOrder, setTotalTopOrder] = useState(null)
+    const [totalTopProduct, setTotalTopProduct] = useState(null)
     const [topStaff, setTopStaff] = useState(null)
     const [topStaffOrder, setTopStaffOrder] = useState(null)
     const [totalTopUser, setTotalTopUser] = useState(null)
@@ -91,12 +94,23 @@ const Index = () => {
             })
     }
     const fetchTopOrder = () => {
-        fetchTotalTopOrder()
+        fetchTotalTopOrderAll()
             .then(result => {
                 setTotalTopOrder(result.resultTotalOrder)
             })
             .catch(error => {
                 setTotalTopOrder(0)
+                console.log(error)
+            })
+    }
+    const fetchTopProduct = () => {
+        fetchTotalTopProductAll()
+            .then(result => {
+                console.log(result.resultTopProduct)
+                setTotalTopProduct(result.resultTopProduct)
+            })
+            .catch(error => {
+                setTotalTopProduct(0)
                 console.log(error)
             })
     }
@@ -113,7 +127,6 @@ const Index = () => {
     const fetchTopEmployeeOrder = () => {
         fetchTopEmployeeHighestOrderInYear()
             .then(result => {
-                console.log(result.topEmployeeHighestOrder)
                 setTopStaffOrder(result.topEmployeeHighestOrder)
             })
             .catch(error => {
@@ -134,7 +147,6 @@ const Index = () => {
     const fetchTopHighestOrderAll = () => {
         fetchTopUserHighestOrderAll()
             .then(result => {
-                console.log(result.resultTopUser)
                 setTotalTopOrderUser(result.resultTopUser)
             })
             .catch(error => {
@@ -152,6 +164,7 @@ const Index = () => {
         fetchTopEmployeeOrder()
         fetchTopHighestValueAll()
         fetchTopHighestOrderAll()
+        fetchTopProduct()
     }, []);
     return (
         <div className="main-panel">
@@ -381,7 +394,10 @@ const Index = () => {
                         </div>
                     </div>
                     <div className="col-md-12 stretch-card grid-margin">
-                        <ListOrder totalTopOrder={totalTopOrder} />
+                        <ListOrderTopAmount totalTopOrder={totalTopOrder} />
+                    </div>
+                    <div className="col-md-12 stretch-card grid-margin">
+                        <ListOrderTopProduct totalTopProduct={totalTopProduct} />
                     </div>
                 </div>
             </div>

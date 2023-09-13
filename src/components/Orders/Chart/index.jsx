@@ -80,7 +80,6 @@ const Index = () => {
     const fetchTopProduct = () => {
         fetchTotalTopProduct()
             .then(result => {
-                console.log(result.resultTopProduct)
                 setTotalTopProduct(result.resultTopProduct)
             })
             .catch(error => {
