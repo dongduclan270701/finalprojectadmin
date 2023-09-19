@@ -16,6 +16,7 @@ const Index = (props) => {
             dateFields: ["valueX"]
         })
         let setData = totalSoldByDay ? totalSoldByDay : []
+        console.log(totalSoldByDay)
         let data = setData.map(item => ({
             value: item.totalSold,
             day: (item.day).toString().padStart(2, '0') + "/08/2023"

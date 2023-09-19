@@ -31,18 +31,18 @@ const Index = () => {
             .then(result => {
                 setCollecting(result.category)
                 result.category.map((item, index) => {
-                    if (item.name === "Brand Name" || item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
+                    if (item.name === "Brand Name" || item.name === "Category" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })
                         setOptionSelectLaptop(optionSelectLaptop => [...optionSelectLaptop, ...category])
                     }
-                    else if (item.name === "Laptop by price") {
+                    else if (item.name === "Price") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })
                         setOptionSelectCollectingRanger(optionSelectCollectingRanger => [...optionSelectCollectingRanger, ...category])
-                    } else if (item.name === "Laptop by CPU") {
+                    } else if (item.name === "CPU") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })

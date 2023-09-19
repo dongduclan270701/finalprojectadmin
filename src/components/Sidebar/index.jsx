@@ -164,17 +164,7 @@ const Index = (props) => {
                                 Laptop Gaming
                             </NavLink>
                             </li>
-                            <li className="nav-item"><NavLink to="/pc-km" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
-                                    <path d="M13 3H17C18.1046 3 19 3.89543 19 5V13C19 14.1046 18.1046 15 17 15H13" stroke="currentcolor"></path>
-                                    <path d="M16.5 18.5C16.7761 18.5 17 18.2761 17 18C17 17.7239 16.7761 17.5 16.5 17.5V18.5ZM13 18.5H16.5V17.5H13V18.5Z" fill="currentcolor"></path>
-                                    <circle cx="6" cy="5" r="1" fill="currentcolor"></circle>
-                                    <circle cx="6" cy="9" r="1" fill="currentcolor"></circle>
-                                </svg>
-                                PC Special (Pro)
-                            </NavLink>
-                            </li>
+                            
                             <li className="nav-item"><NavLink to="/pc-gaming" className="nav-link" style={{ listStyleType: "none" }} >
                                 <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
@@ -195,17 +185,6 @@ const Index = (props) => {
                                     <circle cx="6" cy="9" r="1" fill="currentcolor"></circle>
                                 </svg>
                                 PC Creator
-                            </NavLink>
-                            </li>
-                            <li className="nav-item"><NavLink to="/pc-company" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
-                                    <path d="M13 3H17C18.1046 3 19 3.89543 19 5V13C19 14.1046 18.1046 15 17 15H13" stroke="currentcolor"></path>
-                                    <path d="M16.5 18.5C16.7761 18.5 17 18.2761 17 18C17 17.7239 16.7761 17.5 16.5 17.5V18.5ZM13 18.5H16.5V17.5H13V18.5Z" fill="currentcolor"></path>
-                                    <circle cx="6" cy="5" r="1" fill="currentcolor"></circle>
-                                    <circle cx="6" cy="9" r="1" fill="currentcolor"></circle>
-                                </svg>
-                                PC Company
                             </NavLink>
                             </li>
                             <li className="nav-item"><NavLink to="/apple" className="nav-link" style={{ listStyleType: "none" }} >
@@ -246,13 +225,6 @@ const Index = (props) => {
                                     <path className="st0" d="M7,10L7,10c-0.3,0-0.5-0.2-0.5-0.5v-5C6.5,4.2,6.7,4,7,4h0c0.3,0,0.5,0.2,0.5,0.5v5C7.5,9.8,7.3,10,7,10z" />
                                 </svg>
                                 Mouse
-                            </NavLink>
-                            </li>
-                            <li className="nav-item"><NavLink to="/speaker" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2.12753 12.7623C2.35 9.44444 4.96063 9 6.0625 9H6.90625C7.37225 9 7.75 9.38375 7.75 9.85714V16.1429C7.75 16.6162 7.37225 17 6.90625 17H6.0625C3.93277 17 2.19823 15.2822 2.12753 13.1362L1.62188 12.8794C1.43501 12.7844 1.27785 12.6385 1.16801 12.458C1.05817 12.2774 0.999997 12.0694 1 11.8571V10.1429C1 5.08914 5.02609 1 10 1C14.9748 1 19 5.09003 19 10.1429V11.8571C19 12.0694 18.9418 12.2774 18.832 12.458C18.7221 12.6385 18.565 12.7844 18.3781 12.8794L17.8725 13.1362C17.8018 15.2822 16.0672 17 13.9375 17H13.0938C12.6278 17 12.25 16.6162 12.25 16.1429V9.85714C12.25 9.38375 12.6278 9 13.0938 9H13.9375C17.65 9 17.8725 11.6667 17.8725 12.7623" stroke="currentcolor"></path>
-                                </svg>
-                                Speaker
                             </NavLink>
                             </li>
                         </ul>

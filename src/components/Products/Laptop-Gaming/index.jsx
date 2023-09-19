@@ -49,7 +49,7 @@ const Index = () => {
                         })
                         setOptionSelectLaptop(optionSelectLaptop => [...optionSelectLaptop, ...category])
                     }
-                    else if (item.name === "Laptop by price") {
+                    else if (item.name === "Price") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })

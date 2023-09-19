@@ -52,18 +52,18 @@ const Index = () => {
                             setOptions(options => [...options, ...categoryInCollecting])
                         })
                     }
-                    if (item.name === "Laptop needs" || item.name === "Laptop Components & Accessories") {
+                    if (item.name === "Category" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
                     }
-                    else if (item.name === "Laptop by price") {
+                    else if (item.name === "Price") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
-                    } else if (item.name === "Laptop by CPU") {
+                    } else if (item.name === "CPU") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
