@@ -241,7 +241,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff worked <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaff")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff worked </p>
                             {totalStaff === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -256,7 +256,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff working <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaffWorking")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff working </p>
                             {totalStaffWorking === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -271,7 +271,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-danger">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff salary in the month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalStaffSalary")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total staff salary in the month </p>
                             {totalStaffSalary === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -286,7 +286,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>KPI rate <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalKPIRate")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>KPI rate </p>
                             {totalKPI === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -301,7 +301,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order quantity <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order quantity </p>
                             {totalOrder === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -316,7 +316,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total number of goods sold <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalSoldInMonth")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total number of goods sold </p>
                             {totalSoldInMonth === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :

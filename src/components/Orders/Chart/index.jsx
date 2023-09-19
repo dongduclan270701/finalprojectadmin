@@ -133,7 +133,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total order of this Month </p>
                             {totalOrder === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -148,7 +148,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Orders successful of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Orders successful of this Month </p>
                             {totalOrderSuccessful === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -163,7 +163,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Orders failed of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Orders failed of this Month </p>
                             {totalOrderFailed === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -180,7 +180,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total revenue of all orders of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total revenue of all orders of this Month </p>
                             {totalAmountOrderSuccessful === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -196,7 +196,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total shipping fee profit of all orders this month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total shipping fee profit of all orders this month </p>
                             {totalOrderSuccessful === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -212,7 +212,7 @@ const Index = () => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total profit of all orders of this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOrder")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total profit of all orders of this Month </p>
                             {totalAmountOrderSuccessful === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :

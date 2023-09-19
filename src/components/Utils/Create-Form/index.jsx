@@ -4,10 +4,40 @@ import makeAnimated from "react-select/animated"
 
 
 const Index = (props) => {
-    const { product, options, handleGetData, handleGetImage } = props
+    const {
+        product,
+        options,
+        handleGetData,
+        handleGetImage,
+        collecting,
+        CPU,
+        GPU,
+        category
+    } = props
     const [listImageChoose, setListImageChoose] = useState([])
     const [image, setImage] = useState()
-    const [newProduct, setNewProduct] = useState()
+    const [newProduct, setNewProduct] = useState({
+        img: [],
+        src: "",
+        gift: [""],
+        gift_buy: [""],
+        percent: 0,
+        quantity: 0,
+        nameProduct: "",
+        realPrice: 0,
+        nowPrice: 0,
+        description_table: [
+            ["", ""]
+        ],
+        description: [
+            ["", ""]
+        ],
+        category: ['','','','',''],
+        specifications: [
+            ["", ""]
+        ]
+    })
+    const [lineBrand, setLineBrand] = useState()
     const compareObjects = (obj1, obj2) => {
         return JSON.stringify(obj1) === JSON.stringify(obj2);
     }
@@ -29,7 +59,7 @@ const Index = (props) => {
             description: [
                 ["", ""]
             ],
-            category: [],
+            category: ['','','','',''],
             specifications: [
                 ["", ""]
             ]
@@ -159,6 +189,137 @@ const Index = (props) => {
         }));
     }
 
+    const handleChooseBrand = (name) => {
+        const index = collecting.findIndex(item => item.name === name)
+        if (index !== -1) {
+            setLineBrand(collecting[index].category)
+            setNewProduct((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    name,
+                    ...prevFilter.category.slice(1),
+                ],
+            }))
+            handleGetData((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    name,
+                    ...prevFilter.category.slice(1),
+                ],
+            }))
+        } else {
+            setLineBrand()
+            setNewProduct((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    name,
+                    ...prevFilter.category.slice(1),
+                ],
+            }))
+            handleGetData((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    name,
+                    ...prevFilter.category.slice(1),
+                ],
+            }))
+        }
+        // setNewProduct((prevFilter) => ({
+        //     ...prevFilter,
+        //     category: [
+        //         prevFilter.category[0],
+        //         prevFilter.category[1],
+        //         prevFilter.category[2],
+        //         prevFilter.category[3],
+        //         name,
+        //         ...prevFilter.category.slice(5),
+        //     ],
+        // }));
+    }
+    const handleChangeCategory = (e) => {
+        const { name, value } = e.target
+        if (name === 'line-brand') {
+            setNewProduct((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    value,
+                    ...prevFilter.category.slice(2),
+                ],
+            }));
+            handleGetData((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    value,
+                    ...prevFilter.category.slice(2),
+                ],
+            }));
+        } else if (name === 'cpu') {
+            setNewProduct((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    prevFilter.category[1] ? prevFilter.category[1] : '',
+                    value,
+                    ...prevFilter.category.slice(3),
+                ],
+            }));
+            handleGetData((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    prevFilter.category[1] ? prevFilter.category[1] : '',
+                    value,
+                    ...prevFilter.category.slice(3),
+                ],
+            }));
+        } else if (name === 'gpu') {
+            setNewProduct((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    prevFilter.category[1] ? prevFilter.category[1] : '',
+                    prevFilter.category[2] ? prevFilter.category[2] : '',
+                    value,
+                    ...prevFilter.category.slice(4),
+                ],
+            }));
+            handleGetData((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    prevFilter.category[1] ? prevFilter.category[1] : '',
+                    prevFilter.category[2] ? prevFilter.category[2] : '',
+                    value,
+                    ...prevFilter.category.slice(4),
+                ],
+            }));
+        } else if (name === 'category') {
+            setNewProduct((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    prevFilter.category[1] ? prevFilter.category[1] : '',
+                    prevFilter.category[2] ? prevFilter.category[2] : '',
+                    prevFilter.category[3] ? prevFilter.category[3] : '',
+                    value,
+                    ...prevFilter.category.slice(5),
+                ],
+            }));
+            handleGetData((prevFilter) => ({
+                ...prevFilter,
+                category: [
+                    prevFilter.category[0] ? prevFilter.category[0] : '',
+                    prevFilter.category[1] ? prevFilter.category[1] : '',
+                    prevFilter.category[2] ? prevFilter.category[2] : '',
+                    prevFilter.category[3] ? prevFilter.category[3] : '',
+                    value,
+                    ...prevFilter.category.slice(5),
+                ],
+            }));
+        }
+    }
     return (
         <div className="row">
             <div className="col-lg-12 grid-margin stretch-card">
@@ -213,9 +374,56 @@ const Index = (props) => {
                                         <label>Quantity</label>
                                         <input onChange={(e) => handleChangeInput(e, "nullNumber")} name="quantity" type="number" className="form-control form-control-sm" placeholder="Quantity" aria-label="Quantity" value={newProduct.quantity} />
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label>Category</label>
                                         <Select onChange={handleSelectedOptionsChange} value={newProduct.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Select category" />
+                                    </div> */}
+                                    <div class="row form-group">
+                                        <div className='col-4'>
+                                            <label>Brand</label>
+                                            <select name='brand' onChange={e => handleChooseBrand(e.target.value)} class="form-control">
+                                                <option value=''>Select brand</option>
+                                                {collecting ? collecting.map((item, index) => {
+                                                    return <option key={index} value={item.name}>{item.name}</option>
+                                                }) : null}
+                                            </select>
+                                        </div>
+                                        <div className='col-4'>
+                                            <label>Line Brand</label>
+                                            <select onChange={e => handleChangeCategory(e)} name='line-brand' class="form-control">
+                                                <option value=''>Select line brand</option>
+                                                {lineBrand && lineBrand.map((item, index) => {
+                                                    return <option key={index} value={item.name}>{item.name}</option>
+                                                })}
+                                            </select>
+                                        </div>
+                                        <div className='col-4'>
+                                            <label>CPU</label>
+                                            <select onChange={e => handleChangeCategory(e)} name='cpu' class="form-control">
+                                                <option value=''>Select CPU</option>
+                                                {CPU && CPU.map((item, index) => {
+                                                    return <option key={index} value={item.value}>{item.value}</option>
+                                                })}
+                                            </select>
+                                        </div>
+                                        <div className='col-4'>
+                                            <label>GPU</label>
+                                            <select onChange={e => handleChangeCategory(e)} name='gpu' class="form-control">
+                                                <option value=''>Select GPU</option>
+                                                {GPU && GPU.map((item, index) => {
+                                                    return <option key={index} value={item.value}>{item.value}</option>
+                                                })}
+                                            </select>
+                                        </div>
+                                        <div className='col-4'>
+                                            <label>Category</label>
+                                            <select onChange={e => handleChangeCategory(e)} name='category' class="form-control">
+                                                <option value=''>Select category</option>
+                                                {category && category.map((item, index) => {
+                                                    return <option key={index} value={item.value}>{item.value}</option>
+                                                })}
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

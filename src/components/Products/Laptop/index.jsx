@@ -31,13 +31,13 @@ const Index = () => {
             .then(result => {
                 setCollecting(result.category)
                 result.category.map((item, index) => {
-                    if (item.name === "Brand Name" || item.name === "Category" || item.name === "Laptop Components & Accessories") {
+                    if (item.name === "Brand Name" || item.name === "Category") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })
                         setOptionSelectLaptop(optionSelectLaptop => [...optionSelectLaptop, ...category])
                     }
-                    else if (item.name === "Price") {
+                    else if (item.name === "GPU") {
                         const category = item.collecting.map((item, index) => {
                             return item.name
                         })

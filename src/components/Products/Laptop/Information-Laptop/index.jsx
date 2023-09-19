@@ -10,7 +10,7 @@ const Index = () => {
     const params = useParams()
     const navigate = useNavigate();
     const [product, setProduct] = useState()
-
+    console.log(params)
     useEffect(() => {
         fetchListOfLaptopCollectingByName(params.src)
             .then(result => {

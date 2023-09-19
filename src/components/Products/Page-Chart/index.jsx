@@ -5,19 +5,19 @@ import ChartSoldGoodsInMonth from 'components/Products/Page-Chart/ChartSoldGoods
 import ChartViewGoodsOnCategory from 'components/Products/Page-Chart/ChartViewGoodsInMonth'
 import ChartViewGoods from 'components/Products/Page-Chart/ChartViewGoods'
 import {
-    fetchTotalGoodsLaptopCollecting,
-    fetchTotalOutOfStockLaptopCollecting,
-    fetchTotalAInStockLaptopCollecting,
-    fetchTotalSoldOfMonthLaptopCollecting,
-    fetchTotalViewInMonthLaptopCollecting,
-    fetchTotalSoldInYearLaptopCollecting,
-    fetchTotalViewInYearLaptopCollecting,
-    fetchTotalSoldByDayLaptopCollecting,
-    fetchTotalViewByDayLaptopCollecting,
-    fetchCountGoodsByCategoryLaptopCollecting,
-    fetchSoldProductsByCategoryLaptopCollecting,
-    fetchTopSoldProductsLaptopCollecting,
-    fetchTopViewProductsLaptopCollecting
+    fetchTotalGoodsCollecting,
+    fetchTotalOutOfStockCollecting,
+    fetchTotalAInStockCollecting,
+    fetchTotalSoldOfMonthCollecting,
+    fetchTotalViewInMonthCollecting,
+    fetchTotalSoldInYearCollecting,
+    fetchTotalViewInYearCollecting,
+    fetchTotalSoldByDayCollecting,
+    fetchTotalViewByDayCollecting,
+    fetchCountGoodsByCategoryCollecting,
+    fetchSoldProductsByCategoryCollecting,
+    fetchTopSoldProductsCollecting,
+    fetchTopViewProductsCollecting
 } from 'Apis'
 
 const Index = (props) => {
@@ -40,7 +40,7 @@ const Index = (props) => {
     const [topSoldProducts, setTopSoldProducts] = useState(null)
     const [topViewProducts, setTopViewProducts] = useState(null)
     const fetchTotalGoods = () => {
-        fetchTotalGoodsLaptopCollecting()
+        fetchTotalGoodsCollecting()
             .then(result => {
                 console.log(1)
                 setTotalGoods(result.total)
@@ -51,7 +51,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalOutOfStock = () => {
-        fetchTotalOutOfStockLaptopCollecting()
+        fetchTotalOutOfStockCollecting()
             .then(result => {
                 setTotalOutOfStock(result.totalOutStock)
             })
@@ -61,7 +61,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalAInStock = () => {
-        fetchTotalAInStockLaptopCollecting()
+        fetchTotalAInStockCollecting()
             .then(result => {
                 setTotalAvailableInStock(result.totalAvailable)
                 setTotalInStock(result.totalInStock)
@@ -72,7 +72,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalSoldOfMonth = () => {
-        fetchTotalSoldOfMonthLaptopCollecting()
+        fetchTotalSoldOfMonthCollecting()
             .then(result => {
                 setTotalSoldOfMonth(result.totalSold)
                 setTotalProfitOfMonth(result.totalProfit)
@@ -83,7 +83,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalViewInMonth = () => {
-        fetchTotalViewInMonthLaptopCollecting()
+        fetchTotalViewInMonthCollecting()
             .then(result => {
                 setTotalViewInMonth(result.totalView)
             })
@@ -93,7 +93,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalSoldInYear = () => {
-        fetchTotalSoldInYearLaptopCollecting()
+        fetchTotalSoldInYearCollecting()
             .then(result => {
                 setTotalSoldInYear(result.totalSoldInYear)
             })
@@ -103,7 +103,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalViewInYear = () => {
-        fetchTotalViewInYearLaptopCollecting()
+        fetchTotalViewInYearCollecting()
             .then(result => {
                 setTotalViewInYear(result.totalViewInYear)
             })
@@ -113,7 +113,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalSoldByDay = () => {
-        fetchTotalSoldByDayLaptopCollecting()
+        fetchTotalSoldByDayCollecting()
             .then(result => {
                 setTotalSoldByDay(result.totalSoldByDay)
             })
@@ -123,7 +123,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalViewByDay = () => {
-        fetchTotalViewByDayLaptopCollecting()
+        fetchTotalViewByDayCollecting()
             .then(result => {
                 setTotalViewByDay(result.totalViewByDay)
             })
@@ -133,7 +133,7 @@ const Index = (props) => {
             })
     }
     const fetchCountGoodsByCategory = (optionSelectLaptop) => {
-        fetchCountGoodsByCategoryLaptopCollecting(optionSelectLaptop)
+        fetchCountGoodsByCategoryCollecting(optionSelectLaptop)
             .then(result => {
                 setCountGoodsByCategory(result.total)
             })
@@ -143,7 +143,7 @@ const Index = (props) => {
             })
     }
     const fetchSoldProductsByCategory = (optionSelectLaptop) => {
-        fetchSoldProductsByCategoryLaptopCollecting(optionSelectLaptop)
+        fetchSoldProductsByCategoryCollecting(optionSelectLaptop)
             .then(result => {
                 setSoldProductsByCategory(result.resultSold)
             })
@@ -153,7 +153,7 @@ const Index = (props) => {
             })
     }
     const fetchTopSoldProducts = () => {
-        fetchTopSoldProductsLaptopCollecting()
+        fetchTopSoldProductsCollecting()
             .then(result => {
                 setTopSoldProducts(result.topSoldProducts)
             })
@@ -163,7 +163,7 @@ const Index = (props) => {
             })
     }
     const fetchTopViewProducts = () => {
-        fetchTopViewProductsLaptopCollecting()
+        fetchTopViewProductsCollecting()
             .then(result => {
                 setTopViewProducts(result.topViewProducts)
             })
@@ -250,7 +250,7 @@ const Index = (props) => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total goods <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalGoods")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total goods </p>
                             {totalGoods === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -262,7 +262,7 @@ const Index = (props) => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total Out of Stock <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalOutOfStock")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total Out of Stock </p>
                             {totalOutOfStock === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -277,7 +277,7 @@ const Index = (props) => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-light-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total available in stock <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalInStock")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total available in stock </p>
                             {totalInStock === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -292,7 +292,7 @@ const Index = (props) => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total Sold this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalSoldAndProfitOfMonth")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total Sold this Month </p>
                             {totalSoldOfMonth === null && totalSoldInYear === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :
@@ -307,7 +307,7 @@ const Index = (props) => {
                 <div className="col-md-4 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                         <div className="card-body">
-                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total View this Month <i className="mdi mdi-reload" style={{ cursor: "pointer" }} onClick={event => handleResetData(event, "totalViewInMonth")} /></p>
+                            <p className="mb-3" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>Total View this Month </p>
                             {totalViewInMonth === null || totalViewInYear === null ?
                                 <div className="lds-dual-ring" ></div>
                                 :

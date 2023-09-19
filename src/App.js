@@ -12,11 +12,9 @@ import Orders from 'components/Orders'
 import UpdateAndShowOrder from 'components/Orders/Information-Order'
 import Laptop from 'components/Products/Laptop'
 import LaptopGaming from 'components/Products/Laptop-Gaming'
-import PcKm from 'components/Products/PC-KM'
 import PcGaming from 'components/Products/PC-Gaming'
 import PcCreator from 'components/Products/PC-Creator'
 import PcCompany from 'components/Products/PC-Company'
-import PcAccessory from 'components/Products/PC-Accessory'
 import Apple from 'components/Products/Apple'
 import MouseTabpad from 'components/Products/Mouse'
 import Monitor from 'components/Products/Monitor'
@@ -42,9 +40,6 @@ import InformationLaptop from 'components/Products/Laptop/Information-Laptop'
 import InformationLaptopGaming from 'components/Products/Laptop-Gaming/Information-Laptop-Gaming'
 import UpdateInformationLaptopGaming from 'components/Products/Laptop-Gaming/Update-Information-Product'
 import CreateInformationLaptopGaming from 'components/Products/Laptop-Gaming/Create-New-Product'
-import InformationPCKM from 'components/Products/PC-KM/Information-PCKM'
-import UpdateInformationPCKM from 'components/Products/PC-KM/Update-Information-Product'
-import CreateInformationPCKM from 'components/Products/PC-KM/Create-New-Product'
 import InformationPCGaming from 'components/Products/PC-Gaming/Information-PCGaming'
 import UpdateInformationPCGaming from 'components/Products/PC-Gaming/Update-Information-Product'
 import CreateInformationPCGaming from 'components/Products/PC-Gaming/Create-New-Product'
@@ -66,9 +61,6 @@ import UpdateInformationKeyboard from 'components/Products/Keyboard/Update-Infor
 import InformationMouse from 'components/Products/Mouse/Information-Mouse'
 import CreateInformationMouse from 'components/Products/Mouse/Create-New-Mouse'
 import UpdateInformationMouse from 'components/Products/Mouse/Update-Information-Mouse'
-import InformationPcAccessory from 'components/Products/PC-Accessory/Information-PCAccessory'
-import CreateInformationPcAccessory from 'components/Products/PC-Accessory/Create-New-Product'
-import UpdateInformationPcAccessory from 'components/Products/PC-Accessory/Update-Information-Product'
 import InformationSpeaker from 'components/Products/Speaker/Information-Speaker'
 import CreateInformationSpeaker from 'components/Products/Speaker/Create-New-Product-Speaker'
 import UpdateInformationSpeaker from 'components/Products/Speaker/Update-Information-Speaker'
@@ -104,52 +96,44 @@ function App() {
       { path: "/laptop/update/:src", location: UpdateInformationLaptop },
       { path: "/laptop/create", location: CreateInformationLaptop },
       { path: "/laptop-gaming", location: LaptopGaming },
-      { path: "/laptop-gaming/:id", location: InformationLaptopGaming },
-      { path: "/laptop-gaming/update/:id", location: UpdateInformationLaptopGaming },
+      { path: "/laptop-gaming/:src", location: InformationLaptopGaming },
+      { path: "/laptop-gaming/update/:src", location: UpdateInformationLaptopGaming },
       { path: "/laptop-gaming/create", location: CreateInformationLaptopGaming },
-      { path: "/pc-km", location: PcKm },
-      { path: "/pc-km/:id", location: InformationPCKM },
-      { path: "/pc-km/update/:id", location: UpdateInformationPCKM },
-      { path: "/pc-km/create", location: CreateInformationPCKM },
       { path: "/pc-gaming", location: PcGaming },
       { path: "/pc-gaming/create", location: CreateInformationPCGaming },
-      { path: "/pc-gaming/:id", location: InformationPCGaming },
-      { path: "/pc-gaming/update/:id", location: UpdateInformationPCGaming },
+      { path: "/pc-gaming/:src", location: InformationPCGaming },
+      { path: "/pc-gaming/update/:src", location: UpdateInformationPCGaming },
       { path: "/pc-creator", location: PcCreator },
       { path: "/pc-creator/create", location: CreateInformationPCCreator },
-      { path: "/pc-creator/:id", location: InformationPCCreator },
-      { path: "/pc-creator/update/:id", location: UpdateInformationPCCreator },
+      { path: "/pc-creator/:src", location: InformationPCCreator },
+      { path: "/pc-creator/update/:src", location: UpdateInformationPCCreator },
       { path: "/pc-company", location: PcCompany },
       { path: "/pc-company/create", location: CreateInformationPCCompany },
-      { path: "/pc-company/:id", location: InformationPCCompany },
-      { path: "/pc-company/update/:id", location: UpdateInformationPCCompany },
-      { path: "/pc-accessory", location: PcAccessory },
-      { path: "/pc-accessory/:id", location: InformationPcAccessory },
-      { path: "/pc-accessory/create", location: CreateInformationPcAccessory },
-      { path: "/pc-accessory/update/:id", location: UpdateInformationPcAccessory },
+      { path: "/pc-company/:src", location: InformationPCCompany },
+      { path: "/pc-company/update/:src", location: UpdateInformationPCCompany },
       { path: "/apple", location: Apple },
-      { path: "/apple/:id", location: InformationApple },
+      { path: "/apple/:src", location: InformationApple },
       { path: "/apple/create", location: CreateInformationApple },
-      { path: "/apple/update/:id", location: UpdateInformationApple },
+      { path: "/apple/update/:src", location: UpdateInformationApple },
       { path: "/monitor", location: Monitor },
-      { path: "/monitor/:id", location: InformationMonitor },
+      { path: "/monitor/:src", location: InformationMonitor },
       { path: "/monitor/create", location: CreateInformationMonitor },
-      { path: "/monitor/update/:id", location: UpdateInformationMonitor },
+      { path: "/monitor/update/:src", location: UpdateInformationMonitor },
       { path: "/keyboard", location: Keyboard },
-      { path: "/keyboard/:id", location: InformationKeyboard },
+      { path: "/keyboard/:src", location: InformationKeyboard },
       { path: "/keyboard/create", location: CreateInformationKeyboard },
-      { path: "/keyboard/update/:id", location: UpdateInformationKeyboard },
+      { path: "/keyboard/update/:src", location: UpdateInformationKeyboard },
       { path: "/mouse-tabpad", location: MouseTabpad },
-      { path: "/mouse/:id", location: InformationMouse },
+      { path: "/mouse/:src", location: InformationMouse },
       { path: "/mouse/create", location: CreateInformationMouse },
-      { path: "/mouse/update/:id", location: UpdateInformationMouse },
+      { path: "/mouse/update/:src", location: UpdateInformationMouse },
       { path: "/speaker", location: Speaker },
-      { path: "/speaker/:id", location: InformationSpeaker },
+      { path: "/speaker/:src", location: InformationSpeaker },
       { path: "/speaker/create", location: CreateInformationSpeaker },
-      { path: "/speaker/update/:id", location: UpdateInformationSpeaker },
-      { path: "/headphone/:id", location: InformationHeadPhone },
+      { path: "/speaker/update/:src", location: UpdateInformationSpeaker },
+      { path: "/headphone/:src", location: InformationHeadPhone },
       { path: "/headphone/create", location: CreateInformationHeadPhone },
-      { path: "/headphone/update/:id", location: UpdateInformationHeadPhone },
+      { path: "/headphone/update/:src", location: UpdateInformationHeadPhone },
       { path: "/users", location: Users },
       { path: "/user/:id", location: UsersInformation },
       { path: "/employee", location: Employee },
