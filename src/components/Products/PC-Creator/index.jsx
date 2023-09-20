@@ -69,7 +69,7 @@ const Index = () => {
             .catch(error => {
                 setLoading(false)
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    state.setAuthentication(null)
+                    state.setAuthentication(state.authentication !== null ? state.authentication : null)
                 }
                 setError(error.response.status)
                 console.log(error)
@@ -210,7 +210,7 @@ const Index = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title">List of Pc Creator products</h4>
-                                    <NavLink to={"/pc-Creator/create"} className="card-description" style={{ textDecoration: "none" }}>
+                                    <NavLink to={"/pc-creator/create"} className="card-description" style={{ textDecoration: "none" }}>
                                         <code><i className="mdi mdi-plus-circle-outline" />  Add new products</code>
                                     </NavLink>
                                     <p className="card-description" style={{ display: "flex", "justifyContent": "flex-end" }}>
@@ -319,7 +319,7 @@ const Index = () => {
                                                                     </label>
                                                                 </td>
                                                                 <td>
-                                                                    <NavLink to={"/pc-Creator/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
+                                                                    <NavLink to={"/pc-creator/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
                                                                 </td>
                                                             </tr>
                                                         })}

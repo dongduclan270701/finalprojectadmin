@@ -35,7 +35,7 @@ const Index = () => {
             })
             .catch(error => {
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    state.setAuthentication(null)
+                    state.setAuthentication(state.authentication !== null ? state.authentication : null)
                 }
                 setError(error.response.status)
                 setLoading(false)

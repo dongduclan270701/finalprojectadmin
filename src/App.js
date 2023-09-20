@@ -16,10 +16,6 @@ import PcGaming from 'components/Products/PC-Gaming'
 import PcCreator from 'components/Products/PC-Creator'
 import PcCompany from 'components/Products/PC-Company'
 import Apple from 'components/Products/Apple'
-import MouseTabpad from 'components/Products/Mouse'
-import Monitor from 'components/Products/Monitor'
-import Keyboard from 'components/Products/Keyboard'
-import Speaker from 'components/Products/Speaker'
 import ThemeSetting from 'components/Theme-Setting'
 import Users from 'components/Users'
 import UsersInformation from 'components/Users/Information-User'
@@ -52,21 +48,6 @@ import CreateInformationPCCompany from 'components/Products/PC-Company/Create-Ne
 import InformationApple from 'components/Products/Apple/Information-Apple'
 import CreateInformationApple from 'components/Products/Apple/Create-New-Product'
 import UpdateInformationApple from 'components/Products/Apple/Update-Information-Product'
-import InformationMonitor from 'components/Products/Monitor/Information-Monitor'
-import CreateInformationMonitor from 'components/Products/Monitor/Create-New-Product'
-import UpdateInformationMonitor from 'components/Products/Monitor/Update-Information-Product'
-import InformationKeyboard from 'components/Products/Keyboard/Information-Keyboard'
-import CreateInformationKeyboard from 'components/Products/Keyboard/Create-New-Product'
-import UpdateInformationKeyboard from 'components/Products/Keyboard/Update-Information-Product'
-import InformationMouse from 'components/Products/Mouse/Information-Mouse'
-import CreateInformationMouse from 'components/Products/Mouse/Create-New-Mouse'
-import UpdateInformationMouse from 'components/Products/Mouse/Update-Information-Mouse'
-import InformationSpeaker from 'components/Products/Speaker/Information-Speaker'
-import CreateInformationSpeaker from 'components/Products/Speaker/Create-New-Product-Speaker'
-import UpdateInformationSpeaker from 'components/Products/Speaker/Update-Information-Speaker'
-import InformationHeadPhone from 'components/Products/Speaker/Information-HeadPhone'
-import CreateInformationHeadPhone from 'components/Products/Speaker/Create-New-Product-HeadPhone'
-import UpdateInformationHeadPhone from 'components/Products/Speaker/Update-Information-HeadPhone'
 function App() {
   const [page, setPage] = useState([])
   const [chooseSettingThemePages, setChooseSettingThemePages] = useState(false)
@@ -115,25 +96,6 @@ function App() {
       { path: "/apple/:src", location: InformationApple },
       { path: "/apple/create", location: CreateInformationApple },
       { path: "/apple/update/:src", location: UpdateInformationApple },
-      { path: "/monitor", location: Monitor },
-      { path: "/monitor/:src", location: InformationMonitor },
-      { path: "/monitor/create", location: CreateInformationMonitor },
-      { path: "/monitor/update/:src", location: UpdateInformationMonitor },
-      { path: "/keyboard", location: Keyboard },
-      { path: "/keyboard/:src", location: InformationKeyboard },
-      { path: "/keyboard/create", location: CreateInformationKeyboard },
-      { path: "/keyboard/update/:src", location: UpdateInformationKeyboard },
-      { path: "/mouse-tabpad", location: MouseTabpad },
-      { path: "/mouse/:src", location: InformationMouse },
-      { path: "/mouse/create", location: CreateInformationMouse },
-      { path: "/mouse/update/:src", location: UpdateInformationMouse },
-      { path: "/speaker", location: Speaker },
-      { path: "/speaker/:src", location: InformationSpeaker },
-      { path: "/speaker/create", location: CreateInformationSpeaker },
-      { path: "/speaker/update/:src", location: UpdateInformationSpeaker },
-      { path: "/headphone/:src", location: InformationHeadPhone },
-      { path: "/headphone/create", location: CreateInformationHeadPhone },
-      { path: "/headphone/update/:src", location: UpdateInformationHeadPhone },
       { path: "/users", location: Users },
       { path: "/user/:id", location: UsersInformation },
       { path: "/employee", location: Employee },

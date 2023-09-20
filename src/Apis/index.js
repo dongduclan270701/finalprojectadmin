@@ -117,6 +117,31 @@ export const fetchUpdatePcCreatorCollecting = async (src, data) => {
 }
 
 
+export const fetchListOfPcCompanyCollecting = async (countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/pcCompanyCollecting`, { params: { count: countPage }, headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchListOfPcCompanyCollectingByName = async (id) => {
+    const req = await axios.get(`${API_ROOT}/v1/pcCompanyCollecting/secretAdmin/${id}`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchCreatePcCompanyCollecting = async (data) => {
+    const req = await axios.post(`${API_ROOT}/v1/pcCompanyCollecting`, data, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchSearchPcCompanyCollecting = async (data, countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/pcCompanyCollecting/search`, { params: { ...data, count: countPage }, headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchUpdatePcCompanyCollecting = async (src, data) => {
+    const req = await axios.put(`${API_ROOT}/v1/pcCompanyCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 
 export const fetchTotalGoodsCollecting = async (data) => {
     const req = await axios.get(`${API_ROOT}/v1/productChart/totalGoods`, { params: { collection : data }, headers: { 'auth-token-admin': token } })

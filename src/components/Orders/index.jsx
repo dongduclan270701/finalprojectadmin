@@ -40,7 +40,7 @@ const Index = () => {
             })
             .catch(error => {
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    state.setAuthentication(null)
+                    state.setAuthentication(state.authentication ? state.authentication : null)
                 }
                 console.log(error)
                 setError(error.response.status)
@@ -111,7 +111,7 @@ const Index = () => {
 
         <div className="main-panel">
             <div className="content-wrapper">
-                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
+                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'ORDER') ?
                     <>
                         {loading === false ?
                             <div className="col-lg-12 grid-margin stretch-card">
@@ -242,16 +242,19 @@ const Index = () => {
                             </>
                         }
                     </>
-                }
-                {state.authentication === 'CEO' && <div className="col-lg-12 grid-margin">
+                    :
+                    state.authentication === 'CEO' ? <div className="col-lg-12 grid-margin">
                     <Chart />
-                </div>
+                </div> :
+                <div className="col-lg-12 grid-margin stretch-card">
+                <NoAuth error={error} />
+            </div>
                 }
-                {state.authentication === null &&
-                    <div className="col-lg-12 grid-margin stretch-card">
-                        <NoAuth error={error} />
-                    </div>
+                {/* {
                 }
+                {(state.authentication !== 'MANAGEMENT' || state.authentication !== 'ORDER' || state.authentication.toString() !== 'CEO') &&
+                    
+                } */}
             </div>
             <Footer />
 

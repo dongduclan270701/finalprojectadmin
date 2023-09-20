@@ -69,7 +69,7 @@ const Index = () => {
             .catch(error => {
                 setLoading(false)
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    state.setAuthentication(null)
+                    state.setAuthentication(state.authentication !== null ? state.authentication : null)
                 }
                 setError(error.response.status)
                 console.log(error)
@@ -204,6 +204,7 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
+                {console.log(state.authentication)}
                 {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
                     <>{loading === false ?
                         <div className="col-lg-12 grid-margin stretch-card">

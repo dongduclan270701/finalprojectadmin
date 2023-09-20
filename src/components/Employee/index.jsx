@@ -34,7 +34,7 @@ const Index = () => {
             .catch(error => {
                 console.log(error)
                 if (error.response.data.message === "You do not have sufficient permissions to perform this function") {
-                    state.setAuthentication(null)
+                    state.setAuthentication(state.authentication !== null ? state.authentication : null)
                 }
                 setError(error.response.status)
                 setLoading(false)
@@ -81,7 +81,7 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
-                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
+                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' ) ?
                     <>
                         {loading === false ?
                             <div className="col-lg-12 grid-margin stretch-card">
@@ -219,16 +219,20 @@ const Index = () => {
                             </>
                         }
                     </>
-                }
-                {state.authentication === 'CEO' && <div className="col-lg-12 grid-margin">
+                    :
+                    state.authentication === 'CEO' ? <div className="col-lg-12 grid-margin">
                     <Chart />
                 </div>
-                }
-                {state.authentication === null &&
-                    <div className="col-lg-12 grid-margin stretch-card">
+                :
+                <div className="col-lg-12 grid-margin stretch-card">
                         <NoAuth error={error} />
                     </div>
                 }
+                {/* {
+                }
+                {state.authentication !== 'MANAGEMENT' &&
+                    
+                } */}
             </div>
             <Footer />
         </div>
