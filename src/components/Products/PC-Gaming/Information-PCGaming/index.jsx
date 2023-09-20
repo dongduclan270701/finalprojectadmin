@@ -1,219 +1,200 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import logo from 'assets/images/faces/face1.jpg'
+import { fetchListOfPcGamingCollectingByName } from 'Apis'
 import Footer from "components/Footer"
 const Index = () => {
+    const params = useParams()
     const navigate = useNavigate();
-    const [inputElement, setInputElement] = useState({
-        img: [],
-        src: "1",
-        gift: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
-        gift_buy: ["Quà 1", "Quà 2", "Quà 3", "Quà 4"],
-        nameProduct: "1",
-        realPrice: 123,
-        nowPrice: 123123,
-        percent: 23,
-        description_table: [
-            ["CPU", "Itel 13th"],
-            ["RAM", "16GB"],
-            ["Storage", '512GB'],
-        ],
-        description: [
-            ["Đánh giá chi tiết laptop Asus Vivobook 15 X515EA BR2045W", "Asus Vivobook 15 X515EA BR2045W là chiếc laptop giá rẻ phù hợp cho việc học tập và làm việc hằng ngày. Cấu hình ổn định, thiết kế hoàn thiện hứa hẹn sẽ mang đến những trải nghiệm phù hợp với người dùng."]
-        ],
-        quantity: 12,
-        category: [
-            "1",
-            "2",
-            "3"
-        ],
-        sold: 12,
-        view: 42
-    },)
-    const [options, setOptions] = useState([
-        {
-            label: 'Angular',
-            value: 'Angular',
-        },
-        {
-            label: 'Bootstrap',
-            value: 'Bootstrap',
-        },
-        {
-            label: 'React.js',
-            value: 'React.js',
-        },
-        {
-            label: 'Vue.js',
-            value: 'Vue.js',
-        },
-        {
-            label: 'Vue.js1',
-            value: 'Vue.js1',
-        },
-        {
-            label: 'Vue.js2',
-            value: 'Vue.js2',
-        },
-        {
-            label: 'Vue.js3',
-            value: 'Vue.js3',
-        },
-    ])
+    const [product, setProduct] = useState()
+
     useEffect(() => {
-        inputElement.category.map((item) => {
-            setOptions(options => [...options, { label: item, value: item }])
-        })
-    }, []);
-    
+        fetchListOfPcGamingCollectingByName(params.src)
+            .then(result => {
+                console.log(result)
+                setProduct(result)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [params]);
+
     return (
         <div className="main-panel">
             <div className="content-wrapper">
                 <div className="col-lg-12 grid-margin">
                     <div className="row" style={{ display: "flex", "flexDirection": "row", "alignItems": "center" }}>
                         <button onClick={() => navigate(-1)} type="button" className="col-lg-1 btn btn-outline-secondary btn-fw" style={{ "marginTop": 15 }}>Back</button>
-                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Thông tin chi tiết sản phẩm PC Gaming</h3>
+                        <h3 className="col-lg-10 font-weight-bold" style={{ "marginTop": 15 }}>Product details PC Gaming</h3>
                     </div>
-                </div>
-                <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                    <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/pc-gaming/update/1"}>Chỉnh sửa</NavLink>
-                </div>
-
-                <div className="row">
-                    <div className="col-lg-6 grid-margin">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Hình ảnh</h4>
-                                <div className="col-sm-12 col-xs-12 ">
-                                    <Carousel>
-                                        <img src={logo} alt=''/>
-                                        <img src={logo} alt=''/>
-                                        <img src={logo} alt=''/>
-                                        <img src={logo} alt=''/>
-                                    </Carousel>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="card" style={{ "marginBottom": "25px" }}>
-                            <div className="card-body">
-                                <h4 className="card-title">Thông tin sản phẩm</h4>
-                                <div className="form-group">
-                                    <label>Mã sản phẩm</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Mã sản phẩm" aria-label="Mã sản phẩm" value={inputElement.src} disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Tên sản phẩm</label>
-                                    <input type="text" className="form-control form-control-sm" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" value={inputElement.nameProduct} disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Giá chính</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Giá chính" aria-label="Giá chính" value={inputElement.realPrice} disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Giá giảm</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Giá giảm" aria-label="Giá giảm" value={inputElement.nowPrice} disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Phần trăm giảm giá</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" value={inputElement.percent} disabled />
-                                </div>
-                                <div className="form-group">
-                                    <label>Số lượng</label>
-                                    <input type="number" className="form-control form-control-sm" placeholder="Số lượng" aria-label="Số lượng" value={inputElement.quantity} disabled />
-                                </div>
-                                <div className='row' style={{ paddingTop: "0" }}>
-                                    <div className="col-6 form-group">
-                                        <label>Đã bán</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Đã bán" aria-label="Đã bán" value={inputElement.sold} disabled />
-                                    </div>
-                                    <div className="col-6 form-group">
-                                        <label>Lượt xem</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Lượt xem" aria-label="Lượt xem" value={inputElement.view} disabled />
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <label>Danh mục</label>
-                                    <Select value={inputElement.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Chọn danh mục" isDisabled={true}/>
-                                </div>
-                            </div>
-                        </div>
+                </div>{product ? <>
+                    <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
+                        <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/pc-gaming/update/" + product.src}>Update</NavLink>
                     </div>
 
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
+                    <div className="row">
+                        <div className="col-lg-6 grid-margin">
                             <div className="card">
                                 <div className="card-body">
-                                    <h4 className="card-title">Thông số sản phẩm</h4>
-                                    {inputElement.description_table.map((item, index) => {
-                                        return <div className="form-group" key={index}>
-                                            <label>{item[0]}</label>
-                                            <input type="text" className="form-control form-control-sm" placeholder={item[0]} aria-label={item[0]} value={item[1]} disabled />
-                                        </div>
-                                    })}
-
+                                    <h4 className="card-title">Image</h4>
+                                    <div className="col-sm-12 col-xs-12 ">
+                                        <Carousel>
+                                            {product.img.map((item, index) => {
+                                                return <img src={item} key={index} alt=''/>
+                                            })}
+                                        </Carousel>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="col-lg-6 grid-margin stretch-card">
-                        <div className="col-md-12" style={{ "padding": 0 }}>
+                        <div className="col-lg-6 grid-margin stretch-card">
                             <div className="card" style={{ "marginBottom": "25px" }}>
                                 <div className="card-body">
-                                    <h4 className="card-title">Mô tả sản phẩm</h4>
-                                    <div className='row' style={{ margin: "inherit" }}>
-                                        <div className='col-6' style={{ paddingLeft: "0" }}>
-                                            <label>Tiêu đề:</label>
+                                    <h4 className="card-title">Product Details</h4>
+                                    <div className="form-group">
+                                        <label>Product Code</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Product Code" aria-label="Product Code" value={product.src} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Product Name</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="Product Name" aria-label="Product Name" value={product.nameProduct} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Main Price</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Main Price" aria-label="Main Price" value={product.realPrice} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Reduced Price</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Reduced Price" aria-label="Reduced Price" value={product.nowPrice} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Discount Percent</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Discount Percent" aria-label="Discount Percent" value={product.percent} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Quantity</label>
+                                        <input type="number" className="form-control form-control-sm" placeholder="Quantity" aria-label="Quantity" value={product.quantity} disabled />
+                                    </div>
+                                    <div className='row' style={{ paddingTop: "0" }}>
+                                        <div className="col-6 form-group">
+                                            <label>Sold</label>
+                                            <input type="number" className="form-control form-control-sm" placeholder="Sold" aria-label="Sold" value={product.sold} disabled />
                                         </div>
-                                        <div className='col-6' style={{ padding: "0" }}>
-                                            <label>Nội dung:</label>
+                                        <div className="col-6 form-group">
+                                            <label>View</label>
+                                            <input type="number" className="form-control form-control-sm" placeholder="View" aria-label="View" value={product.view} disabled />
                                         </div>
                                     </div>
-                                    {inputElement.description.map((item, index) => {
-                                        return <div key={index} className='row' style={{ margin: "inherit" }}>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <textarea name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
-                                            </div>
-                                            <div className='col-6' style={{ paddingLeft: "0" }}>
-                                                <textarea name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
-                                            </div>
-                                        </div>
-                                    })}
+                                    <div className="form-group">
+                                        <label>Category</label>
+                                        <Select value={product.category.map((item) => ({ value: item, label: item }))} components={makeAnimated()} isMulti placeholder="Select category" isDisabled={true} />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Ưu đãi khi mua sản phẩm</h4>
-                                    <div className="form-group">
-                                        <label>Ưu đãi</label>
-                                        {inputElement.gift_buy.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
+                        </div>
+                        <div className="col-lg-6 grid-margin stretch-card">
+                            <div className="col-md-12" style={{ "padding": 0 }}>
+                                <div className="card" style={{ "marginBottom": "25px" }}>
+                                    <div className="card-body">
+                                        <h4 className="card-title">Details</h4>
+                                        {product.description_table.map((item, index) => {
+                                            return <div className="form-group" key={index}>
+                                                <label>{item[0]}</label>
+                                                <input type="text" className="form-control form-control-sm" placeholder={item[0]} aria-label={item[0]} value={item[1]} disabled />
+                                            </div>
+                                        })}
+                                    </div>
+                                </div>
+                                <div className="card" style={{ "marginBottom": "25px" }}>
+                                    <div className="card-body">
+                                        <h4 className="card-title">Specifications</h4>
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Title:</label>
+                                            </div>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Content:</label>
+                                            </div>
+                                        </div>
+                                        {product.specifications.map((item, index) => {
+                                            return <div key={index} className='row' style={{ margin: "0 0 25px 0" }}>
+                                                <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                    <input name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
+                                                </div>
+                                                <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                    <input name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
+                                                </div>
+                                            </div>
                                         })}
                                     </div>
                                 </div>
                             </div>
-                            <div className="card" style={{ "marginBottom": "25px" }}>
-                                <div className="card-body">
-                                    <h4 className="card-title">Quà tặng</h4>
-                                    <div className="form-group">
-                                        <label>Quà tặng</label>
-                                        {inputElement.gift.map((item, index) => {
-                                            return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Quà tặng" aria-label="Quà tặng" disabled />
+                        </div>
+                        
+                        <div className="col-lg-6 grid-margin stretch-card">
+                            <div className="col-md-12" style={{ "padding": 0 }}>
+                                <div className="card" style={{ "marginBottom": "25px" }}>
+                                    <div className="card-body">
+                                        <h4 className="card-title">Description</h4>
+                                        <div className='row' style={{ margin: "0 auto" }}>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Title:</label>
+                                            </div>
+                                            <div className='col-6' style={{ padding: "0" }}>
+                                                <label>Content:</label>
+                                            </div>
+                                        </div>
+                                        {product.description.map((item, index) => {
+                                            return <div key={index} className='row' style={{ margin: "0 0 25px 0" }}>
+                                                <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                    <textarea name='NameDescription' type="text" className="form-control form-control-sm" value={item[0]} placeholder={item[0]} aria-label={item[0]} disabled />
+                                                </div>
+                                                <div className='col-6' style={{ paddingLeft: "0" }}>
+                                                    <textarea name='ContentDescription' type="text" className="form-control form-control-sm" value={item[1]} placeholder={item[1]} aria-label={item[1]} disabled />
+                                                </div>
+                                            </div>
                                         })}
                                     </div>
                                 </div>
+                                <div className="card" style={{ "marginBottom": "25px" }}>
+                                    <div className="card-body">
+                                        <h4 className="card-title">Offers</h4>
+                                        <div className="form-group">
+                                            <label>Offers</label>
+                                            {product.gift_buy.map((item, index) => {
+                                                return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Offers" aria-label="Offers" disabled />
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="card" style={{ "marginBottom": "25px" }}>
+                                    <div className="card-body">
+                                        <h4 className="card-title">Gift</h4>
+                                        <div className="form-group">
+                                            <label>Gift</label>
+                                            {product.gift.map((item, index) => {
+                                                return <input style={{ marginBottom: "15px" }} key={index} type="text" value={item} className="form-control form-control-sm" placeholder="Gift" aria-label="Gift" disabled />
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
+                </>
+                    :
+                    <>
+                        <style dangerouslySetInnerHTML={{
+                            __html: "\n.loader {\n  border: 16px solid #f3f3f3;\n  border-radius: 50%;\n  border-top: 16px solid #3498db;\n  margin: 0 auto;\n  width: 120px;\n  height: 120px;\n  -webkit-animation: spin 2s linear infinite; /* Safari */\n  animation: spin 2s linear infinite;\n}\n\n/* Safari */\n@-webkit-keyframes spin {\n  0% { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n"
+                        }} />
+                        <div className="loader" />
+                    </>
+                }
+                {/*  */}
 
-                </div>
             </div>
             <Footer />
         </div>

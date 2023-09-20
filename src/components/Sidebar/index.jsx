@@ -187,44 +187,23 @@ const Index = (props) => {
                                 PC Creator
                             </NavLink>
                             </li>
+                            <li className="nav-item"><NavLink to="/pc-company" className="nav-link" style={{ listStyleType: "none" }} >
+                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
+                                    <path d="M13 3H17C18.1046 3 19 3.89543 19 5V13C19 14.1046 18.1046 15 17 15H13" stroke="currentcolor"></path>
+                                    <path d="M16.5 18.5C16.7761 18.5 17 18.2761 17 18C17 17.7239 16.7761 17.5 16.5 17.5V18.5ZM13 18.5H16.5V17.5H13V18.5Z" fill="currentcolor"></path>
+                                    <circle cx="6" cy="5" r="1" fill="currentcolor"></circle>
+                                    <circle cx="6" cy="9" r="1" fill="currentcolor"></circle>
+                                </svg>
+                                PC Company
+                            </NavLink>
+                            </li>
                             <li className="nav-item"><NavLink to="/apple" className="nav-link" style={{ listStyleType: "none" }} >
                                 <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.0964 8.76235C11.9359 9.46803 11.3612 10.4251 11.3687 11.6949C11.3687 11.7601 11.2478 13.8101 13.5 14.8733C13.0797 16.1469 11.6365 18.9752 9.95708 18.9994C8.98627 18.9994 8.41717 18.3812 7.31803 18.3812C6.18541 18.3812 5.56981 18.9789 4.69943 18.9994C3.03491 19.0497 1.4392 15.9383 0.996566 14.6685C0.665522 13.704 0.5 12.7674 0.5 11.8606C0.5 8.79214 2.54764 7.28395 4.47439 7.25416C5.40801 7.25416 6.59456 7.93564 7.11345 7.93564C7.60443 7.93564 8.94535 7.12382 10.171 7.22065C11.4654 7.31933 12.4474 7.83137 13.0964 8.76235Z" stroke="currentcolor"></path>
                                     <path d="M11.0011 1.00838C11.0296 1.38214 11.1068 2.39558 10.171 3.50806C9.49399 4.29939 8.67196 4.76302 7.77182 4.69413C7.69557 3.73894 8.05079 2.89175 8.65522 2.20655C9.20386 1.5679 10.1672 1.04841 11.0004 1L11.0011 1.00838Z" stroke="currentcolor"></path>
                                 </svg>
                                 Apple
-                            </NavLink>
-                            </li>
-                            <li className="nav-item"><NavLink to="/monitor" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 1.03226C1.44772 1.03226 1 1.47997 1 2.03226V10.3548C1 10.9071 1.44772 11.3548 2 11.3548H16C16.5523 11.3548 17 10.9071 17 10.3548V2.03226C17 1.47997 16.5523 1.03226 16 1.03226H2ZM2 0H16C16.5304 0 17.0391 0.217511 17.4142 0.604683C17.7893 0.991854 18 1.51697 18 2.06452V10.3226C18 10.8701 17.7893 11.3952 17.4142 11.7824C17.0391 12.1696 16.5304 12.3871 16 12.3871H2C1.46957 12.3871 0.960859 12.1696 0.585786 11.7824C0.210714 11.3952 0 10.8701 0 10.3226V2.06452C0 1.51697 0.210714 0.991854 0.585786 0.604683C0.960859 0.217511 1.46957 0 2 0Z" fill="currentcolor"></path>
-                                    <rect x="8" y="11.871" width="2" height="4.12903" fill="currentcolor"></rect>
-                                    <path d="M5 15.4839L13 15.4839" stroke="currentcolor" strokeLinecap="round"></path>
-                                </svg>
-                                Monitor
-                            </NavLink>
-                            </li>
-                            <li className="nav-item"><NavLink to="/keyboard" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="18" height="12" rx="1" stroke="currentcolor"></rect>
-                                    <rect x="4" y="8" width="7" height="2" fill="currentcolor"></rect>
-                                    <rect x="4" y="4" width="2" height="2" fill="currentcolor"></rect>
-                                    <rect x="9" y="4" width="2" height="2" fill="currentcolor"></rect>
-                                    <rect x="14" y="4" width="2" height="2" fill="currentcolor"></rect>
-                                    <rect x="14" y="8" width="2" height="2" fill="currentcolor"></rect>
-                                </svg>
-                                Keyboard
-                            </NavLink>
-                            </li>
-                            <li className="nav-item"><NavLink to="/mouse-tabpad" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 14 20" xmlSpace="preserve">
-                                    <style type="text/css" dangerouslySetInnerHTML={{ __html: ".st0{fill:currentcolor;}" }} />
-                                    <path className="st0" d="M7,19.5L7,19.5c-3.6,0-6.5-3.1-6.5-6.8V7.3c0-3.7,2.9-6.8,6.5-6.8c3.6,0,6.5,3.1,6.5,6.8v5.4
-	C13.5,16.4,10.6,19.5,7,19.5z M7,1.5C4,1.5,1.5,4.1,1.5,7.3v5.4c0,3.2,2.5,5.8,5.5,5.8h0c3,0,5.5-2.6,5.5-5.8V7.3
-	C12.5,4.1,10,1.5,7,1.5z" />
-                                    <path className="st0" d="M7,10L7,10c-0.3,0-0.5-0.2-0.5-0.5v-5C6.5,4.2,6.7,4,7,4h0c0.3,0,0.5,0.2,0.5,0.5v5C7.5,9.8,7.3,10,7,10z" />
-                                </svg>
-                                Mouse
                             </NavLink>
                             </li>
                         </ul>

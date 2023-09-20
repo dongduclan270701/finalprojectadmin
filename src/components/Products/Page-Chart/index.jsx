@@ -4,6 +4,7 @@ import ChartCategory from 'components/Products/Page-Chart/ChartCategory'
 import ChartSoldGoodsInMonth from 'components/Products/Page-Chart/ChartSoldGoodsInMonth'
 import ChartViewGoodsOnCategory from 'components/Products/Page-Chart/ChartViewGoodsInMonth'
 import ChartViewGoods from 'components/Products/Page-Chart/ChartViewGoods'
+import { useHistory } from 'react-router-dom'
 import {
     fetchTotalGoodsCollecting,
     fetchTotalOutOfStockCollecting,
@@ -21,6 +22,7 @@ import {
 } from 'Apis'
 
 const Index = (props) => {
+    // const history = useHistory()
     const formatter = new Intl.NumberFormat('en-US')
     const { optionSelectLaptop } = props
     const [changeChart, setChangeChart] = useState(false)
@@ -40,7 +42,7 @@ const Index = (props) => {
     const [topSoldProducts, setTopSoldProducts] = useState(null)
     const [topViewProducts, setTopViewProducts] = useState(null)
     const fetchTotalGoods = () => {
-        fetchTotalGoodsCollecting()
+        fetchTotalGoodsCollecting(window.location.pathname.slice(1))
             .then(result => {
                 console.log(1)
                 setTotalGoods(result.total)
@@ -51,7 +53,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalOutOfStock = () => {
-        fetchTotalOutOfStockCollecting()
+        fetchTotalOutOfStockCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalOutOfStock(result.totalOutStock)
             })
@@ -61,7 +63,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalAInStock = () => {
-        fetchTotalAInStockCollecting()
+        fetchTotalAInStockCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalAvailableInStock(result.totalAvailable)
                 setTotalInStock(result.totalInStock)
@@ -72,7 +74,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalSoldOfMonth = () => {
-        fetchTotalSoldOfMonthCollecting()
+        fetchTotalSoldOfMonthCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalSoldOfMonth(result.totalSold)
                 setTotalProfitOfMonth(result.totalProfit)
@@ -83,7 +85,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalViewInMonth = () => {
-        fetchTotalViewInMonthCollecting()
+        fetchTotalViewInMonthCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalViewInMonth(result.totalView)
             })
@@ -93,7 +95,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalSoldInYear = () => {
-        fetchTotalSoldInYearCollecting()
+        fetchTotalSoldInYearCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalSoldInYear(result.totalSoldInYear)
             })
@@ -103,7 +105,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalViewInYear = () => {
-        fetchTotalViewInYearCollecting()
+        fetchTotalViewInYearCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalViewInYear(result.totalViewInYear)
             })
@@ -113,7 +115,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalSoldByDay = () => {
-        fetchTotalSoldByDayCollecting()
+        fetchTotalSoldByDayCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalSoldByDay(result.totalSoldByDay)
             })
@@ -123,7 +125,7 @@ const Index = (props) => {
             })
     }
     const fetchTotalViewByDay = () => {
-        fetchTotalViewByDayCollecting()
+        fetchTotalViewByDayCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTotalViewByDay(result.totalViewByDay)
             })
@@ -133,7 +135,7 @@ const Index = (props) => {
             })
     }
     const fetchCountGoodsByCategory = (optionSelectLaptop) => {
-        fetchCountGoodsByCategoryCollecting(optionSelectLaptop)
+        fetchCountGoodsByCategoryCollecting(optionSelectLaptop, window.location.pathname.slice(1))
             .then(result => {
                 setCountGoodsByCategory(result.total)
             })
@@ -143,7 +145,7 @@ const Index = (props) => {
             })
     }
     const fetchSoldProductsByCategory = (optionSelectLaptop) => {
-        fetchSoldProductsByCategoryCollecting(optionSelectLaptop)
+        fetchSoldProductsByCategoryCollecting(optionSelectLaptop, window.location.pathname.slice(1))
             .then(result => {
                 setSoldProductsByCategory(result.resultSold)
             })
@@ -153,7 +155,7 @@ const Index = (props) => {
             })
     }
     const fetchTopSoldProducts = () => {
-        fetchTopSoldProductsCollecting()
+        fetchTopSoldProductsCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTopSoldProducts(result.topSoldProducts)
             })
@@ -163,7 +165,7 @@ const Index = (props) => {
             })
     }
     const fetchTopViewProducts = () => {
-        fetchTopViewProductsCollecting()
+        fetchTopViewProductsCollecting(window.location.pathname.slice(1))
             .then(result => {
                 setTopViewProducts(result.topViewProducts)
             })
