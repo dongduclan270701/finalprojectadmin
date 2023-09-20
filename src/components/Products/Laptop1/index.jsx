@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     fetchCollectingByName,
-    fetchListOfAppleCollecting,
-    fetchSearchAppleCollecting
+    fetchListOfLaptopCollecting,
+    fetchSearchLaptopCollecting
 } from 'Apis'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
@@ -27,7 +27,7 @@ const Index = () => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetchCollectingByName("Apple")
+        fetchCollectingByName("Laptop")
             .then(result => {
                 setCollecting(result.category)
                 result.category.map((item, index) => {
@@ -53,7 +53,7 @@ const Index = () => {
             .catch(err => {
                 console.log(err)
             })
-        fetchListOfAppleCollecting(1)
+        fetchListOfLaptopCollecting(1)
             .then(result => {
                 setProduct(result.data)
                 setLoading(false)
@@ -78,7 +78,7 @@ const Index = () => {
     const handleSetPage = (count) => {
         setProduct()
         setCountPage(count)
-        fetchSearchAppleCollecting(searchData, count)
+        fetchSearchLaptopCollecting(searchData, count)
             .then(result => {
                 setProduct(result.data)
             })
@@ -114,7 +114,7 @@ const Index = () => {
 
             if (inputFocused) {
                 const timeoutId = setTimeout(() => {
-                    fetchSearchAppleCollecting(newSearchData, countPage)
+                    fetchSearchLaptopCollecting(newSearchData, countPage)
                         .then(result => {
                             setProduct(result.data)
                             if (0 < result.total % 10 && result.total % 10 < 10) {
@@ -162,7 +162,7 @@ const Index = () => {
         }
         if (inputFocused) {
             const timeoutId = setTimeout(() => {
-                fetchSearchAppleCollecting(newSearchData, 1)
+                fetchSearchLaptopCollecting(newSearchData, 1)
                     .then(result => {
                         setProduct(result.data)
                         if (0 < result.total % 10 && result.total % 10 < 10) {
@@ -186,7 +186,7 @@ const Index = () => {
         setProduct()
         setCountPage(1)
         setSearchData({ ...searchData, sort: searchData.sort === 'asc' ? 'desc' : 'asc' })
-        fetchSearchAppleCollecting({ ...searchData, sort: searchData.sort === 'asc' ? 'desc' : 'asc' }, 1)
+        fetchSearchLaptopCollecting({ ...searchData, sort: searchData.sort === 'asc' ? 'desc' : 'asc' }, 1)
             .then((result) => {
                 setProduct(result.data);
                 if (0 < result.total % 10 && result.total % 10 < 10) {
@@ -204,13 +204,14 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
+                {console.log(state.authentication)}
                 {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
                     <>{loading === false ?
                         <div className="col-lg-12 grid-margin stretch-card">
                             <div className="card">
                                 <div className="card-body">
-                                    <h4 className="card-title">List of Apple products</h4>
-                                    <NavLink to={"/apple/create"} className="card-description" style={{ textDecoration: "none" }}>
+                                    <h4 className="card-title">List of Laptop products</h4>
+                                    <NavLink to={"/laptop/create"} className="card-description" style={{ textDecoration: "none" }}>
                                         <code><i className="mdi mdi-plus-circle-outline" />  Add new products</code>
                                     </NavLink>
                                     <p className="card-description" style={{ display: "flex", "justifyContent": "flex-end" }}>
@@ -271,7 +272,7 @@ const Index = () => {
                                             <li className="nav-item nav-search d-lg-block">
                                                 <div className="input-group">
                                                     <select name="categoryRange" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
-                                                        <option value=''>GPU ( All )</option>
+                                                        <option value=''>Price ( All )</option>
                                                         {optionSelectCollectingRanger.map((item, index) => {
                                                             return <option key={index} value={item}>{item}</option>
                                                         })}
@@ -319,7 +320,7 @@ const Index = () => {
                                                                     </label>
                                                                 </td>
                                                                 <td>
-                                                                    <NavLink to={"/apple/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
+                                                                    <NavLink to={"/laptop/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
                                                                 </td>
                                                             </tr>
                                                         })}

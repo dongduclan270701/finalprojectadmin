@@ -3,11 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import UpdateForm from 'components/Utils/Update-Form'
 import { uploadUrlProduct, apiKeyProduct } from 'Apis/utils'
-import { 
-    fetchUpdateLaptopCollecting, 
-    fetchListOfLaptopCollectingByName, 
-    fetchCollectingByName 
-} from 'Apis'
+import { fetchUpdateLaptopCollecting, fetchListOfLaptopCollectingByName, fetchCollectingByName } from 'Apis'
 import axios from 'axios'
 import Footer from "components/Footer"
 
@@ -45,13 +41,13 @@ const Index = () => {
                             setOptions(options => [...options, ...categoryInCollecting])
                         })
                     }
-                    if (item.name === "Category") {
+                    if (item.name === "Category" || item.name === "Laptop Components & Accessories") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })
                         setOptions(options => [...options, ...category])
                     }
-                    else if (item.name === "GPU") {
+                    else if (item.name === "Price") {
                         const category = item.collecting.map((item, index) => {
                             return { label: item.name, value: item.name }
                         })

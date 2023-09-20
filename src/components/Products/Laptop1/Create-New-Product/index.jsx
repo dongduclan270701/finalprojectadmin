@@ -25,60 +25,59 @@ const Index = () => {
         description: [
             ["", ""]
         ],
-        category: ['','','','',''],
+        category: [],
         specifications: [
             ["", ""]
         ]
     })
 
     const [listImage, setListImage] = useState([])
-
-    const [options, setOptions] = useState([])
     const [collecting, setCollecting] = useState()
     const [CPU, setCPU] = useState([])
     const [GPU, setGPU] = useState([])
     const [category, setCategory] = useState([])
+    const [options, setOptions] = useState([])
     useEffect(() => {
-        fetchCollectingByName("Laptop Gaming")
-            .then(result => {
-                // console.log(result.category)
-                setCollecting(result.category[0].collecting)
-                result.category.map((item, index) => {
-                    if (item.name === "Brand Name") {
-                        const category = item.collecting.map((item, index) => {
-                            return { label: item.name, value: item.name }
+        fetchCollectingByName("Laptop")
+        .then(result => {
+            // console.log(result.category)
+            setCollecting(result.category[0].collecting)
+            result.category.map((item, index) => {
+                if (item.name === "Brand Name") {
+                    const category = item.collecting.map((item, index) => {
+                        return { label: item.name, value: item.name }
+                    })
+                    setOptions(options => [...options, ...category])
+                    item.collecting.map((item, index) => {
+                        const categoryInCollecting = item.category.map((i, index) => {
+                            return { label: i.name, value: i.name }
                         })
-                        setOptions(options => [...options, ...category])
-                        item.collecting.map((item, index) => {
-                            const categoryInCollecting = item.category.map((i, index) => {
-                                return { label: i.name, value: i.name }
-                            })
-                            setOptions(options => [...options, ...categoryInCollecting])
-                            // setBrandType(options => [...options, ...categoryInCollecting])
-                        })
-                    }
-                    if (item.name === "Category") {
-                        const category = item.collecting.map((item, index) => {
-                            return { label: item.name, value: item.name }
-                        })
-                        setOptions(options => [...options, ...category])
-                        setCategory([...category])
-                    }
-                    else if (item.name === "GPU") {
-                        const category = item.collecting.map((item, index) => {
-                            return { label: item.name, value: item.name }
-                        })
-                        setOptions(options => [...options, ...category])
-                        setGPU([...category])
-                    } else if (item.name === "CPU") {
-                        const category = item.collecting.map((item, index) => {
-                            return { label: item.name, value: item.name }
-                        })
-                        setOptions(options => [...options, ...category])
-                        setCPU([...category])
-                    }
-                })
+                        setOptions(options => [...options, ...categoryInCollecting])
+                        // setBrandType(options => [...options, ...categoryInCollecting])
+                    })
+                }
+                if (item.name === "Category") {
+                    const category = item.collecting.map((item, index) => {
+                        return { label: item.name, value: item.name }
+                    })
+                    setOptions(options => [...options, ...category])
+                    setCategory([...category])
+                }
+                else if (item.name === "GPU") {
+                    const category = item.collecting.map((item, index) => {
+                        return { label: item.name, value: item.name }
+                    })
+                    setOptions(options => [...options, ...category])
+                    setGPU([...category])
+                } else if (item.name === "CPU") {
+                    const category = item.collecting.map((item, index) => {
+                        return { label: item.name, value: item.name }
+                    })
+                    setOptions(options => [...options, ...category])
+                    setCPU([...category])
+                }
             })
+        })
             .catch(err => {
                 console.log(err)
             })
@@ -89,10 +88,6 @@ const Index = () => {
     }
     const handleGetImage = (files) => {
         setListImage(files)
-    }
-    const handleChangeCategoryForGoods = (e) => {
-        // const { name, value } = e.target
-        // const index = collecting.findIndex(item => item.name === value)
     }
     const handleSubmitCreate = () => {
         const formData = new FormData();
@@ -180,13 +175,6 @@ const Index = () => {
                 icon: 'warning',
                 confirmButtonText: 'OK!'
             });
-        } else if (product.category[0] === '') {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product brand, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
         }
         else {
             Swal.fire({
@@ -226,7 +214,7 @@ const Index = () => {
                                 product.img.push(response.data.secure_url);
                                 if (i === listImage.length - 1) {
                                     //Post axios
-                                    fetchCreateLaptopCollecting({...updatedProduct, category: updatedProduct.category = updatedProduct.category.filter(category => category !== "")})
+                                    fetchCreateLaptopCollecting(updatedProduct)
                                         .then(result => {
                                             Swal.close()
                                             Swal.fire({

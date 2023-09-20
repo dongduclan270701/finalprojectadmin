@@ -27,7 +27,7 @@ const Index = () => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetchCollectingByName("Laptop")
+        fetchCollectingByName("Laptop Gaming")
             .then(result => {
                 setCollecting(result.category)
                 result.category.map((item, index) => {
@@ -204,7 +204,6 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
-                {console.log(state.authentication)}
                 {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') &&
                     <>{loading === false ?
                         <div className="col-lg-12 grid-margin stretch-card">
@@ -272,7 +271,7 @@ const Index = () => {
                                             <li className="nav-item nav-search d-lg-block">
                                                 <div className="input-group">
                                                     <select name="categoryRange" onChange={handleOptionSelectedSecond} style={{ borderRadius: "15px" }} nBlur={() => setInputFocused(false)} onFocus={() => setInputFocused(true)} type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" >
-                                                        <option value=''>Price ( All )</option>
+                                                        <option value=''>GPU ( All )</option>
                                                         {optionSelectCollectingRanger.map((item, index) => {
                                                             return <option key={index} value={item}>{item}</option>
                                                         })}

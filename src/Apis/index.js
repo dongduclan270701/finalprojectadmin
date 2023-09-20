@@ -143,6 +143,31 @@ export const fetchUpdatePcCompanyCollecting = async (src, data) => {
 }
 
 
+export const fetchListOfAppleCollecting = async (countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/appleCollecting`, { params: { count: countPage }, headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchListOfAppleCollectingByName = async (id) => {
+    const req = await axios.get(`${API_ROOT}/v1/appleCollecting/secretAdmin/${id}`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchCreateAppleCollecting = async (data) => {
+    const req = await axios.post(`${API_ROOT}/v1/appleCollecting`, data, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchSearchAppleCollecting = async (data, countPage) => {
+    const req = await axios.get(`${API_ROOT}/v1/appleCollecting/search`, { params: { ...data, count: countPage }, headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
+export const fetchUpdateAppleCollecting = async (src, data) => {
+    const req = await axios.put(`${API_ROOT}/v1/appleCollecting/${src}`, data, { headers: { 'auth-token-admin': token } })
+    return req.data
+}
+
 export const fetchTotalGoodsCollecting = async (data) => {
     const req = await axios.get(`${API_ROOT}/v1/productChart/totalGoods`, { params: { collection : data }, headers: { 'auth-token-admin': token } })
     return req.data
