@@ -39,7 +39,7 @@ const Index = () => {
     const [GPU, setGPU] = useState([])
     const [category, setCategory] = useState([])
     useEffect(() => {
-        fetchCollectingByName("Laptop Gaming")
+        fetchCollectingByName("Laptop")
             .then(result => {
                 // console.log(result.category)
                 setCollecting(result.category[0].collecting)
@@ -234,6 +234,9 @@ const Index = () => {
                                                 text: 'You have successfully add new product information',
                                                 icon: 'success',
                                                 confirmButtonText: 'OK!'
+                                            })
+                                            .then(result => {
+                                                navigate(-1)
                                             })
                                             setProduct({
                                                 img: [],

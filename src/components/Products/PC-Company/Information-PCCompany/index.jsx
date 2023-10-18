@@ -32,7 +32,7 @@ const Index = () => {
                     </div>
                 </div>{product ? <>
                     <div className="grid-margin" style={{ display: "flex", "justifyContent": "center" }}>
-                        <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/pc-Company/update/" + product.src}>Update</NavLink>
+                        <NavLink className="col-lg-2 btn btn-outline-secondary btn-fw" to={"/pc-company/update/" + product.src}>Update</NavLink>
                     </div>
 
                     <div className="row">

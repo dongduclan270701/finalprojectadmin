@@ -4,8 +4,8 @@ import Swal from 'sweetalert2'
 import UpdateForm from 'components/Utils/Update-Form'
 import { uploadUrlProduct, apiKeyProduct } from 'Apis/utils'
 import { 
-    fetchUpdatePcCreatorCollecting, 
-    fetchListOfPcCreatorCollectingByName, 
+    fetchUpdatePcCompanyCollecting, 
+    fetchListOfPcCompanyCollectingByName, 
     fetchCollectingByName 
 } from 'Apis'
 import axios from 'axios'
@@ -19,7 +19,7 @@ const Index = () => {
     const [options, setOptions] = useState([])
 
     useEffect(() => {
-        fetchListOfPcCreatorCollectingByName(params.src)
+        fetchListOfPcCompanyCollectingByName(params.src)
             .then(result => {
                 setProduct(result)
                 result.category.map((item) => {
@@ -29,7 +29,7 @@ const Index = () => {
             .catch(error => {
                 console.log(error)
             })
-        fetchCollectingByName("Pc Creator")
+        fetchCollectingByName("Pc Company")
             .then(result => {
                 result.category.map((item, index) => {
                     if (item.name === "Brand Name") {
@@ -75,7 +75,7 @@ const Index = () => {
     const handleGetImage = (files) => {
         setListImage(files)
     }
-    // console.log(product)
+    console.log(product)
     const handleSubmitUpdated = () => {
         Swal.fire({
             title: 'Do you agree to add new product??',
@@ -104,7 +104,7 @@ const Index = () => {
                         gift: newData.gift.filter((gift) => gift !== ""),
                         gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
                     };
-                    fetchUpdatePcCreatorCollecting(params.src, updatedProduct)
+                    fetchUpdatePcCompanyCollecting(params.src, updatedProduct)
                         .then(result => {
                             Swal.fire({
                                 title: 'Product update successful!',
@@ -147,7 +147,7 @@ const Index = () => {
                                         gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
                                     };
                                     //Post axios
-                                    fetchUpdatePcCreatorCollecting(params.src, updatedProduct)
+                                    fetchUpdatePcCompanyCollecting(params.src, updatedProduct)
                                         .then(result => {
                                             Swal.close()
                                             Swal.fire({

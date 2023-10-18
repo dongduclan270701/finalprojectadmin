@@ -319,7 +319,7 @@ const Index = () => {
                                                                     </label>
                                                                 </td>
                                                                 <td>
-                                                                    <NavLink to={"/pc-Company/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
+                                                                    <NavLink to={"/pc-company/" + item.src} ><button type="button" className="btn btn-outline-secondary btn-fw">Show</button></NavLink>
                                                                 </td>
                                                             </tr>
                                                         })}

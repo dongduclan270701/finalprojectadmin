@@ -234,6 +234,9 @@ const Index = () => {
                                                 icon: 'success',
                                                 confirmButtonText: 'OK!'
                                             })
+                                            .then(result => {
+                                                navigate(-1)
+                                            })
                                             setProduct({
                                                 img: [],
                                                 src: "",
