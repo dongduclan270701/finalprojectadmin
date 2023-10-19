@@ -45,32 +45,6 @@ const Index = (props) => {
                                         </p>
                                     </div>
                                 </span>
-                                <span className="dropdown-item preview-item">
-                                    <div className="preview-thumbnail">
-                                        <div className="preview-icon bg-warning">
-                                            <i className="ti-settings mx-0" />
-                                        </div>
-                                    </div>
-                                    <div className="preview-item-content">
-                                        <h6 className="preview-subject font-weight-normal">Settings</h6>
-                                        <p className="font-weight-light small-text mb-0 text-muted">
-                                            Private message
-                                        </p>
-                                    </div>
-                                </span>
-                                <span className="dropdown-item preview-item">
-                                    <div className="preview-thumbnail">
-                                        <div className="preview-icon bg-info">
-                                            <i className="ti-user mx-0" />
-                                        </div>
-                                    </div>
-                                    <div className="preview-item-content">
-                                        <h6 className="preview-subject font-weight-normal">New user registration</h6>
-                                        <p className="font-weight-light small-text mb-0 text-muted">
-                                            2 days ago
-                                        </p>
-                                    </div>
-                                </span>
                             </div>
                         </li>
                         <li className={chooseSettingUser ? "nav-item nav-profile dropdown show" : "nav-item nav-profile dropdown" }>
