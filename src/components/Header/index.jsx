@@ -33,7 +33,15 @@ const Index = (props) => {
         if (!isReadAdmin) {
             fetchUpdateNotice({ id: id })
                 .then(result => {
-                    console.log(result)
+                    const updatedArray = listNotice.map(item => {
+                        if (item._id === result._id) {
+                            
+                            return { ...item, isReadAdmin: true };
+                        }
+                        
+                        return item;
+                    });
+                    setListNotice(updatedArray)
                 })
                 .catch(error => {
                     console.log(error)
@@ -60,7 +68,7 @@ const Index = (props) => {
                         <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
                             {listNotice && listNotice.map((item, index) => {
-                                return <NavLink to={'/orders/' + item.orderId} style={{textDecoration:'none'}}>
+                                return <NavLink to={'/orders/' + item.orderId} style={{ textDecoration: 'none' }}>
                                     <span onClick={() => handleReadNotice(item._id, item.isReadAdmin)} key={index} className={item.isReadAdmin ? "dropdown-item preview-item" : "dropdown-item preview-item isRead"}>
                                         <div className="preview-thumbnail">
                                             <img src={item.product.img[0]} alt='' />

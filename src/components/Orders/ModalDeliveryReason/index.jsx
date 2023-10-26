@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap'
 import Swal from 'sweetalert2'
-import { fetchUpdateOrder } from 'Apis'
+import { fetchUpdateOrder, fetchCreateNotice } from 'Apis'
 
 const Index = (props) => {
     const { toggleReason, onHandleToggleReason, order, onHandleCancelDelivery } = props
@@ -46,6 +46,22 @@ const Index = (props) => {
             
             fetchUpdateOrder(orderState.orderId, newOrder)
                 .then(result => {
+                    fetchCreateNotice({
+                        product: result.product[0],
+                        email: result.email,
+                        time: time,
+                        date: today,
+                        content: "Your order's status has been updated, please check your order",
+                        status: result.status,
+                        orderId: result.orderId,
+                        createDate: today
+                    })
+                        .then(result => {
+                            console.log(result)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
                     Swal.fire({
                         title: 'Successfully!',
                         text: 'You have successfully edited your order status',

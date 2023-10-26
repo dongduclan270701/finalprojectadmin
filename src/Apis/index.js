@@ -533,8 +533,8 @@ export const fetchSearchVoucher = async (data, countPage) => {
     return req.data
 }
 
-export const fetchCreateNotice = async (data, countPage) => {
-    const req = await axios.post(`${API_ROOT}/v1/notice`, { headers: { 'auth-token-admin': token } })
+export const fetchCreateNotice = async (data) => {
+    const req = await axios.post(`${API_ROOT}/v1/notice`, data, { headers: { 'auth-token-admin': token } })
     return req.data
 }
 
