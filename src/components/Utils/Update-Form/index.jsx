@@ -87,7 +87,7 @@ const Index = (props) => {
         else if (indexInput === "nullNumber") {
             handleGetData(product => ({
                 ...product,
-                [name]: parseInt(value)
+                [name]: value === '' ? 0 : parseInt(value) * 1
             }));
         }
         else {
@@ -335,7 +335,6 @@ const Index = (props) => {
                                             </div>
                                         </div>
                                     }
-                                    {console.log(product)}
                                     {product.specifications.length > 1 ? product.specifications.map((item, index) => {
                                         return <div key={index} className='row' style={{ margin: "inherit" }}>
                                             <div className='col-3' style={{ paddingLeft: "0" }}>

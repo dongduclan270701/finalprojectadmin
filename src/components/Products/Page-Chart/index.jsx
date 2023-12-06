@@ -4,7 +4,6 @@ import ChartCategory from 'components/Products/Page-Chart/ChartCategory'
 import ChartSoldGoodsInMonth from 'components/Products/Page-Chart/ChartSoldGoodsInMonth'
 import ChartViewGoodsOnCategory from 'components/Products/Page-Chart/ChartViewGoodsInMonth'
 import ChartViewGoods from 'components/Products/Page-Chart/ChartViewGoods'
-import { useHistory } from 'react-router-dom'
 import {
     fetchTotalGoodsCollecting,
     fetchTotalOutOfStockCollecting,

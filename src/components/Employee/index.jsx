@@ -4,6 +4,7 @@ import { fetchListOfEmployee, fetchSearchEmployee } from 'Apis'
 import NoAuth from 'components/Error/No-Auth'
 import Footer from "components/Footer"
 import Chart from 'components/Employee/Page-Chart'
+import Swal from 'sweetalert2'
 import { StateContext } from 'components/Context'
 const Index = () => {
     const state = useContext(StateContext)
@@ -48,6 +49,12 @@ const Index = () => {
                 setEmployeeList(result.data)
             })
             .catch(error => {
+                Swal.fire({
+                    title: "Ops!",
+                    text: "Error connect to server!",
+                    icon: 'error',
+                    confirmButtonText: 'OK!'
+                })
                 console.log(error)
             })
     }
@@ -73,6 +80,12 @@ const Index = () => {
                     })
                     .catch((error) => {
                         console.log(error)
+                        Swal.fire({
+                            title: "Ops!",
+                            text: "Error connect to server!",
+                            icon: 'error',
+                            confirmButtonText: 'OK!'
+                        })
                     })
             }, 1000)
             setSearchTimeout(timeoutId)
@@ -228,11 +241,6 @@ const Index = () => {
                         <NoAuth error={error} />
                     </div>
                 }
-                {/* {
-                }
-                {state.authentication !== 'MANAGEMENT' &&
-                    
-                } */}
             </div>
             <Footer />
         </div>

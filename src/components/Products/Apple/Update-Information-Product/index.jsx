@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import UpdateForm from 'components/Utils/Update-Form'
 import { uploadUrlProduct, apiKeyProduct } from 'Apis/utils'
-import { 
-    fetchUpdateAppleCollecting, 
-    fetchListOfAppleCollectingByName, 
-    fetchCollectingByName 
+import {
+    fetchUpdateAppleCollecting,
+    fetchListOfAppleCollectingByName,
+    fetchCollectingByName
 } from 'Apis'
 import axios from 'axios'
 import Footer from "components/Footer"
@@ -75,106 +75,140 @@ const Index = () => {
     const handleGetImage = (files) => {
         setListImage(files)
     }
-    // console.log(product)
-    const handleSubmitUpdated = () => {
+    const showAlert = (title, text) => {
         Swal.fire({
-            title: 'Do you agree to add new product??',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Accept',
-            cancelButtonText: 'Decline',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Updating...',
-                    html: 'Please wait...',
-                    allowEscapeKey: false,
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading()
+            title,
+            text,
+            icon: 'warning',
+            confirmButtonText: 'OK!'
+        });
+    };
+    const handleSubmitUpdated = () => {
+        if (!product.src) {
+            showAlert('Wait!', 'You have not entered product product code, please try again!');
+        } else if (product.gift.length === 1 && product.gift[0] === "") {
+            showAlert('Wait!', 'You have not entered product gift, please try again!');
+        } else if (product.gift_buy.length === 1 && product.gift_buy[0] === "") {
+            showAlert('Wait!', 'You have not entered product offers, please try again!');
+        } else if (!product.nameProduct) {
+            showAlert('Wait!', 'You have not entered product name, please try again!');
+        } else if (product.description_table.length === 1 && (product.description_table[0][0] === "" || product.description_table[0][1] === "")) {
+            showAlert('Wait!', 'You have not entered product details, please try again!');
+        } else if (product.description.length === 1 && (product.description[0][0] === "" || product.description[0][1] === "")) {
+            showAlert('Wait!', 'You have not entered product description, please try again!');
+        } else if (product.category.length === 0) {
+            showAlert('Wait!', 'You have not entered product category, please try again!');
+        } else if (product.realPrice <= 0) {
+            showAlert('Wait!', 'You have not entered product main price, please try again!');
+        } else if (product.nowPrice === 0) {
+            showAlert('Wait!', 'You have not entered product reduced price, please try again!');
+        } else if (product.percent >= 100 || product.percent < 0) {
+            showAlert('Wait!', 'You have not entered product discount percent, please try again');
+        } else if (product.quantity < 0) {
+            showAlert('Wait!', 'You have not entered product quantity, please try again!');
+        } else if (product.category[0] === '') {
+            showAlert('Wait!', 'You have not entered product brand, please try again!');
+        }
+        else {
+            Swal.fire({
+                title: 'Do you agree to add new product??',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Accept',
+                cancelButtonText: 'Decline',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Updating...',
+                        html: 'Please wait...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                    if (listImage.length === 0) {
+                        const { _id, ...newData } = product;
+                        const updatedProduct = {
+                            ...newData,
+                            specifications: newData.specifications.filter(([key, value]) => key !== "" && value !== ""),
+                            description: newData.description.filter(([key, value]) => key !== "" && value !== ""),
+                            description_table: newData.description_table.filter(([key, value]) => key !== "" && value !== ""),
+                            gift: newData.gift.filter((gift) => gift !== ""),
+                            gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
+                        };
+                        fetchUpdateAppleCollecting(params.src, updatedProduct)
+                            .then(result => {
+                                Swal.fire({
+                                    title: 'Product update successful!',
+                                    text: 'You have successfully updated product information',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK!'
+                                })
+                            })
+                            .catch(error => {
+                                console.log(error)
+                                Swal.fire({
+                                    title: `Error ${error.response.status}`,
+                                    text: 'You have failed to update the product',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK!'
+                                })
+                            })
                     }
-                });
-                if (listImage.length === 0) {
-                    const { _id, ...newData } = product;
-                    const updatedProduct = {
-                        ...newData,
-                        specifications: newData.specifications.filter(([key, value]) => key !== "" && value !== ""),
-                        description: newData.description.filter(([key, value]) => key !== "" && value !== ""),
-                        description_table: newData.description_table.filter(([key, value]) => key !== "" && value !== ""),
-                        gift: newData.gift.filter((gift) => gift !== ""),
-                        gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
-                    };
-                    fetchUpdateAppleCollecting(params.src, updatedProduct)
-                        .then(result => {
-                            Swal.fire({
-                                title: 'Product update successful!',
-                                text: 'You have successfully updated product information',
-                                icon: 'success',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            Swal.fire({
-                                title: `Error ${error.response.status}`,
-                                text: 'You have failed to update the product',
-                                icon: 'error',
-                                confirmButtonText: 'OK!'
-                            })
-                        })
-                }
-                else {
-                    const formData = new FormData();
-                    product.img.splice(0, product.img.length)
-                    for (let i = 0; i < listImage.length; i++) {
-                        formData.append('file', listImage[i]);
-                        formData.append('upload_preset', apiKeyProduct);
-                        axios.post(uploadUrlProduct, formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        })
-                            .then((response) => {
-                                product.img.push(response.data.secure_url);
-                                if (i === listImage.length - 1) {
-                                    const { _id, ...newData } = product;
-                                    const updatedProduct = {
-                                        ...newData,
-                                        specifications: newData.specifications.filter(([key, value]) => key !== "" && value !== ""),
-                                        description: newData.description.filter(([key, value]) => key !== "" && value !== ""),
-                                        description_table: newData.description_table.filter(([key, value]) => key !== "" && value !== ""),
-                                        gift: newData.gift.filter((gift) => gift !== ""),
-                                        gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
-                                    };
-                                    //Post axios
-                                    fetchUpdateAppleCollecting(params.src, updatedProduct)
-                                        .then(result => {
-                                            Swal.close()
-                                            Swal.fire({
-                                                title: 'Product update successful!',
-                                                text: 'You have successfully updated product information',
-                                                icon: 'success',
-                                                confirmButtonText: 'OK!'
-                                            })
-                                        })
-                                        .catch(error => {
-                                            console.log(error)
-                                            Swal.fire({
-                                                title: `Error ${error.response.status}`,
-                                                text: 'You have failed to update the product',
-                                                icon: 'error',
-                                                confirmButtonText: 'OK!'
-                                            })
-                                        })
+                    else {
+                        const formData = new FormData();
+                        product.img.splice(0, product.img.length)
+                        for (let i = 0; i < listImage.length; i++) {
+                            formData.append('file', listImage[i]);
+                            formData.append('upload_preset', apiKeyProduct);
+                            axios.post(uploadUrlProduct, formData, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
                                 }
                             })
-                            .catch((error) => {
-                                console.log(error);
-                            });
+                                .then((response) => {
+                                    product.img.push(response.data.secure_url);
+                                    if (i === listImage.length - 1) {
+                                        const { _id, ...newData } = product;
+                                        const updatedProduct = {
+                                            ...newData,
+                                            specifications: newData.specifications.filter(([key, value]) => key !== "" && value !== ""),
+                                            description: newData.description.filter(([key, value]) => key !== "" && value !== ""),
+                                            description_table: newData.description_table.filter(([key, value]) => key !== "" && value !== ""),
+                                            gift: newData.gift.filter((gift) => gift !== ""),
+                                            gift_buy: newData.gift_buy.filter((gift_buy) => gift_buy !== "")
+                                        };
+                                        //Post axios
+                                        fetchUpdateAppleCollecting(params.src, updatedProduct)
+                                            .then(result => {
+                                                Swal.close()
+                                                Swal.fire({
+                                                    title: 'Product update successful!',
+                                                    text: 'You have successfully updated product information',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'OK!'
+                                                })
+                                            })
+                                            .catch(error => {
+                                                console.log(error)
+                                                Swal.fire({
+                                                    title: `Error ${error.response.status}`,
+                                                    text: 'You have failed to update the product',
+                                                    icon: 'error',
+                                                    confirmButtonText: 'OK!'
+                                                })
+                                            })
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
 
@@ -206,4 +240,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);

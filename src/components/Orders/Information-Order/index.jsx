@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
@@ -13,13 +13,10 @@ import Process from 'assets/images/box.png'
 import Delivery from 'assets/images/delivery.png'
 import Correct from 'assets/images/correct.png'
 import Cancel from 'assets/images/cancel.png'
-import NoAuth from 'components/Error/No-Auth'
-import { StateContext } from 'components/Context'
 const Index = () => {
     const formatter = new Intl.NumberFormat('en-US')
     const params = useParams()
     const navigate = useNavigate();
-    const state = useContext(StateContext)
     const [order, setOrder] = useState()
     const [currentStep, setCurrentStep] = useState(0);
     const [options, setOptions] = useState([])

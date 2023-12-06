@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { fetchListOfPcCreatorCollectingByName } from 'Apis'
 import Footer from "components/Footer"
 const Index = () => {
+    const formatter = new Intl.NumberFormat('en-US')
     const params = useParams()
     const navigate = useNavigate();
     const [product, setProduct] = useState()
@@ -64,11 +65,11 @@ const Index = () => {
                                     </div>
                                     <div className="form-group">
                                         <label>Main Price</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Main Price" aria-label="Main Price" value={product.realPrice} disabled />
+                                        <input type="text" className="form-control form-control-sm" placeholder="Main Price" aria-label="Main Price" value={formatter.format(product.realPrice)} disabled />
                                     </div>
                                     <div className="form-group">
                                         <label>Reduced Price</label>
-                                        <input type="number" className="form-control form-control-sm" placeholder="Reduced Price" aria-label="Reduced Price" value={product.nowPrice} disabled />
+                                        <input type="text" className="form-control form-control-sm" placeholder="Reduced Price" aria-label="Reduced Price" value={formatter.format(product.nowPrice)} disabled />
                                     </div>
                                     <div className="form-group">
                                         <label>Discount Percent</label>
@@ -201,4 +202,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);

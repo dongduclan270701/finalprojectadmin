@@ -25,6 +25,7 @@ const Index = (props) => {
                 setListNotice(result)
             })
             .catch(error => {
+                
                 console.log(error)
             })
     }, []);

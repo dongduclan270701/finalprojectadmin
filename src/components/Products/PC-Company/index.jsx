@@ -9,7 +9,7 @@ import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
 import { StateContext } from 'components/Context'
 import Chart from 'components/Products/Page-Chart'
-
+import Swal from 'sweetalert2'
 const Index = () => {
     const state = useContext(StateContext)
     const [collecting, setCollecting] = useState([])
@@ -83,6 +83,12 @@ const Index = () => {
                 setProduct(result.data)
             })
             .catch(error => {
+                Swal.fire({
+                    title: "Ops!",
+                    text: "Error connect to server!",
+                    icon: 'error',
+                    confirmButtonText: 'OK!'
+                })
                 console.log(error)
             })
 
@@ -127,6 +133,12 @@ const Index = () => {
                             }
                         })
                         .catch(error => {
+                            Swal.fire({
+                                title: "Ops!",
+                                text: "Error connect to server!",
+                                icon: 'error',
+                                confirmButtonText: 'OK!'
+                            })
                             console.log(error)
                         })
                 }, 1000);
@@ -175,6 +187,12 @@ const Index = () => {
                         }
                     })
                     .catch(error => {
+                        Swal.fire({
+                            title: "Ops!",
+                            text: "Error connect to server!",
+                            icon: 'error',
+                            confirmButtonText: 'OK!'
+                        })
                         console.log(error)
                     })
             }, 1000);
@@ -198,6 +216,12 @@ const Index = () => {
                 }
             })
             .catch((error) => {
+                Swal.fire({
+                    title: "Ops!",
+                    text: "Error connect to server!",
+                    icon: 'error',
+                    confirmButtonText: 'OK!'
+                })
                 console.log(error);
             });
     }

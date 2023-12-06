@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import 'assets/scss/Information-Order.css'
@@ -314,4 +314,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);

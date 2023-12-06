@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import testLogo from 'assets/images/externaldrive.badge.wifi.png'
 const Index = (props) => {
     const { isChooseShowIcons, onHandleGetSettingChooseShowIconOnly, isShowSideBarRes } = props
     const [bannerAds, setBannerAds] = useState(false)

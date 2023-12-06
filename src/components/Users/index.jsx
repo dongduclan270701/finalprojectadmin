@@ -5,7 +5,6 @@ import { fetchListOfUser, fetchSearchUser } from 'Apis'
 import Footer from "components/Footer"
 import NoAuth from 'components/Error/No-Auth'
 import { StateContext } from 'components/Context'
-// import Chart from 'components/Users/Page-Chart'
 import Chart2 from 'components/Users/Page-Chart'
 const Index = () => {
     const state = useContext(StateContext)
@@ -241,11 +240,6 @@ const Index = () => {
                         <NoAuth error={error} />
                     </div>
                 }
-                {/* {
-                }
-                {state.authentication !== 'MANAGEMENT' &&
-                    
-                } */}
             </div>
             <Footer />
         </div>

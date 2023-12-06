@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import CreateForm from 'components/Utils/Create-Form'
@@ -89,103 +89,42 @@ const Index = () => {
     const handleGetImage = (files) => {
         setListImage(files)
     }
-    const handleChangeCategoryForGoods = (e) => {
-        // const { name, value } = e.target
-        // const index = collecting.findIndex(item => item.name === value)
-    }
+    const showAlert = (title, text) => {
+        Swal.fire({
+            title,
+            text,
+            icon: 'warning',
+            confirmButtonText: 'OK!'
+        });
+    };
     const handleSubmitCreate = () => {
         const formData = new FormData();
         if (listImage.length === 0) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product image, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product image, please try again!');
         } else if (!product.src) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product product code, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product product code, please try again!');
         } else if (product.gift.length === 1 && product.gift[0] === "") {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product gift, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product gift, please try again!');
         } else if (product.gift_buy.length === 1 && product.gift_buy[0] === "") {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product offers, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product offers, please try again!');
         } else if (!product.nameProduct) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product name, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product name, please try again!');
         } else if (product.description_table.length === 1 && (product.description_table[0][0] === "" || product.description_table[0][1] === "")) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product details, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product details, please try again!');
         } else if (product.description.length === 1 && (product.description[0][0] === "" || product.description[0][1] === "")) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product description, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product description, please try again!');
         } else if (product.category.length === 0) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product category, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
-        } else if (product.realPrice === 0) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product main price, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product category, please try again!');
+        } else if (product.realPrice <= 0) {
+            showAlert('Wait!', 'You have not entered product main price, please try again!');
         } else if (product.nowPrice === 0) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product reduced price, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
-        } else if (product.percent === 0) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product discount percent, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
-        } else if (product.quantity === 0) {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product quantity, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product reduced price, please try again!');
+        } else if (product.percent >= 100 || product.percent < 0) {
+            showAlert('Wait!', 'You have not entered product discount percent, please try again');
+        } else if (product.quantity < 0) {
+            showAlert('Wait!', 'You have not entered product quantity, please try again!');
         } else if (product.category[0] === '') {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'You have not entered product brand, please try again!',
-                icon: 'warning',
-                confirmButtonText: 'OK!'
-            });
+            showAlert('Wait!', 'You have not entered product brand, please try again!');
         }
         else {
             Swal.fire({
@@ -309,4 +248,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default memo(Index);
