@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import logo from 'assets/images/logo.svg'
-// import logoMini from 'assets/images/logo-mini.svg'
+import logo from 'assets/images/logo-brand.png'
+import logoMini from 'assets/images/logo-brand1.png'
 import { fetchNotice, fetchUpdateNotice } from 'Apis'
 import faceUser from "assets/images/faces/face28.jpg"
 import { NavLink } from 'react-router-dom'
@@ -53,8 +53,8 @@ const Index = (props) => {
     return (
         <nav className={"navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row " + getChooseSettingThemePages}>
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a className="navbar-brand brand-logo mr-5" href="index.html"><img src="https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-02-20200903083638.svg" className="mr-2" alt="logo" /></a>
-                <a className="navbar-brand brand-logo-mini" href="index.html"><img src="https://w.ladicdn.com/5bf3dc7edc60303c34e4991f/logo-15-20200415164142.png" alt="logo" /></a>
+                <a className="navbar-brand brand-logo mr-5" href="index.html"><img src={logo} className="mr-2" style={{filter: 'drop-shadow(2px 4px 6px black)'}} alt="logo" /></a>
+                <a className="navbar-brand brand-logo-mini" href="index.html"><img src={logoMini} alt="logo" /></a>
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                 <button onClick={() => onHandleGetSettingChooseShowIconOnly(!isChooseShowIcons)} className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

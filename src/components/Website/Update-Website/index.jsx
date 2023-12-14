@@ -24,36 +24,6 @@ const Index = () => {
         service_center: ["436A/71 3/2 Street, Ward 12, District 10, Ho Chi Minh"],
         fanPage: "123123"
     },)
-    // const [options, setOptions] = useState([
-    //     {
-    //         label: 'Angular',
-    //         value: 'Angular',
-    //     },
-    //     {
-    //         label: 'Bootstrap',
-    //         value: 'Bootstrap',
-    //     },
-    //     {
-    //         label: 'React.js',
-    //         value: 'React.js',
-    //     },
-    //     {
-    //         label: 'Vue.js',
-    //         value: 'Vue.js',
-    //     },
-    //     {
-    //         label: 'Vue.js1',
-    //         value: 'Vue.js1',
-    //     },
-    //     {
-    //         label: 'Vue.js2',
-    //         value: 'Vue.js2',
-    //     },
-    //     {
-    //         label: 'Vue.js3',
-    //         value: 'Vue.js3',
-    //     },
-    // ])
     useEffect(() => {
     }, []);
     const handleChangeInput = (event, indexInput) => {
@@ -86,15 +56,6 @@ const Index = () => {
             [name]: [...inputElement[name], ""]
         }));
     }
-    const getImg = (e) => {
-        const { name } = e.target
-        const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-        setInputElement(inputElement => ({
-            ...inputElement,
-            [name]: fileArray
-        }))
-        Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
-    }
     return (
         <div className="main-panel">
             <div className="content-wrapper">
@@ -109,30 +70,7 @@ const Index = () => {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-12 grid-margin">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">Image</h4>
-                                <div className='row' style={{ display: "flex", alignItems: "center" }}>
-                                    <div className="col-sm-4 col-xs-4 ">
-                                        <div className="form-group">
-                                            <label>Upload logo mới</label>
-                                            <input onChange={getImg} type="file" name="logo" className="form-control form-control-sm" placeholder="Upload logo mới" aria-label="Upload logo mới" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Upload icon mới</label>
-                                            <input onChange={getImg} type="file" name="icon" className="form-control form-control-sm" placeholder="Upload icon mới" aria-label="Upload icon mới" />
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-4 col-xs-4 " style={{display:"flex",justifyContent:"center"}}>
-                                        <img src={inputElement.logo} style={{ width: "300px" }} alt=''/>
-                                    </div>
-                                    <div className="col-sm-4 col-xs-4 " style={{display:"flex",justifyContent:"center"}}>
-                                        <img  src={inputElement.icon} style={{ width: "150px" }} alt=''/>
-                                    </div></div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div className="col-lg-6 grid-margin">
                         <div className="col-md-12" style={{ "padding": 0 }}>
                             <div className="card" style={{ "marginBottom": "25px" }}>

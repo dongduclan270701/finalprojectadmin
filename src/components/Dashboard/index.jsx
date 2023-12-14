@@ -1,10 +1,10 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import Footer from "components/Footer"
 import TotalParameters from 'components/Dashboard/Total-parameters'
-import ChartsDetails from 'components/Dashboard/Charts-detail'
 import RateProduct from 'components/Dashboard/Rate-product'
 import ListOrderTopAmount from 'components/Dashboard/List-orderTopAmount'
 import ListOrderTopProduct from 'components/Dashboard/List-orderTopProduct'
+import { StateContext } from 'components/Context'
 import {
     fetchTemperature,
     fetchTotalOrderDashboard,
@@ -22,6 +22,7 @@ import {
 } from 'Apis'
 
 const Index = () => {
+    const state = useContext(StateContext)
     const formatter = new Intl.NumberFormat('en-US')
     const [locationTemp, setLocationTemp] = useState(null)
     const [totalOrder, setTotalOrder] = useState(null)
@@ -193,19 +194,21 @@ const Index = () => {
     }
     useEffect(() => {
         fetchHTemperature()
-        fetchOrder()
-        fetchOrderSuccessful()
-        fetchTotalChartSold()
-        fetchTopOrder()
-        fetchTopEmployee()
-        fetchTopEmployeeOrder()
-        fetchTopHighestValueAll()
-        fetchTopHighestOrderAll()
-        fetchTopProduct()
-        fetchTopViewProduct()
-        fetchTopSoldProduct()
-        fetchEmployeeHighestValueInYearNotLimit()
-    }, []);
+        if (state.authentication === 'CEO' || state.authentication === 'MANAGEMENT') {
+            fetchOrder()
+            fetchOrderSuccessful()
+            fetchTotalChartSold()
+            fetchTopOrder()
+            fetchTopEmployee()
+            fetchTopEmployeeOrder()
+            fetchTopHighestValueAll()
+            fetchTopHighestOrderAll()
+            fetchTopProduct()
+            fetchTopViewProduct()
+            fetchTopSoldProduct()
+            fetchEmployeeHighestValueInYearNotLimit()
+        }
+    }, [state]);
 
     const handleChangeCategoryTopSoldProduct = (category) => {
         setTotalTopSoldProduct(null)
@@ -236,8 +239,8 @@ const Index = () => {
                     <div className="col-md-12 grid-margin">
                         <div className="row">
                             <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                                <h3 className="font-weight-bold">Welcome to Gearvn's admin website</h3>
-                                <h6 className="font-weight-normal mb-0">All systems run very smoothly! You have<span className="text-primary"> 3 unread notifications!</span></h6>
+                                <h3 className="font-weight-bold">Welcome to KTech's dashboard</h3>
+                                <h6 className="font-weight-normal mb-0">Welcome back, {state.authentication.toLowerCase()}!</h6>
                             </div>
                         </div>
                     </div>
@@ -251,12 +254,12 @@ const Index = () => {
                     totalProduct={totalProduct}
                     topStaffNotLimit={topStaffNotLimit}
                 />
-                <ChartsDetails />
-                <RateProduct 
-                totalTopSoldProduct={totalTopSoldProduct} 
-                totalTopViewProduct={totalTopViewProduct}
-                handleChangeCategoryTopSoldProduct={handleChangeCategoryTopSoldProduct}
-                handleChangeCategoryTopViewProduct={handleChangeCategoryTopViewProduct}
+                {/* <ChartsDetails /> */}
+                <RateProduct
+                    totalTopSoldProduct={totalTopSoldProduct}
+                    totalTopViewProduct={totalTopViewProduct}
+                    handleChangeCategoryTopSoldProduct={handleChangeCategoryTopSoldProduct}
+                    handleChangeCategoryTopViewProduct={handleChangeCategoryTopViewProduct}
                 />
                 <div className="row">
                     <div className="col-md-4 stretch-card grid-margin">
@@ -274,7 +277,7 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {topStaff ? topStaff.map((item,index) => {
+                                            {topStaff ? topStaff.map((item, index) => {
                                                 return <tr key={index}>
                                                     <td className="pl-0">
                                                         {item.username}
@@ -316,7 +319,7 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {topStaffOrder ? topStaffOrder.map((item,index) => {
+                                            {topStaffOrder ? topStaffOrder.map((item, index) => {
                                                 return <tr key={index}>
                                                     <td className="pl-0">
                                                         {item.username}</td>
@@ -388,7 +391,7 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {totalTopOrderUser ? totalTopOrderUser.map((item,index) => {
+                                            {totalTopOrderUser ? totalTopOrderUser.map((item, index) => {
                                                 return <tr >
                                                     <td className="pl-0">
                                                         {item.username} - {item.email}</td>
@@ -433,7 +436,7 @@ const Index = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {totalTopUser ? totalTopUser.map((item,index) => {
+                                            {totalTopUser ? totalTopUser.map((item, index) => {
                                                 return <tr key={index}>
                                                     <td className="pl-0">
                                                         {item.username} - {item.email}</td>

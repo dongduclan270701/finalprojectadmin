@@ -1,132 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { StateContext } from 'components/Context'
 const Index = (props) => {
+    const state = useContext(StateContext)
     const { isChooseShowIcons, onHandleGetSettingChooseShowIconOnly, isShowSideBarRes } = props
-    const [bannerAds, setBannerAds] = useState(false)
     const [products, setProducts] = useState(false)
     const [orders, setOrders] = useState(false)
     const [users, setUsers] = useState(false)
     const [employee, setEmployee] = useState(false)
-    const [recruitment, setRecruitment] = useState(false)
     const [discount, setDiscount] = useState(false)
-    const [charts, setCharts] = useState(false)
-
     const handleSetActive = (index) => {
-        if (index === 1) {
-            if (bannerAds === false) {
-                setBannerAds(true); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
+        const sections = ['products', 'orders', 'users', 'employee', 'discount']
+        const newStatus = {}
+        sections.forEach(section => newStatus[section] = false)
+        newStatus[sections[index - 1]] = !newStatus[sections[index - 1]]
+        setProducts(newStatus.products);
+        setOrders(newStatus.orders);
+        setUsers(newStatus.users);
+        setEmployee(newStatus.employee);
+        setDiscount(newStatus.discount);
+        if (newStatus[sections[index - 1]] && isChooseShowIcons) {
+            onHandleGetSettingChooseShowIconOnly(false);
         }
-        if (index === 2) {
-            if (products === false) {
-                setBannerAds(false); setProducts(true); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-        if (index === 3) {
-            if (orders === false) {
-                setBannerAds(false); setProducts(false); setOrders(true); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-        if (index === 4) {
-            if (users === false) {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(true); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-        if (index === 5) {
-            if (employee === false) {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(true); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-        if (index === 6) {
-            if (recruitment === false) {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(true); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-        if (index === 7) {
-            if (discount === false) {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(true); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-        if (index === 8) {
-            if (charts === false) {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(true)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            } else {
-                setBannerAds(false); setProducts(false); setOrders(false); setUsers(false); setEmployee(false); setRecruitment(false); setDiscount(false); setCharts(false)
-                if (isChooseShowIcons === true) {
-                    onHandleGetSettingChooseShowIconOnly(false)
-                }
-            }
-        }
-    }
+    };
     return (
         <nav className={isShowSideBarRes ? "sidebar sidebar-offcanvas active" : "sidebar sidebar-offcanvas"} id="sidebar">
             <ul className="nav">
-                <li className="nav-item">
-                    <NavLink to="/" className="nav-link">
-                        <i className="icon-grid menu-icon" />
-                        <span className="menu-title">Dashboard</span>
-                    </NavLink>
+                <li className="nav-item" >
+                    {state.authentication === 'CEO' || state.authentication === 'MANAGEMENT' ?
+                        <NavLink to="/" className="nav-link">
+                            <i className="icon-grid menu-icon" />
+                            <span className="menu-title">Dashboard</span>
+                        </NavLink>
+                        :
+                        <p to="/" className="nav-link">
+                            <i className="icon-grid menu-icon" />
+                            <span className="menu-title">Dashboard</span>
+                        </p>}
                 </li>
-                <li className="nav-item" onClick={() => handleSetActive(2)}>
+                <li className="nav-item" onClick={() => handleSetActive(1)}>
+                    
                     <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={products} aria-controls="products-elements">
                         <i className="mdi mdi-laptop menu-icon" />
                         <span className="menu-title">Products</span>
@@ -135,7 +48,7 @@ const Index = (props) => {
                     <div className={products ? "collapse show" : "collapse"} id="products-elements">
                         <ul className="nav flex-column sub-menu" style={{ padding: "0.25rem 0 0.75rem 1.25rem" }}>
                             <li className="nav-item"><NavLink to="/laptop" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" style={{ marginRight: "10px" }} viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="path-1-inside-1_5068_8551" fill="currentcolor">
                                         <path d="M4.00002 1C3.44774 1 3.00002 1.44772 3.00002 2V8.5C3.00002 9.05229 3.44774 9.5 4.00002 9.5H16C16.5523 9.5 17 9.05229 17 8.5V2C17 1.44772 16.5523 1 16 1H4.00002ZM3.70002 0H10H16.3C16.7774 0 17.2353 0.184374 17.5728 0.512563C17.9104 0.840752 18.1 1.28587 18.1 1.75V8.75C18.1 9.21413 17.9104 9.65925 17.5728 9.98744C17.2353 10.3156 16.7774 10.5 16.3 10.5H3.70002C3.22263 10.5 2.7648 10.3156 2.42723 9.98744C2.08967 9.65925 1.90002 9.21413 1.90002 8.75V1.75C1.90002 1.28587 2.08967 0.840752 2.42723 0.512563C2.7648 0.184374 3.22263 0 3.70002 0Z"></path>
                                     </mask>
@@ -146,7 +59,7 @@ const Index = (props) => {
                             </NavLink>
                             </li>
                             <li className="nav-item"><NavLink to="/laptop-gaming" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" style={{ marginRight: "10px" }} viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="path-1-inside-1_5068_8558" fill="white">
                                         <path d="M3.96432 4C3.41203 4 2.96432 4.44772 2.96432 5V11.5C2.96432 12.0523 3.41203 12.5 3.96432 12.5H15.9643C16.5166 12.5 16.9643 12.0523 16.9643 11.5V4H3.96432ZM3.66432 3H9.96432H16.2643C16.7417 3 17.1995 3.18437 17.5371 3.51256C17.8747 3.84075 18.0643 4.28587 18.0643 4.75V11.75C18.0643 12.2141 17.8747 12.6592 17.5371 12.9874C17.1995 13.3156 16.7417 13.5 16.2643 13.5H3.66432C3.18693 13.5 2.72909 13.3156 2.39153 12.9874C2.05396 12.6592 1.86432 12.2141 1.86432 11.75V4.75C1.86432 4.28587 2.05396 3.84075 2.39153 3.51256C2.72909 3.18437 3.18693 3 3.66432 3Z"></path>
                                     </mask>
@@ -163,9 +76,9 @@ const Index = (props) => {
                                 Laptop Gaming
                             </NavLink>
                             </li>
-                            
+
                             <li className="nav-item"><NavLink to="/pc-gaming" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" style={{ marginRight: "10px" }} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
                                     <path d="M13 3H17C18.1046 3 19 3.89543 19 5V13C19 14.1046 18.1046 15 17 15H13" stroke="currentcolor"></path>
                                     <path d="M16.5 18.5C16.7761 18.5 17 18.2761 17 18C17 17.7239 16.7761 17.5 16.5 17.5V18.5ZM13 18.5H16.5V17.5H13V18.5Z" fill="currentcolor"></path>
@@ -176,7 +89,7 @@ const Index = (props) => {
                             </NavLink>
                             </li>
                             <li className="nav-item"><NavLink to="/pc-creator" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" style={{ marginRight: "10px" }} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
                                     <path d="M13 3H17C18.1046 3 19 3.89543 19 5V13C19 14.1046 18.1046 15 17 15H13" stroke="currentcolor"></path>
                                     <path d="M16.5 18.5C16.7761 18.5 17 18.2761 17 18C17 17.7239 16.7761 17.5 16.5 17.5V18.5ZM13 18.5H16.5V17.5H13V18.5Z" fill="currentcolor"></path>
@@ -187,7 +100,7 @@ const Index = (props) => {
                             </NavLink>
                             </li>
                             <li className="nav-item"><NavLink to="/pc-company" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" style={{ marginRight: "10px" }} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="19" width="18" height="10" rx="1" transform="rotate(-90 1 19)" stroke="currentcolor"></rect>
                                     <path d="M13 3H17C18.1046 3 19 3.89543 19 5V13C19 14.1046 18.1046 15 17 15H13" stroke="currentcolor"></path>
                                     <path d="M16.5 18.5C16.7761 18.5 17 18.2761 17 18C17 17.7239 16.7761 17.5 16.5 17.5V18.5ZM13 18.5H16.5V17.5H13V18.5Z" fill="currentcolor"></path>
@@ -198,7 +111,7 @@ const Index = (props) => {
                             </NavLink>
                             </li>
                             <li className="nav-item"><NavLink to="/apple" className="nav-link" style={{ listStyleType: "none" }} >
-                                <svg width="18" height="18" style={{marginRight:"10px"}} viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" style={{ marginRight: "10px" }} viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.0964 8.76235C11.9359 9.46803 11.3612 10.4251 11.3687 11.6949C11.3687 11.7601 11.2478 13.8101 13.5 14.8733C13.0797 16.1469 11.6365 18.9752 9.95708 18.9994C8.98627 18.9994 8.41717 18.3812 7.31803 18.3812C6.18541 18.3812 5.56981 18.9789 4.69943 18.9994C3.03491 19.0497 1.4392 15.9383 0.996566 14.6685C0.665522 13.704 0.5 12.7674 0.5 11.8606C0.5 8.79214 2.54764 7.28395 4.47439 7.25416C5.40801 7.25416 6.59456 7.93564 7.11345 7.93564C7.60443 7.93564 8.94535 7.12382 10.171 7.22065C11.4654 7.31933 12.4474 7.83137 13.0964 8.76235Z" stroke="currentcolor"></path>
                                     <path d="M11.0011 1.00838C11.0296 1.38214 11.1068 2.39558 10.171 3.50806C9.49399 4.29939 8.67196 4.76302 7.77182 4.69413C7.69557 3.73894 8.05079 2.89175 8.65522 2.20655C9.20386 1.5679 10.1672 1.04841 11.0004 1L11.0011 1.00838Z" stroke="currentcolor"></path>
                                 </svg>
@@ -208,7 +121,7 @@ const Index = (props) => {
                         </ul>
                     </div>
                 </li>
-                <li className="nav-item" onClick={() => handleSetActive(3)}>
+                <li className="nav-item" onClick={() => handleSetActive(2)}>
                     <a href className="nav-link" data-toggle="collapse" aria-expanded={orders} aria-controls="users">
                         <i className="mdi mdi-cart menu-icon" />
                         <span className="menu-title">Orders</span>
@@ -216,11 +129,11 @@ const Index = (props) => {
                     </a>
                     <div className={orders ? "collapse show" : "collapse"} id="users">
                         <ul className="nav flex-column sub-menu" style={{ padding: "0.25rem 0 0.75rem 1.25rem" }}>
-                            <li className="nav-item"> <NavLink to="/orders" className="nav-link" ><i className="mdi mdi-table" style={{fontSize:"18px", marginRight:"10px"}} />Orders</NavLink></li>
+                            <li className="nav-item"> <NavLink to="/orders" className="nav-link" ><i className="mdi mdi-table" style={{ fontSize: "18px", marginRight: "10px" }} />Orders</NavLink></li>
                         </ul>
                     </div>
                 </li>
-                <li className="nav-item" onClick={() => handleSetActive(4)}>
+                <li className="nav-item" onClick={() => handleSetActive(3)}>
                     <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={users} aria-controls="icons">
                         <i className="mdi mdi-account menu-icon" />
                         <span className="menu-title">User</span>
@@ -228,11 +141,11 @@ const Index = (props) => {
                     </NavLink>
                     <div className={users ? "collapse show" : "collapse"} id="icons">
                         <ul className="nav flex-column sub-menu" style={{ padding: "0.25rem 0 0.75rem 1.25rem" }}>
-                            <li className="nav-item"> <NavLink to="/users" className="nav-link"><i className="mdi mdi-table" style={{fontSize:"18px", marginRight:"10px"}} />Users</NavLink></li>
+                            <li className="nav-item"> <NavLink to="/users" className="nav-link"><i className="mdi mdi-table" style={{ fontSize: "18px", marginRight: "10px" }} />Users</NavLink></li>
                         </ul>
                     </div>
                 </li>
-                <li className="nav-item" onClick={() => handleSetActive(5)}>
+                <li className="nav-item" onClick={() => handleSetActive(4)}>
                     <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={employee} aria-controls="icons">
                         <i className="mdi mdi-account-box menu-icon" />
                         <span className="menu-title">Employee</span>
@@ -240,12 +153,11 @@ const Index = (props) => {
                     </NavLink>
                     <div className={employee ? "collapse show" : "collapse"} id="icons">
                         <ul className="nav flex-column sub-menu" style={{ padding: "0.25rem 0 0.75rem 1.25rem" }}>
-                            <li className="nav-item"> <NavLink to="/employee" className="nav-link"><i className="mdi mdi-table" style={{fontSize:"18px", marginRight:"10px"}} />Employees</NavLink></li>
+                            <li className="nav-item"> <NavLink to="/employee" className="nav-link"><i className="mdi mdi-table" style={{ fontSize: "18px", marginRight: "10px" }} />Employees</NavLink></li>
                         </ul>
                     </div>
                 </li>
-                
-                <li className="nav-item" onClick={() => handleSetActive(7)}>
+                <li className="nav-item" onClick={() => handleSetActive(5)}>
                     <NavLink to={null} className="nav-link" data-toggle="collapse" aria-expanded={discount} aria-controls="error">
                         <i className="mdi mdi-division menu-icon" />
                         <span className="menu-title">Discount</span>
@@ -253,7 +165,7 @@ const Index = (props) => {
                     </NavLink>
                     <div className={discount ? "collapse show" : "collapse"} id="error">
                         <ul className="nav flex-column sub-menu" style={{ padding: "0.25rem 0 0.75rem 1.25rem" }}>
-                            <li className="nav-item"> <NavLink to="/discount" className="nav-link"><i className="mdi mdi-table" style={{fontSize:"18px", marginRight:"10px"}} />Discount</NavLink></li>
+                            <li className="nav-item"> <NavLink to="/discount" className="nav-link"><i className="mdi mdi-table" style={{ fontSize: "18px", marginRight: "10px" }} />Discount</NavLink></li>
                         </ul>
                     </div>
                 </li>
