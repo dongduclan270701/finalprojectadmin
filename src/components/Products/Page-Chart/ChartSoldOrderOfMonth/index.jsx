@@ -19,7 +19,7 @@ const Index = (props) => {
         console.log(totalSoldByDay)
         let data = setData.map(item => ({
             value: item.totalSold,
-            day: (item.day).toString().padStart(2, '0') + "/08/2023"
+            day: (item.day).toString().padStart(2, '0') + "/01/2024"
         }))
         let chart = ChartSoldOrderOfMonth.container.children.push(am5xy.XYChart.new(ChartSoldOrderOfMonth, {
             focusable: true,

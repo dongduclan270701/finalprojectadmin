@@ -19,7 +19,7 @@ const Index = () => {
             for (let i = 1; i <= 30; i++) {
                 let values = Math.random() * 100
                 data.push({
-                    day: `2023/07/${i}` ,
+                    day: `2024/07/${i}` ,
                     value: Math.round(values)
                 })
             }

@@ -17,7 +17,7 @@ const Index = (props) => {
         })
         var date = new Date()
         var currentMonth = date.getMonth() + 1
-        const currentYear = 2023
+        const currentYear = 2024
         const daysInCurrentMonth = new Date(currentYear, currentMonth, 0).getDate()
         const daysInMonth = Array.from({ length: daysInCurrentMonth }, (_, i) => {
             const day = (i + 1).toString().padStart(2, "0")

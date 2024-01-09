@@ -89,7 +89,7 @@ const Index = (props) => {
                 setTotalViewInMonth(result.totalView)
             })
             .catch(error => {
-                setTotalSoldOfMonth(0)
+                setTotalViewInMonth(0)
                 console.log(error)
             })
     }

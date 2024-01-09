@@ -21,7 +21,7 @@ const Index = (props) => {
         let setData = totalViewByDay ? totalViewByDay : []
         let data = setData.map(item => ({
             value: item.totalView,
-            day: (item.day).toString().padStart(2, '0') + "/" + currentMonth.toString().padStart(2, '0') + "/2023"
+            day: (item.day).toString().padStart(2, '0') + "/" + currentMonth.toString().padStart(2, '0') + "/2024"
         }))
         let chart = ChartSalaryStaffOfMonth.container.children.push(am5xy.XYChart.new(ChartSalaryStaffOfMonth, {
             focusable: true,
