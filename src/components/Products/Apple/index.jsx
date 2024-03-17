@@ -222,7 +222,7 @@ const Index = () => {
     return (
         <div className="main-panel">
             <div className="content-wrapper">
-                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT' ) ?
+                {(state.authentication === 'MANAGEMENT' || state.authentication === 'DEVELOPER' || state.authentication === 'PRODUCT') ?
                     <>{loading === false ?
                         <div className="col-lg-12 grid-margin stretch-card">
                             <div className="card">
@@ -375,12 +375,12 @@ const Index = () => {
                     }</>
                     :
                     state.authentication === 'CEO' ? <div className="col-lg-12 grid-margin">
-                    <Chart optionSelectLaptop={optionSelectLaptop} />
-                </div>
-                :
-                <div className="col-lg-12 grid-margin stretch-card">
-                        <NoAuth error={error} />
+                        <Chart optionSelectLaptop={optionSelectLaptop} />
                     </div>
+                        :
+                        <div className="col-lg-12 grid-margin stretch-card">
+                            <NoAuth error={error} />
+                        </div>
                 }
             </div>
             <Footer />

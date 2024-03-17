@@ -547,3 +547,8 @@ export const fetchUpdateNotice = async (data) => {
     const req = await axios.put(`${API_ROOT}/v1/notice/fetch`, data, { headers: { 'auth-token-admin': token } })
     return req.data
 }
+
+export const fetchRequest = async () => {
+    const req = await axios.get(`${API_ROOT}/v1/request/getRequestWebsite`, { headers: { 'auth-token-admin': token } })
+    return req.data
+}

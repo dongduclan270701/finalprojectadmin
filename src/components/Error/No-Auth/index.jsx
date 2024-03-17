@@ -18,11 +18,6 @@ const Index = (props) => {
                             <h3 className="font-weight">You do not have permission to access this site!</h3>
                         </div>
                     </div>
-                    <div className="row mt-5">
-                        <div className="col-12 text-center mt-xl-2">
-                            <NavLink className="font-weight-medium" to="/">Back to home</NavLink>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

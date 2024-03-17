@@ -37,11 +37,14 @@ const Index = (props) => {
                                             <td>
                                                 {item.order.username + ' - ' + item.order.email}</td>
                                             <td>
-                                                {item.order.createDate}</td>
+                                                {item.order.createDate}
+                                            </td>
                                             <td>
-                                                {item.order.product.length}</td>
+                                                {item.order.product.length}
+                                            </td>
                                             <td>
-                                                {formatter.format(item.order.sumOrder)} VNĐ</td>
+                                                {formatter.format(item.order.sumOrder)} VNĐ
+                                            </td>
                                             <td>
                                                 <label className={
                                                     item.order.status === "Cancel" ? "badge badge-danger" : item.order.status === "Delivery failed" ? "badge badge-danger" : item.order.status === "Delivery successful" ? "badge badge-success" : item.order.status === "Being transported" ? "badge badge-primary" : item.order.status === "Delivered to the carrier" ? "badge badge-primary" : "badge badge-warning"

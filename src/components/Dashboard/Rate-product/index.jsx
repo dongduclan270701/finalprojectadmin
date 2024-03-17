@@ -11,16 +11,11 @@ const Index = (props) => {
                         <p className="card-title mb-3" style={{ textAlign: 'center' }}>Best - selling product</p>
                         <select name='categoryViewed' onChange={e => handleChangeCategoryTopSoldProduct(e.target.value)} className="form-control" style={{ width: 'max-content', borderRadius: 30, margin: 'auto' }}>
                             <option value='laptop' selected>Laptop</option>
-                            <option value='laptopGaming' >Laptop Gaming</option>
-                            <option value='pcSpecial' >Pc Special (Pro)</option>
-                            <option value='pcGaming' >PC Gaming</option>
-                            <option value='pcCreator' >Pc Creator</option>
-                            <option value='pcCompany' >Pc Company</option>
+                            <option value='laptop-gaming' >Laptop Gaming</option>
+                            <option value='pc-gaming' >PC Gaming</option>
+                            <option value='pc-creator' >Pc Creator</option>
+                            <option value='pc-company' >Pc Company</option>
                             <option value='apple' >Apple</option>
-                            <option value='monitor' >Monitor</option>
-                            <option value='keyboard' >Keyboard</option>
-                            <option value='mouse' >Mouse</option>
-                            <option value='speaker' >Speaker</option>
                         </select>
                         <div className="table-responsive">
                             <table className="table table-striped table-borderless">
@@ -77,7 +72,7 @@ const Index = (props) => {
                         </select>
                         <div className="table-responsive">
                             <table className="table table-striped table-borderless">
-                            <thead>
+                                <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Category</th>

@@ -33,7 +33,6 @@ const Index = () => {
             .then(result => {
                 setUser(result)
                 setOrderList(result.orders)
-                console.log(result.orders)
                 setOrderSearch(result.orders)
                 if (0 < result.orders.length % 10 && result.orders.length % 10 < 10) {
                     setCountMaxPage(Math.floor(result.orders.length / 10) + 1)

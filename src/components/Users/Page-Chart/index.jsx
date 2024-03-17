@@ -142,7 +142,6 @@ const Index = () => {
                     const totalSumOrder = item.orders.reduce((total, order) => total + order.sumOrder, 0);
                     item.totalSumOrder = totalSumOrder;
                 });
-                console.log(result.resultTopUser)
                 setTotalTopUserOrder(result.resultTopUser)
             })
             .catch(error => {

@@ -378,10 +378,10 @@ const Index = (props) => {
                                         <label>Category</label>
                                         <Select onChange={handleSelectedOptionsChange} value={newProduct.category.map((item) => ({ value: item, label: item }))} options={options} components={makeAnimated()} isMulti placeholder="Select category" />
                                     </div> */}
-                                    <div class="row form-group">
+                                    <div className="row form-group">
                                         <div className='col-4'>
                                             <label>Brand</label>
-                                            <select name='brand' onChange={e => handleChooseBrand(e.target.value)} class="form-control">
+                                            <select name='brand' onChange={e => handleChooseBrand(e.target.value)} className="form-control">
                                                 <option value=''>Select brand</option>
                                                 {collecting ? collecting.map((item, index) => {
                                                     return <option key={index} value={item.name}>{item.name}</option>
@@ -390,7 +390,7 @@ const Index = (props) => {
                                         </div>
                                         <div className='col-4'>
                                             <label>Line Brand</label>
-                                            <select onChange={e => handleChangeCategory(e)} name='line-brand' class="form-control">
+                                            <select onChange={e => handleChangeCategory(e)} name='line-brand' className="form-control">
                                                 <option value=''>Select line brand</option>
                                                 {lineBrand && lineBrand.map((item, index) => {
                                                     return <option key={index} value={item.name}>{item.name}</option>
@@ -399,7 +399,7 @@ const Index = (props) => {
                                         </div>
                                         <div className='col-4'>
                                             <label>CPU</label>
-                                            <select onChange={e => handleChangeCategory(e)} name='cpu' class="form-control">
+                                            <select onChange={e => handleChangeCategory(e)} name='cpu' className="form-control">
                                                 <option value=''>Select CPU</option>
                                                 {CPU && CPU.map((item, index) => {
                                                     return <option key={index} value={item.value}>{item.value}</option>
@@ -408,7 +408,7 @@ const Index = (props) => {
                                         </div>
                                         <div className='col-4'>
                                             <label>GPU</label>
-                                            <select onChange={e => handleChangeCategory(e)} name='gpu' class="form-control">
+                                            <select onChange={e => handleChangeCategory(e)} name='gpu' className="form-control">
                                                 <option value=''>Select GPU</option>
                                                 {GPU && GPU.map((item, index) => {
                                                     return <option key={index} value={item.value}>{item.value}</option>
@@ -417,7 +417,7 @@ const Index = (props) => {
                                         </div>
                                         <div className='col-4'>
                                             <label>Category</label>
-                                            <select onChange={e => handleChangeCategory(e)} name='category' class="form-control">
+                                            <select onChange={e => handleChangeCategory(e)} name='category' className="form-control">
                                                 <option value=''>Select category</option>
                                                 {category && category.map((item, index) => {
                                                     return <option key={index} value={item.value}>{item.value}</option>

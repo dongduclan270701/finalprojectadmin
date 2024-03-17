@@ -1,0 +1,354 @@
+.section-discount {
+    width: 100%;
+    position: relative;
+    .card-pie {
+        display: flex;
+        align-items: center;
+        border: none;
+        background: none;
+        .pie-st {
+            height: 35px;
+            .pie-st-1 {
+                position: relative;
+            }
+        }
+        .card-body {
+            background-color: #a7cff290;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            width: 100%;
+            padding-top: 45px;
+            .text-pie-title {
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .text-pie-content {
+                font-size: 14px;
+                color: rgb(96, 96, 96);
+            }
+        }
+    }
+    .section-discount-content {
+        min-height: calc(100vh - 80px);
+        padding: 40px;
+        .section-discount-table-goods-title {
+            .section-discount-table-goods-title-name {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                span {
+                    flex-grow: 1;
+                    font-size: 30px;
+                    line-height: normal;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+                i {
+                    font-size: 16px;
+                }
+            }
+        }
+        .section-discount-table-goods-title-search {
+            align-items: center;
+            padding: 20px 0;
+            .title-search {
+            }
+            .content-search {
+                gap: 10px;
+                .input-form-search {
+                    padding: 10px;
+                    border-radius: 15px;
+                    border: none;
+                    background: #98c5ecb4;
+                }
+            }
+        }
+        .section-discount-table-goods {
+            overflow-x: auto;
+            &::-webkit-scrollbar {
+                height: 10px;
+                width: 10px;
+                // margin: 0 20px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: #73a5eba7;
+                border-radius: 30px;
+            }
+            &::-webkit-scrollbar-thumb:hover {
+                background: #498ae4a7;
+            }
+            &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.61);
+                border-radius: 30px;
+                background-color: #f5f5f5;
+            }
+        }
+    }
+    .section-info-discount {
+        transition: all 0.4s;
+        width: 0px;
+        height: 100vh;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 990;
+        background-color: rgba(255, 255, 255, 0.457);
+        .section-form-info-discount{
+            .loading-temp{
+                display:none
+            }
+            .section-form-info-discount-title {
+                display: none;
+            }
+            .section-form-info-discount-content {
+                display: none;
+            }
+            .section-form-info-review-content {
+                display: none;
+            }
+        }
+        &.active {
+            opacity: 1;
+            width: -webkit-fill-available;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.4s;
+            .section-form-info-discount {
+                width: 0px;
+                height: 0px;
+                border-radius: 30px;
+                background: #a7cff2;
+                transition: all 0.4s;
+                .section-form-info-discount-title {
+                    padding: 40px;
+                    display: flex;
+                    justify-content: center;
+                    span {
+                        flex-grow: 1;
+                        font-size: 30px;
+                        line-height: normal;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                }
+                .section-form-info-discount-content {
+                    overflow-x: auto;
+                    height: calc(100vh - 45%);
+                    display:block;
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background: #73a5eba7;
+                        border-radius: 30px;
+                    }
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #498ae4a7;
+                    }
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.61);
+                        border-radius: 30px;
+                        background-color: #f5f5f5;
+                    }
+                    .box-info-purchaser-discount {
+                        .list-info-purchaser-discount {
+                            padding: 20px 40px;
+                            .info-id-discount {
+                                padding: 10px;
+                            }
+                            .info-discount {
+                                .list-info-discount {
+                                    padding: 10px;
+                                }
+                                .list-info-delivery-discount {
+                                    padding: 10px;
+                                    .info-delivery-discount {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                        i {
+                                            width: 30px;
+                                            height: 30px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        }
+                                    }
+                                }
+                                .list-update-delivery-discount {
+                                    padding: 10px;
+                                    .input-form-search {
+                                        margin: 10px 0;
+                                        padding: 10px;
+                                        border-radius: 15px;
+                                        border: none;
+                                        background: #98c5ecb4;
+                                    }
+                                }
+                            }
+                        }
+                        .list-goods-discount-table {
+                            padding: 20px 40px;
+                        }
+                    }
+                }
+                .section-form-info-review-content {
+                    overflow-x: auto;
+                    height: calc(100vh - 45%);
+                    padding: 0 40px 40px 40px;
+                    display:block;
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background: #73a5eba7;
+                        border-radius: 30px;
+                    }
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #498ae4a7;
+                    }
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.61);
+                        border-radius: 30px;
+                        background-color: #f5f5f5;
+                    }
+                    .box-info-purchaser-review {
+                        .info-product-review {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            .info-product-img {
+                                img {
+                                    width: 150px;
+                                    border-radius: 3px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .edit-info-discount {
+                    padding: 40px;
+                }
+            }
+            .first-form {
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                transition: all 0.4s;
+                width: 0px;
+                height: 0px;
+                &.show-discount {
+                    opacity: 1;
+                    width: 80%;
+                    height: 80%;
+                }
+                &.show-discount + .second-form {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+            .second-form {
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                transition: all 0.4s;
+                width: 0px;
+                height: 0px;
+                &.show-review {
+                    opacity: 1;
+                    width: 80%;
+                    height: 80%;
+                }
+                &.show-review + .first-form {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+        }
+        .second-form {
+            display: none;
+        }
+    }
+}
+
+.wave-group {
+    position: relative;
+    margin: 20px 0px;
+}
+
+.wave-group .input {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 90%;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+}
+
+.wave-group .input:focus {
+    outline: none;
+}
+
+.wave-group .label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    display: flex;
+}
+
+.wave-group .label-char {
+    transition: 0.2s ease all;
+    transition-delay: calc(var(--index) * 0.05s);
+}
+
+.wave-group .input:focus ~ label .label-char,
+.wave-group .input:disabled ~ label .label-char,
+.wave-group .input:valid ~ label .label-char {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: #5264ae;
+}
+
+.wave-group .bar {
+    position: relative;
+    display: block;
+    width: 200px;
+}
+
+.wave-group .bar:before,
+.wave-group .bar:after {
+    content: "";
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264ae;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.wave-group .bar:before {
+    left: 75%;
+}
+
+.wave-group .bar:after {
+    right: 25%;
+}
+
+.wave-group .input:focus ~ .bar:before,
+.wave-group .input:focus ~ .bar:after {
+    width: 75%;
+}

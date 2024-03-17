@@ -231,7 +231,6 @@ const Index = () => {
                         } else {
                             fetchUpdateEmployee(params.id, employee)
                                 .then(result => {
-                                    console.log(result)
                                     Swal.fire({
                                         title: 'Successfully!',
                                         text: 'You have successfully updated your staff!',

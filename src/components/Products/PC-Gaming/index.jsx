@@ -199,7 +199,6 @@ const Index = () => {
             setSearchTimeout(timeoutId);
         }
     }
-
     const handleSort = () => {
         setProduct()
         setCountPage(1)

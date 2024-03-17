@@ -69,7 +69,6 @@ const Index = () => {
                 fetchSearchVoucher({ ...search, [name]: value }, 1)
                     .then((result) => {
                         setVoucherList(result.data);
-                        console.log(result.total)
                         if (0 < result.total % 10 && result.total % 10 < 10) {
                             setCountMaxPage(Math.floor(result.total / 10) + 1);
                         } else if (result.total === 0) {

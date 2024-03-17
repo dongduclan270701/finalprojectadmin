@@ -27,7 +27,7 @@ const Index = () => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetchCollectingByName("Laptop Gaming")
+        fetchCollectingByName("Laptop")
             .then(result => {
                 setCollecting(result.category)
                 result.category.map((item, index) => {

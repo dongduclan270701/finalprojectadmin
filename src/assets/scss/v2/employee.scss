@@ -1,0 +1,279 @@
+.section-employee {
+    width: 100%;
+    position: relative;
+    .card-pie {
+        display: flex;
+        align-items: center;
+        border: none;
+        background: none;
+        .pie-st {
+            height: 35px;
+            .pie-st-1 {
+                position: relative;
+            }
+        }
+        .card-body {
+            background-color: #a7cff290;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            width: 100%;
+            padding-top: 45px;
+            .text-pie-title {
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .text-pie-content {
+                font-size: 14px;
+                color: rgb(96, 96, 96);
+            }
+        }
+    }
+    .section-employee-content {
+        min-height: calc(100vh - 80px);
+        padding: 40px;
+        .section-employee-table-goods-title {
+            .section-employee-table-goods-title-name {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                span {
+                    flex-grow: 1;
+                    font-size: 30px;
+                    line-height: normal;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+                i {
+                    font-size: 16px;
+                }
+            }
+        }
+        .section-employee-table-goods-title-search {
+            align-items: center;
+            padding: 20px 0;
+            .title-search {
+            }
+            .content-search {
+                gap: 10px;
+                .input-form-search {
+                    padding: 10px;
+                    border-radius: 15px;
+                    border: none;
+                    background: #98c5ecb4;
+                }
+            }
+        }
+        .section-employee-table-goods {
+            overflow-x: auto;
+            &::-webkit-scrollbar {
+                height: 10px;
+                width: 10px;
+                // margin: 0 20px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: #73a5eba7;
+                border-radius: 30px;
+            }
+            &::-webkit-scrollbar-thumb:hover {
+                background: #498ae4a7;
+            }
+            &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.61);
+                border-radius: 30px;
+                background-color: #f5f5f5;
+            }
+        }
+    }
+    .section-info-employee {
+        transition: all 0.4s;
+        width: 0px;
+        height: 100vh;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 990;
+        background-color: rgba(255, 255, 255, 0.457);
+        .section-form-info-employee{
+            .loading-temp{
+                display:none
+            }
+            .section-form-info-employee-title {
+                display: none;
+            }
+            .section-form-info-employee-content {
+                display: none;
+            }
+            .section-form-info-review-content {
+                display: none;
+            }
+        }
+        &.active {
+            opacity: 1;
+            width: -webkit-fill-available;
+            position: fixed;
+            height: 100vh;
+            transition: all 0.4s;
+            .section-form-info-employee {
+                width: 0px;
+                height: 0px;
+                border-radius: 30px;
+                background: #a7cff2;
+                transition: all 0.4s;
+                .section-form-info-employee-title {
+                    padding: 40px;
+                    display: flex;
+                    justify-content: center;
+                    span {
+                        flex-grow: 1;
+                        font-size: 30px;
+                        line-height: normal;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                }
+                .section-form-info-employee-content {
+                    overflow-x: auto;
+                    height: calc(100vh - 45%);
+                    display: block;
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background: #73a5eba7;
+                        border-radius: 30px;
+                    }
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #498ae4a7;
+                    }
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.61);
+                        border-radius: 30px;
+                        background-color: #f5f5f5;
+                    }
+                    .box-info-purchaser-employee {
+                        .list-info-purchaser-employee {
+                            padding: 20px 40px;
+                            .info-id-employee {
+                                padding: 10px;
+                            }
+                            .info-employee {
+                                .list-info-employee {
+                                    padding: 10px;
+                                }
+                                .list-info-delivery-employee {
+                                    padding: 10px;
+                                    .info-delivery-employee {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                        i {
+                                            width: 30px;
+                                            height: 30px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        }
+                                    }
+                                }
+                                .list-update-delivery-employee {
+                                    padding: 10px;
+                                    .input-form-search {
+                                        margin: 10px 0;
+                                        padding: 10px;
+                                        border-radius: 15px;
+                                        border: none;
+                                        background: #98c5ecb4;
+                                    }
+                                }
+                            }
+                        }
+                        .list-goods-employee-table {
+                            padding: 20px 40px;
+                        }
+                    }
+                }
+                .section-form-info-review-content {
+                    overflow-x: auto;
+                    height: calc(100vh - 45%);
+                    padding: 0 40px 40px 40px;
+                    display:block;
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background: #73a5eba7;
+                        border-radius: 30px;
+                    }
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #498ae4a7;
+                    }
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.61);
+                        border-radius: 30px;
+                        background-color: #f5f5f5;
+                    }
+                    .box-info-purchaser-review {
+                        .info-product-review {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            .info-product-img {
+                                img {
+                                    width: 150px;
+                                    border-radius: 3px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .edit-info-employee {
+                    padding: 40px;
+                }
+            }
+            .first-form {
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                transition: all 0.4s;
+                width: 0px;
+                height: 0px;
+                &.show-employee {
+                    opacity: 1;
+                    width: 80%;
+                    height: 80%;
+                }
+                &.show-employee + .second-form {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+            .second-form {
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                transition: all 0.4s;
+                width: 0px;
+                height: 0px;
+                &.show-review {
+                    opacity: 1;
+                    width: 80%;
+                    height: 80%;
+                }
+                &.show-review + .first-form {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+        }
+        .second-form {
+            display: none;
+        }
+    }
+}
