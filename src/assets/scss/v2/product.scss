@@ -271,20 +271,20 @@
         top: 0;
         bottom: 0;
         z-index: 990;
-        padding:0;
+        padding: 0;
         background-color: rgba(255, 255, 255, 0.457);
-        .section-form-info-product{
-            .loading-temp{
-                display:none
+        .section-form-info-product {
+            .loading-temp {
+                display: none;
             }
-            .section-form-info-product-title{
-                display:none;
+            .section-form-info-product-title {
+                display: none;
             }
-            .section-form-info-product-content{
-                display:none;
+            .section-form-info-product-content {
+                display: none;
             }
-            .section-form-info-review-content{
-                display:none;
+            .section-form-info-review-content {
+                display: none;
             }
         }
         &.active {
@@ -299,8 +299,8 @@
                 border-radius: 30px;
                 background: #a7cff2;
                 transition: all 0.4s;
-                .loading-temp{
-                    display:flex
+                .loading-temp {
+                    display: flex;
                 }
                 .section-form-info-product-title {
                     padding: 40px;
@@ -315,7 +315,7 @@
                     }
                 }
                 .section-form-info-product-content {
-                    display:flex;
+                    display: flex;
                     overflow-x: auto;
                     height: calc(60vh);
                     .input-form-search {
@@ -388,10 +388,20 @@
                                             border-bottom: 1px solid #515151;
                                             border-radius: 0;
                                             box-shadow: none;
+                                            .css-1dyz3mf{
+                                                .css-1p3m7a8-multiValue {
+                                                    background-color: unset !important;
+                                                    border: 1px solid #515151 !important;
+                                                    border-radius: 8px !important;
+                                                }
+                                            }
                                             .css-3w2yfm-ValueContainer {
                                                 padding: 0 0 10px 0;
+                                                background-color: unset !important;
+                                                border: 1px solid #515151 !important;
+                                                border-radius: 8px !important;
                                                 .css-1p3m7a8-multiValue {
-                                                    background: unset !important;
+                                                    background-color: unset !important;
                                                     border: 1px solid #515151 !important;
                                                     border-radius: 8px !important;
                                                 }
@@ -648,7 +658,7 @@
                     }
                 }
                 .section-form-info-review-content {
-                    display:flex;
+                    display: flex;
                     overflow-x: auto;
                     height: calc(100vh - 45%);
                     padding: 0 40px 40px 40px;
