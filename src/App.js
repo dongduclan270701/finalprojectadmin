@@ -57,6 +57,7 @@ import EmployeeV2 from 'components/v2/Employee'
 import UserV2 from 'components/v2/User'
 import ProductV2 from 'components/v2/Product'
 import AdsV2 from 'components/v2/Ads'
+import NavigateV2 from 'components/v2/Navigate'
 function App() {
   const [pageV1, setPageV1] = useState([])
   const [pageV2, setPageV2] = useState([])
@@ -120,6 +121,7 @@ function App() {
     //   { path: "/website/update", location: UpdateWebsite },
     // ])
     setPageV2([
+      { path: "/", location: NavigateV2 },
       { path: "/v2", location: DashboardV2 },
       { path: "/v2/order", location: OrdersV2 },
       { path: "v2/discount", location: DiscountV2 },
