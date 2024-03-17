@@ -311,101 +311,91 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-12 stretch-card">
-                    <div className="card" style={{ "marginBottom": "25px", border: 'none', backgroundColor: '#a7cff290', borderRadius: 30 }}>
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-lg-12 " style={{ textAlign: "center" }}>
-                                    <h4 className='play-bold'>Top 10 users with the highest Amount of Order this month</h4>
-                                    <div className="row">
-                                        <div className="col-lg-12">
-                                            <table className='table table-striped section-table-goods '>
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Username</th>
-                                                        <th>Image</th>
-                                                        <th>Phone Number</th>
-                                                        <th>Status User</th>
-                                                        <th>Total Goods</th>
-                                                        <th>Total Amount</th>
-                                                        <th>Status Order</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="table-group-divider" style={{ overflowX: 'auto' }}>
-                                                    {totalTopUser && totalTopUser.map((item, index) => {
-                                                        return <tr key={index}>
-                                                            <td><div style={{ width: 130, cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}><div style={{ maxWidth: '250px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                                                {item._id}
-                                                            </div></div></td>
-                                                            <td>{item.email}</td>
-                                                            <td><img src={item.image} className="img-fluid" alt="" style={{ borderRadius: "50%" }} /></td>
-                                                            <td>{item.phoneNumber ? item.phoneNumber : ''}</td>
-                                                            <td><label className={
-                                                                item.status === false ? "badge badge-danger" : "badge badge-success"
-                                                            }>
-                                                                {item.status === false ? "Deactivate" : "Active"}
-                                                            </label></td>
-                                                            <td>{item.orders.product.length}</td>
-                                                            <td className='play-bold'>{formatter.format(item.orders.sumOrder)} VNĐ</td>
-                                                            <td><label className={
-                                                                item.orders.status === "Cancel" ? "badge badge-danger" : item.orders.status === "Delivery failed" ? "badge badge-danger" : item.orders.status === "Delivery successful" ? "badge badge-success" : item.orders.status === "Being transported" ? "badge badge-primary" : item.orders.status === "Delivered to the carrier" ? "badge badge-primary" : "badge badge-warning"
-                                                            }>
-                                                                {item.orders.status}
-                                                            </label></td>
-                                                        </tr>
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="col-md-12 grid-margin stretch-card">
+                    <div className=" " style={{ width: '100%', padding: 20, border: 'none', backgroundColor: '#a7cff290', borderRadius: 30 }}>
+                        <div className="section-user-table-goods">
+                            <div className="col-lg-12">
+                                <p className="play-bold" style={{ display: 'flex', justifyContent: 'center', fontSize: 20 }}>Top 10 users with the highest Number of Goods this month</p>
+                                <table className='table table-striped section-table-goods '>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Username</th>
+                                            <th>Image</th>
+                                            <th>Phone Number</th>
+                                            <th>Status User</th>
+                                            <th>Total Goods</th>
+                                            <th>Total Amount</th>
+                                            <th>Status Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="table-group-divider" style={{ overflowX: 'auto' }}>
+                                        {totalTopUser && totalTopUser.map((item, index) => {
+                                            return <tr key={index}>
+                                                <td><div style={{ width: 130, cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}><div style={{ maxWidth: '250px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                                    {item._id}
+                                                </div></div></td>
+                                                <td>{item.email}</td>
+                                                <td><img src={item.image} className="img-fluid" alt="" style={{ borderRadius: "50%" }} /></td>
+                                                <td>{item.phoneNumber ? item.phoneNumber : ''}</td>
+                                                <td><label className={
+                                                    item.status === false ? "badge badge-danger" : "badge badge-success"
+                                                }>
+                                                    {item.status === false ? "Deactivate" : "Active"}
+                                                </label></td>
+                                                <td>{item.orders.product.length}</td>
+                                                <td className='play-bold'>{formatter.format(item.orders.sumOrder)} VNĐ</td>
+                                                <td><label className={
+                                                    item.orders.status === "Cancel" ? "badge badge-danger" : item.orders.status === "Delivery failed" ? "badge badge-danger" : item.orders.status === "Delivery successful" ? "badge badge-success" : item.orders.status === "Being transported" ? "badge badge-primary" : item.orders.status === "Delivered to the carrier" ? "badge badge-primary" : "badge badge-warning"
+                                                }>
+                                                    {item.orders.status}
+                                                </label></td>
+                                            </tr>
+                                        })}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-12 stretch-card">
-                    <div className="card" style={{ "marginBottom": "25px", border: 'none', backgroundColor: '#a7cff290', borderRadius: 30 }}>
-                        <div className="card-body">
-                            <div className='row'>
-                                <div className="col-lg-12 " style={{ textAlign: "center" }}>
-                                    <h4 className='play-bold'>Top 10 users with the highest Number of Order this month</h4>
-                                    <div className="row">
-                                    <table className='table table-striped section-table-goods '>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>ID</th>
-                                                                    <th>Username</th>
-                                                                    <th>Image</th>
-                                                                    <th>Phone Number</th>
-                                                                    <th>Status User</th>
-                                                                    <th>Order</th>
-                                                                    <th>Amount</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody className="table-group-divider" style={{ overflowX: 'auto' }}>
-                                                                {totalTopUserOrder && totalTopUserOrder.map((item, index) => {
-                                                                    return <tr key={index}>
-                                                                        <td><div style={{ width: 130, cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}><div style={{ maxWidth: '250px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                                                            {item._id}
-                                                                        </div></div></td>
-                                                                        <td>{item.email}</td>
-                                                                        <td><img src={item.image} className="img-fluid" alt="" style={{ borderRadius: "50%" }} /></td>
-                                                                        <td>{item.phoneNumber ? item.phoneNumber : ''}</td>
-                                                                        <td><label className={
-                                                                            item.status === false ? "badge badge-danger" : "badge badge-success"
-                                                                        }>
-                                                                            {item.status === false ? "Deactivate" : "Active"}
-                                                                        </label></td>
-                                                                        <td>{item.orders.length}</td>
-                                                                        <td className='play-bold'>{formatter.format(item.totalSumOrder)} VNĐ</td>
-                                                                        
-                                                                    </tr>
-                                                                })}
-                                                            </tbody>
-                                                        </table>
-                                    </div>
-                                </div>
+                <div className="col-md-12 grid-margin stretch-card">
+                    <div className=" " style={{ width: '100%', padding: 20, border: 'none', backgroundColor: '#a7cff290', borderRadius: 30 }}>
+                        <div className="section-user-table-goods">
+                            <div className="col-lg-12">
+                                <p className="play-bold" style={{ display: 'flex', justifyContent: 'center', fontSize: 20 }}>Top 10 users with the highest Number of Order this month</p>
+                                <table className='table table-striped section-table-goods '>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Username</th>
+                                                <th>Image</th>
+                                                <th>Phone Number</th>
+                                                <th>Status User</th>
+                                                <th>Order</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="table-group-divider" style={{ overflowX: 'auto' }}>
+                                            {totalTopUserOrder && totalTopUserOrder.map((item, index) => {
+                                                return <tr key={index}>
+                                                    <td><div style={{ width: 130, cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}><div style={{ maxWidth: '250px', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                                        {item._id}
+                                                    </div></div></td>
+                                                    <td>{item.email}</td>
+                                                    <td><img src={item.image} className="img-fluid" alt="" style={{ borderRadius: "50%" }} /></td>
+                                                    <td>{item.phoneNumber ? item.phoneNumber : ''}</td>
+                                                    <td><label className={
+                                                        item.status === false ? "badge badge-danger" : "badge badge-success"
+                                                    }>
+                                                        {item.status === false ? "Deactivate" : "Active"}
+                                                    </label></td>
+                                                    <td>{item.orders.length}</td>
+                                                    <td className='play-bold'>{formatter.format(item.totalSumOrder)} VNĐ</td>
+
+                                                </tr>
+                                            })}
+                                        </tbody>
+                                    </table>
                             </div>
                         </div>
                     </div>

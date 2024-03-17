@@ -37,6 +37,7 @@ const Index = () => {
         isDisabled: false,
         isFocused: false
     });
+    const [isMenu, setIsMenu] = useState(false)
     useEffect(() => {
         fetchNotice()
             .then(result => {
@@ -212,10 +213,10 @@ const Index = () => {
                 .then(result => {
                     const updatedArray = listNotice.map(item => {
                         if (item._id === result._id) {
-                            
+
                             return { ...item, isReadAdmin: true };
                         }
-                        
+
                         return item;
                     });
                     setListNotice(updatedArray)
@@ -299,6 +300,87 @@ const Index = () => {
                     </div>
                 </div>
             </div>
+            <div className='container-header-mobile'>
+                <div className='logo'>
+                    <img src={logoMini} className='svg-logo' alt="Logo" />
+                    <span className='section-sidebar-logo-title play-bold'>KTECH</span>
+                </div>
+                <div style={{ display: 'flex', gap: 15, alignItems: 'center', paddingRight: 15 }}>
+                    <div id="checkbox2" className={isMenu ? 'checked' : ''}></div>
+                    <label class="toggle toggle2" for="checkbox2" onClick={() => { setIsMenu(!isMenu) }}>
+                        <div id="bar4" class="bars"></div>
+                        <div id="bar5" class="bars"></div>
+                        <div id="bar6" class="bars"></div>
+                    </label>
+                </div>
+            </div>
+            <div className={isMenu ? 'section-nav-mobile-box active' : 'section-nav-mobile-box deactivate'} >
+                <div className='section-nav-mobile'>
+                <div className='section-sidebar-menu'>
+                    <div className='section-sidebar-menu-content play-regular'>
+                        <NavLink to="/v2" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-house"></i>
+                            <span className="menu-title">Dashboard</span>
+                        </NavLink>
+                        <NavLink to="/v2/product" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-laptop"></i>
+                            <span className="menu-title">Product</span>
+                        </NavLink>
+                        <NavLink to="/v2/order" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-file-lines"></i>
+                            <span className="menu-title">Order</span>
+                        </NavLink>
+                        <NavLink to="/v2/user" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-users"></i>
+                            <span className="menu-title">User</span>
+                        </NavLink>
+                        <NavLink to="/v2/employee" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-user-tie"></i>
+                            <span className="menu-title">Employee</span>
+                        </NavLink>
+                        <NavLink to="/v2/discount" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-tag"></i>
+                            <span className="menu-title">Discount</span>
+                        </NavLink>
+                        <NavLink to="/v2/ads" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-pager"></i>
+                            <span className="menu-title">Ads</span>
+                        </NavLink>
+                    </div>
+                </div>
+                <div className='section-sidebar-control'>
+                    <div className='section-sidebar-menu-content play-regular'>
+                        <a className="notice-hover nav-link" href style={{ cursor: 'pointer' }}>
+                            <i className="fa-solid fa-bell"></i>
+                            <span className='notification-container'>
+                                <label className="label-notification">{listNotice ? listNotice.length : 0}</label>
+                            </span>
+                            <span className="menu-title">Notification</span>
+                        </a>
+                        <NavLink to="/v2" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-gear"></i>
+                            <span className="menu-title">Setting</span>
+                        </NavLink>
+                        <NavLink to="/v2" onClick={() => setIsMenu(false)} className="nav-link">
+                            <i className="fa-solid fa-circle-question"></i>
+                            <span className="menu-title">Help</span>
+                        </NavLink>
+                    </div>
+                </div>
+                    <div className='section-sidebar-infor'>
+                        <div className='section-sidebar-infor-content play-regular'>
+                            <div className='section-sidebar-infor-content-item'>
+                                <img src={faceUser} alt='' />
+                                <div className='section-sidebar-infor-item'>
+                                    <div className='section-sidebar-infor-item-name play-bold'>{state.authentication}</div>
+                                    <div className='section-sidebar-infor-item-role'>Administrator</div>
+                                </div>
+                            </div>
+                            <button onClick={handleLogout}><i className="fa-solid fa-right-from-bracket" style={{ color: 'rgb(238 84 84)' }}></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="notification-list">
                 {listNotice && listNotice.map((item, index) => {
                     return <NavLink key={index} onClick={() => (handleShowOrder(item.orderId), handleReadNotice(item._id, item.isReadAdmin))} style={{ textDecoration: 'none' }}>
@@ -320,7 +402,7 @@ const Index = () => {
                 })
                 }
             </div>
-            <div className='section-order' style={{width:'unset'}}>
+            <div className='section-order' style={{ width: 'unset' }}>
                 <div className={isShowOrder ? 'col-12 section-info-order active' : 'col-12 section-info-order'}>
                     <div className={isInfoOrder ? 'first-form section-form-info-order show-order' : 'first-form section-form-info-order'}>
                         <div className='section-form-info-order-title play-bold'><span>Information Order</span><i className='fa-solid fa-xmark' onClick={() => (setIsShowOrder(false), setOrder(null))} style={{ cursor: 'pointer', fontSize: 26 }} /></div>

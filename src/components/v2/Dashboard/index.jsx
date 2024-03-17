@@ -525,8 +525,8 @@ const Index = () => {
                 </div>
 
             </div>
-            <div className='row mb-5'>
-                <div className='col-md-6' >
+            <div className='row'>
+                <div className='col-md-6' style={{marginBottom:'30px'}} >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>
@@ -589,7 +589,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-md-6' >
+                <div className='col-md-6' style={{marginBottom:'30px'}}  >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>
@@ -653,8 +653,8 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <div className='row mb-5'>
-                <div className='col-md-4' >
+            <div className='row'>
+                <div className='col-md-4' style={{marginBottom:'30px'}}  >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>
@@ -685,7 +685,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-md-4' >
+                <div className='col-md-4'  style={{marginBottom:'30px'}} >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>
@@ -716,7 +716,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-md-4' >
+                <div className='col-md-4'  style={{marginBottom:'30px'}} >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>
@@ -744,8 +744,8 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <div className='row mb-5'>
-                <div className='col-md-6' >
+            <div className='row'>
+                <div className='col-md-6'  style={{marginBottom:'30px'}} >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>
@@ -779,7 +779,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-md-6' >
+                <div className='col-md-6'  style={{marginBottom:'30px'}} >
                     <div style={{ padding: 20, background: '#a7cff290', borderRadius: 30 }}>
                         <div className="table-responsive section-dashboard-table-goods">
                             <div className='section-dashboard-table-goods-title'>

@@ -352,3 +352,8 @@
 .wave-group .input:focus ~ .bar:after {
     width: 75%;
 }
+@media (max-width: 991.98px) {
+    .section-discount {
+        margin-top:30px;
+    }
+}
