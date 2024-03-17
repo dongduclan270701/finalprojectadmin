@@ -1088,7 +1088,7 @@ const Index = () => {
                                                     <span className="label-char" style={{ '--index': '1' }}>o</span>
                                                     <span className="label-char" style={{ '--index': '2' }}>l</span>
                                                     <span className="label-char" style={{ '--index': '3' }}>e:</span>
-                                                </label>{console.log(newEmployee)}
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

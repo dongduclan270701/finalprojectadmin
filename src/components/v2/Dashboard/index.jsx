@@ -179,7 +179,6 @@ const Index = () => {
         fetchTopUserHighestValueAll()
             .then(result => {
                 setTotalTopUser(result.resultTopUser)
-                console.log(result.resultTopUser)
             })
             .catch(error => {
                 setTotalTopUser(0)
@@ -228,19 +227,19 @@ const Index = () => {
     useEffect(() => {
         fetchHTemperature()
         if (state.authentication === 'CEO' || state.authentication === 'MANAGEMENT') {
-        fetchOrder()
-        fetchOrderSuccessful()
-        fetchTotalChartSold()
-        fetchTopOrder()
-        fetchTopEmployee()
-        fetchTopEmployeeOrder()
-        fetchTopHighestValueAll()
-        fetchTopHighestOrderAll()
-        fetchTopProduct()
-        fetchTopViewProduct()
-        fetchTopSoldProduct()
-        fetchEmployeeHighestValueInYearNotLimit()
-        fetchRequestAll()
+            fetchOrder()
+            fetchOrderSuccessful()
+            fetchTotalChartSold()
+            fetchTopOrder()
+            fetchTopEmployee()
+            fetchTopEmployeeOrder()
+            fetchTopHighestValueAll()
+            fetchTopHighestOrderAll()
+            fetchTopProduct()
+            fetchTopViewProduct()
+            fetchTopSoldProduct()
+            fetchEmployeeHighestValueInYearNotLimit()
+            fetchRequestAll()
         }
     }, [state]);
     const handleChangeCategoryTopSoldProduct = (category) => {
@@ -452,7 +451,7 @@ const Index = () => {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                <div className='text-pie-content' >{formatter.format(totalOrder)} orders / year</div>
+                                    <div className='text-pie-content' >{formatter.format(totalOrder)} orders / year</div>
                                     <div className='text-pie-content' >{formatter.format(totalOrderSuccessful)} orders / month</div>
                                     <div className='text-pie-title' >Orders successful (2024)</div>
                                 </div>
@@ -470,8 +469,9 @@ const Index = () => {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                <div className='text-pie-content' >{formatter.format(totalProductInYear)} goods / month</div>
-                                    <div className='text-pie-content' >{formatter.format(totalProduct)} goods / year</div>
+                                <div className='text-pie-content' >{formatter.format(totalProductInYear)} goods / year</div>
+                                    <div className='text-pie-content' >{formatter.format(totalProduct)} goods / month</div>
+                                    
                                     <div className='text-pie-title' >Sold (Goods) (2024)</div>
                                 </div>
                             </div>
@@ -488,7 +488,7 @@ const Index = () => {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                <div className='text-pie-content' >{formatter.format(totalAmountOrder * 0.2)} VNĐ / year</div>
+                                    <div className='text-pie-content' >{formatter.format(totalAmountOrder * 0.2)} VNĐ / year</div>
                                     <div className='text-pie-content' >{formatter.format(totalAmountOrderSuccessful * 0.2)} VNĐ / month</div>
                                     <div className='text-pie-title' >Profit of Month</div>
                                 </div>
@@ -506,7 +506,7 @@ const Index = () => {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                <div className='text-pie-content' >{formatter.format(totalAmountOrder)} VNĐ / month</div>
+                                    <div className='text-pie-content' >{formatter.format(totalAmountOrder)} VNĐ / year</div>
                                     <div className='text-pie-content' >{formatter.format(totalAmountOrderSuccessful)} VNĐ / month</div>
                                     <div className='text-pie-title' >Amount of month</div>
                                 </div>
@@ -519,7 +519,7 @@ const Index = () => {
                 <div className="col-md-12 section-dashboard-temp stretch-card">
                     <div className="card tale-bg ">
                         <div className='play-bold' style={{ display: 'flex', justifyContent: 'center', padding: '20px 0 0 0', fontSize: 20 }}> Request in Month</div>
-                        <div className='play-bold' style={{ display: 'flex', justifyContent: 'center', padding: '0 0 20px 0'}}>Total request in month: {request ? `${request.resultTotalLengthMonth[0].total_count} ( ${formatter.format(request.resultTotalLengthMonth[0].total_count/request.resultTotalLengthYear[0].total_count*100)}% / Year )` : 0}  </div>
+                        <div className='play-bold' style={{ display: 'flex', justifyContent: 'center', padding: '0 0 20px 0' }}>Total request in month: {request ? `${request.resultTotalLengthMonth[0].total_count} ( ${formatter.format(request.resultTotalLengthMonth[0].total_count / request.resultTotalLengthYear[0].total_count * 100)}% / Year )` : 0}  </div>
                         <ChartRequest request={request} />
                     </div>
                 </div>

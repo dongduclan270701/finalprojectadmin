@@ -15,7 +15,6 @@ const Index = () => {
     useEffect(() => {
         fetchListOfLaptopCollectingByName(params.src)
             .then(result => {
-                console.log(result)
                 setProduct(result)
             })
             .catch(error => {

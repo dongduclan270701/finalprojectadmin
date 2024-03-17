@@ -16,15 +16,27 @@ const Index = (props) => {
             dateFormat: "yyyy-MM-dd",
             dateFields: ["valueX"]
         })
-        const setData = request ? request : []
-        
-        const data = setData.resultTotalMonth && setData.resultTotalMonth.length > 0 ? setData.resultTotalMonth.map(item => ({
+        let setData = request ? request.resultTotalMonth : []
+        const lastDateObj = new Date();
+        const allDates = [];
+        const today = new Date()
+        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1)
+        for (let d = firstDayOfMonth; d <= lastDateObj; d.setDate(d.getDate() + 1)) {
+            allDates.push(new Date(d).toISOString().slice(0, 10));
+        }
+        setData = allDates.reduce((acc, date) => {
+            if (!setData.some(item => item.dateRequest === date)) {
+                console.log(date)
+                acc.push({ dateRequest: date, count: 0 });
+            }
+            return acc;
+        }, setData);
+       
+        setData.sort((a, b) => new Date(a.dateRequest) - new Date(b.dateRequest));
+        const data = setData.map(item => ({
             value: item.count,
             day: item.dateRequest
-        })) : {
-            value: 0,
-            day: '1970-01-01'
-        }
+        }));
         const chart = ChartRequestOfMonth.container.children.push(am5xy.XYChart.new(ChartRequestOfMonth, {
             focusable: true,
             panX: true,

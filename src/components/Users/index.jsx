@@ -67,7 +67,6 @@ const Index = () => {
                 setSearch({ ...search, [name]: value })
                 fetchSearchUser({ ...search, [name]: value }, 1)
                     .then((result) => {
-                        console.log(result)
                         setUserList(result.data);
                         if (0 < result.total % 10 && result.total % 10 < 10) {
                             setCountMaxPage(Math.floor(result.total / 10) + 1);
